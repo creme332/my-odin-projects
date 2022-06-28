@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'reenie';
+    font-style: normal;
+    font-weight: 100;
+    src: url(../font/ReenieBeanie-Regular.ttf);
+}
+*{
+    font-family: 'reenie';
+    background-color: black;
+    color: #d3b38d;
+}
+
+.center{
+  width:50%;
+  margin:0 auto;
+  text-align:left;
+  border: 1px solid #d3b38d;
+  padding: 15px;
+  box-shadow: 5px 10px rgba(136, 136, 136, 0.475);
+
+}
+
+ul{
+  list-style-type: square;
+}
+
+p,li{
+    font-size: 40px;
+}
+h1{
+    font-size: 60px;
+}
+h2{
+    font-size: 40px;
+}
+h4{
+    font-size: 30px;
+}
+img{
+  border-radius: 10%;
+}
+
+.blink-me {
+    animation: blinker 2s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: white;
+  }
+  .hover-underline-animation:hover {
+    color: orange;
+  }
+  
+  .hover-underline-animation:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 4px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transform-origin: bottom right;
+    transition: transform 1s ease-out;
+  }
+  
+  .hover-underline-animation:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  a {
+    text-decoration: none;
+  }
