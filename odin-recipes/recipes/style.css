@@ -42,7 +42,7 @@ img{
 
 .blink-me {
     animation: blinker 2s linear infinite;
-  }
+}
   
   @keyframes blinker {
     50% {
@@ -75,6 +75,23 @@ img{
   .hover-underline-animation:hover:after {
     transform: scaleX(1);
     transform-origin: bottom left;
+  }
+  #color_me {
+    animation: rainbow 10s linear infinite;
+  }
+  @keyframes rainbow {
+    0%, 100% {
+      color: violet;
+  }
+  25% {
+    color: orange;
+  }
+  50% {
+    color: #ff0;
+  }
+  75% {
+    color: #00f;
+  }
   }
 
   a {
