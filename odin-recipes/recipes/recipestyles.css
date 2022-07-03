@@ -1,0 +1,133 @@
+@font-face {
+  font-family: "abril";
+  src: url(../fonts/AbrilFatface-Regular.ttf);
+}
+@font-face {
+  font-family: "vietnam";
+  src: url(../fonts/BeVietnamPro-Light.ttf);
+}
+*{
+  /* background-color: "#fdf5e6"; */
+  background-color: black;
+  color: white;
+}
+.card{ /*box*/
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.781);
+  /* gap between title and content */
+  gap: 1em;
+  margin: auto;
+  width: 50%;
+  border-radius: 1%;
+/* 
+box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #ffffff; */
+}
+.card-title{ /*item*/
+  text-align: center;
+  font-size: 100px;
+  border: 1px solid white;
+  border-radius: 1%;
+  font-family:"abril";
+  /* background-color: bisque; */
+}
+.subtitle{
+  font-size: 50px;
+  font-family: "abril";
+  font-weight: bold;
+}
+.content{ /*item of card + box with 2 columns*/
+  font-family: "vietnam";
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 1;
+  /* gap between columns */
+  gap: 1em; 
+  min-width: 0;
+  height: 100vh;
+  /* border: 1px solid green; */
+}
+.columns{ /*item of content */
+  flex-grow: 1;
+  width:50%;
+  height: 100%;
+  flex-shrink: 1;
+  min-width: 0;
+  /* border: 1px solid black; */
+  border-radius: 1%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.columns:nth-child(1){
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-left: 10px;
+  margin-bottom: 30px;
+
+}
+.columns:nth-child(2){
+  border: 1px solid white;
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
+
+img {
+  object-fit: cover;
+  max-width:100%;
+  border-radius: 5%;
+}
+
+.image-box{/*item of columns:nth-child(1)*/
+  /* border: 5px solid rgb(94, 255, 0); */
+  border-radius: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ingredients{ /*item of columns:nth-child(1)*/
+  border: 1px solid white;
+  border-radius: 1%;
+
+}
+ul{
+  list-style-type: circle;
+  font-size: 30px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+ol{
+  list-style-type: upper-roman;
+  font-size: 30px;
+  margin-left: 60px;
+}
+li{
+  margin-bottom: 30px;
+}
+.cooking-info{ /*item of columns:nth-child(1)*/
+  border: 1px solid white;
+  text-align: center;
+  border-radius: 1%;
+  font-size: 30px;
+  margin-bottom: 20px;
+
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #fdc40a; 
+}
