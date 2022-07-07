@@ -1,0 +1,107 @@
+body{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    align-items: space-around;
+}
+
+.top-section{
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    border:5px solid black;
+}
+.header{
+    border:5px solid red;
+}
+.top-subsection{
+    display: flex;
+    justify-content: center;
+    height: 100px;
+    border:5px solid cadetblue;
+}
+.top-text{
+    width: 50%;
+    border:5px solid blueviolet;
+}
+.top-image{
+    width: 30%;
+    border:5px solid blueviolet;
+}
+
+/* intro section  */
+.intro-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    border:5px solid red;
+}
+.heading{
+    border:5px solid royalblue;
+}
+.grid{
+    border:5px solid bisque;
+    display: flex;
+    justify-content: space-around;
+}
+.image-container{
+    display: flex;
+    flex-direction: column;
+    /* flex: 1; */
+    width: 20%;
+    border:5px solid rosybrown;
+}
+.image-box{
+    height: 100px;
+    border:5px solid black;
+}
+.image-caption{
+    border:5px solid palegreen;
+}
+
+/* quote section  */
+.quote-section{
+    display: flex;
+    flex: 1;
+    border:5px solid blue;
+    justify-content: center;
+    align-items: center;
+
+}
+.quote-container{
+    border:5px solid palegreen;
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    padding: 30px;
+
+}
+.quote-text{
+    flex: 1;
+    border:5px solid palegoldenrod;
+}
+.quote-owner{
+    border:5px solid gray;
+    align-self: flex-end;
+}
+/* sign-up section  */
+.sign-up-section{
+    display: flex;
+    flex: 1;
+    border:5px solid green;
+    justify-content: center;
+    align-items: center;
+}
+.sign-up-box{
+    border:5px solid violet;
+}
+.footer{
+    justify-self: flex-end;
+    text-align: center;
+    /* height: 20vh; */
+    /* border:5px solid fuchsia; */
+}
