@@ -10,24 +10,41 @@ body{
 .top-section{
     display: flex;
     flex-direction: column;
+    /* justify-content: space-between; */
     height: 300px;
     border:5px solid black;
 }
 .header{
+    display: flex;
+    justify-content: space-between;
     border:5px solid red;
 }
-.top-subsection{
+.header-links ul{
     display: flex;
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+.header-links ul li{
+    padding-left: 30px;
+}
+.top-subsection{
+    align-self:flex-start;
+    display: flex;
+    flex: 1;
     justify-content: center;
-    height: 100px;
+    align-items: center;
+    /* height: 100px; */
     border:5px solid cadetblue;
 }
 .top-text{
     width: 50%;
+    /* flex-grow: 0; */
     border:5px solid blueviolet;
 }
 .top-image{
     width: 30%;
+    /* flex-grow: 0; */
     border:5px solid blueviolet;
 }
 
@@ -97,6 +114,7 @@ body{
     align-items: center;
 }
 .sign-up-box{
+    width: 90%;
     border:5px solid violet;
 }
 .footer{
