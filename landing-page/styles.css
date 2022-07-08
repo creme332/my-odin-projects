@@ -1,3 +1,15 @@
+@font-face {
+    font-family: "truenoexbd";
+    src: url(Fonts/truenoexbd.otf);
+}
+@font-face {
+    font-family: "truenoltit" ;
+    src: url(Fonts/truenoltit.otf);
+}
+@font-face {
+    font-family: "truenobd";
+    src: url(Fonts/truenobd.otf);
+}
 body{
     display: flex;
     flex-direction: column;
@@ -5,7 +17,7 @@ body{
     margin: 0;
     padding: 0;
     align-items: space-around;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "truenoexbd";
 
 }
 
@@ -48,8 +60,9 @@ body{
     /* border:5px solid cadetblue; */
 }
 .subtext{
+    font-family: "truenobd";
     margin:10px;
-    font-size: 18px;
+    font-size: 17px;
 }
 .top-text{
     width: 50%;
@@ -57,6 +70,8 @@ body{
     /* border:1px solid blueviolet; */
 }
 .mybutton{
+    font-family: "truenoexbd";
+
     background-color: #3882F6;
     border-radius: 8px;
     /* padding-top: 4px; */
@@ -129,11 +144,12 @@ body{
     height: 100px;
 }
 .image-caption{
-    /* border:2px solid palegreen; */
+    font-family: "truenoltit" ;
 }
-
 /* quote section  */
 .quote-section{
+    font-family: "truenoltit" ;
+
     background-color: rgb(228, 228, 228);
     display: flex;
     /* flex: 1; */
