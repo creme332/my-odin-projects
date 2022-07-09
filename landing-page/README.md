@@ -1,13 +1,16 @@
-# To-Do
+![](img/final.png)
 
-# To-Do
-- [ ] Indent "Metro Express" in header
-- [ ] Add padding to button
-- [ ] Center sign up box
-- [ ] Review alignment of service section 
-- [ ] Fix button in bottom blue box
+# Done
+- [x] Indent "Metro Express" in header
+- [x] Fix button and text in top section moving out when resizing screen. 
+- [x] Add padding to button
+- [x] Add padding to header
+- [x] Center sign up box
+- [x] Review alignment of service section 
+- [x] Fix button in bottom blue box
 
-# History of website
 
 # Attributions
-Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+>Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+
+>Font was obtained from [fontzillion](https://www.fontzillion.com/fonts/cannot-into-space-fonts/trueno?utm_source=fontsquirrel.com&utm_medium=matcherator_link&utm_campaign=trueno)
