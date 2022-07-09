@@ -1,5 +1,7 @@
 ![](img/final.png)
 
+# To-Do
+- [ ] Add favicon
 # Done
 - [x] Indent "Metro Express" in header
 - [x] Fix button and text in top section moving out when resizing screen. 
