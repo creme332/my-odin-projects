@@ -25,8 +25,8 @@ body{
     display: flex;
     flex-direction: column;
     /* justify-content: space-between; */
-    height: 300px;
-    border:5px solid black;
+    height: 100vh;
+    /* border:5px solid black; */
     background-color: #2d3c50;
     color: white;
 }
@@ -35,9 +35,7 @@ body{
     font-size: 48px;
     font-weight: 900;
 }
-.top-subsection .top-text .title{
-    font-size: 48px;
-}
+
 .top-image{
     display: flex;
     align-items: center;
@@ -46,9 +44,11 @@ body{
     /* border:1px solid blueviolet; */
 }
 .top-image img{
-    border: 5px sollid black;
-    width: 200px;
-    height: 200px;
+    /* border: 5px sollid white; */
+    /* width: 500px; */
+    /* height: 400px; */
+    width: 100%;
+    height:80%;
 }
 .top-subsection{
     align-self:flex-start;
@@ -61,7 +61,7 @@ body{
 }
 .subtext{
     font-family: "truenobd";
-    margin:10px;
+    margin:15px;
     font-size: 17px;
 }
 .top-text{
@@ -70,23 +70,34 @@ body{
     /* border:1px solid blueviolet; */
 }
 .mybutton{
+    height: 40px;
     font-family: "truenoexbd";
-
+    font-size: 20px;
     background-color: #3882F6;
     border-radius: 8px;
-    /* padding-top: 4px; */
-    /* padding-bottom: 4px; */
+    padding-top: 4px;
+    padding-bottom: 4px;
     padding-left: 8px;
     padding-right: 8px;
-    margin: 0;
+    /* margin: 10px; */
     color: white;
-    font-size: 18px;
     font-weight: bold;
+    flex-grow: 0;
+}
+.top-text .mybutton{
+    margin-top: 20px;
+
+}
+.top-subsection .mybutton{
+    border: 2px solid #3882F6;
 }
 .header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top:10px
     /* border:2px solid red; */
 }
 .header-logo{
@@ -115,7 +126,8 @@ body{
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
-    min-height: 300px;
+    /* min-height: 300px; */
+    height: 50vh;
     /* border:2px solid red; */
 }
 
@@ -148,24 +160,26 @@ body{
 }
 /* quote section  */
 .quote-section{
-    font-family: "truenoltit" ;
-
-    background-color: rgb(228, 228, 228);
     display: flex;
-    /* flex: 1; */
-    min-height: 240px;
-    /* border:1px solid blue; */
     justify-content: center;
     align-items: center;
 
+    font-family: "truenoltit" ;
+    background-color: rgb(228, 228, 228);
+    /* flex: 1; */
+    /* min-height: 200px; */
+    /* border:1px solid blue; */
+    /* flex-grow: 0; */
+    /* flex-shrink: 0; */
+
+
 }
 .quote-container{
-    border:5px solid palegreen;
+    /* border:5px solid palegreen; */
     display: flex;
     width: 60%;
     flex-direction: column;
-    padding: 30px;
-
+    padding: 20px;
 }
 .quote-text{
     font-size: 36px;
@@ -189,19 +203,24 @@ body{
     align-items: center;
 }
 .sign-up-box{
-    padding: 5px;;
-    background-color: #3882F6;
-    font-weight: bold;
-    border-radius: 10px;
     display: flex;
     justify-content: space-around;
-    width: 90%;
+    align-items: center;
+    padding: 5px;;
+    background-color: #3882F6;
+    /* font-weight: bold; */
+    border-radius: 10px;
+
+    width: 75%;
+    /* height:100px; */
     /* border:1px solid violet; */
 }
 .sign-up-box .mybutton{
     border: 2px solid white;
 }
 .footer{
+    background-color: #2d3c50;
+    color: white;
     justify-self: flex-end;
     text-align: center;
     /* height: 20vh; */
