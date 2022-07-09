@@ -70,6 +70,7 @@ body{
     /* border:1px solid blueviolet; */
 }
 .mybutton{
+    transition: all .5s ease;
     height: 40px;
     font-family: "truenoexbd";
     font-size: 20px;
@@ -83,6 +84,10 @@ body{
     color: white;
     font-weight: bold;
     flex-grow: 0;
+}
+.mybutton:hover {
+    color: #001F3F;
+    background-color: #fff;
 }
 .top-text .mybutton{
     margin-top: 20px;
@@ -106,18 +111,30 @@ body{
     color: #F9FAF8;
 }
 .header-links{
+    /* border: 5px solid blue; */
+    width: 50%;
+    justify-self: flex-end;
     font-size: 18px;
     color: #c4c6cb;
 
 }
 .header-links ul{
+    /* border: 5px solid red; */
     display: flex;
+    justify-content: space-between;
     margin:0;
     padding: 0;
     list-style-type: none;
 }
 .header-links ul li{
-    padding-left: 30px;
+    transition: all .5s ease;
+    /* padding-left: 30px; */
+    border-radius: 5px;
+    padding: 3px;
+}
+.header-links ul li:hover{
+    color: #001F3F;
+    background-color: #fff;
 }
 
 /* intro section  */

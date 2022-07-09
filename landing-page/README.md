@@ -2,7 +2,9 @@
 
 # To-Do
 - [ ] Add favicon
+
 # Done
+- [x] Add animation when hovering over links and buttons
 - [x] Indent "Metro Express" in header
 - [x] Fix button and text in top section moving out when resizing screen. 
 - [x] Add padding to button
