@@ -2,6 +2,7 @@
 [Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
 # To-Do
 - [ ] Add favicon
+- [ ] Create skeleton screen loading page.
 
 # Done
 - [x] Add animation when hovering over links and buttons
