@@ -121,12 +121,15 @@ body{
 .header-links ul{
     /* border: 5px solid red; */
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin:0;
     padding: 0;
+
     list-style-type: none;
 }
 .header-links ul li{
+    margin-left: 40px;
+    /* border: 5px solid white; */
     transition: all .5s ease;
     /* padding-left: 30px; */
     border-radius: 5px;
