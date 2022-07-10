@@ -1,5 +1,5 @@
 ![](img/final.png)
-
+[Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
 # To-Do
 - [ ] Add favicon
 
