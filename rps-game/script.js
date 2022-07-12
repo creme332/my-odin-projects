@@ -1,7 +1,7 @@
 
 let choices = ["rock", "paper", "scissors"];
 
-function computerplay(){
+function ComputerPlay(){
     let randomIndex = parseInt(Math.random()*choices.length); 
     return choices[randomIndex];
 }
@@ -11,7 +11,7 @@ function ValidUserInput(playerselection){
     }
     return 0;
 }
-function Round(computerselection, playerselection){
+function Battle(computerselection, playerselection){
     let LoseTo = {"rock":"paper", "paper":"scissors","scissors":"rock"};
     if(ValidUserInput(playerselection)){
         if(computerselection == playerselection.toLowerCase()){
@@ -25,4 +25,13 @@ function Round(computerselection, playerselection){
     }
     return "Invalid input!";
 }
-console.log(Round("rock","rocky"));
+function game(){
+    const rounds = prompt("Enter number of rounds");
+    for(let i = 0; i<rounds; i++){
+        let playerselection = prompt("Choose one : rock, paper, scissors");
+        let computerselection = ComputerPlay();
+        let result =Battle(computerselection, playerselection);
+        console.log(result);
+    }
+}
+game();
