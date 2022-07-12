@@ -2,7 +2,9 @@
 [Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
 # To-Do
 - [ ] Add favicon
-- [ ] Create skeleton screen loading page.
+- [ ] Create skeleton screen loading page. Check [here](https://github.com/nullilac/skeleton-screen-css)
+![](https://repository-images.githubusercontent.com/288806640/d48c8c80-ea9c-11ea-88af-3e79933b0e1e)
+- [ ] Update quote section : https://github.com/features/copilot
 
 # Done
 - [x] Add animation when hovering over links and buttons
