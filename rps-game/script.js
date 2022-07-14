@@ -1,5 +1,5 @@
 
-let choices = ["rock", "paper", "scissors"];
+const choices = ["rock", "paper", "scissors"];
 
 function ComputerPlay(){
     let randomIndex = parseInt(Math.random()*choices.length); 
