@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Rock Papper Scissors</title>
-    <script src="script.js" async></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
 <div id="console">
@@ -20,11 +20,11 @@
         <div id="computer-weapon"></div>
     </div>
     <div id="gamepad">
-        <button class="button">R</button>
-        <button class="button">P</button>
-        <button class="button">S</button>
+        <button id="rockbutton"class="button"></button>
+        <button id="paperbutton" class="button"></button>
+        <button id="paperbutton"class="button"></button>
     </div>
 </div>
-
+<audio id = "sound"src="buttonsound.mp3"></audio>
 </body>
 </html>
