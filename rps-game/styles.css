@@ -1,0 +1,94 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin:0;
+    padding: 0;
+}
+#console{
+    display: flex;
+    flex-direction: column;
+    /* flex-shrink: 0; */
+    height: 400px;
+    width: 350px;
+    border: 5px solid black;
+    border-radius: 20px;
+}
+#screen{
+    height: 300px;
+    width: 350px;
+    position: relative;
+    /* border:5px solid blue; */
+}
+#player{
+    height: 100px;
+    width: 50px;
+    background-color: rgb(248, 181, 81);
+    position: absolute;
+    top:196px;
+
+}
+#computer{
+    height: 100px;
+    width: 50px;
+    background-color: lightpink;
+    position: absolute;
+    top:196px;
+    left:300px;
+    /* border: 3px solid black; */
+    /* align-self: flex-end; */
+    /* position: relative; */
+    /* left: 72vh; */
+}
+/* weapon styles*/
+
+#player-weapon,#computer-weapon{
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    border: 5px solid blue;
+}
+#player-weapon{
+    top:230px;
+    left:50px;
+}
+#computer-weapon{
+    top:230px;
+    left:270px;
+}
+
+/* Life bars */
+#player-life,#computer-life{
+    display: flex;
+    height: 20px;
+    width: 100px;
+    position: absolute;
+    border: 2px solid red;
+}
+#player-life{
+    top:80px;
+    left:0px;
+}
+#computer-life{
+    top:80px;
+    left:240px;
+}
+/* Game pad styles*/
+#gamepad{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* flex-shrink: 0; */
+    align-self: flex-end;
+    height: 100px;
+    width: 350px;
+    border-top: 5px solid black;
+}
+
+.button{
+    height: 50px;
+    width: 50px;
+    /* border:2px solid; */
+    border-radius: 50%;
+}
