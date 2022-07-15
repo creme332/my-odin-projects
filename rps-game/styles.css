@@ -1,5 +1,9 @@
+@font-face {
+    font-family: 'retro';
+    src: url(font/Retro\ Gaming.ttf);
+}
 body{
-
+    font-family: 'retro';
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,7 +35,7 @@ body{
 #player{
     display: block;
     /* background-image: url(img/sprite_base_addon_2012_12_14.png); */
-    background-position: 0 -5px;
+    /* background-position: 0 -5px; */
     /* transform: scale(3); */
 
     height: 100px;
@@ -57,15 +61,18 @@ body{
 /* weapon styles*/
 
 #player-weapon,#computer-weapon{
+    background-image: url(img/ghost.png);
+    background-position: center center;
+    background-size: 100% ;
     height: 20px;
     width: 20px;
     position: absolute;
-    border: 5px solid blue;
+    /* border: 5px solid blue; */
 }
 #player-weapon{
     top:230px;
     left:50px;
-    border: 5px solid black;
+    /* border: 5px solid black; */
 }
 .animateplayer{
     animation: player-attack .5s linear ;
