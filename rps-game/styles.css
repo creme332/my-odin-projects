@@ -26,7 +26,7 @@ body{
     border-top-left-radius: 20px; /*same as console*/
     background-image: url(img/background.png) ;
     background-position: center center;
-    background-size: 100% ;
+    background-size: cover ;
     height: 300px;
     width: 350px;
     position: relative;
@@ -34,61 +34,83 @@ body{
 }
 #player{
     display: block;
-    /* background-image: url(img/sprite_base_addon_2012_12_14.png); */
-    /* background-position: 0 -5px; */
-    /* transform: scale(3); */
-
-    height: 100px;
-    width: 50px;
-    background-color: rgb(248, 181, 81);
+    background-image: url(sprites/humansprite.png);
+    background-position: -128px -128px;
+    height: 64px;
+    width: 32px;
+    /* background-color: rgb(248, 181, 81); */
     position: absolute;
     top:196px;
-    border: 1px solid green;
-
+    left:15px;
+    /* border: 1px solid green; */
+    transform: scale(2);
 }
+
 #computer{
-    height: 100px;
-    width: 50px;
-    background-color: rgb(220, 64, 217);
+    display: block;
+    background-image: url(sprites/computersprite.png);
+    background-position:  20px -510px ;
+
+    height: 120px;
+    width: 90px;
+    /* background-color: rgb(220, 64, 217); */
     position: absolute;
-    top:196px;
-    left:300px;
+    top:180px;
+    left:250px;
+    transform:scaleX(-1);
+    /* transform: scale(2); */
+
     /* border: 3px solid black; */
-    /* align-self: flex-end; */
-    /* position: relative; */
-    /* left: 72vh; */
+
 }
+
 /* weapon styles*/
 
-#player-weapon,#computer-weapon{
+#player-weapon, #computer-weapon{
     background-image: url(img/ghost.png);
     background-position: center center;
-    background-size: 100% ;
+    background-size: cover ;
     height: 20px;
     width: 20px;
     position: absolute;
+    top:210px;
     /* border: 5px solid blue; */
 }
 #player-weapon{
-    top:230px;
     left:50px;
-    /* border: 5px solid black; */
 }
-.animateplayer{
-    animation: player-attack .5s linear ;
+#computer-weapon{
+    left:230px;
 }
-.animatecomputer{
-    animation: computer-attack .5s linear;
+
+/* Fighting animations  */
+.animatePlayerWeapon{
+    animation: player-weapon-move .8s linear  ;
 }
-@keyframes player-attack {
+.animatePlayerCharacter{
+    animation: player-attack .3s steps(3);
+}
+.animateComputerWeapon{
+    animation: computer-weapon-move .8s linear;
+}
+.animateComputerCharacter{
+    animation: computer-attack .3s  steps(3);
+}
+
+@keyframes player-attack{
+    from{background-position-x:-128px;}
+    to{background-position-x:-224px;}
+}
+@keyframes  player-weapon-move {
     0%{left:50px;}
     100%{left:270px;}  
 }
-#computer-weapon{
-    top:230px;
-    left:270px;
+
+@keyframes computer-attack{
+    from{background-position-x:20px ;}
+    to{background-position-x:-290px;}
 }
-@keyframes computer-attack {
+@keyframes computer-weapon-move {
     0%{left:270px;}
     100%{left:50px;}  
 }
@@ -134,9 +156,10 @@ body{
     left:240px;
 }
 
+
+
 /* Game pad styles*/
 #gamepad{
-
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -144,25 +167,21 @@ body{
     align-self: flex-end;
     height: 100px;
     width: 350px;
-    border-top: 5px solid black;
+    /* border-top: 5px solid black; */
 }
 
 .button{
-    color: black;
     height: 50px;
     width: 50px;
-    /* border:2px solid; */
-    border-radius: 15px;
-    box-shadow: 0 5px #999;
     border-radius: 50%;
+    color: black;
+    box-shadow: 0 5px #999;
 }
-.button:hover {  box-shadow: 0 6px #666;}
+.button:hover {  
+    box-shadow: 0 6px #666;
+    transform: translateY(2px);
+}
 
-.button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(2px);
-}
 .button:nth-child(1){
     background-color: rgb(239, 136, 136);
 }
