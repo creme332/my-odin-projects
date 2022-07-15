@@ -118,11 +118,15 @@ body{
   transform: translateY(2px);
 }
 .button:nth-child(1){
-    background-color: rgb(240, 81, 81);
+    background-color: rgb(239, 136, 136);
 }
 .button:nth-child(2){
-    background-color: rgb(109, 109, 245);
+    background-color: rgb(170, 170, 253);
 }
 .button:nth-child(3){
-    background-color: rgb(107, 232, 107);
+    background-color: rgb(131, 240, 131);
+}
+.button img{
+    height: 30px;
+    width: 30px;
 }
