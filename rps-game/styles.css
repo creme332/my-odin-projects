@@ -79,6 +79,7 @@ body{
     /* border: 5px solid blue; */
 }
 #computer-weapon{
+    transform:scaleX(-1);
     left:230px;
     /* border: 5px solid red; */
 }
@@ -106,6 +107,7 @@ body{
 .scissors-background{
     background-image: url(img/scissors.png);
 }
+
 
 @keyframes player-attack{
     from{background-position-x:-128px;}
