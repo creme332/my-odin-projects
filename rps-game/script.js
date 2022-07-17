@@ -1,7 +1,8 @@
+// player life bar 
 let playerfills = document.querySelectorAll(".player-healthbar_fill");
 let PlayerHealth = 100;
 const maxPlayerHP = 100;
-const healthLoss = -10; //health points lost when a character loses.
+const healthLoss = -20; //health points lost when a character loses.
 
 function renderPlayerHealth() {
    var percent = PlayerHealth / maxPlayerHP * 100;
@@ -30,10 +31,11 @@ function updatePlayerHealth() {
    renderPlayerHealth();
 }
 
-
+// computer life bar 
 let ComputerHealth = 100;
 const maxComputerHP = 100;
 let computerfills = document.querySelectorAll(".computer-healthbar_fill");
+
 function renderComputerHealth() {
    var percent = ComputerHealth / maxComputerHP * 100;
    //Update color
@@ -70,7 +72,7 @@ const audio = document.getElementById("sound");
 
 function computerChoice(){
     const choices  = ["rock", "paper", "scissors"];
-    let index = Math.floor(Math.random() * 3) //generate indice 0-2
+    let index = Math.floor(Math.random() * 3) //generate random index 0-2
     return choices[index];
 }
 function winner(playermove, computermove){
@@ -80,7 +82,12 @@ function winner(playermove, computermove){
     return "computer";
 }
 
+
+
+const buttons = Array.from(document.querySelectorAll(".button"));
+
 function Battle(e){
+
     let PlayerPressed = e.target.id;
     // let computerPressed = computerChoice();
     let computerPressed = "rock";
@@ -90,17 +97,30 @@ function Battle(e){
     let roundwinner = winner(PlayerPressed, computerPressed);
     console.log(roundwinner);
 
-    console.log(playerWeaponImgClass, computerWeaponImgClass);
+    if(roundwinner=="player"){
+      document.documentElement.style.setProperty('--final-computerweapon-position', '210px');
+      document.documentElement.style.setProperty('--final-playerweapon-position', '250px');
+   }
+   if(roundwinner=="computer"){
+      document.documentElement.style.setProperty('--final-computerweapon-position', '40px');
+      document.documentElement.style.setProperty('--final-playerweapon-position', '60px');
+   }
+   if(roundwinner=="draw"){
+      document.documentElement.style.setProperty('--final-computerweapon-position', '140px');
+      document.documentElement.style.setProperty('--final-playerweapon-position', '140px');
+   }
+   
+   //  console.log(playerWeaponImgClass, computerWeaponImgClass);
     audio.currentTime = 0;
     audio.play(); //play button sound
 
-    //display character animations
+    //display character animations and weapon.
     PlayerCharacter.classList.add("animatePlayerCharacter");
     PlayerWeapon.classList.add(playerWeaponImgClass);
     ComputerCharacter.classList.add("animateComputerCharacter");
     ComputerWeapon.classList.add(computerWeaponImgClass);
 
-    //  Start weapon animations when character animations ends 
+    //  When character fight animation end, Start weapon animations
     PlayerCharacter.addEventListener( "animationend",  function() {
         PlayerCharacter.classList.remove("animatePlayerCharacter");  
         PlayerWeapon.classList.add("animatePlayerWeapon");
@@ -112,24 +132,27 @@ function Battle(e){
     } );
 
     // remove weapon animation class for all weapons after weapon animation ends.
-    PlayerWeapon.addEventListener( "animationend",  function() {
-        PlayerWeapon.classList.remove("animatePlayerWeapon"); 
-        PlayerWeapon.classList.remove(playerWeaponImgClass); 
-        if(roundwinner == "player")updateComputerHealth();
-    } );
-    ComputerWeapon.addEventListener( "animationend",  function() {
-        ComputerWeapon.classList.remove("animateComputerWeapon"); 
-        ComputerWeapon.classList.remove(computerWeaponImgClass);  
-        if(roundwinner == "computer")updatePlayerHealth();
-    } );
+    let f1 = function() {
+      PlayerWeapon.classList.remove("animatePlayerWeapon"); 
+      PlayerWeapon.classList.remove(playerWeaponImgClass); 
+      if(roundwinner == "player")updateComputerHealth();
+   }
+    PlayerWeapon.addEventListener( "animationend", f1, {once: true});
+
+    let f2 = function() {
+      ComputerWeapon.classList.remove("animateComputerWeapon"); 
+      ComputerWeapon.classList.remove(computerWeaponImgClass);  
+      if(roundwinner == "computer")updatePlayerHealth();
+   }
+    ComputerWeapon.addEventListener( "animationend", f2, {once: true});
+
+   //  buttons.forEach(btn=>btn.addEventListener("click", Battle));
+   //  multi-click glitch - kill player in single round by spamming button
+   //  if(roundwinner == "computer")updatePlayerHealth();
+   //  if(roundwinner == "player")updateComputerHealth();
 
 
 }
-
-const buttons = Array.from(document.querySelectorAll(".button"));
 buttons.forEach(btn=>btn.addEventListener("click", Battle));
-
-
 renderPlayerHealth(0);
 renderComputerHealth(0);
-

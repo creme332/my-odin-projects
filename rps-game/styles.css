@@ -86,13 +86,13 @@ body{
 
 /* Fighting animations  */
 .animatePlayerWeapon{
-    animation: player-weapon-move .8s linear  ;
+    animation: player-weapon-move .8s;
 }
 .animatePlayerCharacter{
     animation: player-attack .3s steps(3);
 }
 .animateComputerWeapon{
-    animation: computer-weapon-move .8s linear;
+    animation: computer-weapon-move .8s;
 }
 
 .animateComputerCharacter{
@@ -115,7 +115,7 @@ body{
 }
 @keyframes  player-weapon-move {
     0%{left:50px;}
-    100%{left:270px;}  
+    100%{left:var(--final-playerweapon-position);}  
 }
 
 @keyframes computer-attack{
@@ -124,7 +124,7 @@ body{
 }
 @keyframes computer-weapon-move {
     0%{left:270px;}
-    100%{left:50px;}  
+    100%{left:var(--final-computerweapon-position);}  
 }
 
 /* Life bars */
@@ -134,7 +134,7 @@ body{
     height: 20px;
     width: 300px;
     display: block;
-    border: 1px solid black;
+    /* border: 1px solid black; */
  }
  
  .player-healthbar_fill {
@@ -151,7 +151,7 @@ body{
     height: 20px;
     width: 300px;
     display: block;
-    border: 1px solid black;
+    /* border: 1px solid black; */
  }
  
  .computer-healthbar_fill {
@@ -176,6 +176,7 @@ body{
     position: absolute;
     border: 3px solid black;
     border-radius: 10px;
+    top:50px;
 }
 #player-health img,#computer-health img{
     padding:2px;
@@ -191,11 +192,9 @@ body{
 }
 
 #player-health{
-    top:80px;
     left:10px;
 }
 #computer-health{
-    top:80px;
     left:210px;
 }
 
