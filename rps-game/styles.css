@@ -1,9 +1,11 @@
+
 @font-face {
     font-family: 'retro';
     src: url(font/Retro\ Gaming.ttf);
 }
 body{
     font-family: 'retro';
+    background-color: rgb(187, 242, 252);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,25 +14,28 @@ body{
     padding: 0;
 }
 #console{
+	background-color: #f1ecec;
     box-shadow: 8px 8px rgb(151, 150, 150);
     display: flex;
     flex-direction: column;
     /* flex-shrink: 0; */
-    height: 400px;
-    width: 350px;
+    gap:1em;
+    height: 440px;
+    width: 380px;
+    align-items: center;
+    justify-content: center;
     border: 1px solid black;
     border-radius: 20px;
 }
 #screen{
-    border-top-right-radius: 20px; /*same as console*/
-    border-top-left-radius: 20px; /*same as console*/
+    border-radius: 20px; /*same as console*/
     background-image: url(img/background.png) ;
     background-position: center center;
     background-size: cover ;
     height: 300px;
     width: 350px;
     position: relative;
-    /* border:5px solid blue; */
+    border:1px solid black;
 }
 #player{
     display: block;
@@ -38,7 +43,6 @@ body{
     background-position: -128px -128px;
     height: 64px;
     width: 32px;
-    /* background-color: rgb(248, 181, 81); */
     position: absolute;
     top:196px;
     left:15px;
@@ -206,9 +210,13 @@ body{
     justify-content: space-around;
     align-items: center;
     /* flex-shrink: 0; */
-    align-self: flex-end;
+    /* align-self: flex-end; */
     height: 100px;
     width: 350px;
+	background-color: #d5d2d2;
+    border-radius: 20px;
+    border: 1px solid black;
+
     /* border-top: 5px solid black; */
 }
 
@@ -228,17 +236,17 @@ body{
     background-image: url(img/rock.png);
     background-position: center center;
     background-size: 50%;
-    background-color: rgb(239, 136, 136);
+    background-color: rgb(241, 105, 105);
 }
 .button:nth-child(2){
     background-image: url(img/paper.png) ;
     background-position: center center;
     background-size: 50%;
-    background-color: rgb(170, 170, 253);
+    background-color: rgb(133, 133, 250);
 }
 .button:nth-child(3){
     background-image: url(img/scissors.png);
     background-position: center center;
     background-size: 50%;
-    background-color: rgb(131, 240, 131);
+    background-color: rgb(104, 241, 104);
 }
