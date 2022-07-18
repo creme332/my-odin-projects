@@ -1,5 +1,6 @@
 const buttonAudio = document.getElementById("buttonsound");
 const gameoverAudio = document.getElementById("gameoversound");
+gameoverAudio.volume=0.2;
 const bgsound = document.getElementById("bgsound");
 
 // player life bar 
