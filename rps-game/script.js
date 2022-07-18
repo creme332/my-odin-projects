@@ -97,6 +97,9 @@ function Battle(e){
     let roundwinner = winner(PlayerPressed, computerPressed);
     console.log(roundwinner);
 
+   // while current round is ongoing, ignore all other button clicks
+    buttons.forEach(btn=>btn.removeEventListener("click", Battle));
+
     if(roundwinner=="player"){
       document.documentElement.style.setProperty('--final-computerweapon-position', '210px');
       document.documentElement.style.setProperty('--final-playerweapon-position', '250px');
@@ -143,16 +146,13 @@ function Battle(e){
       ComputerWeapon.classList.remove("animateComputerWeapon"); 
       ComputerWeapon.classList.remove(computerWeaponImgClass);  
       if(roundwinner == "computer")updatePlayerHealth();
+      // when current round is over, listen again for button clicks
+      buttons.forEach(btn=>btn.addEventListener("click", Battle));
    }
     ComputerWeapon.addEventListener( "animationend", f2, {once: true});
 
-   //  buttons.forEach(btn=>btn.addEventListener("click", Battle));
-   //  multi-click glitch - kill player in single round by spamming button
-   //  if(roundwinner == "computer")updatePlayerHealth();
-   //  if(roundwinner == "player")updateComputerHealth();
-
-
 }
+
 buttons.forEach(btn=>btn.addEventListener("click", Battle));
 renderPlayerHealth(0);
 renderComputerHealth(0);
