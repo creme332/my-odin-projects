@@ -1,5 +1,6 @@
 # 🎮 Rock-Paper-Scissors
 ![](rps-gif.gif)
+
 [Play here](https://creme332.github.io/my-odin-projects/rps-game/)
 # 📌 Attributions
 Resource | Attribution
