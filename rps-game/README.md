@@ -3,14 +3,15 @@
 
 [Play here](https://creme332.github.io/my-odin-projects/rps-game/)
 # 📌 Attributions
-Resource | Attribution
+Resource | Source
 ---|---
 [rock logo ](img/rock.png) + [paper logo](img/paper.png) + [background](img/bg2.jpg) | Freepik
 [scissors logo](img/scissors.png) | Tomas Knop
 [rock weapon](weapons/rock.png)| https://xenophero.itch.io/
 [scissors weapon](weapons/scissors.png) | [bmphelan]([https://www.instructables.com/Pixel-Art-Rock-Paper-Scissors-Game/)
 [heart logo](img/heart.png)|Pixel Perfect
-[button sound](buttonsound.mp3) | [GFX sounds](https://www.youtube.com/watch?v=8m7i4GdYycs&ab_channel=GFXSounds)
+[button click sound](buttonsound.mp3) + [game over sound](audio/GameOver.mp3) | [GFX sounds](https://www.youtube.com/watch?v=8m7i4GdYycs&ab_channel=GFXSounds)
+background music + fight  | [Ar-Akhil](https://github.com/Ar-Akhil/RPS-game/tree/master/audio)
 [human sprite](sprites/humansprite.png)| [MoikMellah](https://opengameart.org/content/mv-platformer-male-32x64)
 [computer sprite](sprites/computersprite.png) | [Enscripture](https://www.spriters-resource.com/snes/finalfight3finalfighttough/sheet/36298/)
 dynamic health bar | [Drew Conley](https://www.youtube.com/watch?v=KJxY6MadV2M&ab_channel=DrewConley)
@@ -23,7 +24,7 @@ dynamic health bar | [Drew Conley](https://www.youtube.com/watch?v=KJxY6MadV2M&a
 # 🔨 To-Do
 - [ ] Add option to restart game.
 - [ ] Add animation when taking damage.
-- [ ] Add footer to all projects to link to README 
+- [ ] Add standing animation.
 
 ### ✔ Done
 - [x] Add death animation
