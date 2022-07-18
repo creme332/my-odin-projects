@@ -1,6 +1,6 @@
 // player life bar 
 let playerfills = document.querySelectorAll(".player-healthbar_fill");
-let PlayerHealth = 100;
+let PlayerHealth = 40;
 const maxPlayerHP = 100;
 const healthLoss = -20; //health points lost when a character loses.
 
@@ -32,7 +32,7 @@ function updatePlayerHealth() {
 }
 
 // computer life bar 
-let ComputerHealth = 100;
+let ComputerHealth = 20;
 const maxComputerHP = 100;
 let computerfills = document.querySelectorAll(".computer-healthbar_fill");
 
@@ -85,7 +85,7 @@ function winner(playermove, computermove){
 
 
 const buttons = Array.from(document.querySelectorAll(".button"));
-
+let gameOver = false;
 function Battle(e){
 
     let PlayerPressed = e.target.id;
@@ -139,6 +139,10 @@ function Battle(e){
       PlayerWeapon.classList.remove("animatePlayerWeapon"); 
       PlayerWeapon.classList.remove(playerWeaponImgClass); 
       if(roundwinner == "player")updateComputerHealth();
+      if(ComputerHealth==0) {
+         gameOver = true;
+         document.getElementById('computer').style.backgroundPosition = '-88px ' + '-740px';
+      }
    }
     PlayerWeapon.addEventListener( "animationend", f1, {once: true});
 
@@ -146,13 +150,20 @@ function Battle(e){
       ComputerWeapon.classList.remove("animateComputerWeapon"); 
       ComputerWeapon.classList.remove(computerWeaponImgClass);  
       if(roundwinner == "computer")updatePlayerHealth();
+      //if player is dead, make player crouch.
+      if(PlayerHealth==0) {
+         gameOver = true;
+         document.getElementById('player').style.backgroundPosition = '-288px ' + '0px';
+      }
+      if(gameOver==false){
       // when current round is over, listen again for button clicks
       buttons.forEach(btn=>btn.addEventListener("click", Battle));
+      }
    }
+   
     ComputerWeapon.addEventListener( "animationend", f2, {once: true});
 
 }
-
 buttons.forEach(btn=>btn.addEventListener("click", Battle));
 renderPlayerHealth(0);
 renderComputerHealth(0);
