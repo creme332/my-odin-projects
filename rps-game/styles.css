@@ -8,7 +8,6 @@ body{
     background-image: url(img/bg2.jpg) ;
     background-position: center center;
     background-size: cover ;
-    /* background-color: rgb(187, 242, 252); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +20,6 @@ body{
     box-shadow: 8px 8px rgb(151, 150, 150);
     display: flex;
     flex-direction: column;
-    /* flex-shrink: 0; */
     gap:1em;
     height: 440px;
     width: 380px;
@@ -40,6 +38,8 @@ body{
     position: relative;
     border:1px solid black;
 }
+
+/* left character styles */
 #player{
     display: block;
     background-image: url(sprites/humansprite.png);
@@ -50,29 +50,25 @@ body{
     top:196px;
     left:15px;
     /* border: 1px solid green; */
-    transform: scale(2) scale(0.99);
+    transform: scale(2);
 }
 
+/* right character styles  */
 #computer{
     display: block;
     background-image: url(sprites/computersprite.png);
     background-position:  20px -510px ;
-
     height: 120px;
     width: 90px;
-    /* background-color: rgb(220, 64, 217); */
     position: absolute;
     top:180px;
     left:250px;
     transform:scaleX(-1);
-    /* transform: scale(2); */
-
     /* border: 3px solid black; */
 
 }
 
 /* weapon styles*/
-
 #player-weapon, #computer-weapon{
     position: absolute;
     top:210px;
@@ -152,7 +148,6 @@ body{
     display: block;
     /* border: 1px solid black; */
  }
- 
  .player-healthbar_fill {
     width: 100%;
     fill: var(--player-bar-fill);
@@ -169,7 +164,6 @@ body{
     display: block;
     /* border: 1px solid black; */
  }
- 
  .computer-healthbar_fill {
     width: 100%;
     fill: var(--computer-bar-fill);
@@ -205,7 +199,6 @@ body{
     width: 100%;
     /* border: 3px solid blue; */
 }
-
 #player-health{
     left:10px;
 }
@@ -213,24 +206,20 @@ body{
     left:210px;
 }
 
-
-
 /* Game pad styles*/
 #gamepad{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* flex-shrink: 0; */
-    /* align-self: flex-end; */
     height: 100px;
     width: 350px;
 	background-color: #d5d2d2;
     border-radius: 20px;
     border: 1px solid black;
-
     /* border-top: 5px solid black; */
 }
 
+/* button styles */
 .button{
     height: 50px;
     width: 50px;
@@ -242,7 +231,6 @@ body{
     box-shadow: 0 6px #666;
     transform: translateY(2px);
 }
-
 .button:nth-child(1){
     background-image: url(img/rock.png);
     background-position: center center;

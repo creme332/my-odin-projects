@@ -1,6 +1,6 @@
 // player life bar 
 let playerfills = document.querySelectorAll(".player-healthbar_fill");
-let PlayerHealth = 40;
+let PlayerHealth = 100;
 const maxPlayerHP = 100;
 const healthLoss = -20; //health points lost when a character loses.
 
@@ -32,7 +32,7 @@ function updatePlayerHealth() {
 }
 
 // computer life bar 
-let ComputerHealth = 20;
+let ComputerHealth = 100;
 const maxComputerHP = 100;
 let computerfills = document.querySelectorAll(".computer-healthbar_fill");
 
@@ -77,7 +77,7 @@ function computerChoice(){
 }
 function winner(playermove, computermove){
     if(playermove==computermove)return "draw";
-    const LoseTo = {"rock":"paper","paper":"scissors","scissors":"rockk"};
+    const LoseTo = {"rock":"paper","paper":"scissors","scissors":"rock"};
     if(playermove == LoseTo[computermove])return "player";
     return "computer";
 }
@@ -86,22 +86,24 @@ function winner(playermove, computermove){
 
 const buttons = Array.from(document.querySelectorAll(".button"));
 let gameOver = false;
-function Battle(e){
 
+function Battle(e){
     let PlayerPressed = e.target.id;
-    // let computerPressed = computerChoice();
-    let computerPressed = "rock";
+    let computerPressed = computerChoice();
+   //  let computerPressed = "rock";
     let playerWeaponImgClass = PlayerPressed + "-background";
     let computerWeaponImgClass = computerPressed + "-background";
 
     let roundwinner = winner(PlayerPressed, computerPressed);
-    console.log(roundwinner);
+   //  console.log(PlayerPressed, computerPressed, roundwinner);
 
    // while current round is ongoing, ignore all other button clicks
     buttons.forEach(btn=>btn.removeEventListener("click", Battle));
 
     if(roundwinner=="player"){
+      //computer weapon must not hit player
       document.documentElement.style.setProperty('--final-computerweapon-position', '210px');
+      //player weapon must hit computer
       document.documentElement.style.setProperty('--final-playerweapon-position', '250px');
    }
    if(roundwinner=="computer"){
@@ -113,34 +115,34 @@ function Battle(e){
       document.documentElement.style.setProperty('--final-playerweapon-position', '140px');
    }
    
-   //  console.log(playerWeaponImgClass, computerWeaponImgClass);
     audio.currentTime = 0;
+    audio.volume=0.2;
     audio.play(); //play button sound
 
-    //display character animations and weapon.
+    //display character attack animations and display weapon only.
     PlayerCharacter.classList.add("animatePlayerCharacter");
     PlayerWeapon.classList.add(playerWeaponImgClass);
     ComputerCharacter.classList.add("animateComputerCharacter");
     ComputerWeapon.classList.add(computerWeaponImgClass);
 
-    //  When character fight animation end, Start weapon animations
+    //  When character fight animation ends, start weapon animations
     PlayerCharacter.addEventListener( "animationend",  function() {
         PlayerCharacter.classList.remove("animatePlayerCharacter");  
         PlayerWeapon.classList.add("animatePlayerWeapon");
     } );
-
     ComputerCharacter.addEventListener( "animationend",  function() {
         ComputerCharacter.classList.remove("animateComputerCharacter");
         ComputerWeapon.classList.add("animateComputerWeapon"); 
     } );
 
-    // remove weapon animation class for all weapons after weapon animation ends.
+    // remove weapon animation class after weapon animation ends.
     let f1 = function() {
       PlayerWeapon.classList.remove("animatePlayerWeapon"); 
       PlayerWeapon.classList.remove(playerWeaponImgClass); 
       if(roundwinner == "player")updateComputerHealth();
       if(ComputerHealth==0) {
          gameOver = true;
+         //if computer is dead, make computer crouch.
          document.getElementById('computer').style.backgroundPosition = '-88px ' + '-740px';
       }
    }
@@ -150,9 +152,9 @@ function Battle(e){
       ComputerWeapon.classList.remove("animateComputerWeapon"); 
       ComputerWeapon.classList.remove(computerWeaponImgClass);  
       if(roundwinner == "computer")updatePlayerHealth();
-      //if player is dead, make player crouch.
       if(PlayerHealth==0) {
          gameOver = true;
+         //if player is dead, make player crouch.
          document.getElementById('player').style.backgroundPosition = '-288px ' + '0px';
       }
       if(gameOver==false){
@@ -160,7 +162,6 @@ function Battle(e){
       buttons.forEach(btn=>btn.addEventListener("click", Battle));
       }
    }
-   
     ComputerWeapon.addEventListener( "animationend", f2, {once: true});
 
 }
