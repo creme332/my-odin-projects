@@ -5,7 +5,10 @@
 # To-do
 - [ ] Make design [responsive](https://www.youtube.com/watch?v=na-X_SM8vg0&ab_channel=ColtSteele). Currently home page and recipe page do not render properly on small screen sizes. (title moves out of box, columns get shrinked, ...)
 - [ ] Fix `Drinks` images. Images on homepage should be approximately the same size.
+- [ ] Colour of recipe card and background should be different for contrast. Also add box shadow to recipe card.
 - [ ] Create skeleton screen loading page.
+- [ ] Fix font on hover image
+- [ ] Add border radius : 10px on recipe card 
 - [ ] Add a "Go back" button on recipe pages.
 - [ ] Make `View Recipe` appear in middle of image on hover.
 - [ ] Clicking on image instead of `View Recipe` should lead to recipe page.
