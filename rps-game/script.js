@@ -1,3 +1,7 @@
+const buttonAudio = document.getElementById("buttonsound");
+const gameoverAudio = document.getElementById("gameoversound");
+const bgsound = document.getElementById("bgsound");
+
 // player life bar 
 let playerfills = document.querySelectorAll(".player-healthbar_fill");
 let PlayerHealth = 100;
@@ -68,7 +72,6 @@ const ComputerCharacter = document.querySelector("#computer");
 
 const PlayerWeapon = document.querySelector("#player-weapon");
 const ComputerWeapon = document.querySelector("#computer-weapon");
-const audio = document.getElementById("sound");
 
 function computerChoice(){
     const choices  = ["rock", "paper", "scissors"];
@@ -86,8 +89,11 @@ function winner(playermove, computermove){
 
 const buttons = Array.from(document.querySelectorAll(".button"));
 let gameOver = false;
+// fightAudio.play();
 
 function Battle(e){
+   bgsound.play();
+   buttonAudio.play(); //play button sound
     let PlayerPressed = e.target.id;
     let computerPressed = computerChoice();
    //  let computerPressed = "rock";
@@ -114,10 +120,6 @@ function Battle(e){
       document.documentElement.style.setProperty('--final-computerweapon-position', '140px');
       document.documentElement.style.setProperty('--final-playerweapon-position', '140px');
    }
-   
-    audio.currentTime = 0;
-    audio.volume=0.2;
-    audio.play(); //play button sound
 
     //display character attack animations and display weapon only.
     PlayerCharacter.classList.add("animatePlayerCharacter");
@@ -142,6 +144,8 @@ function Battle(e){
       if(roundwinner == "player")updateComputerHealth();
       if(ComputerHealth==0) {
          gameOver = true;
+         bgsound.currentTime=0;
+         gameoverAudio.play();
          //if computer is dead, make computer crouch.
          document.getElementById('computer').style.backgroundPosition = '-88px ' + '-740px';
       }
@@ -154,6 +158,8 @@ function Battle(e){
       if(roundwinner == "computer")updatePlayerHealth();
       if(PlayerHealth==0) {
          gameOver = true;
+         bgsound.currentTime=0;
+         gameoverAudio.play();
          //if player is dead, make player crouch.
          document.getElementById('player').style.backgroundPosition = '-288px ' + '0px';
       }
