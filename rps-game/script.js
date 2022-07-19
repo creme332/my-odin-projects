@@ -91,21 +91,22 @@ function winner(playermove, computermove){
 const buttons = Array.from(document.querySelectorAll(".button"));
 let gameOver = false;
 
-//play standing animation for computer
+//play standing animations
 ComputerCharacter.classList.add("animateComputerStanding");
+PlayerCharacter.classList.add("animatePlayerStanding");
 
 function Battle(e){
-   bgsound.play();
+   bgsound.play(); //play background music
    buttonAudio.play(); //play button sound
 
     let PlayerPressed = e.target.id;
-   //  let computerPressed = computerChoice();
-    let computerPressed = "rock";
+    let computerPressed = computerChoice();
+   //  let computerPressed = "rock";
     let playerWeaponImgClass = PlayerPressed + "-background";
     let computerWeaponImgClass = computerPressed + "-background";
 
     let roundwinner = winner(PlayerPressed, computerPressed);
-   //  console.log(PlayerPressed, computerPressed, roundwinner);
+    console.log(PlayerPressed, computerPressed, roundwinner);
 
    // while current round is ongoing, ignore all other button clicks
     buttons.forEach(btn=>btn.removeEventListener("click", Battle));
@@ -119,63 +120,82 @@ function Battle(e){
    }
    if(roundwinner=="computer"){
       document.documentElement.style.setProperty('--final-computerweapon-position', '40px');
-      document.documentElement.style.setProperty('--final-playerweapon-position', '60px');
+      document.documentElement.style.setProperty('--final-playerweapon-position', '100px');
    }
    if(roundwinner=="draw"){
       document.documentElement.style.setProperty('--final-computerweapon-position', '140px');
       document.documentElement.style.setProperty('--final-playerweapon-position', '140px');
    }
 
-   //stop standing animations
+   //stop character standing animations
+   PlayerCharacter.classList.remove("animatePlayerStanding");
    ComputerCharacter.classList.remove("animateComputerStanding");
 
-    //display character attack animations and display weapon only.
-    PlayerCharacter.classList.add("animatePlayerCharacter");
-    PlayerWeapon.classList.add(playerWeaponImgClass);
-    ComputerCharacter.classList.add("animateComputerCharacter");
-    ComputerWeapon.classList.add(computerWeaponImgClass);
+   //display weapons
+   PlayerWeapon.classList.add(playerWeaponImgClass); 
+   ComputerWeapon.classList.add(computerWeaponImgClass);
 
-    //  When character fight animation ends, start weapon animations
+    //animate attacks 
+    PlayerCharacter.classList.add("animatePlayerAttack");
+    ComputerCharacter.classList.add("animateComputerAttack");
+
+
+    //  When character attack animation ends, 
+    // animate weapons and resume standing animation
     PlayerCharacter.addEventListener( "animationend",  function() {
-        PlayerCharacter.classList.remove("animatePlayerCharacter");  
+        PlayerCharacter.classList.remove("animatePlayerAttack"); 
         PlayerWeapon.classList.add("animatePlayerWeapon");
+        PlayerCharacter.classList.add("animatePlayerStanding");
     } );
     ComputerCharacter.addEventListener( "animationend",  function() {
-        ComputerCharacter.classList.remove("animateComputerCharacter");
+        ComputerCharacter.classList.remove("animateComputerAttack");
         ComputerWeapon.classList.add("animateComputerWeapon"); 
         ComputerCharacter.classList.add("animateComputerStanding");
     } );
 
-    // remove weapon animation class after weapon animation ends.
+    // when weapon animation ends, hide weapon class and remove animation class.
     let f1 = function() {
       PlayerWeapon.classList.remove("animatePlayerWeapon"); 
       PlayerWeapon.classList.remove(playerWeaponImgClass); 
       if(roundwinner == "player")updateComputerHealth();
-      if(ComputerHealth==0) {
+      if(ComputerHealth==0) { //game over
          //stop animations
          ComputerCharacter.classList.remove("animateComputerStanding");
          gameOver = true;
          bgsound.currentTime=0;
          gameoverAudio.play();
-         //if computer is dead, make computer crouch.
+         //make computer crouch.
          document.getElementById('computer').style.backgroundPosition = '-88px ' + '-740px';
       }
    }
-    PlayerWeapon.addEventListener( "animationend", f1, {once: true});
+   PlayerWeapon.addEventListener( "animationend", f1, {once:true});
 
     let f2 = function() {
+      //hide weapon
       ComputerWeapon.classList.remove("animateComputerWeapon"); 
-      ComputerWeapon.classList.remove(computerWeaponImgClass);  
-      if(roundwinner == "computer")updatePlayerHealth();
+      ComputerWeapon.classList.remove(computerWeaponImgClass); 
+
+      if(roundwinner == "computer"){
+         updatePlayerHealth();
+         //take damage and stand again.
+         PlayerCharacter.classList.remove("animatePlayerStanding");
+         PlayerCharacter.classList.add("animatePlayerHit");
+         PlayerCharacter.addEventListener( "animationend",  function() {
+            PlayerCharacter.classList.remove("animatePlayerHit");
+            PlayerCharacter.classList.add("animatePlayerStanding");
+        }, {once:true});
+      }
       if(PlayerHealth==0) {
+         PlayerCharacter.classList.remove("animatePlayerHit");
+         PlayerCharacter.classList.remove("animatePlayerStanding");
          gameOver = true;
          bgsound.currentTime=0;
          gameoverAudio.play();
          //if player is dead, make player crouch.
-         document.getElementById('player').style.backgroundPosition = '-288px ' + '0px';
+         document.getElementById('player').style.backgroundPosition = '0px -720px';
       }
-      if(gameOver==false){
       // when current round is over, listen again for button clicks
+      if(gameOver==false){
       buttons.forEach(btn=>btn.addEventListener("click", Battle));
       }
    }
