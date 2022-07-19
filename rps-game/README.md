@@ -21,7 +21,7 @@ dynamic health bar | [Drew Conley](https://www.youtube.com/watch?v=KJxY6MadV2M&a
 # 🚀 History of website
 ![](gifs/gif0.gif)
 
-<img src="img/concept1.png" alt="early concept of game" height="300px" width="600px">
+<img src="img/concept1.png" alt="early concept of game" height="00px" width="600px">
 
 # 🔨 To-Do
 - [ ] Add option to restart game.
