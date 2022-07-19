@@ -48,16 +48,13 @@ body{
     position: absolute;
     top:210px;
     left:15px;
-    border: 1px solid green;
-    /* animation : player-take-damage .5s steps(2); */
-    /* animation: player-standing .5s steps(3) infinite; */
-    /* transform: scale(2); */
+    /* border: 1px solid green; */
 }
+/* left character animations  */
 @keyframes player-standing{
     from{background-position: 0px -80px;}
     to{background-position: -210px -80px;}
 }
-
 @keyframes player-take-damage {
     from {background-position: -280px -560px;}
     to{background-position: -280px -560px;}
@@ -68,12 +65,12 @@ body{
 .animatePlayerStanding{
     animation : player-standing .5s steps(3) infinite;
 }
+
 /* right character styles  */
 #computer{
     display: block;
     background-image: url(sprites/computersprite.png);
-    /* background-position:  20px -510px ; */
-    /* background-position:  -10px 0px ; */
+    background-position:  10px 0px ;
     height: 120px;
     width: 90px;
     position: absolute;
@@ -81,15 +78,22 @@ body{
     left:250px;
     transform:scaleX(-1);
     /* border: 3px solid black; */
-
 }
 @keyframes computer-standing{
     from{background-position-x: 10px;}
-    to{background-position-x: -155px;}
+    to{background-position-x: -153px;}
+}
+@keyframes computer-take-damage{
+    from{background-position:  0px -630px ;}
+    to{background-position:  0px -630px ;}
 }
 .animateComputerStanding{
     animation : computer-standing .8s steps(2) infinite;
 }
+.animateComputerHit{
+    animation : computer-take-damage .1s steps(2);
+}
+
 /* weapon styles*/
 #player-weapon, #computer-weapon{
     position: absolute;
@@ -97,7 +101,6 @@ body{
 }
 #player-weapon{
     left:85px;
-    /* top: 225px; */
     /* border: 5px solid blue; */
 }
 #computer-weapon{
@@ -106,7 +109,23 @@ body{
     /* border: 5px solid red; */
 }
 
-/* Fighting animations  */
+/* Fighting + weapons animations  */
+@keyframes player-attack{
+    from{background-position : 0px 0px;}
+    to{background-position:-210px 0px;}
+}
+@keyframes  player-weapon-move {
+    0%{left: 85px;}
+    100%{left:var(--final-playerweapon-position);}  
+}
+@keyframes computer-attack{
+    from{background-position:  20px -510px ;}
+    to{background-position:  -290px -510px ;}
+}
+@keyframes computer-weapon-move {
+    0%{left:270px;}
+    100%{left:var(--final-computerweapon-position);}  
+}
 .animatePlayerWeapon{
     animation: player-weapon-move .8s;
 }
@@ -116,54 +135,32 @@ body{
 .animateComputerWeapon{
     animation: computer-weapon-move .8s;
 }
-
 .animateComputerAttack{
     animation: computer-attack .3s  steps(3);
 }
-.rock-background{
+
+/* weapons  */
+.rock-background, .paper-background, .scissors-background{
     height: 15px;
     width: 15px;
-    background-image: url(weapons/rock.png);
-    background-position:-16px 0;
     transform:scale(2);
 }
+.rock-background{
+    background-image: url(weapons/rock.png);
+    background-position:-16px 0;
+}
 .paper-background{
-    height: 15px;
-    width: 15px;
     background-image: url(weapons/book.png);
     background-position: center center;
     background-size: cover ;
-    transform:scale(2);
 }
 .scissors-background{
-    height: 15px;
-    width: 15px;
     background-image: url(weapons/scissors.png);
     background-position: center center;
     background-size: cover ;
-    transform:scale(2);
-}
-
-@keyframes player-attack{
-    from{background-position : 0px 0px;}
-    to{background-position:-210px 0px;}
-}
-@keyframes  player-weapon-move {
-    0%{left: 85px;}
-    100%{left:var(--final-playerweapon-position);}  
-}
-
-@keyframes computer-attack{
-    from{background-position:  20px -510px ;}
-    to{background-position:  -290px -510px ;}
-}
-@keyframes computer-weapon-move {
-    0%{left:270px;}
-    100%{left:var(--final-computerweapon-position);}  
 }
 
 /* Life bars */
-
 /* player life bar  */
 .player-healthbar {
     height: 20px;
@@ -244,11 +241,15 @@ body{
 
 /* button styles */
 .button{
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
     color: black;
     box-shadow: 0 5px #999;
+    border: 1px solid black;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
 }
 .button:active {  
     box-shadow: 0 6px #666;
@@ -256,19 +257,13 @@ body{
 }
 .button:nth-child(1){
     background-image: url(img/rock.png);
-    background-position: center center;
-    background-size: 50%;
     background-color: rgb(241, 105, 105);
 }
 .button:nth-child(2){
     background-image: url(img/paper.png) ;
-    background-position: center center;
-    background-size: 50%;
-    background-color: rgb(133, 133, 250);
+    background-color: rgb(146, 146, 254);
 }
 .button:nth-child(3){
     background-image: url(img/scissors.png);
-    background-position: center center;
-    background-size: 50%;
     background-color: rgb(104, 241, 104);
 }

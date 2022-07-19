@@ -1,7 +1,10 @@
 const buttonAudio = document.getElementById("buttonsound");
 const gameoverAudio = document.getElementById("gameoversound");
-gameoverAudio.volume=0.2;
 const bgsound = document.getElementById("bgsound");
+const fightsound = document.getElementById("fightsound");
+bgsound.volume = 0.2;
+buttonAudio.volume = 0.1;
+gameoverAudio.volume=0.1;
 
 // player life bar 
 let playerfills = document.querySelectorAll(".player-healthbar_fill");
@@ -90,14 +93,19 @@ function winner(playermove, computermove){
 
 const buttons = Array.from(document.querySelectorAll(".button"));
 let gameOver = false;
-
+let alreadyPlayedFight = false;
 //play standing animations
 ComputerCharacter.classList.add("animateComputerStanding");
 PlayerCharacter.classList.add("animatePlayerStanding");
 
 function Battle(e){
+   //play sounds
    bgsound.play(); //play background music
    buttonAudio.play(); //play button sound
+   if(!alreadyPlayedFight){
+      fightsound.play();
+      alreadyPlayedFight = true;
+   }
 
     let PlayerPressed = e.target.id;
     let computerPressed = computerChoice();
@@ -120,16 +128,12 @@ function Battle(e){
    }
    if(roundwinner=="computer"){
       document.documentElement.style.setProperty('--final-computerweapon-position', '40px');
-      document.documentElement.style.setProperty('--final-playerweapon-position', '100px');
+      document.documentElement.style.setProperty('--final-playerweapon-position', '88px');
    }
    if(roundwinner=="draw"){
       document.documentElement.style.setProperty('--final-computerweapon-position', '140px');
       document.documentElement.style.setProperty('--final-playerweapon-position', '140px');
    }
-
-   //stop character standing animations
-   PlayerCharacter.classList.remove("animatePlayerStanding");
-   ComputerCharacter.classList.remove("animateComputerStanding");
 
    //display weapons
    PlayerWeapon.classList.add(playerWeaponImgClass); 
@@ -139,27 +143,34 @@ function Battle(e){
     PlayerCharacter.classList.add("animatePlayerAttack");
     ComputerCharacter.classList.add("animateComputerAttack");
 
-
     //  When character attack animation ends, 
     // animate weapons and resume standing animation
     PlayerCharacter.addEventListener( "animationend",  function() {
         PlayerCharacter.classList.remove("animatePlayerAttack"); 
         PlayerWeapon.classList.add("animatePlayerWeapon");
-        PlayerCharacter.classList.add("animatePlayerStanding");
-    } );
+    },  {once:true});
     ComputerCharacter.addEventListener( "animationend",  function() {
         ComputerCharacter.classList.remove("animateComputerAttack");
         ComputerWeapon.classList.add("animateComputerWeapon"); 
-        ComputerCharacter.classList.add("animateComputerStanding");
-    } );
+    }, {once:true});
 
     // when weapon animation ends, hide weapon class and remove animation class.
     let f1 = function() {
       PlayerWeapon.classList.remove("animatePlayerWeapon"); 
       PlayerWeapon.classList.remove(playerWeaponImgClass); 
-      if(roundwinner == "player")updateComputerHealth();
+      if(roundwinner == "player"){
+         updateComputerHealth();
+         //take damage and stand again.
+         ComputerCharacter.classList.remove("animateComputerStanding");
+         ComputerCharacter.classList.add("animateComputerHit");
+         ComputerCharacter.addEventListener( "animationend",  function() {
+            ComputerCharacter.classList.remove("animateComputerHit");
+            ComputerCharacter.classList.add("animateComputerStanding");
+        }, {once:true});
+      }
       if(ComputerHealth==0) { //game over
          //stop animations
+         ComputerCharacter.classList.remove("animateComputerHit");
          ComputerCharacter.classList.remove("animateComputerStanding");
          gameOver = true;
          bgsound.currentTime=0;
@@ -200,7 +211,6 @@ function Battle(e){
       }
    }
     ComputerWeapon.addEventListener( "animationend", f2, {once: true});
-
 }
 buttons.forEach(btn=>btn.addEventListener("click", Battle));
 renderPlayerHealth(0);
