@@ -90,14 +90,17 @@ function winner(playermove, computermove){
 
 const buttons = Array.from(document.querySelectorAll(".button"));
 let gameOver = false;
-// fightAudio.play();
+
+//play standing animation for computer
+ComputerCharacter.classList.add("animateComputerStanding");
 
 function Battle(e){
    bgsound.play();
    buttonAudio.play(); //play button sound
+
     let PlayerPressed = e.target.id;
-    let computerPressed = computerChoice();
-   //  let computerPressed = "rock";
+   //  let computerPressed = computerChoice();
+    let computerPressed = "rock";
     let playerWeaponImgClass = PlayerPressed + "-background";
     let computerWeaponImgClass = computerPressed + "-background";
 
@@ -107,6 +110,7 @@ function Battle(e){
    // while current round is ongoing, ignore all other button clicks
     buttons.forEach(btn=>btn.removeEventListener("click", Battle));
 
+   //decide how far each weapon should go
     if(roundwinner=="player"){
       //computer weapon must not hit player
       document.documentElement.style.setProperty('--final-computerweapon-position', '210px');
@@ -122,6 +126,9 @@ function Battle(e){
       document.documentElement.style.setProperty('--final-playerweapon-position', '140px');
    }
 
+   //stop standing animations
+   ComputerCharacter.classList.remove("animateComputerStanding");
+
     //display character attack animations and display weapon only.
     PlayerCharacter.classList.add("animatePlayerCharacter");
     PlayerWeapon.classList.add(playerWeaponImgClass);
@@ -136,6 +143,7 @@ function Battle(e){
     ComputerCharacter.addEventListener( "animationend",  function() {
         ComputerCharacter.classList.remove("animateComputerCharacter");
         ComputerWeapon.classList.add("animateComputerWeapon"); 
+        ComputerCharacter.classList.add("animateComputerStanding");
     } );
 
     // remove weapon animation class after weapon animation ends.
@@ -144,6 +152,8 @@ function Battle(e){
       PlayerWeapon.classList.remove(playerWeaponImgClass); 
       if(roundwinner == "player")updateComputerHealth();
       if(ComputerHealth==0) {
+         //stop animations
+         ComputerCharacter.classList.remove("animateComputerStanding");
          gameOver = true;
          bgsound.currentTime=0;
          gameoverAudio.play();

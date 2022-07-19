@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'retro';
     src: url(font/Retro\ Gaming.ttf);
@@ -57,17 +56,24 @@ body{
 #computer{
     display: block;
     background-image: url(sprites/computersprite.png);
-    background-position:  20px -510px ;
+    /* background-position:  20px -510px ; */
+    /* background-position:  -10px 0px ; */
     height: 120px;
     width: 90px;
     position: absolute;
     top:180px;
     left:250px;
     transform:scaleX(-1);
-    /* border: 3px solid black; */
+    border: 3px solid black;
 
 }
-
+@keyframes computer-standing{
+    from{background-position-x: 10px;}
+    to{background-position-x: -155px;}
+}
+.animateComputerStanding{
+    animation : computer-standing .8s steps(2) infinite;
+}
 /* weapon styles*/
 #player-weapon, #computer-weapon{
     position: absolute;
@@ -131,8 +137,8 @@ body{
 }
 
 @keyframes computer-attack{
-    from{background-position-x:20px ;}
-    to{background-position-x:-290px;}
+    from{background-position:  20px -510px ;}
+    to{background-position:  -290px -510px ;}
 }
 @keyframes computer-weapon-move {
     0%{left:270px;}
