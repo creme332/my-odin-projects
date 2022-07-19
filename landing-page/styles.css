@@ -1,14 +1,14 @@
 @font-face {
     font-family: "truenoexbd";
-    src: url(Fonts/truenoexbd.otf);
+    src: url(font/truenoexbd.otf);
 }
 @font-face {
     font-family: "truenoltit" ;
-    src: url(Fonts/truenoltit.otf);
+    src: url(font/truenoltit.otf);
 }
 @font-face {
     font-family: "truenobd";
-    src: url(Fonts/truenobd.otf);
+    src: url(font/truenobd.otf);
 }
 body{
     display: flex;
@@ -18,92 +18,16 @@ body{
     padding: 0;
     align-items: space-around;
     font-family: "truenoexbd";
-
-}
-
-.top-section{
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
-    height: 100vh;
-    /* border:5px solid black; */
-    background-color: #2d3c50;
-    color: white;
-}
-
-.top-subsection .top-text .title{
-    font-size: 48px;
-    font-weight: 900;
-}
-
-.top-image{
-    display: flex;
-    align-items: center;
-    height: 100%;
-    justify-content: center;
-    /* border:1px solid blueviolet; */
-}
-.top-image img{
-    /* border: 5px sollid white; */
-    /* width: 500px; */
-    /* height: 400px; */
-    width: 100%;
-    height:80%;
-}
-.top-subsection{
-    align-self:flex-start;
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    /* height: 100px; */
-    /* border:5px solid cadetblue; */
-}
-.subtext{
-    font-family: "truenobd";
-    margin:15px;
-    font-size: 17px;
-}
-.top-text{
-    width: 50%;
-    /* flex-grow: 0; */
-    /* border:1px solid blueviolet; */
-}
-.mybutton{
-    transition: all .5s ease;
-    height: 40px;
-    font-family: "truenoexbd";
-    font-size: 20px;
-    background-color: #3882F6;
-    border-radius: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 8px;
-    padding-right: 8px;
-    /* margin: 10px; */
-    color: white;
-    font-weight: bold;
-    flex-grow: 0;
-}
-.mybutton:hover {
-    color: #001F3F;
-    background-color: #fff;
-}
-.top-text .mybutton{
-    margin-top: 20px;
-
-}
-.top-subsection .mybutton{
-    border: 2px solid #3882F6;
 }
 .header{
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
-    margin-top:10px
-    /* border:2px solid red; */
+    /* margin-top:10px; */
+    border: 1px solid rgb(0, 236, 142);
 }
 .header-logo{
     font-size: 24px;
@@ -131,13 +55,98 @@ body{
     margin-left: 40px;
     /* border: 5px solid white; */
     transition: all .5s ease;
-    /* padding-left: 30px; */
-    border-radius: 5px;
-    padding: 3px;
+    /* padding-left: 3px; */
+    /* padding-right : 7px; */
+    border-radius: 10px;
+    padding: 5px;
 }
 .header-links ul li:hover{
     color: #001F3F;
     background-color: #fff;
+}
+.top-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    border:1px solid tomato;
+    background-color: #2d3c50;
+    color: white;
+}
+.top-text{
+    border:1px solid blueviolet;
+}
+.top-subsection .top-text .title{
+    font-size: 48px;
+    font-weight: 900;
+}
+
+.top-image{
+    display: flex;
+    border:1px solid rgb(226, 43, 150);
+    /* flex-grow:0; */
+    margin-left: 10px;
+    /* flex-shrink: 1; */
+}
+.top-image img{
+    object-fit: contain;
+    max-width:100%;
+}
+.top-subsection{
+    align-self:flex-start;
+    display: flex;
+    flex: 1;
+    /* justify-content: center; */
+    /* align-items: center; */
+    height: 90vh;
+    /* border:10px solid rgb(60, 243, 24); */
+}
+.subtext{
+    font-family: "truenobd";
+    margin-top:15px;
+    font-size: 17px;
+}
+.top-text{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: center; */
+    width: 50%;
+    /* flex-grow: 0; */
+    /* border:1px solid blueviolet; */
+}
+.top-text .mybutton{
+    width: 150px;
+    /* align-self: center; */
+    border: 1px solid #2d3c50 ;
+    /* flex-basis: 50px; */
+}
+.mybutton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+
+    transition: all .5s ease;
+    font-family: "truenoexbd";
+    font-size: 20px;
+    background-color: #3882F6;
+    border-radius: 10px;
+    /* margin: 10px; */
+    color: white;
+    font-weight: bold;
+    flex-grow: 0;
+}
+.mybutton:hover {
+    color: #001F3F;
+    background-color: #fff;
+}
+.top-text .mybutton{
+    margin-top: 20px;
+
+}
+.top-subsection {
+    border: 1px solid #3882F6;
 }
 
 /* intro section  */
@@ -167,8 +176,8 @@ body{
     align-items: center;
     justify-content: center;
     height: 100px;
-    border:5px solid #3882F6;
-    border-radius: 10%;;
+    border:1px solid #3882F6;
+    border-radius: 10px;;
 }
 .image-box img{
     width: 100px;
@@ -185,13 +194,6 @@ body{
 
     font-family: "truenoltit" ;
     background-color: rgb(228, 228, 228);
-    /* flex: 1; */
-    /* min-height: 200px; */
-    /* border:1px solid blue; */
-    /* flex-grow: 0; */
-    /* flex-shrink: 0; */
-
-
 }
 .quote-container{
     /* border:5px solid palegreen; */
@@ -244,4 +246,81 @@ body{
     text-align: center;
     /* height: 20vh; */
     /* border:5px solid fuchsia; */
+}
+
+
+ /* responsive design  */
+@media screen and (max-width:650px) {
+
+    .header{
+        flex-direction: column;
+        border: 2px solid rgb(0, 236, 142);
+    }
+    .header-links{
+        width: 100%;
+    }
+    .header-links ul{
+        justify-content: space-around;
+    }
+    .header-links ul li{
+        /* transition: all .5s ease; */
+        /* border-radius: 10px; */
+        /* padding-left: 9px; */
+        margin-left: 10px;
+    }
+    .top-section{
+        display: flex;
+        flex-direction: column;
+        /* align-self: space-between; */
+        /* align-items: space-between; */
+        gap:1em;
+        height: 1000px;
+        border:1px solid tomato;
+        background-color: #2d3c50;
+        color: white;
+    }
+    .top-subsection{
+        align-self:flex-start;
+        display: flex;
+        flex-direction: column;
+        border:1px solid rgb(60, 243, 24);
+    }
+    .top-text{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .top-image{
+        justify-content: center;
+        order: -1;
+        margin-left: 0px;
+    }
+    .top-image img{
+        object-fit: contain;
+        /* max-width:60vh; */
+        width: 60%;
+    }
+    .intro-section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+        height: 1000px;
+        /* border:2px solid red; */
+    }
+    .grid{
+        /* border:5px solid bisque; */
+        display: flex;
+        flex-direction: column;
+        gap:2em;
+        justify-content: center;
+    }
+    .image-container{
+        display: flex;
+        flex-direction: column;
+        width: 30vw;
+    }
+    .sign-up-box{
+        flex-direction: column;
+    }
 }
