@@ -1,5 +1,6 @@
 # 🎮 Rock-Paper-Scissors
 ![](gifs/gif1.gif)
+
 [Play here](https://creme332.github.io/my-odin-projects/rps-game/)
 # 📌 Attributions
 Resource | Source
@@ -19,7 +20,8 @@ dynamic health bar | [Drew Conley](https://www.youtube.com/watch?v=KJxY6MadV2M&a
 
 # 🚀 History of website
 ![](gifs/gif0.gif)
-![](img/concept1.png)
+
+<img src="img/concept1.png" alt="early concept of game" height="300px" width="600px">
 
 # 🔨 To-Do
 - [ ] Add option to restart game.
