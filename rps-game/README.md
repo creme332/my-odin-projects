@@ -1,6 +1,5 @@
 # 🎮 Rock-Paper-Scissors
-![](rps-gif.gif)
-
+![](gifs/gif1.gif)
 [Play here](https://creme332.github.io/my-odin-projects/rps-game/)
 # 📌 Attributions
 Resource | Source
@@ -12,21 +11,23 @@ Resource | Source
 [heart logo](img/heart.png)|Pixel Perfect
 [button click sound](buttonsound.mp3) + [game over sound](audio/GameOver.mp3) | [GFX sounds](https://www.youtube.com/watch?v=8m7i4GdYycs&ab_channel=GFXSounds)
 background music + fight  | [Ar-Akhil](https://github.com/Ar-Akhil/RPS-game/tree/master/audio)
-[human sprite](sprites/humansprite.png)| [MoikMellah](https://opengameart.org/content/mv-platformer-male-32x64)
+[human sprite](sprites/ken.png)| StreetFighter 
 [computer sprite](sprites/computersprite.png) | [Enscripture](https://www.spriters-resource.com/snes/finalfight3finalfighttough/sheet/36298/)
 dynamic health bar | [Drew Conley](https://www.youtube.com/watch?v=KJxY6MadV2M&ab_channel=DrewConley)
 [background of game arena](img/background.png)| [wallpaper dog](https://wallpaper.dog/pixel)
 [favicon of website](img/icons8-game-controller-16.png)| [icons8](https://icons8.com/icons/set/favicon-game)
 
-# 🚀 Early concept
+# 🚀 History of website
+![](gifs/gif0.gif)
 ![](img/concept1.png)
 
 # 🔨 To-Do
 - [ ] Add option to restart game.
-- [ ] Add animation when taking damage.
-- [ ] Add standing animation.
+
 
 ### ✔ Done
+- [x] Add animation when taking damage.
+- [x] Add standing animation.
 - [x] Add death animation
 - [x] Bug : Pressing same button multiple times in a single round causes immediate death/win.
 - [x] Add attribution table
