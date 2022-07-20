@@ -69,13 +69,10 @@ body{
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
-    /* border:1px solid tomato; */
+    /* border:5px solid tomato; */
     background-color: #2d3c50;
     color: white;
     /* margin-top: 100px; */
-}
-.top-text{
-    /* border:1px solid blueviolet; */
 }
 .top-subsection .top-text .title{
     font-size: 48px;
@@ -84,7 +81,7 @@ body{
 
 .top-image{
     display: flex;
-    /* border:1px solid rgb(226, 43, 150); */
+    /* border:5px solid rgb(226, 43, 150); */
     /* flex-grow:0; */
     margin-left: 10px;
     /* flex-shrink: 1; */
@@ -110,7 +107,9 @@ body{
     display: flex;
     flex-direction: column;
     width: 50%;
-    /* border:1px solid blueviolet; */
+    /* height: 50%; */
+    align-self: center;
+    /* border:5px solid blueviolet; */
 }
 .top-text .mybutton{
     border: 1px solid #2d3c50 ;
@@ -140,9 +139,6 @@ body{
 .top-text .mybutton{
     margin-top: 20px;
 
-}
-.top-subsection {
-    /* border: 1px solid #3882F6; */
 }
 
 /* intro section  */
