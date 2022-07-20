@@ -1,6 +1,7 @@
 # Landing page 🚂
 ![](img/final.png)
 ![](responsive-landing-page.gif)
+
 [Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
 
 # 📌 Attributions
