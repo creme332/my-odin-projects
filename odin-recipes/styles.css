@@ -6,29 +6,59 @@
     font-family: "vietnam";
     src: url(fonts/BeVietnamPro-Light.ttf);
 }
-*{
-    background-color: black;
-    color: white;
+:root{
+    --bookmark-font-size:50px;
+    --bookmark-height:90px;
 
+}
+body{
+    color: white;
+    background-image: url(https://thumbs.dreamstime.com/b/abstract-rustic-surface-white-wood-table-texture-background-clo-abstract-rustic-surface-white-wood-table-texture-background-close-101913567.jpg);
+    /* background-image: url(https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2hpdGUlMjBjdXR0aW5nJTIwYm9hcmQlMjB3aXRoJTIwZm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60); */
+    /* background-color: rgb(80, 81, 81); */
+    /* background-position: cover; */
+    background-size: cover;
 }
 .card{
-    width: 50%;
+    box-shadow: 0 0 50px #242424;
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    height: auto;
     margin: auto;
     display: flex;
-    border:2px dashed rgb(255, 236, 236);
+    /* border:10px dashed rgb(255, 236, 236); */
+    /* border:2px solid rgb(255, 162, 0); */
     gap:1em;
+    background-color: rgb(0, 0, 0);
+    border-radius: 30px;
+    /* border: 10px solid rgb(141, 141, 141); */
+    padding:30px;
 }
-
 .columns{ /*flex item of .card. flex-box of */
+    background-color: inherit;
+    width: auto;
     display: flex;
     flex-direction: column;
-    width: 50%;
+    /* width: 50%; */
     border-radius: 1%;
-    /* border: 2px solid white; */
+    /* border: 5px solid orange; */
     gap: 1em;
+    /* margin-left: 30px; */
+}
+a{
+    text-decoration: none;
+    background-color: inherit;
+    /* font-size: 50px; */
+    font-weight: bold;
+    font-family: "vietnam";
+
 }
 .title{
-    font-size: 80px;
+    word-break: break-all;
+    background-color: inherit;
+    /* font-size: 200px; */
+    font-size: clamp( 10px,8vw, 120px);  
     font-family: "abril";
     text-align: center;
     margin: 0;
@@ -38,25 +68,32 @@
     color: #ffc50c;
 }
 .main-image-container{
-    height: 50%;
+    background-color: inherit;
+    /* height: 50%; */
     flex: 1;
-    /* border:5px solid   black; */
     align-items: center;
     justify-content: center;
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
+    /* border:5px solid orange; */
+    /* border-radius: 10px; */
 }
-
+.main-image-container img{
+    filter: invert(100%);
+    width: 100%;
+}
 .bookmark {
-    margin-top: 30px;
+    background-color: inherit;
+    margin-top: 30px; 
     text-align: center;
-    font-size: 20px;
+    font-size: var(--bookmark-font-size);
     font-weight: 1000;
 }
   
 .bookmark-text{
+    background-color: inherit;
     font-family: "abril";
-    height: 40px;
-    width: 150px;
+    height: var(--bookmark-height);
+    width: auto;
     box-sizing: border-box;
     border: 0;
     padding: 8px;
@@ -66,51 +103,123 @@
   
 }
 .bookmark-triangle{
+    background-color: inherit;
     float:left;
     height: 0;
     width: 0;
-    border-top: 20px solid #ffc50c;
-    border-bottom: 20px solid #ffc50c;
-    border-right: 50px solid black;
+    border-top: calc(var(--bookmark-height)/2) solid #ffc50c;
+    border-bottom: calc(var(--bookmark-height)/2) solid #ffc50c;
+    border-right: var(--bookmark-height) solid black;
 }
 
 .dish-module{
+    background-color: inherit;
     display: flex;
-    flex: 1;
-    /* border: 1px solid white; */
+    /* flex: 1; */
+    /* border: 4px solid white; */
     margin-bottom: 5px;
 }
 .dish-text{
-    padding-left: 10px;
+    word-break: break-all;
+    background-color: inherit;
+    width: 50%;
+    /* padding-left: 10px; */
     font-family: "vietnam";
-    font-size: 20px;
+    font-size: 35px;
     /* border: 4px solid blue; */
 }
+
 .dish-image{
-    /* background-color: rgb(177, 163, 225); */
-    align-items: center;
-    justify-content: center;
-    /* border: 4px solid blue; */
+    background-color: inherit;
+    display: flex;
+    /* border: 2px solid rgb(230, 201, 40); */
     transition: .5s ease;
+    flex-grow: 0;
+    flex-shrink: 2;
 
 }
-.dish-image-middle{
+
+.dish-image img{
+    background-color: inherit;
+    object-fit: contain;
+    width: 100%;
+    transition: 1s ease;
+}
+.dish-image-caption{
+    color: white;
+    background-color: inherit;
     transition: .5s ease;
     opacity: 0;
     text-align: center;
     font-size: 30px;
+    font-weight: bold;
+    font-family: "vietnam";
 }
-.dish-image:hover .dish-image-middle {
+
+.dish-image:hover .dish-image-caption {
     opacity: 3;
 }
-.dish-image:hover{
-    opacity: 0.5;
+
+.columns:nth-child(2) .dish-module:nth-child(5){
+    flex-direction: column;
+    /* flex: 1; */
 }
-img {
-    object-fit: cover;
-    max-width:100%;
-    border-radius: 5%;
-  }
-  a{
-    text-decoration: none;
-  }
+.columns:nth-child(2) .dish-module:nth-child(5) .dish-text{
+    width: 100%;
+}
+
+
+/* make bookmark responsive  */
+@media screen and (max-width:1330px) {
+    :root{
+        --bookmark-font-size:40px;
+        --bookmark-height:60px;
+    }
+}
+@media screen and (max-width:1045px) {
+    :root{
+        --bookmark-font-size:30px;
+    }
+}
+@media screen and (max-width:840px) {
+    :root{
+        --bookmark-font-size:20px;
+        --bookmark-height:40px;
+    }
+    .dish-text, .dish-image-caption{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width:295px) {
+    :root{
+        --bookmark-font-size:10px;
+        --bookmark-height:30px;
+    }
+    .dish-text, .dish-image-caption{
+        font-size: 10px;
+    }
+
+}
+
+
+/* responsive flexbox layout */
+@media screen and (max-width:1360px) {
+    .dish-module{
+        flex-direction: column;
+    }
+    .dish-text{
+        width: auto;
+    }
+}
+@media screen and (max-width:600px) {
+    .card{
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .dish-text{
+        font-size: 20px;
+        width: auto;
+    }
+
+}
