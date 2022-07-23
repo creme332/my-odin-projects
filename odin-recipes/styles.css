@@ -7,33 +7,36 @@
     src: url(fonts/BeVietnamPro-Light.ttf);
 }
 :root{
-    --bookmark-font-size:50px;
-    --bookmark-height:90px;
+    --bookmark-font-size:30px;
+    --bookmark-height:60px;
 
 }
 body{
     color: white;
-    background-image: url(https://thumbs.dreamstime.com/b/abstract-rustic-surface-white-wood-table-texture-background-clo-abstract-rustic-surface-white-wood-table-texture-background-close-101913567.jpg);
+    /* background-image: url(https://thumbs.dreamstime.com/b/abstract-rustic-surface-white-wood-table-texture-background-clo-abstract-rustic-surface-white-wood-table-texture-background-close-101913567.jpg); */
     /* background-image: url(https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8d2hpdGUlMjBjdXR0aW5nJTIwYm9hcmQlMjB3aXRoJTIwZm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60); */
     /* background-color: rgb(80, 81, 81); */
     /* background-position: cover; */
     background-size: cover;
 }
 .card{
-    box-shadow: 0 0 50px #242424;
+    box-shadow: 0 10px 50px #000000;
     display: flex;
     flex-direction: row;
-    width: 70vw;
+    width: 60vw;
     height: auto;
     margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
     display: flex;
+    max-width: 1600px;
     /* border:10px dashed rgb(255, 236, 236); */
     /* border:2px solid rgb(255, 162, 0); */
     gap:1em;
     background-color: rgb(0, 0, 0);
     border-radius: 30px;
     /* border: 10px solid rgb(141, 141, 141); */
-    padding:30px;
+    padding: 30px;
 }
 .columns{ /*flex item of .card. flex-box of */
     background-color: inherit;
@@ -58,7 +61,7 @@ a{
     word-break: break-all;
     background-color: inherit;
     /* font-size: 200px; */
-    font-size: clamp( 10px,8vw, 120px);  
+    font-size: clamp( 30px,6vw, 120px);  
     font-family: "abril";
     text-align: center;
     margin: 0;
@@ -125,7 +128,7 @@ a{
     width: 50%;
     /* padding-left: 10px; */
     font-family: "vietnam";
-    font-size: 35px;
+    font-size: 23px;
     /* border: 4px solid blue; */
 }
 
@@ -170,21 +173,24 @@ a{
 
 
 /* make bookmark responsive  */
-@media screen and (max-width:1330px) {
-    :root{
-        --bookmark-font-size:40px;
-        --bookmark-height:60px;
-    }
-}
-@media screen and (max-width:1045px) {
+
+@media screen and (max-width:1165px) {
     :root{
         --bookmark-font-size:30px;
     }
 }
-@media screen and (max-width:840px) {
+@media screen and (max-width:950px) {
     :root{
         --bookmark-font-size:20px;
         --bookmark-height:40px;
+    }
+    .dish-text, .dish-image-caption{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width:665px) {
+    :root{
+        --bookmark-font-size:17px;
     }
     .dish-text, .dish-image-caption{
         font-size: 20px;
@@ -196,13 +202,14 @@ a{
         --bookmark-height:30px;
     }
     .dish-text, .dish-image-caption{
-        font-size: 10px;
+        font-size: 6px;
     }
 
 }
 
 
 /* responsive flexbox layout */
+
 @media screen and (max-width:1360px) {
     .dish-module{
         flex-direction: column;
