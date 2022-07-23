@@ -2,6 +2,12 @@
 ![](gifs/gif1.gif)
 
 [Play here](https://creme332.github.io/my-odin-projects/rps-game/)
+
+# 🚀Features
+- GUI
+- Animated characters
+- Sound effects
+
 # 📌 Attributions
 Resource | Source
 ---|---
@@ -25,6 +31,7 @@ dynamic health bar | [Drew Conley](https://www.youtube.com/watch?v=KJxY6MadV2M&a
 
 # 🔨 To-Do
 - [ ] Add option to restart game.
+- [ ] Make website responsive.
 
 
 ### ✔ Done

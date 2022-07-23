@@ -4,6 +4,9 @@
 
 [Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
 
+# 🚀Features
+- Responsive design
+
 # 📌 Attributions
 Resouce | Source
 ---|---

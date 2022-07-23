@@ -2,9 +2,16 @@
 
 [Live Preview](https://creme332.github.io/my-odin-projects/odin-recipes/)
 
-# To-do
+# 🚀Features
+- Responsive design
+- Custom scrollbar 
+- Image hover effects
+- Neumorphism effect
+
+# 🔨 To-Do
 - [ ] Create skeleton screen loading page.
-# Done
+- [ ] Make homepage white.
+### ✔ Done
 - [x] Make design [responsive](https://www.youtube.com/watch?v=na-X_SM8vg0&ab_channel=ColtSteele). Currently home page and recipe page do not render properly on small screen sizes. (title moves out of box, columns get shrinked, ...)
 - [x] Colour of recipe card and background should be different for contrast. Also add box shadow to recipe card.
 - [x] Clicking on image instead of `View Recipe` should lead to recipe page.
@@ -17,7 +24,7 @@
 - [x] Try animated CSS [cards](https://fireship.io/lessons/css-cards-animated/) (NOT USED)
 - [x] Add screenshots/gif to to README
 
-# History of website
+# 🕒 History of website
 ![](iterations/iteration3gif.gif)
 
 ![](iterations/iteration4.png)
