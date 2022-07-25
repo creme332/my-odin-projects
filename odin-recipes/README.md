@@ -12,8 +12,9 @@
 
 # 🔨 To-Do
 - [ ] Create skeleton screen loading page.
-- [ ] Make homepage white.
+
 ### ✔ Done
+- [x] Make homepage white.
 - [x] Make design [responsive](https://www.youtube.com/watch?v=na-X_SM8vg0&ab_channel=ColtSteele). Currently home page and recipe page do not render properly on small screen sizes. (title moves out of box, columns get shrinked, ...)
 - [x] Colour of recipe card and background should be different for contrast. Also add box shadow to recipe card.
 - [x] Clicking on image instead of `View Recipe` should lead to recipe page.
