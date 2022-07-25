@@ -1,11 +1,13 @@
-![](iterations/iteration5.gif)
+![](iterations/iteration6img.png)
+
+![](iterations/iteration6.gif)
 
 [Live Preview](https://creme332.github.io/my-odin-projects/odin-recipes/)
 
 # 🚀Features
 - Responsive design
 - Custom scrollbar 
-- Image hover effects
+- Hover effects
 - Neumorphism effect
 
 # 🔨 To-Do
@@ -25,9 +27,11 @@
 - [x] Add screenshots/gif to to README
 
 # 🕒 History of website
-![](iterations/iteration3gif.gif)
+![](iterations/iteration5.gif)
 
 ![](iterations/iteration4.png)
+
+![](iterations/iteration3gif.gif)
 
 ![](iterations/Iteration3.png)
 
