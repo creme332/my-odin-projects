@@ -2,6 +2,21 @@ body{
     margin: 0;
     padding: 0;
 }
+.options{
+    display: flex;
+    height: 100px;
+    width: 200px;
+    border:5px solid red;
+}
+.button{
+    height: 50px;
+    width: 50px;
+    border:5px solid black;
+    /* background-color: black; */
+}
+.button:hover{
+    opacity: 0.5;
+}
 .canva{
     display: flex;
     flex-direction: row;
@@ -18,11 +33,50 @@ body{
 
 }
 .cell{
-    outline: 1px solid rgb(208, 203, 203);
     margin:0;
     padding:0;
     background-color: rgb(236, 234, 234);
 }
 .cell:hover{
-    background-color: rgb(201, 201, 201);
+    /* background-color: rgb(201, 201, 201); */
+    opacity: 0.5;
+}
+.showOutline{
+    outline: 1px solid rgb(208, 203, 203);
+}
+
+.palette{
+    width: auto;
+    display: flex;
+    /* gap:1em; */
+    border: 2px solid rebeccapurple;
+}
+.crayon{
+    width: 70px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-position-x: -30px; */
+    border:1px solid green;
+    background-position-y: -13px;
+    transform: scale(0.6);
+}
+.crayon:nth-child(1){
+    background-image: url(pal.png);
+    background-position-x: -53px;
+}
+.bluecrayon{
+    background-position-x: -159px;
+    background-image: url(pal.png);
+}
+.crayon:nth-child(3){
+    background-position-x: -269px;
+    background-image: url(pal.png);
+}
+.crayon:hover{
+    transform: translateY(-20px) scale(0.6);
+}
+.selected{
+    transform: translateY(-20px) scale(0.6);
 }
