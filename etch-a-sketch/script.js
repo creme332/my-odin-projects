@@ -7,11 +7,13 @@ const GRID_SIZE = 5; // number of cells in each row and column
 const GRID_DIMENSIONS = 350; //350px x 350px
 const canva = document.querySelector(".canva");
 
-const EMPTY_COLOR = "rgb(236, 234, 234)"; //color of empty cell
+const EMPTY_COLOR = "white"; //color of empty cell
 let isDrawing = false;
 let showOutline = false;
 let pencilColor =  "red"; //initial crayon color
 let fillBucketMode = false;
+let eraserMode = false;
+let prevColor = EMPTY_COLOR; //used for eraser mode
 document.querySelector(".redcrayon").classList.add("selected");
 
 const toggleGridbutton = document.querySelector(".showgrid");
@@ -19,6 +21,7 @@ const undoButton = document.querySelector(".undo");
 const redoButton = document.querySelector(".redo");
 const saveButton = document.querySelector(".save");
 const fillButton = document.querySelector(".fill");
+const eraserButton = document.querySelector(".eraser");
 const crayons = document.querySelectorAll(".crayon");
 
 
@@ -132,6 +135,19 @@ toggleGridbutton.addEventListener("click", function(){
         cells.forEach(cell=>cell.classList.remove("showOutline"));
         showOutline=false;
     }
+})
+eraserButton.addEventListener("click", function(){
+    if(eraserMode){
+        eraserMode = false;
+        pencilColor = prevColor;
+        eraserButton.style.backgroundColor = "white";
+    }else{
+        eraserMode = true;
+        prevColor = pencilColor;
+        pencilColor = EMPTY_COLOR;
+        eraserButton.style.backgroundColor = "lightcoral";
+    }
+
 })
 
 crayons.forEach(btn=>btn.addEventListener("click", function(e){
