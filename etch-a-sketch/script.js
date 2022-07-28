@@ -3,11 +3,12 @@ let canvaStates = []; //array of array of colors.
 let ptr = -1; //points to current displayed frame in canvaStates.
 let stateChanged = false; //was there a change to currently displayed canva?
 
-const GRID_SIZE = 5; // number of cells in each row and column
+const GRID_SIZE = 10; // number of cells in each row and column
 const GRID_DIMENSIONS = 350; //350px x 350px
 const canva = document.querySelector(".canva");
 
 const EMPTY_COLOR = "white"; //color of empty cell
+const SELECTED_COLOR = "rgb(224, 220, 220)"
 let isDrawing = false;
 let showOutline = false;
 let pencilColor =  "red"; //initial crayon color
@@ -57,7 +58,7 @@ function getCoordinates(cell){
     // (relativeX, relativeY) : coordinates of cell in pixels relative to canva
     let col = Math.floor(relativeX/CELL_DIMENSIONS);
     let row = Math.floor(relativeY/CELL_DIMENSIONS);
-    cell.textContent = "("+row.toString() + ", " + col.toString()+")";
+    // cell.textContent = "("+row.toString() + ", " + col.toString()+")";
 
     return [row,col];
 }
@@ -99,7 +100,7 @@ function dfs(row, col, visited, allowedColor){
 
     //validate current cell color
     let currentColor = cells[k].style.backgroundColor;
-    if(currentColor == allowedColor || currentColor ==  EMPTY_COLOR){
+    if(currentColor == allowedColor){
 
         cells[k].style.backgroundColor = pencilColor;
         stateChanged = true;
@@ -123,7 +124,7 @@ fillButton.addEventListener("click", function(){
         fillButton.style.backgroundColor = "white";
     }else{
         fillBucketMode = true;
-        fillButton.style.backgroundColor = "lightcoral";
+        fillButton.style.backgroundColor = SELECTED_COLOR;
     }
 });
 
@@ -131,9 +132,11 @@ toggleGridbutton.addEventListener("click", function(){
     if(!showOutline){
         cells.forEach(cell=>cell.classList.add("showOutline"));
         showOutline=true;
+        toggleGridbutton.style.backgroundColor = SELECTED_COLOR;
     }else{
         cells.forEach(cell=>cell.classList.remove("showOutline"));
         showOutline=false;
+        toggleGridbutton.style.backgroundColor = "white";
     }
 })
 eraserButton.addEventListener("click", function(){
@@ -145,7 +148,7 @@ eraserButton.addEventListener("click", function(){
         eraserMode = true;
         prevColor = pencilColor;
         pencilColor = EMPTY_COLOR;
-        eraserButton.style.backgroundColor = "lightcoral";
+        eraserButton.style.backgroundColor = SELECTED_COLOR;
     }
 
 })
