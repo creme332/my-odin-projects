@@ -1,0 +1,20 @@
+<svg width="150" height="512" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <!-- top right part -->
+  <path d="m117.28516,96.93359l-42.28516,-96.93359l-30,146.93359l72.28516,-50zm0,0" fill="#00D8FF" id="svg_1"/>
+
+  <!-- top left part -->
+  <path d="m75,0l-42.28516,96.93359l42.28516,30l0,-126.93359zm0,0" fill="#53E5FF" id="svg_2"/>
+
+  <!-- middle right part (DO NOT CHANGE COLOR) -->
+  <path d="m15,231.93359l135,-59.96484l-32.71484,-75.03516l-42.28516,0l-60,135zm0,0" fill="#ffbea4" id="svg_3"/>
+
+  <!-- middle left part (DO NOT CHANGE COLOR) -->
+  <path d="m75,96.93359l-42.28516,0l-32.71484,75.06641l75,59.93359l0,-135zm0,0" fill="#ffd4c4" id="svg_4"/>
+
+ <!-- bottom right part (same color as top right)-->
+  <path d="m75,171.96875l-30,29.99219l0,290.00781l30,20l75,0l0,-340l-75,0zm0,0" fill="#00D8FF" id="svg_5"/>
+ <!-- bottom left part -->
+  <path d="m0,172l75,0l0,340l-75,0l0,-340zm0,0" fill="#53E5FF" id="svg_6"/>
+ </g>
+</svg>

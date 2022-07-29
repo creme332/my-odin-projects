@@ -51,7 +51,7 @@ const cells = document.querySelectorAll(".cell");
 function getCoordinates(cell){
     //cell is a div
     const CELL_DIMENSIONS = GRID_DIMENSIONS/GRID_SIZE;
-    console.log(CELL_DIMENSIONS);
+    // console.log(CELL_DIMENSIONS);
     let relativeX = cell.getBoundingClientRect().left - canva.getBoundingClientRect().left;
     let relativeY = cell.getBoundingClientRect().top - canva.getBoundingClientRect().top;
 
@@ -157,14 +157,13 @@ crayons.forEach(btn=>btn.addEventListener("click", function(e){
     //return any previously selected crayon to its initial position.
     document.querySelector("."+pencilColor+"crayon").classList.remove("selected");
 
-    //obtain crayon name in format : "<colour>crayon"
-    let crayon = e.target.className.split(" ")[0]; 
-
-    //update pencil color by removing "crayon" from crayon name 
-    pencilColor = crayon.replace("crayon","")
+    //obtain pencil color :
+    // https://stackoverflow.com/questions/29182283/
+    // javascript-onclick-get-image-name-without-path
+    pencilColor = e.target.src.split("/").pop().split(".")[0];
 
     //displace selected crayon vertically
-    document.querySelector("."+crayon).classList.add("selected");
+    document.querySelector("."+pencilColor+"crayon").classList.add("selected");
 }));
 
 cells.forEach(btn=>btn.addEventListener("mousedown", function(e){
