@@ -1,30 +1,39 @@
 body{
     display: flex;
-    flex-direction: column;
+    height: 100vh;
+    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     gap:30px;
     margin: 0;
     padding: 10px;
     background-color: aliceblue;
+    
+}
+.container{
+    border: 5px solid;
+    display: flex;
+    width: auto;
+    gap: 10px;
 }
 .options, .palette, .button{
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 .canva, .options, .pouch{
-    width: 450px;
+    height: 530px;
 }
 .options{
     display: flex;
-    /* height: 100px; */
-    height: 100px;
-    justify-content: space-around;
+    flex-direction: column ;
     align-items: center;
+    justify-content: space-around;
+    width: 60px;
+    /* gap:1em; */
     /* border:5px solid red; */
     background-color: rgb(255, 255, 255);
     outline: 1px solid;
-    box-shadow: 0px 10px;
+    /* box-shadow: 0px 10px; */
     border-radius: 10px;
 }
 
@@ -32,13 +41,15 @@ body{
     transform: scaleX(-1);
 }
 .button{
-    height: 50px;
-    width: 50px;
     /* outline:1px solid; */
     display: flex;
-    /* width: 50px; */
-    /* border:5px solid black; */
+    /* border:1px solid black; */
     background-color: white;
+}
+.button img{
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
 }
 .button:hover{
     opacity: 0.5;
@@ -47,11 +58,14 @@ body{
 
 .toggle-light-switch{
     display:flex;
-    height:50px;
-    width:120px;
-    background:rgb(207, 207, 207);
+    flex-direction: column;
+    height:auto;
+    /* padding: 5px; */
+    /* width:120px; */
+    /* background:rgb(170, 236, 243); */
+    /* outline:1px solid red; */
 
-    /* border:1px solid; */
+
 }
 .toggle-light-switch, .state-none, .state-off, .state-on{
     border-radius: 5px;
@@ -59,13 +73,6 @@ body{
 .state-off,.state-none,.state-on{
     display: flex;
     justify-content: center;
-    /* align-items: center; */
-  /*   height:100%; */
-    width:33.3333%;
-}
-.activated{
-    /* background:rgb(239, 175, 159); */
-    outline:3px solid;
 }
 
 .canva{
@@ -74,7 +81,8 @@ body{
     flex-wrap: wrap;
     align-content: flex-start;
     padding: 0;
-    height:350px;
+    /* height:350px; */
+    width:530px;
     outline:1px solid black;
 
 }
@@ -94,19 +102,24 @@ body{
     transform: translateY(-60px);
 }
 
+
+
 .crayon img{
-    height: 250px;
-    width: 40px;
+    height: 400px;
+    width: 50px;
 }
+
 .pouch {
     overflow: hidden;
     display: flex;
-    margin: auto;
-    height: 290px;
+    /* margin: auto; */
+    /* height: 290px; */
+    width:400px;
     /* background-color: rgba(0, 0, 0); */
-    background:hsl(200,100%,50%);
+    /* background:rgb(143, 255, 234); */
+    /* background-position: cover; */
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .palette {
     display: flex;
@@ -116,10 +129,16 @@ body{
     /* height: 300px; */
     height: 300px;
     width: 300px;
-    transform: translateY(70px);
+    transform: translateY(200px);
 
-    /* border: 1px solid black; */
+    /* border: 5px solid black; */
 }
 .crayon:hover{
     transform: translateY(-60px);
+}
+
+.github-logo-wrapper svg {
+    position:absolute;
+    top:0;
+    right:0;
 }
