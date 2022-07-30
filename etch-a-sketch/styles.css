@@ -5,7 +5,7 @@ body{
     justify-content: center;
     gap:30px;
     margin: 0;
-    padding: 0;
+    padding: 10px;
     background-color: aliceblue;
 }
 .options, .palette, .button{
@@ -13,7 +13,7 @@ body{
 }
 
 .canva, .options, .pouch{
-    width: 350px;
+    width: 450px;
 }
 .options{
     display: flex;
@@ -43,16 +43,37 @@ body{
 .button:hover{
     opacity: 0.5;
 }
+
+
+.toggle-light-switch{
+    display:flex;
+    height:50px;
+    width:120px;
+    background:rgb(207, 207, 207);
+
+    /* border:1px solid; */
+}
+.toggle-light-switch, .state-none, .state-off, .state-on{
+    border-radius: 5px;
+}
+.state-off,.state-none,.state-on{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+  /*   height:100%; */
+    width:33.3333%;
+}
+.activated{
+    /* background:rgb(239, 175, 159); */
+    outline:3px solid;
+}
+
 .canva{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
-    /* position: relative; */
-
     padding: 0;
-    /* margin-top: 100px; */
-    /* margin-left: 100px; */
     height:350px;
     outline:1px solid black;
 
@@ -63,14 +84,13 @@ body{
     /* background-color: rgb(236, 234, 234); */
 }
 .cell:hover{
-    /* background-color: rgb(201, 201, 201); */
     opacity: 0.5;
 }
 .showOutline{
     outline: 1px solid rgb(208, 203, 203);
 }
 
-.selected{
+.selected{ 
     transform: translateY(-60px);
 }
 
@@ -83,7 +103,9 @@ body{
     display: flex;
     margin: auto;
     height: 290px;
-    /* background-color: #f6e9d2; */
+    /* background-color: rgba(0, 0, 0); */
+    background:hsl(200,100%,50%);
+
     border: 1px solid black;
 }
 .palette {

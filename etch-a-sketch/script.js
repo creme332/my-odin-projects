@@ -7,11 +7,22 @@ const GRID_SIZE = 10; // number of cells in each row and column
 const GRID_DIMENSIONS = 350; //350px x 350px
 const canva = document.querySelector(".canva");
 
-const EMPTY_COLOR = "white"; //color of empty cell
-const SELECTED_COLOR = "rgb(224, 220, 220)"
+const toHSL = {
+    "red":"hsl(360,100%,50%)",
+    "blue":"hsl(240,100%,50%)",
+    "yellow":"hsl(50,100%,50%)",
+    "green":"hsl(130,100%,50%)",
+    "purple":"hsl(280,100%,50%)",
+    "pink":"hsl(320,100%,50%)",
+    "black":"hsl(0,0%,0%)",
+    "white":"hsl(360,100%,100%)"
+}
+// console.log(toHSL["red"]);
+const EMPTY_COLOR = toHSL["white"]; //color of empty cell
+const ACTIVE_BUTTON_COLOR = "rgb(224, 220, 220)"
 let isDrawing = false;
 let showOutline = false;
-let pencilColor =  "red"; //initial crayon color
+let pencilColor =  toHSL["red"]; //initial crayon color = red
 let fillBucketMode = false;
 let eraserMode = false;
 let prevColor = EMPTY_COLOR; //used for eraser mode
@@ -25,6 +36,39 @@ const fillButton = document.querySelector(".fill");
 const eraserButton = document.querySelector(".eraser");
 const crayons = document.querySelectorAll(".crayon");
 
+const tswitch = document.querySelectorAll(".toggle-light-switch");
+const offbutton = document.querySelector(".state-off");
+const nonebutton = document.querySelector(".state-none");
+const onbutton = document.querySelector(".state-on");
+nonebutton.classList.add("activated");
+let lightSwitchState = 2;
+
+function disableAllLightSwitches() {
+  offbutton.classList.remove("activated");
+  nonebutton.classList.remove("activated");
+  onbutton.classList.remove("activated");
+}
+
+offbutton.addEventListener("click", function(){
+    disableAllLightSwitches();
+    offbutton.classList.add("activated");
+    lightSwitchState = 3;
+    console.log(lightSwitchState);
+});
+
+nonebutton.addEventListener("click", function(){
+    disableAllLightSwitches();
+    nonebutton.classList.add("activated");
+    lightSwitchState = 2;
+    console.log(lightSwitchState);
+});
+
+onbutton.addEventListener("click", function(){
+    disableAllLightSwitches();
+    onbutton.classList.add("activated");
+    lightSwitchState = 1;
+    console.log(lightSwitchState);
+});
 
 function InitialiseGrid(){
     const CELL_SIZE = 100/GRID_SIZE;
@@ -48,6 +92,80 @@ InitialiseGrid();
 
 const cells = document.querySelectorAll(".cell");
 
+function RGBToHSL(rgb) {
+   // https://css-tricks.com/converting-color-spaces-in-javascript/
+    let sep = rgb.indexOf(",") > -1 ? "," : " ";
+    rgb = rgb.substr(4).split(")")[0].split(sep);
+  
+    for (let R in rgb) {
+      let r = rgb[R];
+      if (r.indexOf("%") > -1) 
+        rgb[R] = Math.round(r.substr(0,r.length - 1) / 100 * 255);
+    }
+    // Make r, g, and b fractions of 1
+    let r = rgb[0] / 255,
+    g = rgb[1] / 255,
+    b = rgb[2] / 255;
+
+    // Find greatest and smallest channel values
+    let cmin = Math.min(r,g,b),
+        cmax = Math.max(r,g,b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+
+    // Calculate hue
+    // No difference
+    if (delta == 0)
+    h = 0;
+    // Red is max
+    else if (cmax == r)
+    h = ((g - b) / delta) % 6;
+    // Green is max
+    else if (cmax == g)
+    h = (b - r) / delta + 2;
+    // Blue is max
+    else
+    h = (r - g) / delta + 4;
+
+    h = Math.round(h * 60);
+    
+    // Make negative hues positive behind 360°
+    if (h < 0)
+        h += 360;
+
+    // Calculate lightness
+    l = (cmax + cmin) / 2;
+
+    // Calculate saturation
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+        
+    // Multiply l and s by 100
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+
+    return "hsl(" + h + "," + s + "%," + l + "%)";
+}
+function changeCellBrightness(cell, change){
+    //change > 0 for lightening 
+    //change < 0 for darkening cell
+    //increases/decreases brightness of cell
+    //returns 1 if cell color has changed else returns 0
+    let cellColor = RGBToHSL(cell.style.backgroundColor); //format : hsl(a,b%,c%)
+    let hue = cellColor.split(",")[0].slice(4);
+    let saturation = cellColor.split(",")[1].slice(0, -1);
+    let lightness = parseInt(cellColor.split(",")[2])
+    let newColor = "hsl(";
+    if(change>0){
+        lightness = Math.min(lightness + change, 100);
+    }else{
+        lightness = Math.max(lightness + change, 0);
+    }
+    newColor += hue + ","+saturation+"%,"+lightness.toString()+"%)";
+    cell.style.backgroundColor = newColor;
+}
+// console.log(changeCellBrightness("hsl(360,100,10)",true))
 function getCoordinates(cell){
     //cell is a div
     const CELL_DIMENSIONS = GRID_DIMENSIONS/GRID_SIZE;
@@ -121,10 +239,10 @@ function dfs(row, col, visited, allowedColor){
 fillButton.addEventListener("click", function(){
     if(fillBucketMode){
         fillBucketMode = false;
-        fillButton.style.backgroundColor = "white";
+        fillButton.style.backgroundColor = EMPTY_COLOR;
     }else{
         fillBucketMode = true;
-        fillButton.style.backgroundColor = SELECTED_COLOR;
+        fillButton.style.backgroundColor = ACTIVE_BUTTON_COLOR;
     }
 });
 
@@ -132,38 +250,40 @@ toggleGridbutton.addEventListener("click", function(){
     if(!showOutline){
         cells.forEach(cell=>cell.classList.add("showOutline"));
         showOutline=true;
-        toggleGridbutton.style.backgroundColor = SELECTED_COLOR;
+        toggleGridbutton.style.backgroundColor = ACTIVE_BUTTON_COLOR;
     }else{
         cells.forEach(cell=>cell.classList.remove("showOutline"));
         showOutline=false;
-        toggleGridbutton.style.backgroundColor = "white";
+        toggleGridbutton.style.backgroundColor = EMPTY_COLOR;
     }
 })
 eraserButton.addEventListener("click", function(){
     if(eraserMode){
         eraserMode = false;
         pencilColor = prevColor;
-        eraserButton.style.backgroundColor = "white";
+        eraserButton.style.backgroundColor = EMPTY_COLOR;
     }else{
         eraserMode = true;
         prevColor = pencilColor;
         pencilColor = EMPTY_COLOR;
-        eraserButton.style.backgroundColor = SELECTED_COLOR;
+        eraserButton.style.backgroundColor = ACTIVE_BUTTON_COLOR;
     }
 
 })
 
 crayons.forEach(btn=>btn.addEventListener("click", function(e){
     //return any previously selected crayon to its initial position.
-    document.querySelector("."+pencilColor+"crayon").classList.remove("selected");
+    crayons.forEach(btn=>btn.classList.remove("selected"));
 
-    //obtain pencil color :
+    //obtain selected crayon color :
     // https://stackoverflow.com/questions/29182283/
     // javascript-onclick-get-image-name-without-path
-    pencilColor = e.target.src.split("/").pop().split(".")[0];
+    let crayonColor = e.target.src.split("/").pop().split(".")[0];
+
+    pencilColor = toHSL[crayonColor];
 
     //displace selected crayon vertically
-    document.querySelector("."+pencilColor+"crayon").classList.add("selected");
+    document.querySelector("." + crayonColor + "crayon").classList.add("selected");
 }));
 
 cells.forEach(btn=>btn.addEventListener("mousedown", function(e){
@@ -175,9 +295,19 @@ cells.forEach(btn=>btn.addEventListener("mousedown", function(e){
         let visited = new Set();
         dfs(coord[0],coord[1], visited, currentcell.style.backgroundColor);
     }else{
-        if(currentcell.style.backgroundColor != pencilColor){
+        if(lightSwitchState == 1){ //lighten pixel
+            changeCellBrightness(currentcell, 10);
             stateChanged = true;
-            currentcell.style.backgroundColor = pencilColor;
+        }
+        if(lightSwitchState==2){ //default pixel color
+            if(currentcell.style.backgroundColor != pencilColor){
+                stateChanged = true;
+                currentcell.style.backgroundColor = pencilColor;
+            }
+        }
+        if(lightSwitchState==3){ //darken pixel
+            changeCellBrightness(currentcell, -10);
+            stateChanged = true;
         }
     }
 }));
