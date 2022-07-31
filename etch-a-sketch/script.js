@@ -1,13 +1,60 @@
-let canvaStates = []; //array of array of colors. 
-//stores colors of canvas after each change. Used for redo/undo
-let ptr = -1; //points to current displayed frame in canvaStates.
-let stateChanged = false; //was there a change to currently displayed canva?
+function RGBToHSL(rgb) {
+    // https://css-tricks.com/converting-color-spaces-in-javascript/
+     let sep = rgb.indexOf(",") > -1 ? "," : " ";
+     rgb = rgb.substr(4).split(")")[0].split(sep);
+   
+     for (let R in rgb) {
+       let r = rgb[R];
+       if (r.indexOf("%") > -1) 
+         rgb[R] = Math.round(r.substr(0,r.length - 1) / 100 * 255);
+     }
+     // Make r, g, and b fractions of 1
+     let r = rgb[0] / 255,
+     g = rgb[1] / 255,
+     b = rgb[2] / 255;
+ 
+     // Find greatest and smallest channel values
+     let cmin = Math.min(r,g,b),
+         cmax = Math.max(r,g,b),
+         delta = cmax - cmin,
+         h = 0,
+         s = 0,
+         l = 0;
+ 
+     // Calculate hue
+     // No difference
+     if (delta == 0)
+     h = 0;
+     // Red is max
+     else if (cmax == r)
+     h = ((g - b) / delta) % 6;
+     // Green is max
+     else if (cmax == g)
+     h = (b - r) / delta + 2;
+     // Blue is max
+     else
+     h = (r - g) / delta + 4;
+ 
+     h = Math.round(h * 60);
+     
+     // Make negative hues positive behind 360°
+     if (h < 0)
+         h += 360;
+ 
+     // Calculate lightness
+     l = (cmax + cmin) / 2;
+ 
+     // Calculate saturation
+     s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+         
+     // Multiply l and s by 100
+     s = +(s * 100).toFixed(1);
+     l = +(l * 100).toFixed(1);
+ 
+     return "hsl(" + h + "," + s + "%," + l + "%)";
+ }
 
-const GRID_SIZE = 10; // number of cells in each row and column
-const GRID_DIMENSIONS = 350; //350px x 350px
-const canva = document.querySelector(".canva");
-
-const toHSL = {
+ const toHSL = {
     "red":"hsl(360,100%,50%)",
     "blue":"hsl(240,100%,50%)",
     "yellow":"hsl(50,100%,50%)",
@@ -17,6 +64,36 @@ const toHSL = {
     "black":"hsl(0,0%,0%)",
     "white":"hsl(360,100%,100%)"
 }
+
+let canvaStates = []; //array of array of colors. 
+//stores colors of canvas after each change. Used for redo/undo
+let ptr = -1; //points to current displayed frame in canvaStates.
+let stateChanged = false; //was there a change to currently displayed canva?
+
+const canva = document.querySelector(".canva");
+let GRID_SIZE; // number of cells in each row and column
+const GRID_DIMENSIONS = 530; // width = height in px
+
+function ValidateUserInput(num) {
+    //check if num is a numeric string
+    if (!isNaN(num) == false) return false;
+    
+    //accept integers only (reject decimals)
+    if (num.indexOf(".") >= 0) {
+      return false;
+    }
+  
+    +num; //convert to integer
+  
+    //test range 
+    if (num < 1 || num > 30) return false;
+    return true;
+}
+do {
+    GRID_SIZE = prompt("Enter a value (1-30) for grid size",10);
+} while (!ValidateUserInput(GRID_SIZE));
+
+
 // console.log(toHSL["red"]);
 const EMPTY_COLOR = toHSL["white"]; //color of empty cell
 const ACTIVE_BUTTON_COLOR = "rgb(224, 220, 220)"
@@ -35,39 +112,40 @@ const saveButton = document.querySelector(".save");
 const fillButton = document.querySelector(".fill");
 const eraserButton = document.querySelector(".eraser");
 const crayons = document.querySelectorAll(".crayon");
-
+const printButton  =document.querySelector(".export")
 const tswitch = document.querySelectorAll(".toggle-light-switch");
 const offbutton = document.querySelector(".state-off");
-const nonebutton = document.querySelector(".state-none");
 const onbutton = document.querySelector(".state-on");
-nonebutton.classList.add("activated");
-let lightSwitchState = 2;
+let lightSwitchState = 2; //no light switch currently on. off:3 and on: 1
 
-function disableAllLightSwitches() {
-  offbutton.classList.remove("activated");
-  nonebutton.classList.remove("activated");
-  onbutton.classList.remove("activated");
-}
-
-offbutton.addEventListener("click", function(){
-    disableAllLightSwitches();
-    offbutton.classList.add("activated");
-    lightSwitchState = 3;
-    console.log(lightSwitchState);
+printButton.addEventListener("click", function(){
+    window.print();
 });
 
-nonebutton.addEventListener("click", function(){
+function disableAllLightSwitches() {
+  offbutton.style.backgroundColor = EMPTY_COLOR;
+  onbutton.style.backgroundColor = EMPTY_COLOR;
+}
+offbutton.addEventListener("click", function(){
     disableAllLightSwitches();
-    nonebutton.classList.add("activated");
-    lightSwitchState = 2;
-    console.log(lightSwitchState);
+    if(lightSwitchState == 3){
+        lightSwitchState = 2;
+        return;
+    }
+    offbutton.style.backgroundColor = ACTIVE_BUTTON_COLOR;
+    lightSwitchState = 3;
+    // console.log(lightSwitchState);
 });
 
 onbutton.addEventListener("click", function(){
     disableAllLightSwitches();
-    onbutton.classList.add("activated");
+    if(lightSwitchState == 1){ //if already on
+        lightSwitchState = 2;
+        return;
+    }
+    onbutton.style.backgroundColor = ACTIVE_BUTTON_COLOR;
     lightSwitchState = 1;
-    console.log(lightSwitchState);
+    // console.log(lightSwitchState);
 });
 
 function InitialiseGrid(){
@@ -92,61 +170,7 @@ InitialiseGrid();
 
 const cells = document.querySelectorAll(".cell");
 
-function RGBToHSL(rgb) {
-   // https://css-tricks.com/converting-color-spaces-in-javascript/
-    let sep = rgb.indexOf(",") > -1 ? "," : " ";
-    rgb = rgb.substr(4).split(")")[0].split(sep);
-  
-    for (let R in rgb) {
-      let r = rgb[R];
-      if (r.indexOf("%") > -1) 
-        rgb[R] = Math.round(r.substr(0,r.length - 1) / 100 * 255);
-    }
-    // Make r, g, and b fractions of 1
-    let r = rgb[0] / 255,
-    g = rgb[1] / 255,
-    b = rgb[2] / 255;
 
-    // Find greatest and smallest channel values
-    let cmin = Math.min(r,g,b),
-        cmax = Math.max(r,g,b),
-        delta = cmax - cmin,
-        h = 0,
-        s = 0,
-        l = 0;
-
-    // Calculate hue
-    // No difference
-    if (delta == 0)
-    h = 0;
-    // Red is max
-    else if (cmax == r)
-    h = ((g - b) / delta) % 6;
-    // Green is max
-    else if (cmax == g)
-    h = (b - r) / delta + 2;
-    // Blue is max
-    else
-    h = (r - g) / delta + 4;
-
-    h = Math.round(h * 60);
-    
-    // Make negative hues positive behind 360°
-    if (h < 0)
-        h += 360;
-
-    // Calculate lightness
-    l = (cmax + cmin) / 2;
-
-    // Calculate saturation
-    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-        
-    // Multiply l and s by 100
-    s = +(s * 100).toFixed(1);
-    l = +(l * 100).toFixed(1);
-
-    return "hsl(" + h + "," + s + "%," + l + "%)";
-}
 function changeCellBrightness(cell, change){
     //change > 0 for lightening 
     //change < 0 for darkening cell
@@ -172,11 +196,14 @@ function getCoordinates(cell){
     // console.log(CELL_DIMENSIONS);
     let relativeX = cell.getBoundingClientRect().left - canva.getBoundingClientRect().left;
     let relativeY = cell.getBoundingClientRect().top - canva.getBoundingClientRect().top;
-
+    // console.log(canva.getBoundingClientRect().top,canva.getBoundingClientRect().left);
     // (relativeX, relativeY) : coordinates of cell in pixels relative to canva
-    let col = Math.floor(relativeX/CELL_DIMENSIONS);
     let row = Math.floor(relativeY/CELL_DIMENSIONS);
+    let col = Math.floor(relativeX/CELL_DIMENSIONS);
+        // cell.textContent = "("+relativeX.toString() + ", " + relativeY.toString()+")";
     // cell.textContent = "("+row.toString() + ", " + col.toString()+")";
+    // cell.textContent = "("+cell.getBoundingClientRect().top.toString() +
+    //  ", " + cell.getBoundingClientRect().left.toString()+")";
 
     return [row,col];
 }
@@ -219,8 +246,16 @@ function dfs(row, col, visited, allowedColor){
     //validate current cell color
     let currentColor = cells[k].style.backgroundColor;
     if(currentColor == allowedColor){
-
-        cells[k].style.backgroundColor = pencilColor;
+        
+        if(lightSwitchState == 1){ //lighten cell
+            changeCellBrightness(cells[k], 10);
+        }
+        if(lightSwitchState == 2){ //default fill color
+            cells[k].style.backgroundColor = pencilColor;
+        }
+        if(lightSwitchState == 3){ //darken cell
+            changeCellBrightness(cells[k], -10);
+        }
         stateChanged = true;
     
         visited.add(k); //update visited to avoid infinite loops
