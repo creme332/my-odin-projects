@@ -57,7 +57,7 @@ body{
     height:auto;
     /* outline:1px solid red; */
 }
-.toggle-light-switch, .state-none, .state-off, .state-on{
+.toggle-light-switch, .state-off, .state-on{
     border-radius: 5px;
 }
 .state-off,.state-none,.state-on{
