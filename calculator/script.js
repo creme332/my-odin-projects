@@ -10,7 +10,7 @@ let gapPosition = [];
 console.assert(numberOfColumns>0 && beadsPerColumn>0, "Invalid abacus size");
 console.assert(columnHeight%beadSize==0, "Column height must be a multiple of bead size");
 console.assert(columnHeight/beadSize == (beadsPerColumn+1), "Extra space in each column should be equal to 1 bead size");
-console.assert(columnColors.length == numberOfColumns, "Length of ColumnColors array must be same as number of columns");
+console.assert(columnColors.length == numberOfColumns, "Length of ColumnColors array must be same as number of columns in abacus");
 
 function buildAbacus(){
     for(let i=0;i<numberOfColumns;i++){
@@ -42,11 +42,14 @@ function buildAbacus(){
         }
         //add column to abacus
         abacus.appendChild(column);
-        getColumnIndex(column);
     }
 }
 buildAbacus();
 const beads =  document.querySelectorAll(".bead");
+
+function showBeadPos(){
+    beads.forEach(b=>{b.textContent=getBeadIndex(b);})
+}
 
 function getBeadIndex(bead){
     let currentColumn = bead.parentNode;
@@ -54,35 +57,50 @@ function getBeadIndex(bead){
     let beadIndex = parseInt(relativeY/beadSize);
     return beadIndex;
 }
+showBeadPos();
 function getColumnIndex(column){
     let relativeX = column.getBoundingClientRect().left - abacus.getBoundingClientRect().left;
     let columnIndex = parseInt(relativeX/columnWidth);
-    // column.textContent = columnIndex;
     return columnIndex;
 }
 
+//displace beads onclick
 beads.forEach(bead=>{
-    bead.textContent = getBeadIndex(bead);
     bead.addEventListener("click", e=>{
         let clickedBead = e.target;
-        let currentColumn = clickedBead.parentNode;
-        let clickedBeadIndex = getBeadIndex(clickedBead);
-        let currentColumnIndex = getColumnIndex(currentColumn);
-        let ColumnGapIndex = gapPosition[currentColumnIndex];
-        let currentColumnBeads = currentColumn.querySelectorAll(".bead"); //all beads in current column
+        let clickedColumn = clickedBead.parentNode; //column containing clicked bead
+        let clickedBeadIndex = getBeadIndex(clickedBead); //position of clicked bead in clickedColumn. top-most position is index 0.
+        let currentColumnIndex = getColumnIndex(clickedColumn); //left-most column has index 0
+        let ColumnGapIndex = gapPosition[currentColumnIndex]; // index of gap in clickedColumn 
+        let currentColumnBeads = clickedColumn.querySelectorAll(".bead"); //all beads in current column
 
-        //loop through each bead in current column and move required beads
+        //loop through each bead in current column and move it if needed
         currentColumnBeads.forEach(cbead=>{
             let cbeadPos = getBeadIndex(cbead);
-            if(cbeadPos>ColumnGapIndex && cbeadPos <=clickedBeadIndex){ //current bead is below gap and above clicked bead
-                if(clickedBead.style.top == ""){
-                    clickedBead.style.top = "-40px";
-                }else{
-                    let currentY = parseInt(cbead.style.top);
-                    currentY -= beadSize; //move beadSize units upwards
+            if(clickedBeadIndex>ColumnGapIndex){//must displace beads upwards
+
+                if(cbeadPos>ColumnGapIndex && cbeadPos<=clickedBeadIndex){ //current bead is below gap and above clicked bead
+                    let currentY = 0;
+                    if(cbead.style.top != ""){
+                        currentY = parseInt(cbead.style.top);
+                    }
+                    currentY -= beadSize; // move beadSize units upwards
+                    cbead.style.top = currentY.toString() +"px";
+                }
+
+            }else{//must displace beads downwards
+                if(cbeadPos<ColumnGapIndex && cbeadPos>=clickedBeadIndex){ //current bead is above gap and below clicked bead
+                    let currentY = 0;
+                    if(cbead.style.top != ""){
+                        currentY = parseInt(cbead.style.top);
+                    }
+                    currentY += beadSize; // move beadSize units downwards
                     cbead.style.top = currentY.toString() +"px";
                 }
             }
         });
+        //update gap position
+        gapPosition[currentColumnIndex] = clickedBeadIndex;
+        showBeadPos();
     });
 });
