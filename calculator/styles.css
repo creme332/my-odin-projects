@@ -1,0 +1,54 @@
+*:root{
+    --BEAD-SIZE : 40px;
+}
+
+body{
+    height: 100vh;;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin: 0; */
+    padding: 0;
+}
+
+.abacus{
+    display: flex;
+    outline:5px solid blue;
+}
+.column, .stick {
+    height: 320px;
+}
+.column{
+    /* height:300px; */
+    width: 50px;
+    outline:3px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+.bead{
+    position: relative;
+    border-radius: 50%;
+    height: var(--BEAD-SIZE);
+    width: var(--BEAD-SIZE);
+    /* border:0; */
+    /* margin: 0; */
+    /* outline: 2px solid red; */
+    background-color: red;
+    transform: translateY(0px);
+
+    text-align: center;
+    font-size: large;
+    color: white;
+}
+.stick{
+    position: absolute;
+    width: 5px;;
+    /* outline:1px solid blue; */
+    background-color: brown;
+    z-index:-1; /*place stick behind beads*/
+}
+.move{
+}
