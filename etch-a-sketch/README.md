@@ -1,5 +1,7 @@
 ![](iterations/iteration1.gif)
 
+[Live Preview](https://creme332.github.io/my-odin-projects/etch-a-sketch/)
+
 # 🚀Features
 - Export image in PDF format.
 - Variable grid size.
