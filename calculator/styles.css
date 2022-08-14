@@ -10,7 +10,8 @@ body{
 
 .abacus{
     display: flex;
-    outline:5px solid blue;
+    /* outline:5px solid blue; */
+    box-shadow: 0 5px 5px -5px #333;
 }
 .column{
     position: relative;
@@ -29,11 +30,15 @@ body{
     text-align: center;
     font-size: large;
     color: white;
+    box-shadow: inset -5px -2px 5px rgba(0,0,0,.5);
+    /* background: radial-gradient(circle at 20px 40px, rgb(190, 190, 190)); */
 }
 .stick{
     position: absolute;
-    width: 5px;;
+    width: 10px;
+    border-radius: 5px;;
     /* outline:1px solid blue; */
-    background-color: brown;
+    background-color: rgb(132, 132, 132);
+    box-shadow: inset -4px 1px 3px rgba(0,0,0,.5);
     z-index:-1; /*place stick behind beads*/
 }
