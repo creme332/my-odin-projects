@@ -1,16 +1,18 @@
 const abacus = document.querySelector(".abacus");
-const numberOfColumns = 3;
-const beadsPerColumn = 5;
+const numberOfColumns = 10;
+const beadsPerColumn = 10;
 const beadSize = 40; //px
 const columnHeight = beadSize*(beadsPerColumn+1); //px
 const columnWidth = beadSize + 10; //px
-const columnColors = ["green", "red","hotpink"];
+const columnColors = ["green", "red","hotpink","blue","orange"];
 let gapPosition = []; //gap position in each column. 
+
+const ballCollision = document.getElementById("ball-collision");
+ballCollision.volume = 0.2;
 
 console.assert(numberOfColumns>0 && beadsPerColumn>0, "Invalid abacus size");
 console.assert(columnHeight%beadSize==0, "Column height must be a multiple of bead size");
 console.assert(columnHeight/beadSize == (beadsPerColumn+1), "Extra space in each column should be equal to 1 bead size");
-console.assert(columnColors.length == numberOfColumns, "Length of ColumnColors array must be same as number of columns in abacus");
 
 //create counter container
 const counterContainer = document.createElement("div");
@@ -54,7 +56,7 @@ function buildAbacus(){
             bead.className="bead";
             bead.style.height = beadSize + "px";
             bead.style.width = beadSize + "px";
-            bead.style.backgroundColor = columnColors[i];
+            bead.style.backgroundColor = columnColors[i%columnColors.length];
             column.appendChild(bead);
         }
         //add column to columnContainer
@@ -86,6 +88,8 @@ function getColumnIndex(column){
 //displace beads onclick
 beads.forEach(bead=>{
     bead.addEventListener("click", e=>{
+        ballCollision.currentTime=0;
+        ballCollision.play();
         let clickedBead = e.target;
         let clickedColumn = clickedBead.parentNode; //column containing clicked bead
         let clickedBeadIndex = getBeadIndex(clickedBead); //position of clicked bead in clickedColumn. top-most position is index 0.
@@ -120,10 +124,14 @@ beads.forEach(bead=>{
         });
         //update gap position
         gapPosition[currentColumnIndex] = clickedBeadIndex;
-        showBeadPos();
-
+        // showBeadPos();
         //update counter 
         let currentCounter = counterContainer.querySelector(`div:nth-child(${currentColumnIndex+1})`);
         currentCounter.textContent  = clickedBeadIndex;
+        if(clickedBeadIndex==10){
+            currentCounter.classList.add("error-animation");
+        }else{
+            currentCounter.classList.remove("error-animation");
+        }
     });
 });
