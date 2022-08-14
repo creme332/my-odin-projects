@@ -7,22 +7,33 @@ body{
     justify-content: center;
     /* margin: 0; */
     padding: 0;
-    /* background-color: rgb(242, 226, 196); */
+    background: #D3CCE3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.github-logo-wrapper svg {
+    position:absolute;
+    top:0;
+    right:0;
+    /* background-color: black; */
 }
 
 .abacus{
     display: flex;
     flex-direction: column;
     /* outline:5px solid blue; */
-    box-shadow: 0 5px 5px -5px #333;
+    /* ;box-shadow: 0 5px 5px -5px #333 */
 }
 
 .column-container{
     display: flex;
+    border-top: 10px solid rgb(187, 137, 71);
+    border-bottom: 10px solid rgb(187, 137, 71);
 }
 .column{
     position: relative;
-    outline:1px solid black;
+    /* outline:1px solid black; */
 
     display: flex;
     flex-direction: column;
@@ -30,9 +41,10 @@ body{
     align-items: center;
 }
 .counter-container{
+    margin-top: 10px;
     height: auto;
     display: flex;
-    outline: 1px solid;
+    /* outline: 1px solid; */
 }
 
 .counter{
@@ -42,7 +54,7 @@ body{
     outline: 1px solid;
     font-size: 30px;
     font-family: 'IBM Plex Sans Hebrew', sans-serif;
-    background-color: aliceblue;
+    background-color: transparent;
 }
 
 .error-animation{
