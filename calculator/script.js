@@ -1,11 +1,11 @@
 const abacus = document.querySelector(".abacus");
-const numberOfColumns = 2;
+const numberOfColumns = 3;
 const beadsPerColumn = 5;
-const columnHeight = 240; //px
-const columnWidth = 50; //px
 const beadSize = 40; //px
-const columnColors = ["green", "red"];
-let gapPosition = [];
+const columnHeight = beadSize*(beadsPerColumn+1); //px
+const columnWidth = beadSize + 10; //px
+const columnColors = ["green", "red","hotpink"];
+let gapPosition = []; //gap position in each column. 
 
 console.assert(numberOfColumns>0 && beadsPerColumn>0, "Invalid abacus size");
 console.assert(columnHeight%beadSize==0, "Column height must be a multiple of bead size");
@@ -57,7 +57,7 @@ function getBeadIndex(bead){
     let beadIndex = parseInt(relativeY/beadSize);
     return beadIndex;
 }
-showBeadPos();
+// showBeadPos();
 function getColumnIndex(column){
     let relativeX = column.getBoundingClientRect().left - abacus.getBoundingClientRect().left;
     let columnIndex = parseInt(relativeX/columnWidth);
