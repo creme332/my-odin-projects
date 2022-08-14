@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@600&display=swap');
 body{
     height: 100vh;;
     display: flex;
@@ -10,8 +11,13 @@ body{
 
 .abacus{
     display: flex;
+    flex-direction: column;
     /* outline:5px solid blue; */
     box-shadow: 0 5px 5px -5px #333;
+}
+
+.column-container{
+    display: flex;
 }
 .column{
     position: relative;
@@ -21,6 +27,20 @@ body{
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+}
+.counter-container{
+    height: auto;
+    display: flex;
+    outline: 1px solid;
+}
+
+.counter{
+    display: flex   ;
+    justify-content: center;
+    align-items: center;
+    outline: 1px solid;
+    font-size: 30px;
+    font-family: 'IBM Plex Sans Hebrew', sans-serif;
 }
 .bead{
     position: relative;

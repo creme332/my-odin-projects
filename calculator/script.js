@@ -12,10 +12,27 @@ console.assert(columnHeight%beadSize==0, "Column height must be a multiple of be
 console.assert(columnHeight/beadSize == (beadsPerColumn+1), "Extra space in each column should be equal to 1 bead size");
 console.assert(columnColors.length == numberOfColumns, "Length of ColumnColors array must be same as number of columns in abacus");
 
+//create counter container
+const counterContainer = document.createElement("div");
+counterContainer.className="counter-container"; 
+
 function buildAbacus(){
+    const columnContainer = document.createElement("div");
+    columnContainer.className="column-container";
+
     for(let i=0;i<numberOfColumns;i++){
         //initially, gap is found at top for each column
         gapPosition.push(0); 
+
+        //create a counter for current column
+        let counter = document.createElement("div");
+        counter.className="counter";
+        counter.style.width = columnWidth + "px";
+        counter.style.height = beadSize + "px";
+        counter.textContent = gapPosition[i];
+
+        //add counter to counter-container
+        counterContainer.appendChild(counter);
 
         //create column
         let column = document.createElement("div");
@@ -40,9 +57,11 @@ function buildAbacus(){
             bead.style.backgroundColor = columnColors[i];
             column.appendChild(bead);
         }
-        //add column to abacus
-        abacus.appendChild(column);
+        //add column to columnContainer
+        columnContainer.appendChild(column);
     }
+    abacus.appendChild(columnContainer);   
+    abacus.appendChild(counterContainer);
 }
 buildAbacus();
 const beads =  document.querySelectorAll(".bead");
@@ -102,5 +121,9 @@ beads.forEach(bead=>{
         //update gap position
         gapPosition[currentColumnIndex] = clickedBeadIndex;
         showBeadPos();
+
+        //update counter 
+        let currentCounter = counterContainer.querySelector(`div:nth-child(${currentColumnIndex+1})`);
+        currentCounter.textContent  = clickedBeadIndex;
     });
 });
