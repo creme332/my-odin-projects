@@ -22,4 +22,4 @@ A comprehensive list of all my projects for
 - [x] Design current page.
 - [x] Submit sitemap.
 - [x] Add alternative text to all images (in html and markdown).
--[x] Format all code
+- [x] Format all code.
