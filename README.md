@@ -14,10 +14,11 @@ A comprehensive list of all my projects for
 |JavaScript-Basics/Calculator| [Link](https://github.com/creme332/my-odin-projects/tree/main/calculator)    |   [Demo](https://creme332.github.io/my-odin-projects/calculator/) |
 
 # To-do
-- [ ] Submit projects on TOP.
-- [ ] Check for dead links
+- [ ] Add favicon.
 
 ## Done
+- [x] Submit projects on TOP.
+- [x] Check for dead links.
 - [x] Add github logo to all projects.
 - [x] Add project description to all projects.
 - [x] Design current page.
