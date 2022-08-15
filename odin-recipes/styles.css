@@ -1,18 +1,21 @@
 @font-face {
     font-family: "abril";
     src: url(fonts/AbrilFatface-Regular.ttf);
-  }
+}
+
 @font-face {
     font-family: "vietnam";
     src: url(fonts/BeVietnamPro-Light.ttf);
 }
-:root{
-    --bookmark-font-size:30px;
-    --bookmark-height:60px;
-    --bookmark-bgcolor : black;
+
+:root {
+    --bookmark-font-size: 30px;
+    --bookmark-height: 60px;
+    --bookmark-bgcolor: black;
 
 }
-body{
+
+body {
     color: black;
     /* background: #a1a1a1; */
 
@@ -22,7 +25,8 @@ body{
     /* background-position: cover; */
     /* background-size: cover; */
 }
-.card{
+
+.card {
     display: flex;
     flex-direction: row;
 
@@ -33,16 +37,18 @@ body{
     margin-bottom: 30px;
     max-width: 1600px;
     /* border:10px dashed rgb(255, 236, 236); */
-    gap:1em;
+    gap: 1em;
     padding: 30px;
 
     border-radius: 30px;
     background: linear-gradient(145deg, #e6e6e6, #ffffff);
-    box-shadow:  7px 7px 14px #c2c2c2,
-                 -7px -7px 14px #ffffff;
+    box-shadow: 7px 7px 14px #c2c2c2,
+        -7px -7px 14px #ffffff;
 
 }
-.columns{ /*flex item of .card. flex-box of */
+
+.columns {
+    /*flex item of .card. flex-box of */
     background-color: inherit;
     width: auto;
     display: flex;
@@ -50,40 +56,45 @@ body{
     /* border: 5px solid orange; */
     gap: 1em;
 }
-a{
+
+a {
     text-decoration: none;
     background-color: inherit;
     font-weight: bold;
     font-family: "vietnam";
 
 }
-.title{
+
+.title {
     word-break: break-all;
     background-color: inherit;
-    font-size: clamp( 30px,6vw, 120px);  
+    font-size: clamp(30px, 6vw, 120px);
     font-family: "abril";
     text-align: center;
     margin: 0;
 }
-.main-image-container{
+
+.main-image-container {
     background-color: inherit;
     flex: 1;
     align-items: center;
     justify-content: center;
     /* border:5px solid orange; */
 }
-.main-image-container img{
+
+.main-image-container img {
     width: 100%;
 }
+
 .bookmark {
     background-color: inherit;
-    margin-top: 30px; 
+    margin-top: 30px;
     text-align: center;
     font-size: var(--bookmark-font-size);
     font-weight: 1000;
 }
-  
-.bookmark-text{
+
+.bookmark-text {
     background-color: inherit;
     font-family: "abril";
     height: var(--bookmark-height);
@@ -91,14 +102,15 @@ a{
     box-sizing: border-box;
     border: 0;
     padding: 8px;
-    float:left;
+    float: left;
     color: white;
     background-color: var(--bookmark-bgcolor);
-  
+
 }
-.bookmark-triangle{
+
+.bookmark-triangle {
     background-color: inherit;
-    float:left;
+    float: left;
     height: 0;
     width: 0;
     border-top: calc(var(--bookmark-height)/2) solid var(--bookmark-bgcolor);
@@ -107,21 +119,22 @@ a{
     /* border-color: currentcolor; */
 }
 
-.dish-module{
+.dish-module {
     background-color: inherit;
     display: flex;
     /* border: 4px solid white; */
     margin-bottom: 5px;
-    padding:10px;
+    padding: 10px;
 }
 
-.dish-module:hover{
+.dish-module:hover {
     border-radius: 30px;
     background: linear-gradient(145deg, #e6e6e6, #ffffff);
-    box-shadow:  7px 7px 14px #c2c2c2,
-                 -7px -7px 14px #ffffff;
+    box-shadow: 7px 7px 14px #c2c2c2,
+        -7px -7px 14px #ffffff;
 }
-.dish-text{
+
+.dish-text {
     word-break: break-all;
     background-color: inherit;
     width: 50%;
@@ -130,7 +143,7 @@ a{
     /* border: 4px solid blue; */
 }
 
-.dish-image{
+.dish-image {
     background-color: inherit;
     display: flex;
     /* border: 2px solid rgb(230, 201, 40); */
@@ -140,13 +153,14 @@ a{
 
 }
 
-.dish-image img{
+.dish-image img {
     background-color: inherit;
     object-fit: contain;
     width: 100%;
     transition: 1s ease;
 }
-.dish-image-caption{
+
+.dish-image-caption {
     color: black;
     background-color: inherit;
     transition: .5s ease;
@@ -161,10 +175,11 @@ a{
     opacity: 3;
 }
 
-.columns:nth-child(2) .dish-module:nth-child(5){
+.columns:nth-child(2) .dish-module:nth-child(5) {
     flex-direction: column;
 }
-.columns:nth-child(2) .dish-module:nth-child(5) .dish-text{
+
+.columns:nth-child(2) .dish-module:nth-child(5) .dish-text {
     width: 100%;
 }
 
@@ -172,33 +187,42 @@ a{
 /* make bookmark responsive  */
 
 @media screen and (max-width:1165px) {
-    :root{
-        --bookmark-font-size:30px;
+    :root {
+        --bookmark-font-size: 30px;
     }
 }
+
 @media screen and (max-width:950px) {
-    :root{
-        --bookmark-font-size:20px;
-        --bookmark-height:40px;
+    :root {
+        --bookmark-font-size: 20px;
+        --bookmark-height: 40px;
     }
-    .dish-text, .dish-image-caption{
+
+    .dish-text,
+    .dish-image-caption {
         font-size: 20px;
     }
 }
+
 @media screen and (max-width:665px) {
-    :root{
-        --bookmark-font-size:17px;
+    :root {
+        --bookmark-font-size: 17px;
     }
-    .dish-text, .dish-image-caption{
+
+    .dish-text,
+    .dish-image-caption {
         font-size: 20px;
     }
 }
+
 @media screen and (max-width:295px) {
-    :root{
-        --bookmark-font-size:10px;
-        --bookmark-height:30px;
+    :root {
+        --bookmark-font-size: 10px;
+        --bookmark-height: 30px;
     }
-    .dish-text, .dish-image-caption{
+
+    .dish-text,
+    .dish-image-caption {
         font-size: 6px;
     }
 
@@ -208,20 +232,22 @@ a{
 /* responsive flexbox layout */
 
 @media screen and (max-width:1360px) {
-    .dish-module{
+    .dish-module {
         flex-direction: column;
     }
-    .dish-text{
+
+    .dish-text {
         width: auto;
     }
 }
+
 @media screen and (max-width:600px) {
-    .card{
+    .card {
         flex-direction: column;
         padding: 20px;
     }
 
-    .dish-text{
+    .dish-text {
         font-size: 20px;
         width: auto;
     }

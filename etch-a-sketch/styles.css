@@ -1,29 +1,33 @@
-body{
+body {
     -webkit-print-color-adjust: exact !important;
     color-adjust: exact;
     display: flex;
     height: 100vh;
     align-items: center;
     justify-content: center;
-    gap:30px;
+    gap: 30px;
     margin: 0;
     padding: 10px;
     background-color: aliceblue;
-    
+
 }
-.container{
+
+.container {
     border: 5px solid;
     display: flex;
     width: auto;
     gap: 10px;
 }
 
-.canva, .options, .pouch{
+.canva,
+.options,
+.pouch {
     height: 530px;
 }
-.options{
+
+.options {
     display: flex;
-    flex-direction: column ;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     width: 60px;
@@ -33,66 +37,78 @@ body{
     border-radius: 10px;
 }
 
-.redo img{
+.redo img {
     transform: scaleX(-1);
 }
-.button{
+
+.button {
     /* outline:1px solid; */
     display: flex;
     background-color: white;
 }
-.button img{
+
+.button img {
     height: 50px;
     width: 50px;
     object-fit: contain;
 }
-.button:hover{
+
+.button:hover {
     opacity: 0.5;
 }
 
 
-.toggle-light-switch{
-    display:flex;
+.toggle-light-switch {
+    display: flex;
     flex-direction: column;
-    height:auto;
+    height: auto;
     /* outline:1px solid red; */
 }
-.toggle-light-switch, .state-off, .state-on{
+
+.toggle-light-switch,
+.state-off,
+.state-on {
     border-radius: 5px;
 }
-.state-off,.state-none,.state-on{
+
+.state-off,
+.state-none,
+.state-on {
     display: flex;
     justify-content: center;
 }
 
-.canva{
+.canva {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
     padding: 0;
-    width:530px; 
-    outline:1px solid black;
+    width: 530px;
+    outline: 1px solid black;
 
 }
-.cell{
-    margin:0;
-    padding:0;
+
+.cell {
+    margin: 0;
+    padding: 0;
 }
-.cell:hover{
+
+.cell:hover {
     opacity: 0.5;
 }
-.showOutline{
+
+.showOutline {
     outline: 1px solid rgb(208, 203, 203);
 }
 
-.selected{ 
+.selected {
     transform: translateY(-60px);
 }
 
 
 
-.crayon img{
+.crayon img {
     height: 400px;
     width: 50px;
 }
@@ -100,9 +116,10 @@ body{
 .pouch {
     overflow: hidden;
     display: flex;
-    width:400px;
+    width: 400px;
     /* border: 1px solid black; */
 }
+
 .palette {
     display: flex;
     align-items: flex-end;
@@ -113,26 +130,32 @@ body{
     transform: translateY(200px);
     /* border: 5px solid black; */
 }
-.crayon:hover{
+
+.crayon:hover {
     transform: translateY(-60px);
 }
 
 .github-logo-wrapper svg {
-    position:absolute;
-    top:0;
-    right:0;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 @media print {
-    .pouch, .options, .github-logo-wrapper {
-      visibility: hidden;
+
+    .pouch,
+    .options,
+    .github-logo-wrapper {
+        visibility: hidden;
     }
-    .canva *{
-      visibility: visible;
+
+    .canva * {
+        visibility: visible;
     }
+
     .canva {
-      position: absolute;
-      left: 0;
-      top: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
     }
-  }
+}

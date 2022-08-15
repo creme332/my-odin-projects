@@ -2,24 +2,26 @@
     font-family: 'retro';
     src: url(font/Retro\ Gaming.ttf);
 }
-body{
+
+body {
     font-family: 'retro';
-    background-image: url(img/bg2.jpg) ;
+    background-image: url(img/bg2.jpg);
     background-position: center center;
-    background-size: cover ;
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin:0;
+    margin: 0;
     padding: 0;
 }
-#console{
-	background-color: #f1ecec;
+
+#console {
+    background-color: #f1ecec;
     box-shadow: 8px 8px rgb(151, 150, 150);
     display: flex;
     flex-direction: column;
-    gap:1em;
+    gap: 1em;
     height: 440px;
     width: 380px;
     align-items: center;
@@ -27,137 +29,202 @@ body{
     border: 1px solid black;
     border-radius: 20px;
 }
-#screen{
-    border-radius: 20px; /*same as console*/
-    background-image: url(img/background.png) ;
+
+#screen {
+    border-radius: 20px;
+    /*same as console*/
+    background-image: url(img/background.png);
     background-position: center center;
-    background-size: cover ;
+    background-size: cover;
     height: 300px;
     width: 350px;
     position: relative;
-    border:1px solid black;
+    border: 1px solid black;
 }
 
 /* left character styles */
-#player{
+#player {
     display: block;
     background-image: url(sprites/ken.png);
     background-position: 0px -80px;
     height: 80px;
     width: 70px;
     position: absolute;
-    top:210px;
-    left:15px;
+    top: 210px;
+    left: 15px;
     /* border: 1px solid green; */
 }
+
 /* left character animations  */
-@keyframes player-standing{
-    from{background-position: 0px -80px;}
-    to{background-position: -210px -80px;}
+@keyframes player-standing {
+    from {
+        background-position: 0px -80px;
+    }
+
+    to {
+        background-position: -210px -80px;
+    }
 }
+
 @keyframes player-take-damage {
-    from {background-position: -280px -560px;}
-    to{background-position: -280px -560px;}
+    from {
+        background-position: -280px -560px;
+    }
+
+    to {
+        background-position: -280px -560px;
+    }
 }
-.animatePlayerHit{
-    animation : player-take-damage .15s steps(1);
+
+.animatePlayerHit {
+    animation: player-take-damage .15s steps(1);
 }
-.animatePlayerStanding{
-    animation : player-standing .5s steps(3) infinite;
+
+.animatePlayerStanding {
+    animation: player-standing .5s steps(3) infinite;
 }
 
 /* right character styles  */
-#computer{
+#computer {
     display: block;
     background-image: url(sprites/computersprite.png);
-    background-position:  10px 0px ;
+    background-position: 10px 0px;
     height: 120px;
     width: 90px;
     position: absolute;
-    top:180px;
-    left:250px;
-    transform:scaleX(-1);
+    top: 180px;
+    left: 250px;
+    transform: scaleX(-1);
     /* border: 3px solid black; */
 }
-@keyframes computer-standing{
-    from{background-position-x: 10px;}
-    to{background-position-x: -153px;}
+
+@keyframes computer-standing {
+    from {
+        background-position-x: 10px;
+    }
+
+    to {
+        background-position-x: -153px;
+    }
 }
-@keyframes computer-take-damage{
-    from{background-position:  0px -630px ;}
-    to{background-position:  0px -630px ;}
+
+@keyframes computer-take-damage {
+    from {
+        background-position: 0px -630px;
+    }
+
+    to {
+        background-position: 0px -630px;
+    }
 }
-.animateComputerStanding{
-    animation : computer-standing .8s steps(2) infinite;
+
+.animateComputerStanding {
+    animation: computer-standing .8s steps(2) infinite;
 }
-.animateComputerHit{
-    animation : computer-take-damage .1s steps(2);
+
+.animateComputerHit {
+    animation: computer-take-damage .1s steps(2);
 }
 
 /* weapon styles*/
-#player-weapon, #computer-weapon{
+#player-weapon,
+#computer-weapon {
     position: absolute;
-    top:210px;
+    top: 210px;
 }
-#player-weapon{
-    left:85px;
+
+#player-weapon {
+    left: 85px;
     /* border: 5px solid blue; */
 }
-#computer-weapon{
-    transform:  scale(2) rotateY(180deg);
-    left:230px;
+
+#computer-weapon {
+    transform: scale(2) rotateY(180deg);
+    left: 230px;
     /* border: 5px solid red; */
 }
 
 /* Fighting + weapons animations  */
-@keyframes player-attack{
-    from{background-position : 0px 0px;}
-    to{background-position:-210px 0px;}
+@keyframes player-attack {
+    from {
+        background-position: 0px 0px;
+    }
+
+    to {
+        background-position: -210px 0px;
+    }
 }
-@keyframes  player-weapon-move {
-    0%{left: 85px;}
-    100%{left:var(--final-playerweapon-position);}  
+
+@keyframes player-weapon-move {
+    0% {
+        left: 85px;
+    }
+
+    100% {
+        left: var(--final-playerweapon-position);
+    }
 }
-@keyframes computer-attack{
-    from{background-position:  20px -510px ;}
-    to{background-position:  -290px -510px ;}
+
+@keyframes computer-attack {
+    from {
+        background-position: 20px -510px;
+    }
+
+    to {
+        background-position: -290px -510px;
+    }
 }
+
 @keyframes computer-weapon-move {
-    0%{left:270px;}
-    100%{left:var(--final-computerweapon-position);}  
+    0% {
+        left: 270px;
+    }
+
+    100% {
+        left: var(--final-computerweapon-position);
+    }
 }
-.animatePlayerWeapon{
+
+.animatePlayerWeapon {
     animation: player-weapon-move .8s;
 }
-.animatePlayerAttack{
+
+.animatePlayerAttack {
     animation: player-attack .3s steps(3);
 }
-.animateComputerWeapon{
+
+.animateComputerWeapon {
     animation: computer-weapon-move .8s;
 }
-.animateComputerAttack{
-    animation: computer-attack .3s  steps(3);
+
+.animateComputerAttack {
+    animation: computer-attack .3s steps(3);
 }
 
 /* weapons  */
-.rock-background, .paper-background, .scissors-background{
+.rock-background,
+.paper-background,
+.scissors-background {
     height: 15px;
     width: 15px;
-    transform:scale(2);
+    transform: scale(2);
 }
-.rock-background{
+
+.rock-background {
     background-image: url(weapons/rock.png);
-    background-position:-16px 0;
+    background-position: -16px 0;
 }
-.paper-background{
+
+.paper-background {
     background-image: url(weapons/book.png);
     background-position: center center;
-    background-size: cover ;
+    background-size: cover;
 }
-.scissors-background{
+
+.scissors-background {
     background-image: url(weapons/scissors.png);
     background-position: center center;
-    background-size: cover ;
+    background-size: cover;
 }
 
 /* Life bars */
@@ -167,34 +234,39 @@ body{
     width: 300px;
     display: block;
     /* border: 1px solid black; */
- }
- .player-healthbar_fill {
+}
+
+.player-healthbar_fill {
     width: 100%;
     fill: var(--player-bar-fill);
     transition: width 0.5s ease-in, fill 0.4s linear;
- }
- .player-healthbar_fill-top {
+}
+
+.player-healthbar_fill-top {
     fill: var(--player-bar-top);
- }
- 
- /* computer health bar */
- .computer-healthbar {
+}
+
+/* computer health bar */
+.computer-healthbar {
     height: 20px;
     width: 300px;
     display: block;
     /* border: 1px solid black; */
- }
- .computer-healthbar_fill {
+}
+
+.computer-healthbar_fill {
     width: 100%;
     fill: var(--computer-bar-fill);
     transition: width 0.5s ease-in, fill 0.4s linear;
- }
- .computer-healthbar_fill-top {
-    fill: var(--computer-bar-top);
- }
+}
 
- /* health containers */
-#player-health,#computer-health{
+.computer-healthbar_fill-top {
+    fill: var(--computer-bar-top);
+}
+
+/* health containers */
+#player-health,
+#computer-health {
     display: flex;
     background-color: white;
     flex-direction: column;
@@ -206,41 +278,47 @@ body{
     position: absolute;
     border: 3px solid black;
     border-radius: 10px;
-    top:50px;
+    top: 50px;
 }
-#player-health img,#computer-health img{
-    padding:2px;
+
+#player-health img,
+#computer-health img {
+    padding: 2px;
     height: 20px;
-    width: 20px;;
+    width: 20px;
+    ;
 }
-.container{
+
+.container {
     display: flex;
     justify-content: space-around;
     width: 100%;
     /* border: 3px solid blue; */
 }
-#player-health{
-    left:10px;
+
+#player-health {
+    left: 10px;
 }
-#computer-health{
-    left:210px;
+
+#computer-health {
+    left: 210px;
 }
 
 /* Game pad styles*/
-#gamepad{
+#gamepad {
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 100px;
     width: 350px;
-	background-color: #d5d2d2;
+    background-color: #d5d2d2;
     border-radius: 20px;
     border: 1px solid black;
     /* border-top: 5px solid black; */
 }
 
 /* button styles */
-.button{
+.button {
     height: 60px;
     width: 60px;
     border-radius: 50%;
@@ -251,19 +329,23 @@ body{
     background-position: center center;
     background-size: 50%;
 }
-.button:active {  
+
+.button:active {
     box-shadow: 0 6px #666;
     transform: translateY(2px);
 }
-.button:nth-child(1){
+
+.button:nth-child(1) {
     background-image: url(img/rock.png);
     background-color: rgb(241, 105, 105);
 }
-.button:nth-child(2){
-    background-image: url(img/paper.png) ;
+
+.button:nth-child(2) {
+    background-image: url(img/paper.png);
     background-color: rgb(146, 146, 254);
 }
-.button:nth-child(3){
+
+.button:nth-child(3) {
     background-image: url(img/scissors.png);
     background-color: rgb(104, 241, 104);
 }
