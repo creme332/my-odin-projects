@@ -1,29 +1,23 @@
-
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@600&display=swap');
+
 body{
     height: 100vh;;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* margin: 0; */
     padding: 0;
-    background: #D3CCE3;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .github-logo-wrapper svg {
     position:absolute;
     top:0;
     right:0;
-    /* background-color: black; */
 }
 
 .abacus{
     display: flex;
     flex-direction: column;
     /* outline:5px solid blue; */
-    /* ;box-shadow: 0 5px 5px -5px #333 */
 }
 
 .column-container{
@@ -34,19 +28,18 @@ body{
 .column{
     position: relative;
     /* outline:1px solid black; */
-
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
 }
+
 .counter-container{
     margin-top: 10px;
     height: auto;
     display: flex;
     /* outline: 1px solid; */
 }
-
 .counter{
     display: flex   ;
     justify-content: center;
@@ -62,28 +55,29 @@ body{
     color: red;
     outline: 5px solid;
 }
+
 @keyframes blinker {
     50% {
       opacity: 0;
     }
-  }
+}
+
 .bead{
     position: relative;
     border-radius: 50%;
-    transform: translateY(0px);
-
     text-align: center;
     font-size: large;
     color: white;
-    box-shadow: inset -5px -2px 5px rgba(0,0,0,.5);
-    /* background: radial-gradient(circle at 20px 40px, rgb(190, 190, 190)); */
+    box-shadow: inset -3px -2px 3px rgba(0,0,0,.5);
+    /* transition: top 1s; */
 }
+
 .stick{
     position: absolute;
-    width: 10px;
+    width: 7px;
     border-radius: 5px;;
     /* outline:1px solid blue; */
     background-color: rgb(132, 132, 132);
-    box-shadow: inset -4px 1px 3px rgba(0,0,0,.5);
+    box-shadow: inset -3px 1px 1px rgba(0,0,0,.5);
     z-index:-1; /*place stick behind beads*/
 }
