@@ -1,6 +1,9 @@
 # Calculator 🧮
-![A gif showing addition of 199 and 27 with an abacus](assets/img/iterations/abacus.gif)
-*Addition of 199 and 27 using an abacus*
+
+<p>
+    <img src="assets/img/iterations/abacus.gif" alt="A gif showing addition of 199 and 27 with an abacus">
+    <em>Addition of 199 and 27 using an abacus</em>
+</p>
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/calculator/)
 

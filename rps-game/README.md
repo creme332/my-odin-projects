@@ -1,5 +1,5 @@
 # 🎮 Rock-Paper-Scissors
-![](gifs/gif1.gif)
+![GIF showing gameplay](gifs/gif1.gif)
 
 [Play here](https://creme332.github.io/my-odin-projects/rps-game/)
 
@@ -25,7 +25,7 @@ dynamic health bar | [Drew Conley](https://www.youtube.com/watch?v=KJxY6MadV2M&a
 [favicon of website](img/icons8-game-controller-16.png)| [icons8](https://icons8.com/icons/set/favicon-game)
 
 # 🚀 History of website
-![](gifs/gif0.gif)
+![Old gameplay](gifs/gif0.gif)
 
 <img src="img/concept1.png" alt="early concept of game" height="00px" width="600px">
 

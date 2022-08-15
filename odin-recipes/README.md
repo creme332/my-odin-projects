@@ -1,6 +1,6 @@
-![](iterations/iteration6img.png)
+![A screenshot of homepage of odin recipe website](iterations/iteration6img.png)
 
-![](iterations/iteration6.gif)
+![A gif of odin recipe website](iterations/iteration6.gif)
 
 [Live Preview](https://creme332.github.io/my-odin-projects/odin-recipes/)
 
@@ -28,14 +28,14 @@
 - [x] Add screenshots/gif to to README
 
 # 🕒 History of website
-![](iterations/iteration5.gif)
+![Gif of latest version of website](iterations/iteration5.gif)
 
-![](iterations/iteration4.png)
+![latest version of website](iterations/iteration4.png)
 
-![](iterations/iteration3gif.gif)
+![Gif of third version of website](iterations/iteration3gif.gif)
 
-![](iterations/Iteration3.png)
+![Third version of website](iterations/Iteration3.png)
 
-![](iterations/Iteration2.png)
+![Second version of website](iterations/Iteration2.png)
 
-![](iterations/Iteration1.png)
+![First version of website](iterations/Iteration1.png)

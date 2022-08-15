@@ -1,6 +1,6 @@
 # Landing page 🚂
-![](img/landingpage.png)
-![](landingpagegif.gif)
+![A screenshot of landing page](img/landingpage.png)
+![A gif of landing page](landingpagegif.gif)
 
 [Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
 
