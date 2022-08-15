@@ -8,12 +8,6 @@ body{
     padding: 0;
 }
 
-.github-logo-wrapper svg {
-    position:absolute;
-    top:0;
-    right:0;
-}
-
 .abacus{
     display: flex;
     flex-direction: column;

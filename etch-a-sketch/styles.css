@@ -135,12 +135,6 @@ body {
     transform: translateY(-60px);
 }
 
-.github-logo-wrapper svg {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
 @media print {
 
     .pouch,
