@@ -1,5 +1,7 @@
 # Calculator 🧮
 
+A manual calculator known as the abacus. 
+
 <p>
     <img src="assets/img/iterations/abacus.gif" alt="A gif showing addition of 199 and 27 with an abacus">
     <br>

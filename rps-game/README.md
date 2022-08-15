@@ -1,7 +1,10 @@
-# 🎮 Rock-Paper-Scissors
+# 🎮 Rock-Paper-Scissors 
+
+A 2D retro-style rock-paper-scissors fighting game built with HTML, CSS, and vanilla JS.
+
 ![GIF showing gameplay](gifs/gif1.gif)
 
-[Play here](https://creme332.github.io/my-odin-projects/rps-game/)
+[▶ Play here](https://creme332.github.io/my-odin-projects/rps-game/)
 
 # 🚀Features
 - GUI

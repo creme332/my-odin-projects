@@ -1,8 +1,11 @@
-# Landing page 🚂
+# 🚂Landing page 
+
+A landing page website prototype built with HTML and CSS.
+
 ![A screenshot of landing page](img/landingpage.png)
 ![A gif of landing page](landingpagegif.gif)
 
-[Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
+[▶ Live preview](https://creme332.github.io/my-odin-projects/landing-page/)
 
 # 🚀Features
 - Responsive design

@@ -1,8 +1,12 @@
+# 👩‍🍳 Odin's recipes
+
+  Odin's recipes is a recipe website prototype built with HTML and CSS only.
+
 ![A screenshot of homepage of odin recipe website](iterations/iteration6img.png)
 
 ![A gif of odin recipe website](iterations/iteration6.gif)
 
-[Live Preview](https://creme332.github.io/my-odin-projects/odin-recipes/)
+[▶ Live Preview](https://creme332.github.io/my-odin-projects/odin-recipes/)
 
 # 🚀Features
 - Responsive design

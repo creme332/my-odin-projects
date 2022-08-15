@@ -1,6 +1,10 @@
+# 🎨 Etch-a-Sketch
+
+A simple tool for drawing pixel art. 
+
 ![A gif showing the features in etch-a-sketch project](iterations/iteration1.gif)
 
-[Live Preview](https://creme332.github.io/my-odin-projects/etch-a-sketch/)
+[▶ Live Preview](https://creme332.github.io/my-odin-projects/etch-a-sketch/)
 
 # 🚀Features
 - Export image in PDF format.
