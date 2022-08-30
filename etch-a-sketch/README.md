@@ -30,7 +30,8 @@ RGB to HSL converter function | https://css-tricks.com/converting-color-spaces-i
 # 🔨 To-Do
 - [ ] Add dropper
 - [ ] Improve export feature.
-- [ ] Make website responsive
+- [ ] Make website responsive.
+- [ ] Add an explanation for the different tool combinations on website itself.
 
 ### ✔ Done
 - [x] Add gif to README
