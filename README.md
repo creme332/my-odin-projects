@@ -1,8 +1,3 @@
-<img src="my-odin-project.gif" class="center">
-
-A comprehensive list of all my projects for 
-[The Odin Project](https://www.theodinproject.com/) course. 
-
 # Foundations
 
 | Project | Repository| Live Preview|                        
