@@ -1,4 +1,4 @@
-<img src="toplogo.png" class="center">
+<img src="my-odin-project.gif" class="center">
 
 A comprehensive list of all my projects for 
 [The Odin Project](https://www.theodinproject.com/) course. 
@@ -11,17 +11,4 @@ A comprehensive list of all my projects for
 |Flexbox/Landing-page| [Link](https://github.com/creme332/my-odin-projects/tree/main/landing-page)     |   [Demo](https://creme332.github.io/my-odin-projects/landing-page/) |
 |JavaScript-Basics/Rock-Paper-Scissors| [Link](https://github.com/creme332/my-odin-projects/tree/main/rps-game)     |   [Demo](https://creme332.github.io/my-odin-projects/rps-game/) |
 |JavaScript-Basics/Etch-a-Sketch| [Link](https://github.com/creme332/my-odin-projects/tree/main/etch-a-sketch)     |   [Demo](https://creme332.github.io/my-odin-projects/etch-a-sketch/) |
-|JavaScript-Basics/Calculator| [Link](https://github.com/creme332/my-odin-projects/tree/main/calculator)    |   [Demo](https://creme332.github.io/my-odin-projects/calculator/) |
-
-# To-do
-- [ ] Add favicon.
-
-## Done
-- [x] Submit projects on TOP.
-- [x] Check for dead links.
-- [x] Add github logo to all projects.
-- [x] Add project description to all projects.
-- [x] Design current page.
-- [x] Submit sitemap.
-- [x] Add alternative text to all images (in html and markdown).
-- [x] Format all code.
+|JavaScript-Basics/Calculator| [Link1](https://github.com/creme332/my-odin-projects/tree/main/calculator), [Link2](https://github.com/creme332/abacusLite)    |   [Demo1](https://creme332.github.io/my-odin-projects/calculator/), [Demo2](https://creme332.github.io/abacusLite/) |
