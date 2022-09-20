@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A prototype sign-up form">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😛</text></svg>">
+    <title>Registration form</title>
+</head>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<body>
+    <div class="box">
+        <div class="left">
+            <model-viewer 
+              alt="A 3D model of a motorcycle"
+              src= "assets/VR-Mobil.glb"
+               camera-controls
+                auto-rotate
+                environment-image="legacy"
+                disable-zoom>
+            </model-viewer>
+        </div>
+        <div class="right">
+            <form action="http://httpbin.org/post" method = "post">
+                <h1>Create account </h1>
+
+                <ul>
+                    <li>
+                        <label for="firstname">First name*</label>
+                        <input name = "firstname"
+                         id = "firstname"
+                         placeholder="John"
+                          type="text"
+                           required>
+                           <p class = "error-message">Enter a valid firstname</p>
+                    </li>
+                    <li>
+                        <label for="lastname">Last name</label>
+                        <input name = "lastname"
+                        placeholder="Doe"
+                         id = "lastname"
+                          type="text">
+                    </li>
+
+                    <li>
+                        <label for="email">Email</label>
+                        <input name = "email"
+                         id = "email"
+                         placeholder="johndoe@gmail.com"
+                          type="email"
+                          required>
+                    </li>
+                    <li>
+                        <label for="">Date of birth</label>
+                        <input type="date">
+                    </li>
+                    <li>
+                        <label for="password">Password*</label>
+                        <input name = "password"
+                        pattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                        required
+                         id = "password"
+                          type="password">
+                    </li>
+                    <li>
+                        <label for="confirmpwd">Confirm password*</label>
+                        <input name = "confirmpwd"
+                        required
+                         id = "confirmpwd"
+                          type="password">
+                    </li>
+                    <li>
+                        <button type="submit">Register</button>
+                        <p>Already have an account? <a href="">Log in</a></p>
+                    </li>
+                </ul>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

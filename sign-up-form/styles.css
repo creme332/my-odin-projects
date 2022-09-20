@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+
+* {
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+body {
+    height: 100vh;
+}
+
+.left {
+    width: 50%;
+    /* background-color: rgb(197, 197, 197); */
+}
+
+h1 {
+    font-size: 60px;
+    font-family: 'Lexend Deca', sans-serif;
+    margin-bottom: 10px;
+}
+
+.box {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    outline: 6px solid;
+}
+
+.right {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(200, 234, 185); */
+}
+
+form {
+    /* background-color: rgb(255, 237, 237); */
+    /* outline: 1px solid; */
+    height: 83%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+
+    border-radius: 10px;
+    background: #ffeded;
+    box-shadow: -7px -7px 7px #c9bbbb,
+        7px 7px 7px #ffffff;
+}
+
+label {
+    font-size: 20px;
+    color: grey;
+}
+
+form ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+form li, form button{
+    font-size: 30px;
+
+}
+form li {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+}
+
+input {
+    /* width: 60%; */
+}
+
+input,
+select {
+    height: 30px;
+}
+
+/* input:valid{
+    border:2px solid  green;
+}
+input:invalid{
+    border:2px solid  red;
+} */
+form p {
+    font-size: 15px;
+}
+
+form button {
+    height: 50px;
+}
+
+.error-message{
+    color: red;
+}
