@@ -124,12 +124,13 @@ form button:hover {
     color: white;
     transition: 1s;
 }
-.wrong{
-    border:0;
-    outline: 2px solid red;
+.display-error{
+    visibility: visible;
 }
 .error-message {
-    /* font-size: 10px; */
-    color: red;
+    color: rgb(131, 3, 3);
     visibility: hidden;
+}
+a{
+    color:#003c5f
 }
