@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,67 +16,56 @@
     <title>Registration form</title>
 </head>
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 <body>
     <div class="box">
         <div class="left">
-            <model-viewer 
-              alt="A 3D model of a motorcycle"
-              src= "assets/VR-Mobil.glb"
-               camera-controls
-                auto-rotate
-                environment-image="legacy"
-                disable-zoom>
+            <model-viewer alt="A 3D model of a motorcycle"
+             src="assets/Fox.glb" autoplay animation-name="Run"
+               camera-controls auto-rotate
+                environment-image="legacy" disable-zoom>
             </model-viewer>
+            <!-- 3 animations : Walk, Survey, Run -->
         </div>
         <div class="right">
-            <form action="http://httpbin.org/post" method = "post">
+            <form action="" method="post">
                 <h1>Create account </h1>
 
                 <ul>
-                    <li>
-                        <label for="firstname">First name*</label>
-                        <input name = "firstname"
-                         id = "firstname"
-                         placeholder="John"
-                          type="text"
-                           required>
-                           <p class = "error-message">Enter a valid firstname</p>
-                    </li>
-                    <li>
-                        <label for="lastname">Last name</label>
-                        <input name = "lastname"
-                        placeholder="Doe"
-                         id = "lastname"
-                          type="text">
-                    </li>
+                    <div class = "row">
+                        <li>
+                            <label for="firstname">First name*</label>
+                            <input name="firstname" id="firstname" placeholder="John" type="text" required>
+                        </li>
+                        <li>
+                            <label for="lastname">Last name</label>
+                            <input name="lastname" placeholder="Doe" id="lastname" type="text">
+                        </li>
+                    </div>
 
                     <li>
-                        <label for="email">Email</label>
-                        <input name = "email"
-                         id = "email"
-                         placeholder="johndoe@gmail.com"
-                          type="email"
-                          required>
+                        
+                        <label for="email">Email*</label>
+                        <input name="email" id="email" placeholder="johndoe@gmail.com" type="email" required>
                     </li>
                     <li>
                         <label for="">Date of birth</label>
                         <input type="date">
                     </li>
-                    <li>
-                        <label for="password">Password*</label>
-                        <input name = "password"
-                        pattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-                        required
-                         id = "password"
-                          type="password">
-                    </li>
-                    <li>
-                        <label for="confirmpwd">Confirm password*</label>
-                        <input name = "confirmpwd"
-                        required
-                         id = "confirmpwd"
-                          type="password">
-                    </li>
+                    <div class="row">
+                        <li>
+                            <label for="password">Password*</label>
+                            <input name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required
+                                id="password" type="password"
+                                >
+                            <p class="error-message">Password contain 1 uppercase letter, lowercase letter and digit.</p>
+                        </li>
+                        <li>
+                            <label for="confirmpwd">Confirm password*</label>
+                            <input name="confirmpwd" required id="confirmpwd" type="password">
+                            <p class="error-message">Passwords do not match.</p>
+                        </li>
+                    </div>
                     <li>
                         <button type="submit">Register</button>
                         <p>Already have an account? <a href="">Log in</a></p>
@@ -86,4 +76,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -6,6 +6,9 @@
 
 body {
     height: 100vh;
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
 }
 
 .left {
@@ -14,9 +17,10 @@ body {
 }
 
 h1 {
+    font-weight: 900;
     font-size: 60px;
     font-family: 'Lexend Deca', sans-serif;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .box {
@@ -35,35 +39,28 @@ h1 {
 }
 
 form {
-    /* background-color: rgb(255, 237, 237); */
-    /* outline: 1px solid; */
-    height: 83%;
-    width: 80%;
     display: flex;
     flex-direction: column;
     padding: 2em;
-
     border-radius: 10px;
-    background: #ffeded;
-    box-shadow: -7px -7px 7px #c9bbbb,
-        7px 7px 7px #ffffff;
 }
 
 label {
     font-size: 20px;
-    color: grey;
 }
 
 form ul {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 2em;
 }
 
-form li, form button{
+form li,
+form button {
     font-size: 30px;
-
+    /* outline:1px solid blue; */
 }
+
 form li {
     display: flex;
     flex-direction: column;
@@ -71,7 +68,23 @@ form li {
     font-family: 'Lexend Deca', sans-serif;
 }
 
+.row {
+    /* outline:1px solid; */
+    width: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 1em;
+}
+
+.row li {
+    /* flex-grow: 1; */
+    width: 50%;
+    height: 100%;
+    /* width: 100%; */
+}
+
 model-viewer {
+    /* background-color: #c9bbbb; */
     width: 100%;
     height: 100%;
 }
@@ -82,23 +95,41 @@ input {
 
 input,
 select {
+    background-color: transparent;
+    border: 1px solid;
     height: 30px;
 }
 
-/* input:valid{
-    border:2px solid  green;
+input:focus {
+    outline: 2px solid rgb(1, 87, 113);
 }
-input:invalid{
-    border:2px solid  red;
-} */
+
+input::placeholder {
+    color: rgb(82, 82, 82)
+}
+
 form p {
     font-size: 15px;
 }
 
 form button {
+    font-weight: 800;
+    background-color: transparent;
+
     height: 50px;
 }
 
-.error-message{
+form button:hover {
+    background-color: black;
+    color: white;
+    transition: 1s;
+}
+.wrong{
+    border:0;
+    outline: 2px solid red;
+}
+.error-message {
+    /* font-size: 10px; */
     color: red;
+    visibility: hidden;
 }
