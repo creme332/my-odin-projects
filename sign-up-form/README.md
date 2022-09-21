@@ -1,25 +1,34 @@
 # 📝Sign-up-form
 
-A prototype sign-up-form.
+A prototype sign-up-form which follows most of the [Nielsen Norman Group guidelines](https://www.nngroup.com/articles/errors-forms-design-guidelines/).
+
+![Website gif showing user input](assets/website.gif)
+
+![Website screenshot on tablets](assets/responsive1.png)
+Website screenshot on tablets
+
+![Website screenshot on mobile](assets/responsive2.png)
+Website screenshot on tablets
 
 # 🚀Features
-- Input validation for password and email.
-- 3D free-to-move model.
-- Confetti animation when form is submitted.
+
+- Input validation. Fields are validated only after input is complete.
+- 3D free-to-move fox indicating form progress. Fox's movement speed increases gradually as user successfully completes more input fields.
 - Responsive design.
-- CSS reset to ensure consistency across browsers.
 
 # 📌 Attributions
-VR-Mobil by Vladimir Ilic [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/6XXj6DSBb08)
 
 Resource | Source
 ---|---
-model|Google
+[Fox model](assets/Fox.glb)|[KhronosGroup](https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/Fox)
 
 # 🔨 To-Do
-- [ ] Make website responsive.
-- add password strength indicator.
- Don’t Validate Fields Before Input is Complete
+- [ ] add password strength indicator.
+- [ ] Implement [hover input animation](https://www.youtube.com/watch?v=lraH4YYUD8o&ab_channel=HankTheTank).
 
 ### ✔ Done
+- [x] Add GIF to readme
+- [x] Fix layout shifts when error messages are displayed.
+- [x] Make website responsive.
+- [x] Don’t validate fields before input is complete.
 
