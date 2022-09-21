@@ -48,10 +48,15 @@
 
                         <label for="email">Email</label>
                         <input name="email" id="email" placeholder="johndoe@gmail.com" type="email" required>
+                        <p class="error-message">Enter valid email</p>
                     </li>
                     <li>
                         <label for="dob">Date of birth</label>
-                        <input type="date" id="dob" required>
+                        <input type="date" id="dob"
+                        min="1900-01-01"
+                        max="2010-01-01"
+                         required>
+                         <p class="error-message">Enter valid date</p>
                     </li>
                     <div class="row">
                         <li>

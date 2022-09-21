@@ -51,24 +51,6 @@ function informUser(valid, errorMsgElement, labelElement) {
     controlFox();
 }
 
-// validate last name
-function validateLastName() {
-
-    const errorMsgElement = lastNameField.parentElement.querySelector(".error-message");
-    const labelElement = lastNameField.parentElement.querySelector("label");
-    const inputElement = lastNameField.parentElement.querySelector("input");
-
-    if (inputElement.checkValidity()) { //valid
-        informUser(true, errorMsgElement, labelElement);
-    } else {
-        informUser(false, errorMsgElement, labelElement);
-    }
-}
-lastNameField.addEventListener('keyup', function (e) {
-    clearTimeout(timeout[1]);
-    timeout[1] = setTimeout(validateLastName, checkDelay);
-});
-
 // validateFirstName
 function validateFirstName() {
 
@@ -87,6 +69,57 @@ firstNameField.addEventListener('keyup', function (e) {
     timeout[0] = setTimeout(validateFirstName, checkDelay);
 });
 
+// validate last name
+function validateLastName() {
+
+    const errorMsgElement = lastNameField.parentElement.querySelector(".error-message");
+    const labelElement = lastNameField.parentElement.querySelector("label");
+    const inputElement = lastNameField.parentElement.querySelector("input");
+
+    if (inputElement.checkValidity()) { //valid
+        informUser(true, errorMsgElement, labelElement);
+    } else {
+        informUser(false, errorMsgElement, labelElement);
+    }
+}
+lastNameField.addEventListener('keyup', function (e) {
+    clearTimeout(timeout[1]);
+    timeout[1] = setTimeout(validateLastName, checkDelay);
+});
+
+// validate Email
+function validateEmail() {
+    const errorMsgElement = EmailField.parentElement.querySelector(".error-message");
+    const labelElement = EmailField.parentElement.querySelector("label");
+    const inputElement = EmailField.parentElement.querySelector("input");
+
+    if (inputElement.checkValidity()) { //valid
+        informUser(true, errorMsgElement, labelElement);
+    } else {
+        informUser(false, errorMsgElement, labelElement);
+    }
+}
+EmailField.addEventListener('keyup', function (e) {
+    clearTimeout(timeout[2]);
+    timeout[2] = setTimeout(validateEmail, checkDelay);
+});
+
+// validate DOB
+function validateDOB() {
+    const errorMsgElement = DOBfield.parentElement.querySelector(".error-message");
+    const labelElement = DOBfield.parentElement.querySelector("label");
+    const inputElement = DOBfield.parentElement.querySelector("input");
+
+    if (inputElement.checkValidity()) { //valid
+        informUser(true, errorMsgElement, labelElement);
+    } else {
+        informUser(false, errorMsgElement, labelElement);
+    }
+}
+DOBfield.addEventListener('change', function (e) {
+    clearTimeout(timeout[3]);
+    timeout[3] = setTimeout(validateDOB, checkDelay);
+});
 
 // Validate passwordField
 function validatePassword() {
