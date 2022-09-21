@@ -5,7 +5,6 @@
 }
 
 body {
-    padding: 10px;
     height: 100vh;
     background-color: #0093E9;
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
@@ -15,21 +14,20 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
-    outline: 6px solid;
+    /* outline: 6px solid; */
 }
 
 .left {
-    outline: 1px solid;
+    /* outline: 1px solid; */
     width: 50%;
 }
 
 .right {
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
     width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: rgb(200, 234, 185); */
 }
 
 h1 {
@@ -47,7 +45,7 @@ form {
 }
 
 label {
-    outline: 1px solid white;
+    /* outline: 1px solid white; */
     width: 210px;
     font-size: 20px;
 }
@@ -80,7 +78,7 @@ form li {
 }
 
 .row {
-    outline:1px solid green;
+    /* outline: 1px solid green; */
     width: 100%;
     display: flex;
     gap: 1em;
@@ -143,6 +141,7 @@ a {
     .box {
         flex-direction: column;
     }
+
     .left {
         width: 100%;
         height: 100%;
@@ -150,23 +149,34 @@ a {
 }
 
 @media screen and (max-width:550px) {
-    h1{
+    h1 {
         font-size: 40px;
     }
+
     .left {
         width: 100%;
         height: 100px;
     }
-    body{
+
+    body {
         height: auto;
     }
-    label{
+
+    label {
         width: auto;
     }
-    .box{
+
+    .box {
         height: auto;
     }
-.row{
-    flex-direction: column;
-}
+
+    form li,
+    form button {
+        font-size: 20px;
+        /* outline:1px solid blue; */
+    }
+
+    .row {
+        flex-direction: column;
+    }
 }
