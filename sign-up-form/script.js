@@ -36,6 +36,61 @@ function controlFox() {
     foxObj.setAttribute("animation-name", foxRunAnimation);
 }
 
+function displayErrorInfo(valid, errorMsgElement, labelElement) {
+    if (valid) {
+        errorMsgElement.style.visibility = "hidden";
+        labelElement.classList.remove("incorrect");
+        labelElement.classList.add("correct");
+    } else {
+        errorMsgElement.style.visibility = "visible";
+        labelElement.classList.remove("correct");
+        labelElement.classList.add("incorrect");
+    }
+}
+
+// validate last name
+function validateLastName() {
+
+    const errorMsgElement = lastNameField.parentElement.querySelector(".error-message");
+    const labelElement = lastNameField.parentElement.querySelector("label");
+    const inputElement = lastNameField.parentElement.querySelector("input");
+
+    const MIN_LENGTH = parseInt(inputElement.getAttribute("minlength"));
+    console.log(lastNameField.value, MIN_LENGTH);
+
+    if (lastNameField.value.length >= MIN_LENGTH) { //valid
+        displayErrorInfo(true, errorMsgElement, labelElement);
+    } else {
+        displayErrorInfo(false, errorMsgElement, labelElement);
+    }
+}
+lastNameField.addEventListener('keyup', function (e) {
+    clearTimeout(timeout[1]);
+    timeout[1] = setTimeout(validateLastName, checkDelay);
+});
+
+// validateFirstName
+function validateFirstName() {
+
+    const errorMsgElement = firstNameField.parentElement.querySelector(".error-message");
+    const labelElement = firstNameField.parentElement.querySelector("label");
+    const inputElement = firstNameField.parentElement.querySelector("input");
+
+    const MIN_LENGTH = parseInt(inputElement.getAttribute("minlength"));
+    console.log(firstNameField.value, MIN_LENGTH);
+
+    if (firstNameField.value.length >= MIN_LENGTH) { //valid
+        displayErrorInfo(true, errorMsgElement, labelElement);
+    } else {
+        displayErrorInfo(false, errorMsgElement, labelElement);
+    }
+}
+firstNameField.addEventListener('keyup', function (e) {
+    clearTimeout(timeout[0]);
+    timeout[0] = setTimeout(validateFirstName, checkDelay);
+});
+
+
 // Validate passwordField
 function validatePassword() {
     //passwordField must contain atleast 1 uppercase, lowercase and digit
@@ -43,11 +98,12 @@ function validatePassword() {
     //https://www.html5pattern.com/Passwords
     const regex = new RegExp("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$");
     const errorMsgElement = passwordField.parentElement.querySelector(".error-message");
+    const labelElement = passwordField.parentElement.querySelector("label");
 
-    if (regex.test(passwordField.value) === false) {
-        errorMsgElement.style.visibility = "visible";
+    if (regex.test(passwordField.value)) { //valid match
+        displayErrorInfo(true, errorMsgElement, labelElement);
     } else {
-        errorMsgElement.style.visibility = "hidden";
+        displayErrorInfo(false, errorMsgElement, labelElement);
     }
 }
 passwordField.addEventListener('keyup', function (e) {
@@ -58,11 +114,12 @@ passwordField.addEventListener('keyup', function (e) {
 // Validate confirmPasswordField
 function validateConfirmPassword() {
     const errorMsgElement = confirmPasswordField.parentElement.querySelector(".error-message");
+    const labelElement = confirmPasswordField.parentElement.querySelector("label");
 
-    if (passwordField.value != confirmPasswordField.value) {
-        errorMsgElement.style.visibility = "visible";
+    if (passwordField.value == confirmPasswordField.value && confirmPasswordField.value != "") { //match 
+        displayErrorInfo(true, errorMsgElement, labelElement);
     } else {
-        errorMsgElement.style.visibility = "hidden";
+        displayErrorInfo(false, errorMsgElement, labelElement);
     }
 }
 confirmPasswordField.addEventListener('keyup', function (e) {

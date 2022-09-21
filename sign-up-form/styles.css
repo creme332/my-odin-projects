@@ -8,19 +8,6 @@ body {
     height: 100vh;
     background-color: #0093E9;
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
-
-}
-
-.left {
-    width: 50%;
-    /* background-color: rgb(197, 197, 197); */
-}
-
-h1 {
-    font-weight: 900;
-    font-size: 60px;
-    font-family: 'Lexend Deca', sans-serif;
-    margin-bottom: 20px;
 }
 
 .box {
@@ -28,6 +15,10 @@ h1 {
     height: 100%;
     width: 100%;
     outline: 6px solid;
+}
+
+.left {
+    width: 50%;
 }
 
 .right {
@@ -38,6 +29,13 @@ h1 {
     /* background-color: rgb(200, 234, 185); */
 }
 
+h1 {
+    font-weight: 900;
+    font-size: 60px;
+    font-family: 'Lexend Deca', sans-serif;
+    margin-bottom: 20px;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -46,7 +44,17 @@ form {
 }
 
 label {
+    /* outline: 1px solid; */
+    width: 300px;
     font-size: 20px;
+}
+
+label.incorrect::after {
+    content: "❌";
+}
+
+label.correct::after {
+    content: "✔";
 }
 
 form ul {
@@ -72,25 +80,17 @@ form li {
     /* outline:1px solid; */
     width: 100%;
     display: flex;
-    /* justify-content: space-between; */
     gap: 1em;
 }
 
 .row li {
-    /* flex-grow: 1; */
     width: 50%;
     height: 100%;
-    /* width: 100%; */
 }
 
 model-viewer {
-    /* background-color: #c9bbbb; */
     width: 100%;
     height: 100%;
-}
-
-input {
-    /* width: 60%; */
 }
 
 input,
@@ -115,7 +115,6 @@ form p {
 form button {
     font-weight: 800;
     background-color: transparent;
-
     height: 50px;
 }
 
@@ -124,13 +123,16 @@ form button:hover {
     color: white;
     transition: 1s;
 }
-.display-error{
+
+.display-error {
     visibility: visible;
 }
+
 .error-message {
     color: rgb(131, 3, 3);
     visibility: hidden;
 }
-a{
-    color:#003c5f
+
+a {
+    color: #003c5f
 }
