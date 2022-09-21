@@ -47,7 +47,6 @@ form {
 label {
     /* outline: 1px solid white; */
     width: 210px;
-    font-size: 20px;
 }
 
 label.incorrect::after {
@@ -57,7 +56,16 @@ label.incorrect::after {
 label.correct::after {
     content: " ✔";
 }
-
+label, input[type="text"],
+input[type="email"],
+input[type="date"],
+ input[type="password"],
+  input::placeholder{
+    font-size: 20px;
+}
+input[type="text"], input[type="email"],input[type="date"], input[type="password"]{
+    padding-left: 10px;
+}
 form ul {
     display: flex;
     flex-direction: column;
@@ -94,10 +102,15 @@ model-viewer {
     height: 100%;
 }
 
+input, form button{
+    height: 45px;
+    border-radius: 5px;
+}
+
 input {
     background-color: transparent;
     border: 1px solid;
-    height: 30px;
+
 }
 
 input:focus {
@@ -115,7 +128,6 @@ form p {
 form button {
     font-weight: 800;
     background-color: transparent;
-    height: 50px;
 }
 
 form button:hover {
@@ -165,6 +177,9 @@ a {
     label {
         width: auto;
     }
+    form ul {
+        gap: 1em;
+    }
 
     .box {
         height: auto;
@@ -178,5 +193,6 @@ a {
 
     .row {
         flex-direction: column;
+        gap: 0;
     }
 }
