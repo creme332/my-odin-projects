@@ -6,14 +6,17 @@ const passwordField = document.getElementById("password");
 const confirmPasswordField = document.getElementById("confirmpwd");
 
 const FieldsCount = 6 //number of fields present in form
-let CompletedFieldsCount = 0; //number of fields out of 6 completed
 
 const checkDelay = 1000; //delay after user input for verification. IN ms.
 // Init a timeout variable to be used below
 let timeout = Array(FieldsCount).fill(null);
+let validField = Array(FieldsCount).fill(false);
 
 function controlFox() {
     //updates fox animation if needed
+
+    let CompletedFieldsCount = validField.filter(Boolean).length;
+    //number of fields out of 6 completed
 
     // 0 < CompletedFieldsCount <= 2 : fox stays idle
     // 2 < CompletedFieldsCount <= 4 : fox walks
@@ -41,12 +44,10 @@ function informUser(valid, errorMsgElement, labelElement) {
         errorMsgElement.style.visibility = "hidden";
         labelElement.classList.remove("incorrect");
         labelElement.classList.add("correct");
-        CompletedFieldsCount++;
     } else {
         errorMsgElement.style.visibility = "visible";
         labelElement.classList.remove("correct");
         labelElement.classList.add("incorrect");
-        CompletedFieldsCount--;
     }
     controlFox();
 }
@@ -59,8 +60,10 @@ function validateFirstName() {
     const inputElement = firstNameField.parentElement.querySelector("input");
 
     if (inputElement.checkValidity()) { //valid
+        validField[0] = true;
         informUser(true, errorMsgElement, labelElement);
     } else {
+        validField[0] = false;
         informUser(false, errorMsgElement, labelElement);
     }
 }
@@ -77,8 +80,10 @@ function validateLastName() {
     const inputElement = lastNameField.parentElement.querySelector("input");
 
     if (inputElement.checkValidity()) { //valid
+        validField[1] = true;
         informUser(true, errorMsgElement, labelElement);
     } else {
+        validField[1] = false;
         informUser(false, errorMsgElement, labelElement);
     }
 }
@@ -94,8 +99,10 @@ function validateEmail() {
     const inputElement = EmailField.parentElement.querySelector("input");
 
     if (inputElement.checkValidity()) { //valid
+        validField[2] = true;
         informUser(true, errorMsgElement, labelElement);
     } else {
+        validField[2] = false;
         informUser(false, errorMsgElement, labelElement);
     }
 }
@@ -111,8 +118,10 @@ function validateDOB() {
     const inputElement = DOBfield.parentElement.querySelector("input");
 
     if (inputElement.checkValidity()) { //valid
+        validField[3] = true;
         informUser(true, errorMsgElement, labelElement);
     } else {
+        validField[3] = false;
         informUser(false, errorMsgElement, labelElement);
     }
 }
@@ -129,8 +138,10 @@ function validatePassword() {
     const inputElement = passwordField.parentElement.querySelector("input");
 
     if (inputElement.checkValidity()) { //valid match
+        validField[4] = true;
         informUser(true, errorMsgElement, labelElement);
     } else {
+        validField[4] = false;
         informUser(false, errorMsgElement, labelElement);
     }
 }
@@ -144,9 +155,11 @@ function validateConfirmPassword() {
     const errorMsgElement = confirmPasswordField.parentElement.querySelector(".error-message");
     const labelElement = confirmPasswordField.parentElement.querySelector("label");
 
-    if (passwordField.value == confirmPasswordField.value && confirmPasswordField.value != "") { //match 
+    if (passwordField.value == confirmPasswordField.value) { //match 
+        validField[5] = true;
         informUser(true, errorMsgElement, labelElement);
     } else {
+        validField[5] = false;
         informUser(false, errorMsgElement, labelElement);
     }
 }
