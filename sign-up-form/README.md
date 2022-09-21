@@ -4,6 +4,8 @@ A prototype sign-up-form which follows most of the [Nielsen Norman Group guideli
 
 ![Website gif showing user input](assets/website.gif)
 
+[▶ Live preview](https://creme332.github.io/my-odin-projects/sign-up-form/)
+
 ![Website screenshot on tablets](assets/responsive1.png)
 Website screenshot on tablets
 
