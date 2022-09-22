@@ -26,6 +26,7 @@ Resource | Source
 
 # 🔨 To-Do
 - [ ] add password strength indicator.
+- [ ] On small screen sizes, get rid of row class and make gap between input boxes equal.
 - [ ] Implement [hover input animation](https://www.youtube.com/watch?v=lraH4YYUD8o&ab_channel=HankTheTank).
 
 ### ✔ Done
