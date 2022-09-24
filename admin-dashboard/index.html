@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +9,86 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="reset.css">
+
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>"> 
-    <title>New Web Project</title>
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
+    <title>Github Admin Dashboard</title>
 </head>
+
 <body>
-    <div class="box"></div>
+    <div class="container">
+        <header>Empty header</header>
+        <nav class="sidebar">
+            <div class="sidebar-user">
+                <img src="assets/img/profilepic.png" height="40" width="40" alt="">
+                <h5>@creme332</h5>
+            </div>
+            <ul>
+                <li>
+                    <img src="assets/icons/home.svg" class="icon" alt="">
+                    Home
+                </li>
+                <li>
+                    <img src="assets/icons/face-man-profile.svg" class="icon" alt="">
+
+                    Profile
+                </li>
+                <li> <img src="assets/icons/message.svg" class="icon" alt="">
+                    Messages</li>
+                <li>
+                    <img src="assets/icons/checkbox-marked-circle-plus-outline.svg" class="icon" alt="">
+                    Tasks
+                </li>
+                <li>
+                    <img src="assets/icons/account-group.svg" class="icon" alt="">
+                    Communities
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <img src="assets/icons/cog-outline.svg" class="icon" alt="">
+                    Settings
+                </li>
+                <li>
+                    <img src="assets/icons/chat-question-outline.svg" class="icon" alt="">
+                    Support
+                </li>
+                <li> <img src="assets/icons/incognito.svg" class="icon" alt="">
+                    Privacy</li>
+            </ul>
+        </nav>
+        <main>
+            <section class="projects">
+                <table>
+                    <caption>Projects</caption>
+                    <thead>
+                        <th>Name</th>
+                        <th>Technologies</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="box">
+                                    <img src="https://source.unsplash.com/random/40x40" alt="">
+                                    <h6>Sign-up form</h6>
+                                </div>
+                            </td>
+                            <td>HTML, CSS, JS</td>
+                            <td>
+                                <progress value="32" max="50"></progress>
+                            </td>
+                            <td><button>View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        <footer>Copyright 2022 creme332</footer>
+    </div>
 </body>
+
 </html>
