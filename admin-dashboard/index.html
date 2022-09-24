@@ -8,9 +8,16 @@
     <meta name="description" content="Description of the page less than 150 characters">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- start of css reset -->
     <link rel="stylesheet" href="reset.css">
+    <!-- end of css reset -->
+
     <link rel="stylesheet" href="styles.css">
+
+    <!-- chart.js to create interactive charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
     <script src="script.js" defer></script>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
@@ -117,11 +124,29 @@
                 </div>
                 <div class="graph1">
                     <div class="card-title">Traffic</div>
-                    <canvas id="myChart"></canvas>
+                    <canvas id="lineChart"></canvas>
                 </div>
             </div>
             <div class="row">
-
+                <div class="card">
+                    <div class="card-title">Languages</div>
+                    <div class="chart-container" style="position: relative; height:100%; width:auto">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Dependencies</div>
+                    <div class="chart-container" style="position: relative; height:100%; width:auto">
+                        <canvas id="polarChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Test</div>
+                    <div class="chart-container" style="position: relative; height:100%; width:auto">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                
             </div>
             <div class="row projects">
                 <table>
