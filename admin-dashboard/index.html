@@ -10,6 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="script.js" defer></script>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
@@ -69,7 +70,60 @@
         </nav>
         <main>
             <h3><b>Analytics</b> Dashboard</h3>
-            <section class="projects">
+            <div class="row">
+                <div class="card">
+                    <div class="card-row-1">
+                        <div class="card-title">Stars</div>
+                        <img src="assets/icons/stars_FILL0_wght400_GRAD0_opsz48.svg" alt="" class="icon">
+                    </div>
+                    <h1>3213</h1>
+                    <div class="card-row-stats">
+                        <div class="tag blue">1.25%</div>
+                        <p>Since last week</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-row-1">
+                        <div class="card-title">Followers</div>
+                        <img src="assets/icons/diversity_3_FILL0_wght400_GRAD0_opsz48.svg" alt="" class="icon">
+                    </div>
+                    <h1>129</h1>
+                    <div class="card-row-stats">
+                        <div class="tag green">2.47%</div>
+                        <p>Since last week</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-row-1">
+                        <div class="card-title">Commits</div>
+                        <img src="assets/icons/commit_FILL0_wght400_GRAD0_opsz48.svg" alt="" class="icon">
+                    </div>
+                    <h1>54</h1>
+                    <div class="card-row-stats">
+                        <div class="tag red">-1.25%</div>
+                        <p>Since last week</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-row-1">
+                        <div class="card-title">Earnings</div>
+                        <img src="assets/icons/attach_money_FILL0_wght400_GRAD0_opsz48.svg" alt="" class="icon">
+                    </div>
+                    <h1>$1032.08</h1>
+                    <div class="card-row-stats">
+                        <div class="tag blue">1.50%</div>
+                        <p>Since last week</p>
+                    </div>
+                </div>
+                <div class="graph1">
+                    <div class="card-title">Traffic</div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+            <div class="row projects">
                 <table>
                     <caption>Projects</caption>
                     <thead>
@@ -81,7 +135,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <div class="box">
+                                <div class="project-name-container">
                                     <img src="https://source.unsplash.com/random/40x40" alt="">
                                     <h6>Sign-up form</h6>
                                 </div>
@@ -94,7 +148,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </section>
+            </div>
         </main>
         <footer>Copyright 2022 creme332</footer>
     </div>
