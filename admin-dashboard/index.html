@@ -9,7 +9,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="reset.css">
-
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <link rel="icon"
@@ -19,30 +18,39 @@
 
 <body>
     <div class="container">
-        <header>Empty header</header>
+        <header>
+            <img id="toggle-sidebar-button" height="30" width="30" src="assets/icons/menu.svg" alt="">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button class="searchButton" type="submit">
+                    <img src="assets/icons/magnify.svg" class="icon" alt="">
+                </button>
+            </div>
+            <img src="assets/icons/bell-badge-outline.svg" class="icon" alt="">
+        </header>
         <nav class="sidebar">
             <div class="sidebar-user">
-                <img src="assets/img/profilepic.png" height="40" width="40" alt="">
+                <img src="assets/img/profilepic.png" height="40" width="40" alt="Github profile picture of creme332">
                 <h5>@creme332</h5>
             </div>
             <ul>
                 <li>
-                    <img src="assets/icons/home.svg" class="icon" alt="">
+                    <img src="assets/icons/home.svg" class="icon" alt="Home icon">
                     Home
                 </li>
                 <li>
-                    <img src="assets/icons/face-man-profile.svg" class="icon" alt="">
+                    <img src="assets/icons/face-man-profile.svg" class="icon" alt="Profile icon">
 
                     Profile
                 </li>
-                <li> <img src="assets/icons/message.svg" class="icon" alt="">
+                <li> <img src="assets/icons/message.svg" class="icon" alt="Message icon">
                     Messages</li>
                 <li>
-                    <img src="assets/icons/checkbox-marked-circle-plus-outline.svg" class="icon" alt="">
+                    <img src="assets/icons/checkbox-marked-circle-plus-outline.svg" class="icon" alt="To-do list icon">
                     Tasks
                 </li>
                 <li>
-                    <img src="assets/icons/account-group.svg" class="icon" alt="">
+                    <img src="assets/icons/account-group.svg" class="icon" alt="community icon">
                     Communities
                 </li>
             </ul>
@@ -60,6 +68,7 @@
             </ul>
         </nav>
         <main>
+            <h3><b>Analytics</b> Dashboard</h3>
             <section class="projects">
                 <table>
                     <caption>Projects</caption>
