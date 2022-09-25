@@ -1,110 +1,95 @@
 const sidebar = document.querySelector(".sidebar");
 const grid = document.querySelector(".container");
 const toggleSidebarBtn = document.querySelector("#toggle-sidebar-button");
+const main = document.querySelector("main");
 
-toggleSidebarBtn.addEventListener("click", ()=>{
-    const TEMPLATE_WITH_SIDEBAR = '"s h" "s m" "s f"';
-    const TEMPLATE_WITHOUT_SIDEBAR = '"h h" "m m" "f f"';
-    if(grid.style.gridTemplateAreas != TEMPLATE_WITHOUT_SIDEBAR){
-        grid.style.gridTemplateAreas = TEMPLATE_WITHOUT_SIDEBAR;
-        sidebar.style.display = "none";
-    }else{
-        grid.style.gridTemplateAreas = TEMPLATE_WITH_SIDEBAR;
-        sidebar.style.display = "flex";
-    }
-})
-
-const line_chart_labels = [
+const line_chart_data = {
+  labels: [
     'January',
     'February',
     'March',
     'April',
     'May',
     'June',
-  ];
+  ],
+  datasets: [{
+    label: 'Visitors',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: [1000, 800, 1090, 867, 999, 1010, 1030],
+  }]
+};
 
-  const line_chart_data = {
-    labels: line_chart_labels,
-    datasets: [{
-      label: 'Visitors',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 45],
-    }]
-  };
+const line_chart_config = {
+  type: 'line',
+  data: line_chart_data,
+  options: { responsive: true }
+};
+const lineChart = new Chart(
+  document.getElementById('lineChart'),
+  line_chart_config
+);
 
-  const line_chart_config = {
-    type: 'line',
-    data: line_chart_data,
-    options: {responsive:true}
-  };
-
-  const lineChart = new Chart(
-    document.getElementById('lineChart'),
-    line_chart_config
-  );
-
-  const donut_chart_data = {
-    labels: [
-      'Python',
-      'JavaScript',
-      'C++'
+const donut_chart_data = {
+  labels: [
+    'Python',
+    'JavaScript',
+    'C++'
+  ],
+  datasets: [{
+    label: 'Languages',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
     ],
-    datasets: [{
-      label: 'Languages',
-      data: [300, 50, 100],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-      ],
-      hoverOffset: 4
-    }]
-  };
+    hoverOffset: 4
+  }]
+};
 
-  const donut_chart_config = {
-    type: 'doughnut',
-    data: donut_chart_data,
-    options: {responsive:true}
-  };
-  const donutChart = new Chart(
-    document.getElementById('donutChart'),
-    donut_chart_config
-  );
+const donut_chart_config = {
+  type: 'doughnut',
+  data: donut_chart_data,
+  options: { responsive: true }
+};
+const donutChart = new Chart(
+  document.getElementById('donutChart'),
+  donut_chart_config
+);
 
-  const polar_data = {
-    labels: [
-      'MIT',
-      'GNU AGPLv3',
-      'Unlicense',
-      'Apache',
-      'Mozila Public'
-    ],
-    datasets: [{
-      label: 'Licenses',
-      data: [11, 16, 7, 3, 14],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(75, 192, 192)',
-        'rgb(255, 205, 86)',
-        'rgb(201, 203, 207)',
-        'rgb(54, 162, 235)'
-      ]
-    }]
-  };
-  const polar_config = {
-    type: 'polarArea',
-    data: polar_data,
-    options: {}
-  };
-  const polarChart = new Chart(
-    document.getElementById('polarChart'),
-    polar_config
-  );
+const polar_data = {
+  labels: [
+    'MIT',
+    'GNU AGPLv3',
+    'Unlicense',
+    'Apache',
+    'Mozila Public'
+  ],
+  datasets: [{
+    label: 'Licenses',
+    data: [11, 16, 7, 3, 14],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)'
+    ]
+  }]
+};
+const polar_config = {
+  type: 'polarArea',
+  data: polar_data,
+  options: { responsive: true }
+};
+const polarChart = new Chart(
+  document.getElementById('polarChart'),
+  polar_config
+);
 
-const labels = ['John','Adam','Barry','Axel','Rolan','Tor','Jam'];
-const data = {
-  labels: labels,
+const bar_chart_data = {
+  labels: ['John', 'Adam', 'Barry', 'Axel', 'Rolan', 'Tor', 'Jam'],
   datasets: [{
     label: 'Number of commits',
     data: [65, 59, 80, 81, 56, 55, 40],
@@ -129,18 +114,35 @@ const data = {
     borderWidth: 1
   }]
 };
-const config = {
+const bar_chart_config = {
   type: 'bar',
-  data: data,
+  data: bar_chart_data,
   options: {
     scales: {
       y: {
         beginAtZero: true
       }
-    }
+    },
+    responsive: true
   },
 };
 const barChart = new Chart(
   document.getElementById('barChart'),
-  config
+  bar_chart_config
 );
+
+function toggleSidebar() {
+  const TEMPLATE_WITH_SIDEBAR = '"s h" "s m" "s f"';
+  const TEMPLATE_WITHOUT_SIDEBAR = '"h h" "m m" "f f"';
+  if (grid.style.gridTemplateAreas != TEMPLATE_WITHOUT_SIDEBAR) { // hide sidebar
+    grid.style.gridTemplateAreas = TEMPLATE_WITHOUT_SIDEBAR;
+    sidebar.style.display = "none";
+  } else { // show sidebar
+    // window.location.reload();
+
+    sidebar.style.display = "flex";
+    grid.style.gridTemplateAreas = TEMPLATE_WITH_SIDEBAR;
+  }
+}
+toggleSidebarBtn.addEventListener("click", toggleSidebar)
+// toggleSidebar()
