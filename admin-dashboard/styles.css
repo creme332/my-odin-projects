@@ -7,7 +7,7 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-b {
+h3 b {
     font-weight: 700;
 }
 
@@ -153,17 +153,13 @@ main {
     font-size: 14px;
 }
 
-.row:nth-of-type(1) .graph1 {
+.row:nth-of-type(1) .card:nth-child(5) {
     grid-area: 1/3/-1/-1;
 }
 
-.graph1 {
-    position: relative;
-    background-color: white;
-    padding: 10px;
-    /* background-color: #a4d1ff; */
+.card:nth-child(5){
+    /* width: 100%; */
 }
-
 .card-title {
     font-size: 14px;
     color: #939ba2;
@@ -177,7 +173,7 @@ main h3 {
 .sidebar {
     direction: ltr;
     height: 100vh;
-    width: 220px;
+    min-width: 220px;
 
     position: sticky;
     top: 0;
