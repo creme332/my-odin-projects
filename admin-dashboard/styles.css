@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 body {
-    height: 200vh;
+    height: auto;
+    width: 100vw;
     background-color: #f1f3f5;
     font-family: 'Inter', sans-serif;
 }
@@ -17,6 +18,7 @@ b {
 
 .container {
     height: 100%;
+    width: 100%;
     display: grid;
     grid-template-rows: 1.5fr 30fr 1fr;
     grid-template-columns: 1fr 5fr;
@@ -163,8 +165,17 @@ main h3 {
     font-size: 21px;
 }
 
+.row:nth-of-type(3){
+    width: 100%;
+}
+.row:nth-of-type(3) .card{
+    width: 100%;
+
+}
+
 .sidebar {
     height: 100vh;
+    width: 100%;
     position: sticky;
     top: 0;
 
@@ -215,43 +226,80 @@ main h3 {
     filter: invert(54%) sepia(49%) saturate(591%) hue-rotate(178deg) brightness(88%) contrast(102%);
 }
 
-.projects {
-    margin-left: 30px;
-}
-
 th {
+    color: #495057;
+    font-size: 14px;
+    padding: 12px 12px 12px 20px;
     font-weight: 900;
 }
 
-progress {
+tr:nth-child(1) progress {
+    accent-color: blue;
+    /* background: turquoise; */
+
+}
+tr:nth-child(2) progress {
     accent-color: red;
     /* background: turquoise; */
 
 }
+tr:nth-child(3) progress {
+    accent-color: green;
+    /* background: turquoise; */
 
+}
+table button{
+    border: 0;
+    font-size: 14px;
+    padding:4px 13px;
+    background-color: #f5f7fb;
+}
+table button:hover{
+    background-color: #d0d2d5;
+}
 th,
 td,
 table {
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border: 0;
 }
 
-th,
+table{
+    border-collapse: separate;
+    border-spacing: 10px;
+}
 td {
+    vertical-align: middle;
     padding: 8px;
 }
 
-.project-name-container {
+.column1{
+    display: flex;
+    gap:10px;
+}
+.column1 img{
+    height: 100%;
+    width: 30px;
+}
+
+.cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* gap: 0.5em; */
+}
+
+strong{
+    font-weight: 600;
+}
+p.muted-text{
+    font-size: 14px;
+    color: #6c757d;
+}
+footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-}
-
-footer {
-    display: grid;
-    place-items: center;
-    /* grid-column: 1/-1;
-    grid-row: 3/4; */
     grid-area: f;
     background-color: rgb(244, 210, 138);
 }

@@ -51,7 +51,7 @@ const line_chart_labels = [
       'C++'
     ],
     datasets: [{
-      label: 'Language',
+      label: 'Languages',
       data: [300, 50, 100],
       backgroundColor: [
         'rgb(255, 99, 132)',
@@ -74,14 +74,14 @@ const line_chart_labels = [
 
   const polar_data = {
     labels: [
-      'Red',
-      'Green',
-      'Yellow',
-      'Grey',
-      'Blue'
+      'MIT',
+      'GNU AGPLv3',
+      'Unlicense',
+      'Apache',
+      'Mozila Public'
     ],
     datasets: [{
-      label: 'My First Dataset',
+      label: 'Licenses',
       data: [11, 16, 7, 3, 14],
       backgroundColor: [
         'rgb(255, 99, 132)',
@@ -102,11 +102,11 @@ const line_chart_labels = [
     polar_config
   );
 
-const labels = ['b','a','s','r','r','y','y'];
+const labels = ['John','Adam','Barry','Axel','Rolan','Tor','Jam'];
 const data = {
   labels: labels,
   datasets: [{
-    label: 'My First Dataset',
+    label: 'Number of commits',
     data: [65, 59, 80, 81, 56, 55, 40],
     backgroundColor: [
       'rgba(255, 99, 132, 0.2)',
