@@ -11,6 +11,14 @@ h3 b {
     font-weight: 700;
 }
 
+.progressbar {
+    border-radius: 0.2rem;
+    display: flex;
+    overflow: hidden;
+    width: 70%;
+    height: .4rem;
+}
+
 .icon {
     height: 20px;
     width: 20px;
