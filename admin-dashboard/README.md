@@ -2,7 +2,7 @@
 
 A prototype admin dashboard for managing your Github account.
 
-![Screenshot of admin dashboard](website.png)
+![Screenshot of admin dashboard](assets/img/website.png)
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/admin-dashboard/)
 
@@ -15,7 +15,8 @@ A prototype admin dashboard for managing your Github account.
 # 📌 Attributions
 
 - [UI by adminkit](https://demo.adminkit.io/index.html)
-- [Black icons](https://materialdesignicons.com/)
+- Interactive charts made with [chart.js](https://www.chartjs.org/)
+- Black icons by  [materialdesignicons](https://materialdesignicons.com/)
 - <a href="https://www.flaticon.com/free-icons/log-in" title="log in icons">Log in icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/chat-box" title="chat box icons">Chat box icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/abacus" title="abacus icons">Abacus icons created by Pause08 - Flaticon</a>
