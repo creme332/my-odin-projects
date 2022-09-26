@@ -40,7 +40,7 @@ h3 b {
 header {
     display: flex;
     align-items: center;
-    gap: 1em;
+    /* gap: 1em; */
     grid-area: h;
     background-color: #fcfcfe;
     padding: 14px;
@@ -48,6 +48,7 @@ header {
 
 .search-bar {
     background-color: #f3f6fa;
+    margin-left: auto;
     display: flex;
     /* outline: 1px solid; */
     border-radius: 5px;
@@ -187,7 +188,7 @@ main h3 {
 
     background-color: rgb(255, 255, 255);
     grid-area: s;
-    padding-left: 60px;
+    padding-left: 50px;
     /* animation: 1s slideLeft infinite; */
 }
 
