@@ -1,5 +1,7 @@
 let myLibrary = [];
-const table = document.querySelector("#library");
+const tableBody = document.querySelector("#library").querySelector("tbody");
+const addRowBtn = document.querySelector("#addRowBtn")
+let rowCount = 0;
 
 function Book(title, author, pages, progressPercent) {
     this.title = title;
@@ -9,10 +11,15 @@ function Book(title, author, pages, progressPercent) {
 }
 
 function addToTable(bookObj) {
+    myLibrary.push(bookObj);
+
     let row = document.createElement("tr");
 
     // append first empty td for counter
-    row.appendChild(document.createElement("td"));
+    let counterCol = document.createElement("td");
+    counterCol.textContent = rowCount;
+    row.appendChild(counterCol);
+    rowCount++;
 
     //add title
     let titleColumn = document.createElement("td");
@@ -62,17 +69,45 @@ function addToTable(bookObj) {
 
     let deleteBtn = document.createElement("button");
     deleteBtn.setAttribute("type", "button");
-    deleteBtn.classList.add("btn", "btn-outline-danger");
+    deleteBtn.classList.add("btn", "deletebtn", "btn-outline-danger");
     deleteBtn.textContent = "Delete";
 
     actionColumn.appendChild(editBtn);
     actionColumn.appendChild(deleteBtn);
     row.appendChild(actionColumn);
 
-    table.appendChild(row);
+    tableBody.appendChild(row);
+}
+
+function RemoveFromTable(e) {
+    const allRows = tableBody.querySelectorAll("tr");
+    let currentRow = e.target.parentNode.parentNode;
+    let rowIndex = parseInt(currentRow.querySelector("td").textContent);
+    // console.log(rowIndex);
+
+    //decrement row index of all rows after currentRow
+    for (let i = rowIndex + 1; i < rowCount; i++) {
+        let currentCounter = allRows[i].querySelector("td");
+        currentCounter.textContent = i - 1;
+    }
+    rowCount--;
+
+    //delete from myLibrary list
+    myLibrary.splice(rowIndex, 1);
+
+    //delete from DOM
+    currentRow.parentNode.removeChild(currentRow);
 }
 const book1 = new Book('The Art of Problem Solving', 'Vladimir Putin', 123, '55%');
 const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 1102, '98%');
+const book3 = new Book('The Ideal House', 'Alexander Arnold', 1102, '0%');
 
 addToTable(book1);
 addToTable(book2);
+addToTable(book2);
+addToTable(book3);
+
+const deleteButtons = document.querySelectorAll(".deletebtn");
+deleteButtons.forEach(btn => { btn.addEventListener("click", RemoveFromTable) });
+
+addRowBtn.addEventListener("click", () => { addToTable(book1) });

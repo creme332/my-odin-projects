@@ -7,7 +7,21 @@ body {
     background-color: #f1f3f5;
     font-family: 'Inter', sans-serif;
     padding: 50px;
-    counter-reset: rowCounter;
+}
+
+.container {
+    /* outline: 1px solid; */
+    width: 100%;
+}
+
+textarea,
+input {
+    background: transparent;
+    width: 100px;
+    /* width: 100%; */
+    height: auto;
+    border: 0;
+    resize: none;
 }
 
 .progress {
@@ -23,11 +37,6 @@ th,
 td,
 table {
     /* outline: 1px solid; */
-}
-
-tr td:first-child:before {
-    counter-increment: rowCounter;
-    content: counter(rowCounter);
 }
 
 /* space buttons in Actions column */
@@ -48,13 +57,18 @@ table caption {
     caption-side: top;
 }
 
-.blank_row {
+
+#addRowBtn {
     display: grid;
     place-items: center;
     height: 50px;
     background-color: #eaeaea;
 }
 
-.blank_row:hover {
+#addRowBtn:focus {
+    outline: 0;
+}
+
+#addRowBtn:hover {
     background-color: #dedede;
 }
