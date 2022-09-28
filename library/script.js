@@ -2,13 +2,47 @@ const emptyBook = new Book('Book', 'Author', 50, 100);
 const book1 = new Book('The Art of Problem Solving', 'Vladimir Stewart', 123, 424);
 const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
 const book3 = new Book('An Ideal House', 'Roland Yotube', 1102, 2132);
+const localStorageItemName = 'myLibrary';
 
-let myLibrary = [book1, book2, book3];
+let myLibrary = [];
 const tableBody = document.querySelector("#library").querySelector("tbody");
 const addRowBtn = document.querySelector("#addRowBtn");
 const searchBar = document.querySelector("#searchBar");
 let rowCount = 0;
 
+function getOldLibrary() {
+    let oldLibrary = JSON.parse(localStorage.getItem(localStorageItemName) || '[]');
+
+    if (oldLibrary.length == 0) { //old library not found
+        const book1 = new Book('The Art of Problem Solving', 'Vladimir Stewart', 123, 424);
+        const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
+        const book3 = new Book('An Ideal House', 'Roland Yotube', 1102, 2132);
+        return [book1, book2, book3];
+    }
+
+    // convert oldLibrary to a list of Book objects
+    let bookLibrary = [];
+
+    for (let i = 0; i < oldLibrary.length; i++) {
+        let book = oldLibrary[i];
+        let bookObj = new Book(book['title'],
+            book['author'],
+            book['currentpage'],
+            book['totalpages']);
+        bookLibrary.push(bookObj);
+    }
+    return bookLibrary;
+}
+
+function initialiseTable(){
+    let oldLibrary  = getOldLibrary();
+    console.log(oldLibrary);
+    for(let i=0;i<oldLibrary.length;i++){
+        let book = oldLibrary[i];
+        console.log(book)
+        addToTable(book);
+    }
+}
 function Book(title, author, currentpage, totalpages) {
     this.title = title;
     this.author = author;
@@ -18,6 +52,7 @@ function Book(title, author, currentpage, totalpages) {
 
 function addToTable(bookObj) {
     myLibrary.push(bookObj);
+    localStorage.setItem(localStorageItemName, JSON.stringify(myLibrary));
 
     let row = document.createElement("tr");
 
@@ -115,11 +150,26 @@ function RemoveFromTable(e) {
 
     //delete from myLibrary list
     myLibrary.splice(rowIndex, 1);
+    localStorage.setItem(localStorageItemName, JSON.stringify(myLibrary));
 
     //delete from DOM
     currentRow.parentNode.removeChild(currentRow);
 }
 
+function refreshLibraryArray(rowElement){
+    //call this function after user input to
+    // update contents of array with user input
+
+    const rowIndex = parseInt(rowElement.querySelector('td').textContent);
+    const allFields = rowElement.querySelectorAll("td");
+    const author =  allFields[1].textContent;
+    const title =  allFields[2].textContent;
+    const curpg =  allFields[3].textContent;
+    const totpg = allFields[4].textContent;
+
+    myLibrary[rowIndex] = new Book(author,title,curpg,totpg);
+    localStorage.setItem(localStorageItemName, JSON.stringify(myLibrary));
+}
 function editRow(e) {
     function checkEditingMode(row) {
         const titleField = row.querySelectorAll('td')[1];
@@ -150,6 +200,7 @@ function editRow(e) {
         e.target.style.color = InactiveEditingColor;
         e.target.style.backgroundColor = InactiveEditingBGColor;
         toggleEditing(currentRow, false);
+        refreshLibraryArray(currentRow);
 
     } else {
         //turn on editing
@@ -173,10 +224,6 @@ function updateProgressBar(e) {
     console.log(percent);
 }
 
-addToTable(book1);
-addToTable(book2);
-addToTable(book3);
-
 addRowBtn.addEventListener("click", () => { addToTable(emptyBook) });
 
 //implement search bar
@@ -193,3 +240,6 @@ searchBar.addEventListener('keyup', () => {
     };
     trs.forEach(setTrStyleDisplay);
 });
+
+
+initialiseTable();
