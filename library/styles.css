@@ -28,6 +28,9 @@ input {
     background-color: #a5f1db;
     height: 0.9rem;
 }
+.progress-bar{
+    padding:0.3rem;
+}
 
 .bg-success {
     background-color: rgb(33, 209, 156) !important;
