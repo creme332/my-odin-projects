@@ -159,9 +159,12 @@ function updateProgressBar(e) {
     console.log(percent);
 }
 
+const emptyBook = new Book('Book', 'Author', 5,  0, 100);
 const book1 = new Book('The Art of Problem Solving', 'Vladimir Putin', 123, 424);
 const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
 const book3 = new Book('The Ideal House', 'Alexander Arnold', 1102, 2132);
+
+
 addToTable(book1);
 addToTable(book2);
 addToTable(book2);
@@ -172,7 +175,7 @@ deleteButtons.forEach(btn => { btn.addEventListener("click", RemoveFromTable) })
 const editButtons = document.querySelectorAll(".editbtn");
 editButtons.forEach(btn => { btn.addEventListener("click", editRow) });
 
-addRowBtn.addEventListener("click", () => { addToTable(book1) });
+addRowBtn.addEventListener("click", () => { addToTable(emptyBook) });
 
 // update progress bar when page fields are updated
 const allRows = tableBody.querySelectorAll("tr");
