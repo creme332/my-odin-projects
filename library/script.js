@@ -3,11 +3,11 @@ const tableBody = document.querySelector("#library").querySelector("tbody");
 const addRowBtn = document.querySelector("#addRowBtn")
 let rowCount = 0;
 
-function Book(title, author, pages, progressPercent) {
+function Book(title, author, currentpage, totalpages) {
     this.title = title;
     this.author = author;
-    this.pages = pages;
-    this.progressPercent = progressPercent;
+    this.currentpage = currentpage;
+    this.totalpages = totalpages;
 }
 
 function addToTable(bookObj) {
@@ -23,6 +23,7 @@ function addToTable(bookObj) {
 
     //add title
     let titleColumn = document.createElement("td");
+    // titleColumn.setAttribute("contenteditable","true")
     titleColumn.textContent = bookObj.title;
     row.appendChild(titleColumn);
 
@@ -31,20 +32,26 @@ function addToTable(bookObj) {
     authorColumn.textContent = bookObj.author;
     row.appendChild(authorColumn);
 
-    //add page count
-    let pageCol = document.createElement("td");
-    pageCol.textContent = bookObj.pages;
-    row.appendChild(pageCol);
+    //add current page count
+    let currentpageCol = document.createElement("td");
+    currentpageCol.textContent = bookObj.currentpage;
+    row.appendChild(currentpageCol);
+
+    //add total page count
+    let totalpageCol = document.createElement("td");
+    totalpageCol.textContent = bookObj.totalpages;
+    row.appendChild(totalpageCol);
 
     //add progress bar
     let progressColumn = document.createElement("td");
     let progressBarContainer = document.createElement("div");
     progressBarContainer.classList.add("progress");
     let progressBar = document.createElement('div');
+    const percentCompleted = parseInt(bookObj.currentpage / bookObj.totalpages * 100);
     //add animation to progress bar
     const progressLoadingAnimation = [
         { width: `0%` },
-        { width: `${parseInt(bookObj.progressPercent)}%` },
+        { width: `${percentCompleted}%` },
     ];
     const progressLoadingTiming = {
         duration: 2000,
@@ -52,8 +59,8 @@ function addToTable(bookObj) {
     }
     progressBar.animate(progressLoadingAnimation, progressLoadingTiming);
     progressBar.classList.add("progress-bar", "bg-success");
-    progressBar.style.width = bookObj.progressPercent;
-    progressBar.textContent = bookObj.progressPercent;
+    progressBar.style.width = `${percentCompleted}%`;
+    progressBar.textContent = `${percentCompleted}%`;
     progressBarContainer.appendChild(progressBar);
     progressColumn.appendChild(progressBarContainer);
     row.appendChild(progressColumn);
@@ -64,7 +71,7 @@ function addToTable(bookObj) {
 
     let editBtn = document.createElement("button");
     editBtn.setAttribute("type", "button");
-    editBtn.classList.add("btn", "btn-outline-secondary");
+    editBtn.classList.add("btn", "editbtn", "btn-outline-secondary");
     editBtn.textContent = "Edit";
 
     let deleteBtn = document.createElement("button");
@@ -98,16 +105,79 @@ function RemoveFromTable(e) {
     //delete from DOM
     currentRow.parentNode.removeChild(currentRow);
 }
-const book1 = new Book('The Art of Problem Solving', 'Vladimir Putin', 123, '55%');
-const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 1102, '98%');
-const book3 = new Book('The Ideal House', 'Alexander Arnold', 1102, '0%');
 
+function editRow(e) {
+    function checkEditingMode(row) {
+        const titleField = row.querySelectorAll('td')[1];
+        return titleField.getAttribute('contenteditable') == 'true';
+    }
+    function toggleEditing(row, activateEditing) {
+        const allFields = row.querySelectorAll("td");
+    
+        // make all fields editable except first and last 2 fields.
+        for (let i = 1; i < allFields.length - 2; i++) {
+            f = allFields[i];
+            if (activateEditing) {
+                f.setAttribute("contenteditable", true);
+            } else {
+                f.setAttribute("contenteditable", false);
+            }
+        }
+    }
+    let currentRow = e.target.parentNode.parentNode;
+    const activeEditingBGColor = "#6c757d";
+    const activeEditingColor = "white";
+
+    const InactiveEditingBGColor = "transparent";
+    const InactiveEditingColor = "#6c757d";
+
+    if (checkEditingMode(currentRow)) {
+        //turn off editing
+        e.target.style.color = InactiveEditingColor;
+        e.target.style.backgroundColor = InactiveEditingBGColor;
+        toggleEditing(currentRow, false);
+
+    } else {
+        //turn on editing
+
+        //change color of edit button
+        e.target.style.color = activeEditingColor;
+        e.target.style.backgroundColor = activeEditingBGColor;
+
+        toggleEditing(currentRow, true);
+    }
+}
+function updateProgressBar(e) {
+    let currentRow = e.target.parentNode;
+    let fields = currentRow.querySelectorAll('td');
+    let currentpg = Math.max(0, parseInt(fields[3].textContent));
+    let totalpg = Math.max(0, parseInt(fields[4].textContent));
+    let progressbar = fields[5].querySelector('.progress-bar');
+    const percent = Math.min(100, parseInt(100 * currentpg / totalpg));
+    progressbar.style.width = `${percent}%`;
+    progressbar.textContent = `${percent}%`;
+    console.log(percent);
+}
+
+const book1 = new Book('The Art of Problem Solving', 'Vladimir Putin', 123, 424);
+const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
+const book3 = new Book('The Ideal House', 'Alexander Arnold', 1102, 2132);
 addToTable(book1);
 addToTable(book2);
 addToTable(book2);
 addToTable(book3);
-
 const deleteButtons = document.querySelectorAll(".deletebtn");
 deleteButtons.forEach(btn => { btn.addEventListener("click", RemoveFromTable) });
 
+const editButtons = document.querySelectorAll(".editbtn");
+editButtons.forEach(btn => { btn.addEventListener("click", editRow) });
+
 addRowBtn.addEventListener("click", () => { addToTable(book1) });
+
+// update progress bar when page fields are updated
+const allRows = tableBody.querySelectorAll("tr");
+allRows.forEach(r => {
+    fields = r.querySelectorAll('td');
+    fields[3].addEventListener("input", updateProgressBar);
+    fields[4].addEventListener("input", updateProgressBar);
+});
