@@ -1,6 +1,12 @@
-let myLibrary = [];
+const emptyBook = new Book('Book', 'Author', 50, 100);
+const book1 = new Book('The Art of Problem Solving', 'Vladimir Stewart', 123, 424);
+const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
+const book3 = new Book('An Ideal House', 'Roland Yotube', 1102, 2132);
+
+let myLibrary = [book1, book2, book3];
 const tableBody = document.querySelector("#library").querySelector("tbody");
-const addRowBtn = document.querySelector("#addRowBtn")
+const addRowBtn = document.querySelector("#addRowBtn");
+const searchBar = document.querySelector("#searchBar");
 let rowCount = 0;
 
 function Book(title, author, currentpage, totalpages) {
@@ -84,6 +90,14 @@ function addToTable(bookObj) {
     row.appendChild(actionColumn);
 
     tableBody.appendChild(row);
+
+    // update progress bar when page fields are updated
+    currentpageCol.addEventListener("input", updateProgressBar);
+    totalpageCol.addEventListener("input", updateProgressBar);
+
+    // add event listeners to buttons
+    deleteBtn.addEventListener("click", RemoveFromTable);
+    editBtn.addEventListener("click", editRow);
 }
 
 function RemoveFromTable(e) {
@@ -113,7 +127,7 @@ function editRow(e) {
     }
     function toggleEditing(row, activateEditing) {
         const allFields = row.querySelectorAll("td");
-    
+
         // make all fields editable except first and last 2 fields.
         for (let i = 1; i < allFields.length - 2; i++) {
             f = allFields[i];
@@ -159,28 +173,23 @@ function updateProgressBar(e) {
     console.log(percent);
 }
 
-const emptyBook = new Book('Book', 'Author', 5,  0, 100);
-const book1 = new Book('The Art of Problem Solving', 'Vladimir Putin', 123, 424);
-const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
-const book3 = new Book('The Ideal House', 'Alexander Arnold', 1102, 2132);
-
-
 addToTable(book1);
 addToTable(book2);
-addToTable(book2);
 addToTable(book3);
-const deleteButtons = document.querySelectorAll(".deletebtn");
-deleteButtons.forEach(btn => { btn.addEventListener("click", RemoveFromTable) });
-
-const editButtons = document.querySelectorAll(".editbtn");
-editButtons.forEach(btn => { btn.addEventListener("click", editRow) });
 
 addRowBtn.addEventListener("click", () => { addToTable(emptyBook) });
 
-// update progress bar when page fields are updated
-const allRows = tableBody.querySelectorAll("tr");
-allRows.forEach(r => {
-    fields = r.querySelectorAll('td');
-    fields[3].addEventListener("input", updateProgressBar);
-    fields[4].addEventListener("input", updateProgressBar);
+//implement search bar
+searchBar.addEventListener('keyup', () => {
+    const trs = tableBody.querySelectorAll('tr');
+    const filter = searchBar.value;
+    const regex = new RegExp(filter, 'i');
+    const isFoundInTds = td => regex.test(td.innerHTML);
+    const isFound = childrenArr => childrenArr.some(isFoundInTds);
+    const setTrStyleDisplay = ({ style, children }) => {
+        style.display = isFound([
+            ...children // <-- All columns
+        ]) ? '' : 'none'
+    };
+    trs.forEach(setTrStyleDisplay);
 });
