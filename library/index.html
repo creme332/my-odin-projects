@@ -22,7 +22,7 @@
 <body>
     <div class="container">
         <div class="input-group mb-3">
-            <input id = "searchBar" type="text" class="form-control" placeholder="Search..." aria-label="Search..."
+            <input id="searchBar" type="text" class="form-control" placeholder="Search..." aria-label="Search..."
                 aria-describedby="button-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
@@ -31,39 +31,37 @@
             </div>
         </div>
 
-        <table id="library" class="table">
-            <caption>Library</caption>
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Current page</th>
-                    <th scope="col">Total pages</th>
-                    <th scope="col">Progress</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- <tr>
-                    <td></td>
-                    <td><input placeholder="" type="text"></td>
-                    <td><input placeholder="" type="text"></td>
-                    <td><input placeholder="" type="number"></td>
-                    <td><input placeholder="" type="number"></td>
-
-                    <td>
-                        <button type="button" class="btn btn-outline-secondary">Edit</button>
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                    </td>
-
-                </tr> -->
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="library" class="table">
+                <caption>Library</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Current page</th>
+                        <th scope="col">Total pages</th>
+                        <th scope="col">Progress</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                        <td></td>
+                        <td><input placeholder="" type="text"></td>
+                        <td><input placeholder="" type="text"></td>
+                        <td><input placeholder="" type="number"></td>
+                        <td><input placeholder="" type="number"></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-secondary">Edit</button>
+                            <button type="button" class="btn btn-outline-danger">Delete</button>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
         <button id="addRowBtn" class="blank_row btn-block border-0">+ Add new row</button>
     </div>
-    <!-- <button type="button" class="btn btn-outline-primary">View</button> -->
-
 </body>
 
 </html>
