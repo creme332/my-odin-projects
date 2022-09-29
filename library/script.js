@@ -1,9 +1,4 @@
-const emptyBook = new Book('Book', 'Author', 50, 100);
-const book1 = new Book('The Art of Problem Solving', 'Vladimir Stewart', 123, 424);
-const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
-const book3 = new Book('An Ideal House', 'Roland Yotube', 1102, 2132);
 const localStorageItemName = 'myLibrary';
-
 let myLibrary = [];
 const tableBody = document.querySelector("#library").querySelector("tbody");
 const addRowBtn = document.querySelector("#addRowBtn");
@@ -34,10 +29,10 @@ function getOldLibrary() {
     return bookLibrary;
 }
 
-function initialiseTable(){
-    let oldLibrary  = getOldLibrary();
+function initialiseTable() {
+    let oldLibrary = getOldLibrary();
     console.log(oldLibrary);
-    for(let i=0;i<oldLibrary.length;i++){
+    for (let i = 0; i < oldLibrary.length; i++) {
         let book = oldLibrary[i];
         console.log(book)
         addToTable(book);
@@ -64,7 +59,6 @@ function addToTable(bookObj) {
 
     //add title
     let titleColumn = document.createElement("td");
-    // titleColumn.setAttribute("contenteditable","true")
     titleColumn.textContent = bookObj.title;
     row.appendChild(titleColumn);
 
@@ -139,7 +133,6 @@ function RemoveFromTable(e) {
     const allRows = tableBody.querySelectorAll("tr");
     let currentRow = e.target.parentNode.parentNode;
     let rowIndex = parseInt(currentRow.querySelector("td").textContent);
-    // console.log(rowIndex);
 
     //decrement row index of all rows after currentRow
     for (let i = rowIndex + 1; i < rowCount; i++) {
@@ -156,18 +149,18 @@ function RemoveFromTable(e) {
     currentRow.parentNode.removeChild(currentRow);
 }
 
-function refreshLibraryArray(rowElement){
+function refreshLibraryArray(rowElement) {
     //call this function after user input to
-    // update contents of array with user input
+    // update contents of myLibrary with user input
 
     const rowIndex = parseInt(rowElement.querySelector('td').textContent);
     const allFields = rowElement.querySelectorAll("td");
-    const author =  allFields[1].textContent;
-    const title =  allFields[2].textContent;
-    const curpg =  allFields[3].textContent;
+    const author = allFields[1].textContent;
+    const title = allFields[2].textContent;
+    const curpg = allFields[3].textContent;
     const totpg = allFields[4].textContent;
 
-    myLibrary[rowIndex] = new Book(author,title,curpg,totpg);
+    myLibrary[rowIndex] = new Book(author, title, curpg, totpg);
     localStorage.setItem(localStorageItemName, JSON.stringify(myLibrary));
 }
 function editRow(e) {
@@ -178,7 +171,7 @@ function editRow(e) {
     function toggleEditing(row, activateEditing) {
         const allFields = row.querySelectorAll("td");
 
-        // make all fields editable except first and last 2 fields.
+        // make fields 2-5 editable.
         for (let i = 1; i < allFields.length - 2; i++) {
             f = allFields[i];
             if (activateEditing) {
@@ -224,9 +217,12 @@ function updateProgressBar(e) {
     console.log(percent);
 }
 
-addRowBtn.addEventListener("click", () => { addToTable(emptyBook) });
+addRowBtn.addEventListener("click", () => {
+    const emptyBook = new Book('Book', 'Author', 50, 100);
+    addToTable(emptyBook);
+});
 
-//implement search bar
+//implement search bar : https://stackoverflow.com/a/51187875/17627866
 searchBar.addEventListener('keyup', () => {
     const trs = tableBody.querySelectorAll('tr');
     const filter = searchBar.value;
@@ -240,6 +236,5 @@ searchBar.addEventListener('keyup', () => {
     };
     trs.forEach(setTrStyleDisplay);
 });
-
 
 initialiseTable();

@@ -2,6 +2,7 @@
 
 body {
     width: 100vw;
+    height: auto;
     display: grid;
     place-items: center;
     background-color: #f1f3f5;
@@ -10,26 +11,18 @@ body {
 }
 
 .container {
+    height: auto;
     /* outline: 1px solid; */
     width: 100%;
-}
-
-textarea,
-input {
-    background: transparent;
-    width: 100px;
-    /* width: 100%; */
-    height: auto;
-    border: 0;
-    resize: none;
 }
 
 .progress {
     background-color: #a5f1db;
     height: 0.9rem;
 }
-.progress-bar{
-    padding:0.3rem;
+
+.progress-bar {
+    padding: 0.3rem;
 }
 
 .bg-success {
@@ -59,7 +52,6 @@ th {
 table caption {
     caption-side: top;
 }
-
 
 #addRowBtn {
     display: grid;
