@@ -3,35 +3,36 @@ let myLibrary = [];
 const tableBody = document.querySelector("#library").querySelector("tbody");
 const addRowBtn = document.querySelector("#addRowBtn");
 const searchBar = document.querySelector("#searchBar");
-let rowCount = 0;
-
-function getOldLibrary() {
-    let oldLibrary = JSON.parse(localStorage.getItem(localStorageItemName) || '[]');
-
-    if (oldLibrary.length == 0) { //old library not found
-        const book1 = new Book('The Art of Problem Solving', 'Vladimir Stewart', 123, 424);
-        const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
-        const book3 = new Book('An Ideal House', 'Roland Yotube', 1102, 2132);
-        return [book1, book2, book3];
-    }
-
-    // convert oldLibrary to a list of Book objects
-    let bookLibrary = [];
-
-    for (let i = 0; i < oldLibrary.length; i++) {
-        let book = oldLibrary[i];
-        let bookObj = new Book(book['title'],
-            book['author'],
-            book['currentpage'],
-            book['totalpages']);
-        bookLibrary.push(bookObj);
-    }
-    return bookLibrary;
-}
+let rowCount = 0; 
 
 function initialiseTable() {
+    function getOldLibrary() {
+        //retrieve data from localStorage and return as a list of Book objects
+        let oldLibrary = JSON.parse(localStorage.getItem(localStorageItemName) || '[]');
+
+        if (oldLibrary.length == 0) { //old library not found
+            const book1 = new Book('The Art of Problem Solving', 'Vladimir Stewart', 123, 424);
+            const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
+            const book3 = new Book('An Ideal House', 'Roland Yotube', 1102, 2132);
+            return [book1, book2, book3];
+        }
+
+        // convert oldLibrary to a list of Book objects
+        let bookLibrary = [];
+
+        for (let i = 0; i < oldLibrary.length; i++) {
+            let book = oldLibrary[i];
+            let bookObj = new Book(book['title'],
+                book['author'],
+                book['currentpage'],
+                book['totalpages']);
+            bookLibrary.push(bookObj);
+        }
+        return bookLibrary;
+    }
+
     let oldLibrary = getOldLibrary();
-    console.log(oldLibrary);
+
     for (let i = 0; i < oldLibrary.length; i++) {
         let book = oldLibrary[i];
         console.log(book)
