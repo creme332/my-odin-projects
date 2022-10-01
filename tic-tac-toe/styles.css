@@ -1,5 +1,6 @@
 body {
     perspective-origin: bottom left;
+    perspective: 310px;
 }
 
 h1 {
@@ -22,8 +23,6 @@ h1 {
 }
 
 .cell {
-    text-align: center;
-    font-weight: 900;
     border: 1px solid rgb(164, 164, 164);
 }
 
@@ -40,6 +39,7 @@ h1 {
     gap: 0.2rem;
     background-color: aliceblue;
     animation: rotate 2s ease-in-out;
+    /* transform: rotateX(10deg); */
 }
 
 @keyframes rotate {
