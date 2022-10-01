@@ -1,5 +1,55 @@
-.box{
-    height: 100px;
-    width: 100px;
-    background-color: black;
+body {
+    perspective-origin: bottom left;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.sliders {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.scene {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-style: preserve-3d;
+}
+
+.cell {
+    text-align: center;
+    font-weight: 900;
+    border: 1px solid rgb(164, 164, 164);
+}
+
+.cell:hover {
+    border-color: black;
+}
+
+.board {
+    height: 40vw;
+    width: 40vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0.2rem;
+    background-color: aliceblue;
+    animation: rotate 2s ease-in-out;
+}
+
+@keyframes rotate {
+    from {
+        -webkit-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+    }
+
+    to {
+        -webkit-transform: rotateX(10deg);
+        transform: rotateX(10deg);
+    }
 }
