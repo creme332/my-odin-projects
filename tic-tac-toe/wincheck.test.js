@@ -1,4 +1,6 @@
 const winCheck = require('./wincheck');
+const playerMarker1 = 1;
+const playerMarker2 = 2;
 // Notes :
 // - When comparing answer and expected answer, 
 //   ignore order of inner list but not order of coordinates : https://stackoverflow.com/a/53358419/17627866. 
@@ -30,10 +32,11 @@ test('Empty cube', () => {
             [0, 0, 0, 0]
         ]
     ];
-    expect(winCheck(cube)).toStrictEqual([]);
+    const lastMove1 = { "plane": 0, "row": 0, "col": 0 };
+    expect(winCheck(cube, lastMove1, playerMarker1)).toStrictEqual([]);
 });
 
-test('1D row check', () => {
+test('1 plane row check', () => {
     const cube = [
         [
             [1, 0, 1, 0],
@@ -62,11 +65,15 @@ test('1D row check', () => {
     ];
     //cube[1][3]
     const ExpectedAnswer = [[1, 3, 0], [1, 3, 1], [1, 3, 2], [1, 3, 3]];
-    expect(new Set(winCheck(cube))).toStrictEqual(new Set(ExpectedAnswer));
+    const lastMove1 = { "plane": 1, "row": 3, "col": 2 };
+    const lastMove2 = { "plane": 2, "row": 3, "col": 2 };
+
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
+    expect((winCheck(cube, lastMove2, playerMarker1))).toStrictEqual([]);
 
 });
 
-test('1D column check', () => {
+test('1 plane column check', () => {
     const cube = [
         [
             [0, 0, 0, 1],
@@ -94,10 +101,13 @@ test('1D column check', () => {
         ]
     ];
     const ExpectedAnswer = [[2, 0, 1], [2, 1, 1], [2, 2, 1], [2, 3, 1]];
-    expect(new Set(winCheck(cube))).toStrictEqual(new Set(ExpectedAnswer));
+    const lastMove1 = { "plane": 2, "row": 2, "col": 1 };
+    const lastMove2 = { "plane": 2, "row": 3, "col": 3 };
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
+    expect((winCheck(cube, lastMove2, playerMarker1))).toStrictEqual([]);
 });
 
-test('1D positive diagonal check', () => {
+test('1 plane positive diagonal check', () => {
     const cube = [
         [
             [0, 0, 0, 1],
@@ -131,10 +141,13 @@ test('1D positive diagonal check', () => {
         [2, 2, 1],
         [2, 3, 0]
     ];
-    expect(new Set(winCheck(cube))).toStrictEqual(new Set(ExpectedAnswer));
+    const lastMove1 = { "plane": 2, "row": 0, "col": 3 };
+    const lastMove2 = { "plane": 2, "row": 3, "col": 3 };
+    expect(new Set(winCheck(cube, lastMove1, playerMarker2))).toStrictEqual(new Set(ExpectedAnswer));
+    expect((winCheck(cube, lastMove2, playerMarker2))).toStrictEqual([]);
 });
 
-test('1D negative diagonal check', () => {
+test('1 plane negative diagonal check', () => {
     const cube = [
         [
             [0, 0, 0, 0],
@@ -162,5 +175,42 @@ test('1D negative diagonal check', () => {
         ]
     ];
     const ExpectedAnswer = [[3, 0, 0], [3, 1, 1], [3, 2, 2], [3, 3, 3]];
-    expect(new Set(winCheck(cube))).toStrictEqual(new Set(ExpectedAnswer));
+    const lastMove1 = { "plane": 3, "row": 2, "col": 2 };
+    const lastMove2 = { "plane": 2, "row": 0, "col": 0 };
+    expect(new Set(winCheck(cube, lastMove1, playerMarker2))).toStrictEqual(new Set(ExpectedAnswer));
+    expect((winCheck(cube, lastMove2, playerMarker2))).toStrictEqual([]);
+});
+
+test('multi-plane vertical check', () => {
+    const cube = [
+        [
+            [1, 1, 0, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [1, 1, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [1, 1, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [1, 2, 0, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+    ];
+    const ExpectedAnswer = [[0, 0, 0], [1, 0, 0], [2, 0, 0], [3, 0, 0]];
+    const lastMove1 = { "plane": 0, "row": 0, "col": 0 };
+    const lastMove2 = { "plane": 2, "row": 1, "col": 0 };
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
+    expect((winCheck(cube, lastMove2, playerMarker2))).toStrictEqual([]);
 });
