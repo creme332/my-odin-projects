@@ -36,6 +36,7 @@ test('Empty cube', () => {
     expect(winCheck(cube, lastMove1, playerMarker1)).toStrictEqual([]);
 });
 
+// SINGLE PLANE 
 test('1 plane row check', () => {
     const cube = [
         [
@@ -181,6 +182,8 @@ test('1 plane negative diagonal check', () => {
     expect((winCheck(cube, lastMove2, playerMarker2))).toStrictEqual([]);
 });
 
+
+// MULTI-PLANE
 test('multi-plane vertical check', () => {
     const cube = [
         [
@@ -213,4 +216,36 @@ test('multi-plane vertical check', () => {
     const lastMove2 = { "plane": 2, "row": 1, "col": 0 };
     expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
     expect((winCheck(cube, lastMove2, playerMarker2))).toStrictEqual([]);
+});
+
+test('multi-plane line A1', () => {
+    const cube = [
+        [
+            [1, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [0, 1, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [0, 0, 1, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [0, 0, 0, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+    ];
+    const lastMove1 = { "plane": 0, "row": 0, "col": 0 };
+    const ExpectedAnswer = [[0, 0, 0], [1, 0, 1], [2, 0, 2], [3, 0, 3]];
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });

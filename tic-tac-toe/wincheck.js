@@ -100,31 +100,117 @@ function wincheck(cube, lastMove, playerMarker) {
 
     // At this point, Case 1 been tested.
 
-    //Case 3 : A 3D line spanning across all 3 planes
+    // All code from this point are non-optimal.
 
-    let startingCoords = [ //corners of top plane in (plane, row, column) format
-        [0, 0, 0], //top left 
-        [0, DIMENSION - 1, 0], //bottom left 
-        [0, 0, DIMENSION - 1], //top right
-        [0, DIMENSION - 1, DIMENSION - 1] //bottom right
-    ];
-    let dz = [1, 1, 1, 1]; //change in plane
-    let dx = [1, -1, 1, -1]; //change in row
-    let dy = [1, 1, -1, -1]; //change in column
+    //Case 3 : A 3D line spanning across all 3 planes 
 
-    for(let i=0;i<DIMENSION;i++){
-        let corner= startingCoords[i];
-        let plane = corner[0];
-        let row = corner[1];
-        let col = corner[2];
-
-        while(plane>-1 && row>-1 && col>-1 && plane<DIMENSION-1 && row<DIMENSION-1 && col<DIMENSION-1){
-
+    function getBorderCells(DIMENSION) {
+        let coords = [];
+        // move right
+        for (let i = 0; i < DIMENSION; i++) {
+            coords.push([0, 0, i]);
         }
+        //move down
+        for (let i = 1; i < DIMENSION; i++) {
+            coords.push([0, i, DIMENSION - 1]);
+        }
+        //move left
+        for (let i = DIMENSION - 2; i > -1; i--) {
+            coords.push([0, DIMENSION - 1, i]);
+        }
+        //move up
+        for (let i = DIMENSION - 2; i > 0; i--) {
+            coords.push([0, i, 0]);
+        }
+        return coords;
+    }
+
+    winningCoord = [];
+    //get coordinates of cells along edge of top plane
+    let startingCoords = getBorderCells(DIMENSION);
+    let directions = [
+        //---A---
+        [1, 0, 1],
+        [1, 0, -1],
+
+        //---B---
+        [1, 1, 0],
+        [1, -1, 0],
+        //---C---
+        [1, 1, 1],
+        [1, 1, -1],
+        [1, -1, 1],
+        [1, -1, -1]
+    ];
+
+    //loop through each possible starting point for winning line
+    for (let i = 0; i < startingCoords.length; i++) {
+        let coord = startingCoords[i];
+
+        //loop through possible directions
+        for (let j = 0; j < directions.length; j++) {
+            winningCoord = [coord];
+            let plane = coord[0];
+            let row = coord[1];
+            let col = coord[2];
+
+            //loop through each point other than the starting point along this direction
+            for (let k = 0; k < DIMENSION - 1; k++) {
+                let newplane = plane + directions[j][0];
+                let newrow = row + directions[j][1];
+                let newcol = col + directions[j][2];
+
+                //check if new coordinates is in range
+                if (newrow < 0 || newcol < 0 || newplane < 0 || newrow >= DIMENSION || newcol >= DIMENSION || newplane >= DIMENSION) {
+                    break;
+                }
+
+                if (cube[newplane][newrow][newcol] == cube[plane][row][col] && cube[plane][row][col] == playerMarker) {
+                    winningCoord.push([newplane, newrow, newcol]);
+                } else {
+                    break;
+                }
+                plane = newplane;
+                row = newrow;
+                col = newcol;
+            }
+            if (winningCoord.length == DIMENSION) {
+                return winningCoord;
+            }
+        }
+
     }
 
     //no win yet
     return [];
 }
+const cube = [
+    [
+        [1, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ],
+    [
+        [0, 1, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ],
+    [
+        [0, 0, 1, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ],
+    [
+        [0, 0, 0, 1],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ]
+];
+const lastMove1 = { "plane": 0, "row": 0, "col": 0 };
+console.log(wincheck(cube, lastMove1, 1));
 module.exports = wincheck;
 
