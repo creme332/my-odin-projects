@@ -1,0 +1,14 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Test function which checks for win in 3D tictactoe",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "creme332",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  }
+}
