@@ -1,28 +1,62 @@
 "use strict";
-//no need to return winner. after player makes a move, wincheck. if yes, current player = winner
 
-// https://en.wikipedia.org/wiki/3D_tic-tac-toe#4x4x4,_two-player
-// There are 76 winning lines
+/* CALCULATE THE NUMBER OF WINNING LINES in 4x4x4 TTT
 
-// Case 1 : 1D winning lines 
-// Case 1.1 : Lines across a single board (4 horizontal, 4 vertical, 2 diagonals)
-// 10x4 lines
-// Case 1.2 : Vertical lines across all 3 boards (refer to images in README)
-// 16x1 lines
-// Case 2 : 2D lines across all 3 boards ((1,0,1) and (0,1,1) translations)
-// 12
-// Case 3 : 3D slanted lines across all 3 boards  ((1,1,1) translation)
-// 4 lines
+Case 1 : Winning lines across a single board (4 horizontal, 4 vertical, 2 diagonals)
+    10x4 lines
 
-/**
- * wincheck() returns a 2D list containing the coordinates of the markers along the winning line.
- * @param {*} cube  // 3D list representing a 4x4x4 cube with markers.
- * @returns {[2D list]} // a 2D list of length 4 or an empty list
- */
+Case 2 : 1D vertical lines across all 4 boards 
+    Connect cells having same (row, column).
+    16 cells in a board => 16 lines
+
+Case 3 : 2D lines across all 4 boards 
+    Case 3.1 : Lines have no displacement row-wise 
+        Start line at the following positions in top board :
+        _______________ 
+       | x |   |   | x |
+       | x |   |   | x |
+       | x |   |   | x |
+       | x |   |   | x |
+        ▔▔▔▔▔▔▔▔
+        8 lines
+    Case 3.2 : Lines have no displacement column-wise 
+        Start line at the following positions in top board :
+        _______________ 
+       | x | x | x | x |
+       |   |   |   |   |
+       |   |   |   |   |
+       | x | x | x | x |
+        ▔▔▔▔▔▔▔▔
+        8 lines
+    16 lines
+
+Case 4 : 3D slanted lines across all 4 boards  
+    Start line at the following positions in top board :
+        _______________ 
+       | x |   |   | x |
+       |   |   |   |   |
+       |   |   |   |   |
+       | x |   |   | x |
+        ▔▔▔▔▔▔▔▔
+    Perform (1,1,1) translation to end at corners of bottom board.
+    4 corners => 4 lines
+
+Total winning lines = 40 + 16 + 16 + 4 = 76
+*/
+
+/* POSSIBLE METHOD 
+
+Store all possible |directions| .
+Using lastMove as starting point, count in all possible directions before and after
+
+*/
+
 function wincheck(cube, lastMove, playerMarker) {
     const DIMENSION = cube.length; //4x4x4
-    let winningCoord = []; //list of coordinates of points on winning line. Format: (plane number, row, column)
+    let winningCoord = []; //list of coordinates of points on winning line. Format: (plane, row, column)
     const board_1D = cube[lastMove.plane]; // board on which player made a move 
+
+    // CHECK CASE 1 and CASE 2 optimally
 
     //check horizontally along board
     winningCoord = [[lastMove.plane, lastMove.row, 0]];
@@ -98,11 +132,9 @@ function wincheck(cube, lastMove, playerMarker) {
         return winningCoord;
     }
 
-    // At this point, Case 1 been tested.
+    // At this point, Case 1, 2 are over.
 
-    // All code from this point are non-optimal.
-
-    //Case 3 : A 3D line spanning across all 3 planes 
+    // The code below Case 3, 4 is NON_OPTIMAL.
 
     function getBorderCells(DIMENSION) {
         let coords = [];
@@ -127,8 +159,8 @@ function wincheck(cube, lastMove, playerMarker) {
 
     winningCoord = [];
     //get coordinates of cells along edge of top plane
-    let startingCoords = getBorderCells(DIMENSION);
-    let directions = [
+    const startingCoords = getBorderCells(DIMENSION);
+    const directions = [
         //---A---
         [1, 0, 1],
         [1, 0, -1],
@@ -142,7 +174,6 @@ function wincheck(cube, lastMove, playerMarker) {
         [1, -1, 1],
         [1, -1, -1]
     ];
-
     //loop through each possible starting point for winning line
     for (let i = 0; i < startingCoords.length; i++) {
         let coord = startingCoords[i];
@@ -154,18 +185,21 @@ function wincheck(cube, lastMove, playerMarker) {
             let row = coord[1];
             let col = coord[2];
 
-            //loop through each point other than the starting point along this direction
+            //loop through each point (other than the starting point) along this direction
             for (let k = 0; k < DIMENSION - 1; k++) {
                 let newplane = plane + directions[j][0];
                 let newrow = row + directions[j][1];
                 let newcol = col + directions[j][2];
 
                 //check if new coordinates is in range
-                if (newrow < 0 || newcol < 0 || newplane < 0 || newrow >= DIMENSION || newcol >= DIMENSION || newplane >= DIMENSION) {
+                if (newrow < 0 || newcol < 0 || newplane < 0 ||
+                    newrow >= DIMENSION || newcol >= DIMENSION ||
+                    newplane >= DIMENSION) {
                     break;
                 }
 
-                if (cube[newplane][newrow][newcol] == cube[plane][row][col] && cube[plane][row][col] == playerMarker) {
+                if (cube[newplane][newrow][newcol] == cube[plane][row][col]
+                    && cube[plane][row][col] == playerMarker) {
                     winningCoord.push([newplane, newrow, newcol]);
                 } else {
                     break;
@@ -178,39 +212,10 @@ function wincheck(cube, lastMove, playerMarker) {
                 return winningCoord;
             }
         }
-
     }
 
     //no win yet
     return [];
 }
-const cube = [
-    [
-        [1, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
-    ],
-    [
-        [0, 1, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
-    ],
-    [
-        [0, 0, 1, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
-    ],
-    [
-        [0, 0, 0, 1],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
-    ]
-];
-const lastMove1 = { "plane": 0, "row": 0, "col": 0 };
-console.log(wincheck(cube, lastMove1, 1));
 module.exports = wincheck;
 
