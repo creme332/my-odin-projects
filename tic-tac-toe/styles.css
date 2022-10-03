@@ -4,15 +4,12 @@ body {
     height: 100vh;;
 }
 .left{
-
+    overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
         outline: 1px solid;
 
-}
-h1 {
-    font-size: 30px;
 }
 
 .scene {

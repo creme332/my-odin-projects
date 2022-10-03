@@ -100,18 +100,28 @@ const persSlider = document.getElementById('Pers');
 const persXSlider = document.getElementById('PersHorizontal');
 const persYSlider = document.getElementById('PersVertical');
 const toggleTransparencyCheckbox = document.getElementById('transparent-button');
-
+const autoRotateCheckbox = document.querySelector('#autorotate-button');
 const boards = document.querySelectorAll('.board');
 const threeDbutton = document.querySelector('#threeD-button');
 const scene  = document.querySelector('.scene');
+let threeDsettings = {};
 
 threeDbutton.addEventListener('input', () => {
     if (threeDbutton.checked) {
         scene.classList.add('disable3Dscene');
         xSlider.value = ySlider.value = zSlider.value = 0;
         rotateBoard();
+        togglePerspectiveSliders(false);
+        toggleRotateSliders(false);
+        autoRotateCheckbox.setAttribute('disabled','true');
+        //save current 3D settings
     } else {
         scene.classList.remove('disable3Dscene');
+        togglePerspectiveSliders(true);
+        toggleRotateSliders(true);
+        autoRotateCheckbox.removeAttribute('disabled');
+        //restore 3D settings
+
     }
 
 })
@@ -132,8 +142,28 @@ function rotateBoard() {
     });
 }
 
-function AutoRotateBoard(activate) {
+function toggleRotateSliders(activate){
     const rotationSliders = document.querySelectorAll('.rotationslider');
+    rotationSliders.forEach(slider => {
+        if (activate) {
+            slider.removeAttribute('disabled');
+        } else {
+            slider.setAttribute('disabled', 'true');
+        }
+    });
+}
+
+function togglePerspectiveSliders(activate){
+    const perspectiveSliders = document.querySelectorAll('.perspectiveslider');
+    perspectiveSliders.forEach(slider => {
+        if (activate) {
+            slider.removeAttribute('disabled');
+        } else {
+            slider.setAttribute('disabled', 'true');
+        }
+    });
+}
+function toggleAutoRotation(activate) {
 
     boards.forEach(board => {
         if (activate) {
@@ -144,22 +174,15 @@ function AutoRotateBoard(activate) {
 
         }
     });
-
-    rotationSliders.forEach(slider => {
-        if (activate) {
-            slider.setAttribute('disabled', 'true');
-        } else {
-            slider.setAttribute('disabled', 'false');
-        }
-    });
+    toggleRotateSliders(!activate);
 }
 changePerspective();
 rotateBoard();
-document.querySelector('#autorotate-button').addEventListener('input', () => {
+autoRotateCheckbox.addEventListener('input', () => {
     if (document.querySelector('#autorotate-button').checked) {
-        AutoRotateBoard(true);
+        toggleAutoRotation(true);
     } else {
-        AutoRotateBoard(false);
+        toggleAutoRotation(false);
     }
 })
 
