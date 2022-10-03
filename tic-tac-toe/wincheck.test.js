@@ -311,7 +311,7 @@ test('multi-plane line B1', () => {
     ];
     const lastMove1 = { "plane": 0, "row": 0, "col": 0 };
     const ExpectedAnswer = [[0, 0, 0], [1, 1, 0], [2, 2, 0], [3, 3, 0]];
-    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toEqual(new Set(ExpectedAnswer));
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });
 
 test('multi-plane line B13', () => {
@@ -343,7 +343,7 @@ test('multi-plane line B13', () => {
     ];
     const lastMove1 = { "plane": 0, "row": 3, "col": 0 };
     const ExpectedAnswer = [[0, 3, 0], [1, 2, 0], [2, 1, 0], [3, 0, 0]];
-    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toEqual(new Set(ExpectedAnswer));
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });
 
 test('multi-plane line C1', () => {
@@ -375,7 +375,7 @@ test('multi-plane line C1', () => {
     ];
     const lastMove1 = { "plane": 0, "row": 0, "col": 0 };
     const ExpectedAnswer = [[0, 0, 0], [1, 1, 1], [2, 2, 2], [3, 3, 3]];
-    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toEqual(new Set(ExpectedAnswer));
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });
 
 test('multi-plane line C4', () => {
@@ -407,7 +407,7 @@ test('multi-plane line C4', () => {
     ];
     const lastMove1 = { "plane": 0, "row": 0, "col": 3 };
     const ExpectedAnswer = [[0, 0, 3], [1, 1, 2], [2, 2, 1], [3, 3, 0]];
-    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toEqual(new Set(ExpectedAnswer));
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });
 
 test('multi-plane line C13', () => {
@@ -439,7 +439,7 @@ test('multi-plane line C13', () => {
     ];
     const lastMove1 = { "plane": 0, "row": 3, "col": 0 };
     const ExpectedAnswer = [[0, 3, 0], [1, 2, 1], [2, 1, 2], [3, 0, 3]];
-    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toEqual(new Set(ExpectedAnswer));
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });
 
 test('multi-plane line C16', () => {
@@ -471,5 +471,5 @@ test('multi-plane line C16', () => {
     ];
     const lastMove1 = { "plane": 0, "row": 3, "col": 3 };
     const ExpectedAnswer = [[0, 3, 3], [1, 2, 2], [2, 1, 1], [3, 0, 0]];
-    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toEqual(new Set(ExpectedAnswer));
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });
