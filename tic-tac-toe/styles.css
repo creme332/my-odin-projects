@@ -1,25 +1,38 @@
 body {
-    perspective-origin: bottom left;
-    perspective: 310px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    height: 100vh;;
 }
+.left{
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        outline: 1px solid;
+
+}
 h1 {
     font-size: 30px;
 }
 
-.sliders {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-}
-
 .scene {
-    height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     transform-style: preserve-3d;
+    perspective-origin: bottom left; 
+    perspective: 310px;
+    /* outline: 1px solid; */
+}
+
+.disable3Dscene{
+    flex-direction: row;
+   justify-content: center;
+    gap:1em;
+
+    transform-style: flat;
+    perspective-origin: 50% 50%; 
+    perspective: unset;
 }
 
 .cell {
@@ -31,14 +44,16 @@ h1 {
 }
 
 .board {
-    height: 40vw;
-    width: 40vw;
+    height: max(120px,10vw);
+    width: max(120px,10vw);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 0.2rem;
     background-color: aliceblue;
-    animation: rotate 2s ease-in-out;
+    /* background-color: transparent; */
+    /* transition: 1s; */
+    /* animation: rotate 2s ease-in-out; */
     /* transform: rotateX(10deg); */
 }
 
@@ -52,4 +67,31 @@ h1 {
         -webkit-transform: rotateX(10deg);
         transform: rotateX(10deg);
     }
+}
+
+@keyframes autorotate {
+    from { transform: rotateY(0deg) rotateX(720deg) rotateZ(0deg); 
+        webkit-transform: rotateY(0deg) rotateX(720deg) rotateZ(0deg);}
+    to { transform: rotateY(360deg) rotateX(0deg) rotateZ(360deg);
+        webkit-transform: rotateY(360deg) rotateX(0deg) rotateZ(360deg); }
+}
+.animateAutoRotate{
+    animation: autorotate 10s linear infinite;
+}
+
+.settings{
+    display: grid;
+    place-items: center;
+    /* outline: 1px solid; */
+    overflow-y: scroll;
+}
+.menu{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap:1em;
+}
+.settings .menu  li{
+    display: flex;
+    flex-direction: column;
 }
