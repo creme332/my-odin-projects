@@ -157,7 +157,6 @@ function wincheck(cube, lastMove, playerMarker) {
         return coords;
     }
 
-    winningCoord = [];
     //get coordinates of cells along edge of top plane
     const startingCoords = getBorderCells(DIMENSION);
     const directions = [
@@ -174,22 +173,21 @@ function wincheck(cube, lastMove, playerMarker) {
         [1, -1, 1],
         [1, -1, -1]
     ];
+    // z : plane index, x : row index, y : column index
+    // dz : change in plane index, ...
+
     //loop through each possible starting point for winning line
-    for (let i = 0; i < startingCoords.length; i++) {
-        let coord = startingCoords[i];
+    for (let [z, x, y] of startingCoords) {
 
         //loop through possible directions
-        for (let j = 0; j < directions.length; j++) {
-            winningCoord = [coord];
-            let plane = coord[0];
-            let row = coord[1];
-            let col = coord[2];
+        for (let [dz, dx, dy] of directions) {
+            winningCoord = [[z, x, y]];
 
             //loop through each point (other than the starting point) along this direction
-            for (let k = 0; k < DIMENSION - 1; k++) {
-                let newplane = plane + directions[j][0];
-                let newrow = row + directions[j][1];
-                let newcol = col + directions[j][2];
+            for (let k = 1; k <= DIMENSION - 1; k++) {
+                let newplane = z + dz * k;
+                let newrow = x + dx * k;
+                let newcol = y + dy * k;
 
                 //check if new coordinates is in range
                 if (newrow < 0 || newcol < 0 || newplane < 0 ||
@@ -198,15 +196,12 @@ function wincheck(cube, lastMove, playerMarker) {
                     break;
                 }
 
-                if (cube[newplane][newrow][newcol] == cube[plane][row][col]
-                    && cube[plane][row][col] == playerMarker) {
+                if (cube[newplane][newrow][newcol] == cube[z][x][y]
+                    && cube[z][x][y] == playerMarker) {
                     winningCoord.push([newplane, newrow, newcol]);
                 } else {
                     break;
                 }
-                plane = newplane;
-                row = newrow;
-                col = newcol;
             }
             if (winningCoord.length == DIMENSION) {
                 return winningCoord;
