@@ -33,7 +33,9 @@
     </div>
     <div class="settings">
         <ul class="menu">
-            <h1>Game mode</h1>
+            <h1>Settings</h1>
+
+            <h3>Game mode</h3>
             <li>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -52,7 +54,7 @@
             <li>
                 <button type="button" id="restart-btn" class="btn btn-dark">Restart game</button>
             </li>
-            <h1>Gameplay</h1>
+            <h3>Viewing</h3>
             <li>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="transparent-button">
@@ -78,34 +80,34 @@
                     </label>
                 </div>
             </li>
-            <h1>Rotate</h1>
+            <h4>Rotation</h4>
             <li>
-                <label for="xSlider">x = <span id="xval">0</span>&deg;</label>
+                <label for="xSlider">rotateX = <span id="xval">0</span>&deg;</label>
                 <input class="rotationslider" data-unit="deg" id="xSlider" type="range" value="0" min="0" max="360">
             </li>
 
             <li>
-                <label for="ySlider">y = <span id="yval">0</span>&deg;</label>
+                <label for="ySlider">rotateY = <span id="yval">0</span>&deg;</label>
                 <input class="rotationslider" data-unit="deg" id="ySlider" type="range" value="0" min="0" max="360">
             </li>
 
             <li>
-                <label for="zSlider">z = <span id="zval">0</span>&deg;</label>
+                <label for="zSlider">rotateZ = <span id="zval">0</span>&deg;</label>
                 <input class="rotationslider" data-unit="deg" id="zSlider" type="range" value="0" min="0" max="360">
             </li>
+            <h4>Perspective</h4>
 
-            <h1>
-                Perspective
-                <svg data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip"
-                    data-bs-title="Determines the distance between the z=0 plane and the user"
-                    xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                    class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                </svg>
-            </h1>
             <li>
-                <label for="Pers">Perspective = <span id="pval"></span> px</label>
+                <label for="Pers">Perspective = <span id="pval"></span> px <span>
+                        <svg data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip"
+                            data-bs-title="Determines the distance between the z=0 plane and the user"
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                        </svg>
+                    </span></label>
+
                 <input class="perspectiveslider" data-unit="px" id="Pers" type="range" value="0" min="100" max="1000"
                     step="10">
             </li>
