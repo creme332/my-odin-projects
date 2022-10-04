@@ -11,10 +11,7 @@ const gameFactory = (player1name, player2name) => {
     const player1 = playerFactory(player1name, 1, 'red');
     const player2 = playerFactory(player2name, 2, 'green');
     let currentPlayer = player1;
-
-    function getCurrentMarkerColour(){
-        return currentPlayer.markerColour;
-    }
+    let lastMove = { "plane": -1, "row": -1, "col": -1 };
     let cube = [
         [
             [0, 0, 0, 0],
@@ -40,7 +37,173 @@ const gameFactory = (player1name, player2name) => {
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-    ];
+    ]; //must generate on runtime
+    const DIMENSION = cube.length; //4x4x4
+
+    function wincheck() {
+        const playerMarker = currentPlayer.marker;
+        let winningCoord = []; //list of coordinates of points on winning line. Format: (plane, row, column)
+        const board_1D = cube[lastMove.plane]; // board on which player made a move 
+
+        // CHECK CASE 1 and CASE 2 optimally
+
+        //check horizontally along board
+        winningCoord = [[lastMove.plane, lastMove.row, 0]];
+        for (let col = 1; col < DIMENSION; col++) { //col
+            if (board_1D[lastMove.row][col] == board_1D[lastMove.row][col - 1] && board_1D[lastMove.row][col] == playerMarker) {
+                winningCoord.push([lastMove.plane, lastMove.row, col]);
+            } else {
+                break;
+            }
+        }
+        if (winningCoord.length == DIMENSION) {
+            return winningCoord;
+        }
+
+        //check vertically along board
+        winningCoord = [[lastMove.plane, 0, lastMove.col]];
+        for (let row = 1; row < DIMENSION; row++) {
+            if (board_1D[row][lastMove.col] == board_1D[row - 1][lastMove.col] && board_1D[row][lastMove.col] == playerMarker) {
+                winningCoord.push([lastMove.plane, row, lastMove.col]);
+            } else {
+                break;
+            }
+        }
+        if (winningCoord.length == DIMENSION) {
+            return winningCoord;
+        }
+
+        //check positive diagonal along board
+        if (lastMove.row + lastMove.col == DIMENSION - 1) { // we are on positive diagonal
+            winningCoord = [[lastMove.plane, DIMENSION - 1, 0]];
+
+            for (let row = DIMENSION - 1; row > 0; row--) { //start checking from bottom left corner
+                let col = (DIMENSION - 1) - row;
+                if (board_1D[row][col] == board_1D[row - 1][col + 1] && board_1D[row][col] == playerMarker) {
+                    winningCoord.push([lastMove.plane, row, col]);
+                } else {
+                    break;
+                }
+            }
+
+            if (winningCoord.length == DIMENSION) {
+                return winningCoord;
+            }
+        }
+
+        //check negative diagonal along board
+        if (lastMove.row == lastMove.col) { // we are on negative 2D diagonal 
+            winningCoord = [[lastMove.plane, 0, 0]];
+
+            for (let row = DIMENSION - 1; row > 0; row--) {
+                if (board_1D[row][row] == board_1D[row - 1][row - 1] && board_1D[row][row] == playerMarker) {
+                    winningCoord.push([lastMove.plane, row, row]);
+                } else {
+                    break;
+                }
+            }
+
+            if (winningCoord.length == DIMENSION) {
+                return winningCoord;
+            }
+        }
+
+        //multi-plane vertical line check
+        winningCoord = [[0, lastMove.row, lastMove.col]];
+        for (let plane = 1; plane < DIMENSION; plane++) {
+            if (cube[plane][lastMove.row][lastMove.col] == cube[plane - 1][lastMove.row][lastMove.col] && cube[plane][lastMove.row][lastMove.col] == playerMarker) {
+                winningCoord.push([plane, lastMove.row, lastMove.col]);
+            } else {
+                break;
+            }
+        }
+        if (winningCoord.length == DIMENSION) {
+            return winningCoord;
+        }
+
+        // At this point, Case 1, 2 are over.
+
+        // The code below Case 3, 4 is NON_OPTIMAL.
+
+        function getBorderCells(DIMENSION) {
+            let coords = [];
+            // move right
+            for (let i = 0; i < DIMENSION; i++) {
+                coords.push([0, 0, i]);
+            }
+            //move down
+            for (let i = 1; i < DIMENSION; i++) {
+                coords.push([0, i, DIMENSION - 1]);
+            }
+            //move left
+            for (let i = DIMENSION - 2; i > -1; i--) {
+                coords.push([0, DIMENSION - 1, i]);
+            }
+            //move up
+            for (let i = DIMENSION - 2; i > 0; i--) {
+                coords.push([0, i, 0]);
+            }
+            return coords;
+        }
+
+        //get coordinates of cells along edge of top plane
+        const startingCoords = getBorderCells(DIMENSION);
+        const directions = [
+            //---A---
+            [1, 0, 1],
+            [1, 0, -1],
+
+            //---B---
+            [1, 1, 0],
+            [1, -1, 0],
+            //---C---
+            [1, 1, 1],
+            [1, 1, -1],
+            [1, -1, 1],
+            [1, -1, -1]
+        ];
+        // z : plane index, x : row index, y : column index
+        // dz : change in plane index, ...
+
+        //loop through each possible starting point for winning line
+        for (let [z, x, y] of startingCoords) {
+
+            //loop through possible directions
+            for (let [dz, dx, dy] of directions) {
+                winningCoord = [[z, x, y]];
+
+                //loop through each point (other than the starting point) along this direction
+                for (let k = 1; k <= DIMENSION - 1; k++) {
+                    let newplane = z + dz * k;
+                    let newrow = x + dx * k;
+                    let newcol = y + dy * k;
+
+                    //check if new coordinates is in range
+                    if (newrow < 0 || newcol < 0 || newplane < 0 ||
+                        newrow >= DIMENSION || newcol >= DIMENSION ||
+                        newplane >= DIMENSION) {
+                        break;
+                    }
+
+                    if (cube[newplane][newrow][newcol] == cube[z][x][y]
+                        && cube[z][x][y] == playerMarker) {
+                        winningCoord.push([newplane, newrow, newcol]);
+                    } else {
+                        break;
+                    }
+                }
+                if (winningCoord.length == DIMENSION) {
+                    return winningCoord;
+                }
+            }
+        }
+
+        //no win yet
+        return [];
+    }
+    function getCurrentMarkerColour() {
+        return currentPlayer.markerColour;
+    }
 
     const winCheck = 67;
 
@@ -53,15 +216,20 @@ const gameFactory = (player1name, player2name) => {
         let x = cellCoordinates[1];
         let y = cellCoordinates[2];
 
-        if (cube[z][x][y] == emptyGridCellMarker) {
+        if (cube[z][x][y] == emptyGridCellMarker) { //valid move
+
             cube[z][x][y] = currentPlayer.marker;
-            swapTurns();
+
+            lastMove.plane = z;
+            lastMove.row = x;
+            lastMove.col = y;
+
             return true;
         }
         return false;
     }
 
-    return { setBoard, winCheck, getCurrentMarkerColour };
+    return { setBoard, swapTurns, wincheck, getCurrentMarkerColour };
 };
 
 const GUI = (() => {
@@ -107,7 +275,7 @@ const GUI = (() => {
         "perspectiveXorigin": "460%",
         "perspectiveYorigin": "90%",
     });
-    // Object.freeze() purpose : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+    // Object.freeze() : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
     let currentSettings = {
         "rotateX": "20deg",
         "rotateY": "0deg",
@@ -118,6 +286,12 @@ const GUI = (() => {
     };
     const resetSettingsBtn = document.getElementById('resetbutton');
 
+    function displayWinningLine(winningLineCoords) {
+        for (let [z, x, y] of winningLineCoords) {
+            let cell = boards[z].querySelectorAll('.cell')[DIMENSION * x + y];
+            cell.classList.add('winning-cell');
+        }
+    }
     function displayCoordinates() {
         const cells = scene.querySelectorAll('.cell');
         cells.forEach(cell => {
@@ -305,24 +479,34 @@ const GUI = (() => {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-    return { getCellCartesianCoordinate, displayCoordinates };
+    return { getCellCartesianCoordinate, displayCoordinates, displayWinningLine };
 })();
 
 let myGame = gameFactory('john', 'sophie');
-
 const cells = document.querySelectorAll('.cell');
 // GUI.displayCoordinates();
-cells.forEach(cell => {
-    cell.addEventListener('click', (e) => {
-        let cellElement = e.target;
-        let cellCoords = GUI.getCellCartesianCoordinate(cellElement);
-        let validInput = myGame.setBoard(cellCoords);
 
-        if(validInput){
-            cellElement.style.backgroundColor = myGame.getCurrentMarkerColour();
-            cellElement.classList.add('not-allowed');
+function play(e) {
+    const DIMENSION = 4;
+    let cellElement = e.target;
+    let cellCoords = GUI.getCellCartesianCoordinate(cellElement);
+    let validInput = myGame.setBoard(cellCoords);
+
+    if (validInput) {
+        cellElement.style.backgroundColor = myGame.getCurrentMarkerColour();
+        cellElement.classList.add('not-allowed');
+        let winningLine = myGame.wincheck();
+        if (winningLine.length == DIMENSION) {
+            console.log(winningLine);
+            cells.forEach(cell => {
+                cell.removeEventListener('click', play);
+                GUI.displayWinningLine(winningLine);
+            });
+        } else {
+            myGame.swapTurns();
         }
-
-        // newGame.winCheck(); 
-    })
+    }
+}
+cells.forEach(cell => {
+    cell.addEventListener('click', play);
 });

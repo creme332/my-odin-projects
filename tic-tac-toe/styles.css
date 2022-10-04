@@ -38,13 +38,24 @@ body {
 }
 
 .cell {
-    border: 1px solid rgb(164, 164, 164);
+    border: 1px solid;
+    border-color: rgb(164, 164, 164);
     transition: .5s;
 }
 .not-allowed {
     cursor: not-allowed;
 }
-
+.winning-cell{
+    animation: blink .7s infinite;
+}
+@keyframes blink {
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
 .cell:hover {
     border-color: black;
 }
