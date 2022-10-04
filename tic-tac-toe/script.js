@@ -77,15 +77,14 @@ const gameFactory = (player1name, player2name) => {
         if (lastMove.row + lastMove.col == DIMENSION - 1) { // we are on positive diagonal
             winningCoord = [[lastMove.plane, DIMENSION - 1, 0]];
 
-            for (let row = DIMENSION - 1; row > 0; row--) { //start checking from bottom left corner
+            for (let row = DIMENSION - 2; row >= 0; row--) {
                 let col = (DIMENSION - 1) - row;
-                if (board_1D[row][col] == board_1D[row - 1][col + 1] && board_1D[row][col] == playerMarker) {
+                if (board_1D[row][col] == board_1D[row + 1][col - 1] && board_1D[row][col] == playerMarker) {
                     winningCoord.push([lastMove.plane, row, col]);
                 } else {
                     break;
                 }
             }
-
             if (winningCoord.length == DIMENSION) {
                 return winningCoord;
             }
@@ -285,6 +284,7 @@ const GUI = (() => {
         "perspectiveYorigin": "90%",
     };
     const resetSettingsBtn = document.getElementById('resetbutton');
+    const restartGameBtn = document.getElementById('restart-btn');
 
     function displayWinningLine(winningLineCoords) {
         for (let [z, x, y] of winningLineCoords) {
@@ -475,6 +475,9 @@ const GUI = (() => {
     // Initialise
     setBoardTransformations(DEFAULT_SETTINGS);
 
+    // Implement restart game feature
+
+
     // Setup Bootstrap tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
@@ -498,9 +501,11 @@ function play(e) {
         let winningLine = myGame.wincheck();
         if (winningLine.length == DIMENSION) {
             console.log(winningLine);
+            GUI.displayWinningLine(winningLine);
+
+            //remove EV
             cells.forEach(cell => {
                 cell.removeEventListener('click', play);
-                GUI.displayWinningLine(winningLine);
             });
         } else {
             myGame.swapTurns();

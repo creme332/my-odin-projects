@@ -108,7 +108,7 @@ test('1 plane column check', () => {
     expect((winCheck(cube, lastMove2, playerMarker1))).toStrictEqual([]);
 });
 
-test('1 plane positive diagonal check', () => {
+test('1 plane positive diagonal check 1', () => {
     const cube = [
         [
             [0, 0, 0, 1],
@@ -146,6 +146,44 @@ test('1 plane positive diagonal check', () => {
     const lastMove2 = { "plane": 2, "row": 3, "col": 3 };
     expect(new Set(winCheck(cube, lastMove1, playerMarker2))).toStrictEqual(new Set(ExpectedAnswer));
     expect((winCheck(cube, lastMove2, playerMarker2))).toStrictEqual([]);
+});
+
+test('1 plane positive diagonal check 2', () => {
+    const cube = [
+        [
+            [0, 0, 0, 1],
+            [0, 0, 1, 0],
+            [0, 1, 0, 0],
+            [1, 2, 2, 2]
+        ],
+        [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+    ];
+
+    const ExpectedAnswer = [
+        [0, 0, 3],
+        [0, 1, 2],
+        [0, 2, 1],
+        [0, 3, 0]
+    ];
+    const lastMove1 = { "plane": 0, "row": 0, "col": 3 };
+    expect(new Set(winCheck(cube, lastMove1, playerMarker1))).toStrictEqual(new Set(ExpectedAnswer));
 });
 
 test('1 plane negative diagonal check', () => {

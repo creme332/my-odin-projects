@@ -107,15 +107,14 @@ function wincheck(cube, lastMove, playerMarker) {
     if (lastMove.row + lastMove.col == DIMENSION - 1) { // we are on positive diagonal
         winningCoord = [[lastMove.plane, DIMENSION - 1, 0]];
 
-        for (let row = DIMENSION - 1; row > 0; row--) { //start checking from bottom left corner
+        for (let row = DIMENSION - 2; row >= 0; row--) { 
             let col = (DIMENSION - 1) - row;
-            if (board_1D[row][col] == board_1D[row - 1][col + 1] && board_1D[row][col] == playerMarker) {
+            if (board_1D[row][col] == board_1D[row + 1][col - 1] && board_1D[row][col] == playerMarker) {
                 winningCoord.push([lastMove.plane, row, col]);
             } else {
                 break;
             }
         }
-
         if (winningCoord.length == DIMENSION) {
             return winningCoord;
         }
@@ -232,3 +231,38 @@ function wincheck(cube, lastMove, playerMarker) {
     return [];
 }
 module.exports = wincheck; //for jest
+const cube = [
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [0, 1, 0, 0],
+        [1, 2, 2, 2]
+    ],
+    [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ],
+    [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ],
+    [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ]
+];
+
+const ExpectedAnswer = [
+    [0, 0, 3],
+    [0, 1, 2],
+    [0, 2, 1],
+    [0, 3, 0]
+];
+const lastMove1 = { "plane": 0, "row": 0, "col": 3 };
+console.log(wincheck(cube, lastMove1, 1));
