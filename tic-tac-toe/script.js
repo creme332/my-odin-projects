@@ -12,6 +12,9 @@ const gameFactory = (player1name, player2name) => {
     const player2 = playerFactory(player2name, 2, 'green');
     let currentPlayer = player1;
 
+    function getCurrentMarkerColour(){
+        return currentPlayer.markerColour;
+    }
     let cube = [
         [
             [0, 0, 0, 0],
@@ -45,20 +48,20 @@ const gameFactory = (player1name, player2name) => {
         currentPlayer = currentPlayer == player1 ? player2 : player1;
     }
 
-    function setBoard(cellCoordinates, cellElement) {
+    function setBoard(cellCoordinates) {
         let z = cellCoordinates[0];
         let x = cellCoordinates[1];
         let y = cellCoordinates[2];
 
         if (cube[z][x][y] == emptyGridCellMarker) {
             cube[z][x][y] = currentPlayer.marker;
-            cellElement.style.backgroundColor = currentPlayer.markerColour;
-            cellElement.classList.add('not-allowed');
             swapTurns();
+            return true;
         }
+        return false;
     }
 
-    return { setBoard, winCheck };
+    return { setBoard, winCheck, getCurrentMarkerColour };
 };
 
 const GUI = (() => {
@@ -311,8 +314,15 @@ const cells = document.querySelectorAll('.cell');
 // GUI.displayCoordinates();
 cells.forEach(cell => {
     cell.addEventListener('click', (e) => {
-        let cellCoords = GUI.getCellCartesianCoordinate(e.target);
-        myGame.setBoard(cellCoords, e.target);
+        let cellElement = e.target;
+        let cellCoords = GUI.getCellCartesianCoordinate(cellElement);
+        let validInput = myGame.setBoard(cellCoords);
+
+        if(validInput){
+            cellElement.style.backgroundColor = myGame.getCurrentMarkerColour();
+            cellElement.classList.add('not-allowed');
+        }
+
         // newGame.winCheck(); 
     })
 });
