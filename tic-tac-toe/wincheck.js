@@ -2,52 +2,71 @@
 
 /* CALCULATE THE NUMBER OF WINNING LINES in 4x4x4 TTT
 
-Case 1 : Winning lines across a single board (4 horizontal, 4 vertical, 2 diagonals)
-    10x4 lines
+Case 1 : Winning lines across a single board { 4x10 lines }
+    4 horizontal, 4 vertical, 2 diagonals
+    
 
-Case 2 : 1D vertical lines across all 4 boards 
+Case 2 : 1D vertical lines across all 4 boards { 16 lines }
     Connect cells having same (row, column).
-    16 cells in a board => 16 lines
 
-Case 3 : 2D lines across all 4 boards 
-    Case 3.1 : Lines have no displacement row-wise 
+Case 3 : 2D lines across all 4 boards { 16 lines }
+    Case 3.1 : Lines have no displacement row-wise { 8 lines }
         Start line at the following positions in top board :
         _______________ 
-       | x |   |   | x |
-       | x |   |   | x |
-       | x |   |   | x |
-       | x |   |   | x |
+       | 1 |   |   | 5 |
+       | 2 |   |   | 6 |
+       | 3 |   |   | 7 |
+       | 4 |   |   | 8 |
         ▔▔▔▔▔▔▔▔
-        8 lines
-    Case 3.2 : Lines have no displacement column-wise 
+        End line at the following positions in bottom-most board :
+        _______________ 
+       | 5 |   |   | 1 |
+       | 6 |   |   | 2 |
+       | 7 |   |   | 3 |
+       | 8 |   |   | 4 |
+        ▔▔▔▔▔▔▔▔
+
+    Case 3.2 : Lines have no displacement column-wise { 8 lines }
         Start line at the following positions in top board :
         _______________ 
-       | x | x | x | x |
+       | 1 | 2 | 3 | 4 |
        |   |   |   |   |
        |   |   |   |   |
-       | x | x | x | x |
+       | 5 | 6 | 7 | 8 |
         ▔▔▔▔▔▔▔▔
-        8 lines
-    16 lines
-
-Case 4 : 3D slanted lines across all 4 boards  
+        End line at the following positions in bottom-most board :
+        _______________ 
+       | 5 | 6 | 7 | 8 |
+       |   |   |   |   |
+       |   |   |   |   |
+       | 1 | 2 | 3 | 4 |
+        ▔▔▔▔▔▔▔▔
+        
+Case 4 : 3D slanted lines across all 4 boards  { 4 lines }
     Start line at the following positions in top board :
         _______________ 
-       | x |   |   | x |
+       | 1 |   |   | 2 |
        |   |   |   |   |
        |   |   |   |   |
-       | x |   |   | x |
+       | 4 |   |   | 4 |
         ▔▔▔▔▔▔▔▔
-    Perform (1,1,1) translation to end at corners of bottom board.
+    End line at the following positions in bottom-most board :
+        _______________ 
+       | x |   |   | 3 |
+       |   |   |   |   |
+       |   |   |   |   |
+       | 2 |   |   | 1 |
+        ▔▔▔▔▔▔▔▔
     4 corners => 4 lines
 
 Total winning lines = 40 + 16 + 16 + 4 = 76
+
 */
 
-/* POSSIBLE METHOD 
+/* Another method to check for wins. 
 
 Store all possible |directions| .
-Using lastMove as starting point, count in all possible directions before and after
+Using lastMove as starting point, count markers in all possible directions before and after.
 
 */
 
