@@ -140,8 +140,8 @@ function wincheck(cube, lastMove, playerMarker) {
 
     //multi-plane vertical line check
     winningCoord = [[0, lastMove.row, lastMove.col]];
-    for (let plane = 0; plane < DIMENSION - 1; plane++) {
-        if (cube[plane][lastMove.row][lastMove.col] == cube[plane + 1][lastMove.row][lastMove.col] && cube[plane][lastMove.row][lastMove.col] == playerMarker) {
+    for (let plane = 1; plane < DIMENSION; plane++) {
+        if (cube[plane][lastMove.row][lastMove.col] == cube[plane - 1][lastMove.row][lastMove.col] && cube[plane][lastMove.row][lastMove.col] == playerMarker) {
             winningCoord.push([plane, lastMove.row, lastMove.col]);
         } else {
             break;
@@ -231,5 +231,4 @@ function wincheck(cube, lastMove, playerMarker) {
     //no win yet
     return [];
 }
-module.exports = wincheck;
-
+module.exports = wincheck; //for jest
