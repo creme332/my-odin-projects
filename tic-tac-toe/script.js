@@ -10,7 +10,7 @@ const gameFactory = (player1name, player2name) => {
     const emptyGridCellMarker = 0;
     const player1 = playerFactory(player1name, 1, 'red');
     const player2 = playerFactory(player2name, 2, 'green');
-    let currentPlayer = player1.name;
+    let currentPlayer = player1;
 
     let cube = [
         [
@@ -39,15 +39,26 @@ const gameFactory = (player1name, player2name) => {
         ]
     ];
 
+    const winCheck = 67;
+
     function swapTurns() {
-        currentPlayer = currentPlayer == player1.name ? player2.name : player1.name;
+        currentPlayer = currentPlayer == player1 ? player2 : player1;
     }
 
-    function setBoard(coordinates, playermarker) {
-        return
+    function setBoard(cellCoordinates, cellElement) {
+        let z = cellCoordinates[0];
+        let x = cellCoordinates[1];
+        let y = cellCoordinates[2];
+
+        if (cube[z][x][y] == emptyGridCellMarker) {
+            cube[z][x][y] = currentPlayer.marker;
+            cellElement.style.backgroundColor = currentPlayer.markerColour;
+            cellElement.classList.add('not-allowed');
+            swapTurns();
+        }
     }
 
-    return { swapTurns };
+    return { setBoard, winCheck };
 };
 
 const GUI = (() => {
@@ -103,6 +114,28 @@ const GUI = (() => {
         "perspectiveYorigin": "90%",
     };
     const resetSettingsBtn = document.getElementById('resetbutton');
+
+    function displayCoordinates() {
+        const cells = scene.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            let coord = getCellCartesianCoordinate(cell);
+            cell.textContent = `(${coord[0]}, ${coord[1]}, ${coord[2]})`;
+        });
+    };
+
+    function getCellCartesianCoordinate(myCell) {
+        for (let z = 0; z < DIMENSION; z++) {
+            let board = boards[z];
+            const cells = board.querySelectorAll('.cell');
+            for (let i = 0; i < DIMENSION * DIMENSION; i++) {
+                let row = Math.floor(i / DIMENSION);
+                let col = i % DIMENSION;
+                if (myCell == cells[i]) {
+                    return [z, row, col];
+                }
+            }
+        }
+    }
 
     function setBoardTransformations(setting) {
         //rotate board
@@ -262,15 +295,6 @@ const GUI = (() => {
     // Implement toggle transparency feature
     transparencyCheckbox.addEventListener('input', toggleBoardTransparency);
 
-    // TAKE USER INPUT
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach(cell => {
-        cell.addEventListener('click', (e) => {
-            console.log(e.button);
-            e.target.style.background = 'red';
-        })
-    });
-
     // Initialise
     setBoardTransformations(DEFAULT_SETTINGS);
 
@@ -278,7 +302,17 @@ const GUI = (() => {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-    return {};
+    return { getCellCartesianCoordinate, displayCoordinates };
 })();
 
-let newGame = gameFactory('john', 'sophie');
+let myGame = gameFactory('john', 'sophie');
+
+const cells = document.querySelectorAll('.cell');
+// GUI.displayCoordinates();
+cells.forEach(cell => {
+    cell.addEventListener('click', (e) => {
+        let cellCoords = GUI.getCellCartesianCoordinate(e.target);
+        myGame.setBoard(cellCoords, e.target);
+        // newGame.winCheck(); 
+    })
+});
