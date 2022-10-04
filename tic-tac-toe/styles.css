@@ -3,6 +3,11 @@ body {
     grid-template-columns: 2fr 1fr;
     height: 100vh;;
 }
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-primary);
+  }
+  
 .left{
     overflow: auto;
     display: flex;
@@ -83,7 +88,7 @@ body {
     overflow-y: scroll;
 }
 .menu{
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     gap:1em;

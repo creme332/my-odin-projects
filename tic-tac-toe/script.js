@@ -37,58 +37,42 @@ const gameFactory = (player1name, player2name) => {
         ]
     ];
 
-    function initGrid() {
-        let scene = document.querySelector('.scene');
-        cube.forEach(board => {
-            let boardElement = document.createElement('div');
-            boardElement.classList.add('board');
-            board.forEach(row => {
-                row.forEach(col => {
-                    let cellElement = document.createElement('div');
-                    cellElement.classList.add('cell');
-                    if (col == player1.marker) {
-                        cellElement.style.backgroundColor = player1.markerColour;
-                    }
-                    if (col == player2.marker) {
-                        cellElement.style.backgroundColor = player2.markerColour;
-                    }
-                    boardElement.appendChild(cellElement);
-                });
-            });
-            scene.appendChild(boardElement);
-        });
-    }
-
     function swapTurns() {
         currentPlayer = currentPlayer == player1.name ? player2.name : player1.name;
     }
 
-    function playerMove() {
-        //enable eventlisteners for cells
+    function setBoard(coordinates, playermarker) {
+        return
     }
 
-    function playOX3D(moves) {
-        // Credits to dinglemouse [https://github.com/dinglemouse2250]
-        //https://www.codewars.com/kata/reviews/5af3e1a41ed83a01e9001002/groups/5d9d4af7ae3386000191bbb1
-        let grid = Array.from("    ", () => Array.from("    ", () => Array.from("    ")));
-        const won = (x, y, z) => [i => grid[i][y][z], i => grid[x][i][z], i => grid[x][y][i]
-            , i => grid[x][i][i], i => grid[i][y][i], i => grid[i][i][z]
-            , i => grid[x][i][3 - i], i => grid[i][y][3 - i], i => grid[i][3 - i][z]
-            , i => grid[i][i][i], i => grid[i][i][3 - i], i => grid[i][3 - i][i], i => grid[i][3 - i][3 - i]
-        ].some(xform => [0, 1, 2, 3].map(xform).every(cell => cell === grid[x][y][z]));
-        let move = 1;
-        for (const [x, y, z] of moves) {
-            grid[x][y][z] = "XO"[move & 1];
-            if (won(x, y, z)) return `${"XO"[move & 1]} wins after ${move} moves`;
-            move++;
+    return { swapTurns };
+};
+
+const GUI_Factory = () => {
+    const scene = document.querySelector('.scene');
+    let boards = [];
+    const DIMENSION = 4;
+
+    function createBoards() {
+        for (let i = 0; i < DIMENSION; i++) {
+            let boardElement = document.createElement('div');
+            boardElement.classList.add('board');
+            for (let j = 0; j < DIMENSION * DIMENSION; j++) { // fill board with cells
+                let cellElement = document.createElement('div');
+                cellElement.classList.add('cell');
+                boardElement.appendChild(cellElement);
+            }
+            scene.appendChild(boardElement);
+            boards.push(boardElement);
         }
-        return "No winner";
     }
-    return { initGrid, swapTurns };
+    return { createBoards };
 };
 
 let newGame = gameFactory('john', 'sophie');
-newGame.initGrid();
+// newGame.initGrid();
+let GUI = GUI_Factory();
+GUI.createBoards();
 
 
 // IMPLEMENT SLIDERS 
@@ -103,28 +87,87 @@ const toggleTransparencyCheckbox = document.getElementById('transparent-button')
 const autoRotateCheckbox = document.querySelector('#autorotate-button');
 const boards = document.querySelectorAll('.board');
 const threeDbutton = document.querySelector('#threeD-button');
-const scene  = document.querySelector('.scene');
-let threeDsettings = {};
+const scene = document.querySelector('.scene');
 
-threeDbutton.addEventListener('input', () => {
-    if (threeDbutton.checked) {
+const DEFAULT_SETTINGS = {
+    "rotateX": "20deg",
+    "rotateY": "0deg",
+    "rotateZ": "0deg",
+    "perspective": "460px",
+    "perspectiveXorigin": "460%",
+    "perspectiveYorigin": "90%",
+};
+let threeDsettings = DEFAULT_SETTINGS;
+const rotationSliders = document.querySelectorAll('.rotationslider');
+const perspectiveSliders = document.querySelectorAll('.perspectiveslider');
+const resetSettingsBtn = document.getElementById('resetbutton');
+
+resetSettingsBtn.addEventListener('click',()=>{
+    initialiseGUI(DEFAULT_SETTINGS);
+})
+
+perspectiveSliders.forEach(slider => {
+    slider.addEventListener('input', (e) => {
+        e.preventDefault();
+        updateScenePerspective(persSlider.value, persXSlider.value, persYSlider.value);
+    });
+});
+
+rotationSliders.forEach(slider => {
+    slider.addEventListener('input', (e) => {
+        e.preventDefault();
+        rotateBoard(xSlider.value, ySlider.value, zSlider.value);
+    });
+});
+
+function initialiseGUI(setting) {
+
+    //rotate board
+    rotateBoard(parseInt(setting.rotateX),
+        parseInt(setting.rotateY),
+        parseInt(setting.rotateZ));
+
+    //change scene perspective
+    updateScenePerspective(parseInt(setting.perspective),
+        parseInt(setting.perspectiveXorigin),
+        parseInt(setting.perspectiveYorigin));
+
+}
+initialiseGUI(DEFAULT_SETTINGS);
+
+function toggle3DMode(){
+    if (threeDbutton.checked) { //disable 3D mode
+        //save current 3D settings
+        threeDsettings.rotateX = `${xSlider.value}${xSlider.dataset.unit}`;
+        threeDsettings.rotateY = `${ySlider.value}${ySlider.dataset.unit}`;
+        threeDsettings.rotateZ = `${zSlider.value}${zSlider.dataset.unit}`;
+        threeDsettings.perspective = `${persSlider.value}${persSlider.dataset.unit}`;
+        threeDsettings.perspectiveXorigin = `${persXSlider.value}${persXSlider.dataset.unit}`;
+        threeDsettings.perspectiveYorigin = `${persYSlider.value}${persYSlider.dataset.unit}`;
+
+        //remove any current transformations
         scene.classList.add('disable3Dscene');
-        xSlider.value = ySlider.value = zSlider.value = 0;
-        rotateBoard();
+        rotateBoard(0, 0, 0);
+        toggleAutoRotation(false);
+
+        //turn of all sliders
         togglePerspectiveSliders(false);
         toggleRotateSliders(false);
-        autoRotateCheckbox.setAttribute('disabled','true');
-        //save current 3D settings
-    } else {
+
+        //turn off autorotate checkbox
+        autoRotateCheckbox.setAttribute('disabled', 'true');
+        autoRotateCheckbox.checked = false;
+
+    } else { //activate 3D mode
         scene.classList.remove('disable3Dscene');
         togglePerspectiveSliders(true);
         toggleRotateSliders(true);
         autoRotateCheckbox.removeAttribute('disabled');
-        //restore 3D settings
-
+        console.log(threeDsettings);
+        initialiseGUI(threeDsettings);
     }
-
-})
+}
+threeDbutton.addEventListener('input',toggle3DMode);
 
 toggleTransparencyCheckbox.addEventListener('input', () => {
     boards.forEach(board => {
@@ -136,14 +179,25 @@ toggleTransparencyCheckbox.addEventListener('input', () => {
     });
 
 })
-function rotateBoard() {
+function rotateBoard(x, y, z) {
+    //set slider value
+    xSlider.value = x;
+    ySlider.value = y;
+    zSlider.value = z;
+
+    //update slider displayed values
+    document.getElementById('xval').textContent = xSlider.value;
+    document.getElementById('yval').textContent = ySlider.value;
+    document.getElementById('zval').textContent = zSlider.value;
+
+
+    //perform rotation
     boards.forEach(board => {
         board.style.transform = `rotateX(${xSlider.value}deg) rotateY(${ySlider.value}deg) rotateZ(${zSlider.value}deg)`;
     });
 }
 
-function toggleRotateSliders(activate){
-    const rotationSliders = document.querySelectorAll('.rotationslider');
+function toggleRotateSliders(activate) {
     rotationSliders.forEach(slider => {
         if (activate) {
             slider.removeAttribute('disabled');
@@ -153,8 +207,7 @@ function toggleRotateSliders(activate){
     });
 }
 
-function togglePerspectiveSliders(activate){
-    const perspectiveSliders = document.querySelectorAll('.perspectiveslider');
+function togglePerspectiveSliders(activate) {
     perspectiveSliders.forEach(slider => {
         if (activate) {
             slider.removeAttribute('disabled');
@@ -164,7 +217,6 @@ function togglePerspectiveSliders(activate){
     });
 }
 function toggleAutoRotation(activate) {
-
     boards.forEach(board => {
         if (activate) {
             board.classList.add('animateAutoRotate');
@@ -174,64 +226,36 @@ function toggleAutoRotation(activate) {
 
         }
     });
-    toggleRotateSliders(!activate);
 }
-changePerspective();
-rotateBoard();
+
 autoRotateCheckbox.addEventListener('input', () => {
-    if (document.querySelector('#autorotate-button').checked) {
+    if (autoRotateCheckbox.checked) {
         toggleAutoRotation(true);
+        toggleRotateSliders(false);
+
     } else {
         toggleAutoRotation(false);
+        toggleRotateSliders(true);
     }
 })
 
-function changePerspective() {
+function updateScenePerspective(perspective, xperspective, yperspective) {
+    //set slider values
+    persSlider.value = perspective;
+    persXSlider.value = xperspective;
+    persYSlider.value = yperspective;
+
+    //update slider displayed values
+    console.log(document.getElementById('pval'));
     document.getElementById('pval').textContent = persSlider.value;
     document.getElementById('phval').textContent = persXSlider.value;
     document.getElementById('pvval').textContent = persYSlider.value;
 
-
-    scene.style.perspective = `${persSlider.value}px`;
-    scene.style.perspectiveOrigin = `${persXSlider.value}% ${persYSlider.value}%`;
+    scene.style.perspective = `${persSlider.value}${persSlider.dataset.unit}`;
+    scene.style.perspectiveOrigin = `${persXSlider.value}${persXSlider.dataset.unit} ${persYSlider.value}${persYSlider.dataset.unit}`;
 }
 
-xSlider.addEventListener('input', (e) => {
-    e.preventDefault();
-    document.getElementById('xval').textContent = xSlider.value;
-    rotateBoard();
-});
-
-ySlider.addEventListener('input', (e) => {
-    e.preventDefault();
-    document.getElementById('yval').textContent = ySlider.value;
-    rotateBoard();
-});
-
-zSlider.addEventListener('input', (e) => {
-    e.preventDefault();
-    document.getElementById('zval').textContent = zSlider.value;
-    rotateBoard();
-});
-
-persSlider.addEventListener('input', (e) => {
-    e.preventDefault();
-    changePerspective();
-});
-
-persXSlider.addEventListener('input', (e) => {
-    e.preventDefault();
-    changePerspective();
-});
-
-persYSlider.addEventListener('input', (e) => {
-    e.preventDefault();
-    changePerspective();
-});
-
-
 const cells = document.querySelectorAll('.cell');
-
 cells.forEach(cell => {
     cell.addEventListener('click', (e) => {
         console.log(e.button);
@@ -239,3 +263,5 @@ cells.forEach(cell => {
     })
 });
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
