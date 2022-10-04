@@ -92,15 +92,32 @@
                 <input class="rotationslider" data-unit="deg" id="zSlider" type="range" value="0" min="0" max="360">
             </li>
 
-            <h1 data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip"
-                data-bs-title="Determines the distance between the z=0 plane and the user">Perspective</h1>
+            <h1>
+                Perspective
+                <svg data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip"
+                    data-bs-title="Determines the distance between the z=0 plane and the user"
+                    xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </svg>
+            </h1>
             <li>
                 <label for="Pers">Perspective = <span id="pval"></span> px</label>
                 <input class="perspectiveslider" data-unit="px" id="Pers" type="range" value="0" min="100" max="1000"
                     step="10">
             </li>
-            <h5 data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip"
-                data-bs-title="Determines the position at which the viewer is looking">Perspective origin</h5>
+            <h5>
+                Perspective origin
+                <svg data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip"
+                    data-bs-title="Determines the position at which the viewer is looking"
+                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </svg>
+
+            </h5>
             <li> <label for="Pers">Horizontal = <span id="phval"></span> %</label>
                 <input class="perspectiveslider" data-unit="%" id="PersHorizontal" type="range" value="0" min="-100"
                     max="1000" step="10">
@@ -112,7 +129,7 @@
             </li>
 
             <li>
-                <button type="button" id = "resetbutton" class="btn btn-warning">Reset to default settings</button>
+                <button type="button" id="resetbutton" class="btn btn-warning">Reset to default settings</button>
             </li>
         </ul>
     </div>
