@@ -1,19 +1,19 @@
 body {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    height: 100vh;;
+    height: 100vh;
 }
 
 .custom-tooltip {
     --bs-tooltip-bg: var(--bs-primary);
-  }
-  
-.left{
+}
+
+.left {
     overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-        outline: 1px solid;
+    /* outline: 1px solid; */
 
 }
 
@@ -22,18 +22,18 @@ body {
     flex-direction: column;
     align-items: center;
     transform-style: preserve-3d;
-    perspective-origin: bottom left; 
+    perspective-origin: bottom left;
     perspective: 310px;
     /* outline: 1px solid; */
 }
 
-.disable3Dscene{
+.disable3Dscene {
     flex-direction: row;
-   justify-content: center;
-    gap:1em;
+    justify-content: center;
+    gap: 1em;
 
     transform-style: flat;
-    perspective-origin: 50% 50%; 
+    perspective-origin: 50% 50%;
     perspective: unset;
 }
 
@@ -42,27 +42,32 @@ body {
     border-color: rgb(164, 164, 164);
     transition: .5s;
 }
+
 .not-allowed {
     cursor: not-allowed;
 }
-.winning-cell{
+
+.winning-cell {
     animation: blink .7s infinite;
 }
+
 @keyframes blink {
-    from{
+    from {
         opacity: 1;
     }
-    to{
+
+    to {
         opacity: 0;
     }
 }
+
 .cell:hover {
     border-color: black;
 }
 
 .board {
-    height: max(120px,10vw);
-    width: max(120px,10vw);
+    height: max(120px, 10vw);
+    width: max(120px, 10vw);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -87,28 +92,51 @@ body {
 }
 
 @keyframes autorotate {
-    from { transform: rotateY(0deg) rotateX(720deg) rotateZ(0deg); 
-        webkit-transform: rotateY(0deg) rotateX(720deg) rotateZ(0deg);}
-    to { transform: rotateY(360deg) rotateX(0deg) rotateZ(360deg);
-        webkit-transform: rotateY(360deg) rotateX(0deg) rotateZ(360deg); }
+    from {
+        transform: rotateY(0deg) rotateX(720deg) rotateZ(0deg);
+        webkit-transform: rotateY(0deg) rotateX(720deg) rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg) rotateX(0deg) rotateZ(360deg);
+        webkit-transform: rotateY(360deg) rotateX(0deg) rotateZ(360deg);
+    }
 }
-.animateAutoRotate{
+
+.animateAutoRotate {
     animation: autorotate 10s linear infinite;
 }
 
-.settings{
+.settings {
     display: grid;
     place-items: center;
     /* outline: 1px solid; */
     overflow-y: scroll;
+    background-color: rgb(247, 245, 243);
+    padding-top: 10px;
 }
-.menu{
+
+.menu {
     width: 90%;
     display: flex;
     flex-direction: column;
-    gap:1em;
+    gap: 1em;
 }
-.settings .menu  li{
+
+.settings .menu li {
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (max-width:650px) {
+    body {
+        display: flex;
+
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left {
+        height: 100vh;
+    }
 }
