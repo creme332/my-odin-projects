@@ -24,14 +24,18 @@ https://www.ripon.edu/wp-content/uploads/2014/11/Summation-2010.pdf
 
 x=10, pers=310px bottom left
 # 🔨 To-Do
+- [ ] Add docstring to functions.
 - [ ] Add AI.
 - [ ] Improve [win-checking algorithm](https://www.codewars.com/kata/5aa67541373c2e69a20000c9/solutions/javascript) for Case 3, 4.
-- [ ] Add top view of grid.
-- [ ] Add option to toggle off 3D effect.
-- [ ] Add dropdown menu for settings.
+
 - [ ] Highlight the winning cells. (reduce opacity of all losing cells).
 - [ ] Make website responsive.
 
 ### ✔ Done
+- [x] Use data-unit.
+- [x] Add tool tip explanation for perspective,...
+- [x] Add top view of grid.
+- [x] Add option to toggle off 3D effect.
+- [x] Add settings.
 - [x] Use strict mode.
 - [x] Fix bug related to ToStrictEqual
