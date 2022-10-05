@@ -8,10 +8,11 @@ const playerFactory = (name, marker, markerColour) => {
 
 const gameFactory = (player1name, player2name) => {
     const emptyGridCellMarker = 0;
-    const player1 = playerFactory(player1name, 1, 'red');
+    const player1 = playerFactory(player1name, 1, 'red'); //maximising player => AI
     const player2 = playerFactory(player2name, 2, 'green');
+
     let currentPlayer = player1;
-    let lastMove = { "plane": -1, "row": -1, "col": -1 };
+    let lastMove = { "plane": -1, "row": -1, "col": -1 }; //used to optimise win checking algorithm
     let cube = [
         [
             [0, 0, 0, 0],
@@ -39,6 +40,8 @@ const gameFactory = (player1name, player2name) => {
         ]
     ]; //must generate on runtime
     const DIMENSION = cube.length; //4x4x4
+    const maxDepth = 1; // Increasing this value will make game SLOWER and may cause browser to crash.
+    let totalMovesLeft = Math.pow(DIMENSION, 3);
 
     function resetGame() {
         for (let z = 0; z < DIMENSION; z++) {
@@ -50,6 +53,7 @@ const gameFactory = (player1name, player2name) => {
         }
         lastMove = { "plane": -1, "row": -1, "col": -1 };
         currentPlayer = player1;
+        totalMovesLeft = Math.pow(DIMENSION, 3);
     }
 
     function wincheck() { // check wincheck.js for explanation
@@ -212,21 +216,118 @@ const gameFactory = (player1name, player2name) => {
         //no win yet
         return [];
     }
+
     function getCurrentMarkerColour() {
         return currentPlayer.markerColour;
     }
 
-    function getComputerMove() {
+    function getComputerRandomMove() {
         let z, x, y;
         z = x = y = 0;
-        let count = 1;
-        while (cube[z][x][y] != emptyGridCellMarker && count < Math.pow(DIMENSION, 3)) {
+        let count = 100; //max number of random coordinates that can be generated
+        // to safeguard against infinite loop
+        while (cube[z][x][y] != emptyGridCellMarker && count > 0) {
             z = parseInt(Math.random() * DIMENSION);
             x = parseInt(Math.random() * DIMENSION);
             y = parseInt(Math.random() * DIMENSION);
+            count--;
         }
         return [z, x, y];
     }
+
+    function minimax(depth, maximizingPlayerTurn, alpha, beta) {
+        // Note : Here, exeptionally, currentPlayer denotes the player who made the LAST move.
+        // This is because we are checking for wins from the last round at the start of current round.
+        currentPlayer = maximizingPlayerTurn ? player2 : player1;
+        let winningLine = wincheck();
+
+        if (winningLine.length == DIMENSION) { //base case 1
+            if (maximizingPlayerTurn) { //minimizing player made winning move last turn
+                return -100;
+            }
+            return 100; //maximizing player made winning move
+        }
+
+        if (totalMovesLeft == 0 || depth == maxDepth) { //base case 2
+            // if(depth==maxDepth){
+            //     console.log('max depth reached');
+            // }
+            return 0;
+        }
+
+        let MaxEval = -Number.MAX_VALUE, MinEval = Number.MAX_VALUE; //scores for maximising and minimising players
+        //loop through each empty cells
+        for (let z = 0; z < DIMENSION; z++) {
+            for (let x = 0; x < DIMENSION; x++) {
+                for (let y = 0; y < DIMENSION; y++) {
+                    if (cube[z][x][y] == emptyGridCellMarker) {
+
+                        //make a move
+                        cube[z][x][y] = maximizingPlayerTurn ? player1.marker : player2.marker;
+                        lastMove.plane = z;
+                        lastMove.row = x;
+                        lastMove.col = y;
+                        totalMovesLeft--;
+
+                        if (maximizingPlayerTurn) {
+                            MaxEval = Math.max(MaxEval, minimax(depth + 1, false, alpha, beta) - depth);
+                            alpha = Math.max(alpha, MaxEval);
+                        }
+                        else {
+                            MinEval = Math.min(MinEval, minimax(depth + 1, true, alpha, beta) + depth);
+                            beta = Math.min(beta, MinEval);
+                        }
+
+                        //undo move
+                        cube[z][x][y] = emptyGridCellMarker;
+                        totalMovesLeft++;
+
+                        if (beta <= alpha) break;
+                    };
+                }
+            }
+        }
+        return maximizingPlayerTurn ? MaxEval : MinEval;
+    }
+
+    function getComputerMove() {
+
+        // return getComputerRandomMove();
+
+        let bestCoord, MaxScore = -Number.MAX_VALUE;
+
+        //loop through each empty cells
+        for (let z = 0; z < DIMENSION; z++) {
+            for (let x = 0; x < DIMENSION; x++) {
+                for (let y = 0; y < DIMENSION; y++) {
+                    if (cube[z][x][y] == emptyGridCellMarker) {
+
+                        //make a move
+                        cube[z][x][y] = currentPlayer.marker;
+                        lastMove.plane = z;
+                        lastMove.row = x;
+                        lastMove.col = y;
+                        totalMovesLeft--;
+
+                        //calculate score of playing in current empty cell
+                        let score = minimax(0, false, -9999, 9999);
+
+                        if (score > MaxScore) {
+                            bestCoord = [z, x, y];
+                            MaxScore = score;
+                        }
+
+                        //undo move
+                        cube[z][x][y] = emptyGridCellMarker;
+                        totalMovesLeft++;
+                    };
+                }
+            }
+        }
+        currentPlayer = player1;
+        return bestCoord;
+    }
+
     function swapTurns() {
         currentPlayer = currentPlayer == player1 ? player2 : player1;
     }
@@ -243,7 +344,7 @@ const gameFactory = (player1name, player2name) => {
             lastMove.plane = z;
             lastMove.row = x;
             lastMove.col = y;
-
+            totalMovesLeft--;
             return true;
         }
         return false;
@@ -536,10 +637,9 @@ const driver = (() => {
     const cells = GUI.getAllCells();
     const onePlayerRadio = document.getElementById('onePlayerRadio');
     const restartGameBtn = document.getElementById('restart-btn');
-    let playerCount;
-    //playerCount must not change mid-game
-
     let myGame = gameFactory('john', 'sophie');
+
+    let playerCount; //playerCount must not change mid-game
 
     function disableUserInput() {
         cells.forEach(cell => {
@@ -601,7 +701,6 @@ const driver = (() => {
 
     function startNewGame() {
         myGame.resetGame();
-        //reset current player as well
         GUI.clearBoard();
 
         cells.forEach(cell => {
