@@ -40,7 +40,18 @@ const gameFactory = (player1name, player2name) => {
     ]; //must generate on runtime
     const DIMENSION = cube.length; //4x4x4
 
-    function wincheck() {
+    function clearBoard() {
+        for (let z = 0; z < DIMENSION; z++) {
+            for (let x = 0; x < DIMENSION; x++) {
+                for (let y = 0; y < DIMENSION; y++) {
+                    cube[z][x][y] = emptyGridCellMarker;
+                }
+            }
+        }
+        lastMove = { "plane": -1, "row": -1, "col": -1 };
+    }
+
+    function wincheck() { // check wincheck.js for explanation
         const playerMarker = currentPlayer.marker;
         let winningCoord = []; //list of coordinates of points on winning line. Format: (plane, row, column)
         const board_1D = cube[lastMove.plane]; // board on which player made a move 
@@ -204,8 +215,6 @@ const gameFactory = (player1name, player2name) => {
         return currentPlayer.markerColour;
     }
 
-    const winCheck = 67;
-
     function swapTurns() {
         currentPlayer = currentPlayer == player1 ? player2 : player1;
     }
@@ -228,7 +237,7 @@ const gameFactory = (player1name, player2name) => {
         return false;
     }
 
-    return { setBoard, swapTurns, wincheck, getCurrentMarkerColour };
+    return { setBoard, clearBoard, swapTurns, wincheck, getCurrentMarkerColour };
 };
 
 const GUI = (() => {
@@ -249,6 +258,7 @@ const GUI = (() => {
     })();
 
     const boards = document.querySelectorAll('.board');
+    const cells = scene.querySelectorAll('.cell');
     const BOARD_TRANSPARENT_COLOUR = 'transparent';
     const BOARD_DEFAULT_COLOUR = 'aliceblue';
 
@@ -284,8 +294,14 @@ const GUI = (() => {
         "perspectiveYorigin": "90%",
     };
     const resetSettingsBtn = document.getElementById('resetbutton');
-    const restartGameBtn = document.getElementById('restart-btn');
 
+    function clearBoard() {
+        cells.forEach(cell => {
+            cell.style.backgroundColor = BOARD_DEFAULT_COLOUR;
+            cell.classList.remove('winning-cell');
+            cell.classList.remove('not-allowed');
+        });
+    }
     function displayWinningLine(winningLineCoords) {
         for (let [z, x, y] of winningLineCoords) {
             let cell = boards[z].querySelectorAll('.cell')[DIMENSION * x + y];
@@ -293,25 +309,29 @@ const GUI = (() => {
         }
     }
     function displayCoordinates() {
-        const cells = scene.querySelectorAll('.cell');
         cells.forEach(cell => {
             let coord = getCellCartesianCoordinate(cell);
             cell.textContent = `(${coord[0]}, ${coord[1]}, ${coord[2]})`;
         });
     };
 
-    function getCellCartesianCoordinate(myCell) {
+    function getCellCartesianCoordinate(cellElement) {
         for (let z = 0; z < DIMENSION; z++) {
             let board = boards[z];
-            const cells = board.querySelectorAll('.cell');
+            let boardCells = board.querySelectorAll('.cell');
             for (let i = 0; i < DIMENSION * DIMENSION; i++) {
                 let row = Math.floor(i / DIMENSION);
                 let col = i % DIMENSION;
-                if (myCell == cells[i]) {
+                if (cellElement == boardCells[i]) {
                     return [z, row, col];
                 }
             }
         }
+        return [-1, -1, -1]; //for error checking
+    }
+
+    function getAllCells() {
+        return cells;
     }
 
     function setBoardTransformations(setting) {
@@ -475,25 +495,26 @@ const GUI = (() => {
     // Initialise
     setBoardTransformations(DEFAULT_SETTINGS);
 
-    // Implement restart game feature
-
-
     // Setup Bootstrap tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-    return { getCellCartesianCoordinate, displayCoordinates, displayWinningLine };
+    return { getCellCartesianCoordinate, getAllCells, clearBoard, displayCoordinates, displayWinningLine };
 })();
 
-let myGame = gameFactory('john', 'sophie');
-const cells = document.querySelectorAll('.cell');
-// GUI.displayCoordinates();
+/// ----- MAIN -----
+const cells = GUI.getAllCells();
 
 function play(e) {
     const DIMENSION = 4;
-    let cellElement = e.target;
-    let cellCoords = GUI.getCellCartesianCoordinate(cellElement);
-    let validInput = myGame.setBoard(cellCoords);
+    const cellElement = e.target;
+    const cellCoords = GUI.getCellCartesianCoordinate(cellElement);
+
+    console.log(cellCoords);
+
+
+    const validInput = myGame.setBoard(cellCoords);
+
 
     if (validInput) {
         cellElement.style.backgroundColor = myGame.getCurrentMarkerColour();
@@ -503,7 +524,7 @@ function play(e) {
             console.log(winningLine);
             GUI.displayWinningLine(winningLine);
 
-            //remove EV
+            //stop game
             cells.forEach(cell => {
                 cell.removeEventListener('click', play);
             });
@@ -512,6 +533,26 @@ function play(e) {
         }
     }
 }
+
+let myGame = gameFactory('john', 'sophie');
+// GUI.displayCoordinates();
+
 cells.forEach(cell => {
     cell.addEventListener('click', play);
+});
+
+// Implement restart game feature
+const restartGameBtn = document.getElementById('restart-btn');
+restartGameBtn.addEventListener('click', () => {
+    myGame.clearBoard();
+    GUI.clearBoard();
+    //if game was restarted mid-game, cells already have event listeners on them.
+    //if game was restarted after a win, cells have no event listeners on them.
+    //To standardise, remove EV from all cells then add again to prevent duplicate EV on cell
+    cells.forEach(cell => {
+        cell.removeEventListener('click', play);
+    });
+    cells.forEach(cell => {
+        cell.addEventListener('click', play);
+    });
 });
