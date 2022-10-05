@@ -136,6 +136,10 @@ body {
         height: auto;
     }
 
+    .disable3Dscene {
+        flex-direction: column;
+    }
+
     .left {
         height: 100vh;
     }
