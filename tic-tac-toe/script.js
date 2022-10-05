@@ -40,7 +40,7 @@ const gameFactory = (player1name, player2name) => {
     ]; //must generate on runtime
     const DIMENSION = cube.length; //4x4x4
 
-    function clearBoard() {
+    function resetGame() {
         for (let z = 0; z < DIMENSION; z++) {
             for (let x = 0; x < DIMENSION; x++) {
                 for (let y = 0; y < DIMENSION; y++) {
@@ -49,6 +49,7 @@ const gameFactory = (player1name, player2name) => {
             }
         }
         lastMove = { "plane": -1, "row": -1, "col": -1 };
+        currentPlayer = player1;
     }
 
     function wincheck() { // check wincheck.js for explanation
@@ -215,6 +216,17 @@ const gameFactory = (player1name, player2name) => {
         return currentPlayer.markerColour;
     }
 
+    function getComputerMove() {
+        let z, x, y;
+        z = x = y = 0;
+        let count = 1;
+        while (cube[z][x][y] != emptyGridCellMarker && count < Math.pow(DIMENSION, 3)) {
+            z = parseInt(Math.random() * DIMENSION);
+            x = parseInt(Math.random() * DIMENSION);
+            y = parseInt(Math.random() * DIMENSION);
+        }
+        return [z, x, y];
+    }
     function swapTurns() {
         currentPlayer = currentPlayer == player1 ? player2 : player1;
     }
@@ -237,7 +249,7 @@ const gameFactory = (player1name, player2name) => {
         return false;
     }
 
-    return { setBoard, clearBoard, swapTurns, wincheck, getCurrentMarkerColour };
+    return { setBoard, getComputerMove, resetGame, swapTurns, wincheck, getCurrentMarkerColour };
 };
 
 const GUI = (() => {
@@ -302,12 +314,19 @@ const GUI = (() => {
             cell.classList.remove('not-allowed');
         });
     }
+
+    function displayMove(cellElement, markerColour) {
+        cellElement.style.backgroundColor = markerColour;
+        cellElement.classList.add('not-allowed');
+    }
+
     function displayWinningLine(winningLineCoords) {
         for (let [z, x, y] of winningLineCoords) {
-            let cell = boards[z].querySelectorAll('.cell')[DIMENSION * x + y];
+            let cell = getCellElement([z, x, y]);
             cell.classList.add('winning-cell');
         }
     }
+
     function displayCoordinates() {
         cells.forEach(cell => {
             let coord = getCellCartesianCoordinate(cell);
@@ -328,6 +347,12 @@ const GUI = (() => {
             }
         }
         return [-1, -1, -1]; //for error checking
+    }
+
+    function getCellElement(coordinatesList) {
+        let z, x, y;
+        [z, x, y] = coordinatesList;
+        return boards[z].querySelectorAll('.cell')[DIMENSION * x + y];
     }
 
     function getAllCells() {
@@ -499,60 +524,107 @@ const GUI = (() => {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-    return { getCellCartesianCoordinate, getAllCells, clearBoard, displayCoordinates, displayWinningLine };
+    return {
+        displayMove, getCellCartesianCoordinate, getCellElement,
+        getAllCells, clearBoard, displayCoordinates,
+        displayWinningLine
+    };
 })();
 
 /// ----- MAIN -----
-const cells = GUI.getAllCells();
+const driver = (() => {
+    const cells = GUI.getAllCells();
+    const onePlayerRadio = document.getElementById('onePlayerRadio');
+    const restartGameBtn = document.getElementById('restart-btn');
+    let playerCount;
+    //playerCount must not change mid-game
 
-function play(e) {
-    const DIMENSION = 4;
-    const cellElement = e.target;
-    const cellCoords = GUI.getCellCartesianCoordinate(cellElement);
+    let myGame = gameFactory('john', 'sophie');
 
-    console.log(cellCoords);
+    function disableUserInput() {
+        cells.forEach(cell => {
+            cell.removeEventListener('click', processUserInput);
+        });
+    }
 
+    function processUserInput(e) {
+        const DIMENSION = 4;
+        const cellElement = e.target;
+        const cellCoords = GUI.getCellCartesianCoordinate(cellElement);
+        const validInput = myGame.setBoard(cellCoords);
 
-    const validInput = myGame.setBoard(cellCoords);
+        if (validInput) {
+            GUI.displayMove(cellElement, myGame.getCurrentMarkerColour());
 
-
-    if (validInput) {
-        cellElement.style.backgroundColor = myGame.getCurrentMarkerColour();
-        cellElement.classList.add('not-allowed');
-        let winningLine = myGame.wincheck();
-        if (winningLine.length == DIMENSION) {
-            console.log(winningLine);
-            GUI.displayWinningLine(winningLine);
-
-            //stop game
-            cells.forEach(cell => {
-                cell.removeEventListener('click', play);
-            });
-        } else {
-            myGame.swapTurns();
+            let winningLine = myGame.wincheck();
+            if (winningLine.length == DIMENSION) {
+                // console.log(winningLine);
+                GUI.displayWinningLine(winningLine);
+                disableUserInput();
+                return;
+            } else {
+                myGame.swapTurns();
+                if (playerCount == 1) {
+                    computerPlay();
+                }
+            }
         }
     }
-}
 
-let myGame = gameFactory('john', 'sophie');
-// GUI.displayCoordinates();
+    function computerPlay() {
+        //disable user input
+        disableUserInput();
 
-cells.forEach(cell => {
-    cell.addEventListener('click', play);
-});
+        // get computer's move
+        // NOTE : computer always returns a valid move
+        let computerMove = myGame.getComputerMove();
+        let cellElement = GUI.getCellElement(computerMove);
+        myGame.setBoard(computerMove);
 
-// Implement restart game feature
-const restartGameBtn = document.getElementById('restart-btn');
-restartGameBtn.addEventListener('click', () => {
-    myGame.clearBoard();
-    GUI.clearBoard();
-    //if game was restarted mid-game, cells already have event listeners on them.
-    //if game was restarted after a win, cells have no event listeners on them.
-    //To standardise, remove EV from all cells then add again to prevent duplicate EV on cell
-    cells.forEach(cell => {
-        cell.removeEventListener('click', play);
-    });
-    cells.forEach(cell => {
-        cell.addEventListener('click', play);
-    });
-});
+        // display computer's move
+        GUI.displayMove(cellElement, myGame.getCurrentMarkerColour());
+
+        //check for win
+        const DIMENSION = 4;
+        let winningLine = myGame.wincheck();
+        if (winningLine.length == DIMENSION) {
+            GUI.displayWinningLine(winningLine);
+            return;
+        } else {
+            myGame.swapTurns();
+            //enable user input
+            cells.forEach(cell => {
+                cell.addEventListener('click', processUserInput);
+            });
+        }
+    }
+
+    function startNewGame() {
+        myGame.resetGame();
+        //reset current player as well
+        GUI.clearBoard();
+
+        cells.forEach(cell => {
+            cell.removeEventListener('click', processUserInput);
+        });
+
+        playerCount = onePlayerRadio.checked ? 1 : 2;
+        if (playerCount == 2) {
+            //if game was restarted mid-game, cells already have event listeners on them.
+            //if game was restarted after a win, cells have no event listeners on them.
+            //To standardise, remove EV from all cells then add again to prevent duplicate EV on cell
+            disableUserInput();
+            cells.forEach(cell => {
+                cell.addEventListener('click', processUserInput);
+            });
+        } else {
+            computerPlay();
+        }
+    };
+    // Implement restart game feature
+    restartGameBtn.addEventListener('click', startNewGame);
+    return { startNewGame };
+})();
+
+
+driver.startNewGame();
