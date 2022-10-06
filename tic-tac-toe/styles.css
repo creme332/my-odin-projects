@@ -73,22 +73,7 @@ body {
     grid-template-rows: repeat(4, 1fr);
     gap: 0.2rem;
     background-color: aliceblue;
-    /* background-color: transparent; */
-    /* transition: 1s; */
     /* animation: rotate 2s ease-in-out; */
-    /* transform: rotateX(10deg); */
-}
-
-@keyframes rotate {
-    from {
-        -webkit-transform: rotateX(0deg);
-        transform: rotateX(0deg);
-    }
-
-    to {
-        -webkit-transform: rotateX(10deg);
-        transform: rotateX(10deg);
-    }
 }
 
 @keyframes autorotate {

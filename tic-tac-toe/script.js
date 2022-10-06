@@ -1,47 +1,51 @@
 'use strict';
 
+/**
+ * Creates a new player object
+ * @param {string} name 
+ * @param {integer} marker 
+ * @param {string} markerColour 
+ * @returns {object}
+ */
 const playerFactory = (name, marker, markerColour) => {
     //name, markerColour  : string
     //marker : digit
     return { name, marker, markerColour };
 };
 
+/**
+ * gameFactory handles everything about the game, excluding graphics. 
+ * It creates an instance of a 4x4x4 game and can exist on its own.
+ * @param {string} player1name 
+ * @param {string} player2name 
+ * @returns {object}
+ */
 const gameFactory = (player1name, player2name) => {
+    const DIMENSION = 4;
     const emptyGridCellMarker = 0;
     const player1 = playerFactory(player1name, 1, 'red'); //maximising player => AI
     const player2 = playerFactory(player2name, 2, 'green');
+    const maxDepth = 2; // Used by AI.
+    // Increasing maxDepth will improve AI and make game SLOWER (browser may crash).
 
     let currentPlayer = player1;
     let lastMove = { "plane": -1, "row": -1, "col": -1 }; //used to optimise win checking algorithm
-    let cube = [
-        [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ]
-    ]; //must generate on runtime
-    const DIMENSION = cube.length; //4x4x4
-    const maxDepth = 2; // Increasing this value will make game SLOWER and may cause browser to crash.
     let totalMovesLeft = Math.pow(DIMENSION, 3);
+    let cube = [];
+
+    (function createCube() {
+        for (let z = 0; z < DIMENSION; z++) {
+            let board = [];
+            for (let x = 0; x < DIMENSION; x++) {
+                let row = [];
+                for (let y = 0; y < DIMENSION; y++) {
+                    row.push(emptyGridCellMarker);
+                }
+                board.push(row);
+            }
+            cube.push(board);
+        }
+    })();
 
     function resetGame() {
         for (let z = 0; z < DIMENSION; z++) {
@@ -607,6 +611,9 @@ const gameFactory = (player1name, player2name) => {
     return { setBoard, getComputerMove, resetGame, swapTurns, wincheck, getCurrentMarkerColour };
 };
 
+/**
+ * GUI is a module used to handle EVERYTHING related to graphics (sidebar, buttons, grid graphics, ...)
+ */
 const GUI = (() => {
     const scene = document.querySelector('.scene');
     const DIMENSION = 4;
@@ -639,9 +646,9 @@ const GUI = (() => {
     const persXSlider = document.getElementById('PersHorizontal');
     const persYSlider = document.getElementById('PersVertical');
 
-    const transparencyCheckbox = document.getElementById('transparent-button');
-    const autoRotateCheckbox = document.querySelector('#autorotate-button');
-    const threeDCheckbox = document.querySelector('#threeD-button');
+    const transparencyCheckbox = document.getElementById('transparent-checkbox');
+    const autoRotateCheckbox = document.getElementById('autorotate-checkbox');
+    const threeDCheckbox = document.getElementById('threeD-checkbox');
 
     const DEFAULT_SETTINGS = Object.freeze({
         "rotateX": "20deg",
@@ -660,7 +667,7 @@ const GUI = (() => {
         "perspectiveXorigin": "460%",
         "perspectiveYorigin": "90%",
     };
-    const resetSettingsBtn = document.getElementById('resetbutton');
+    const resetSettingsBtn = document.getElementById('reset-btn');
 
     function clearBoard() {
         cells.forEach(cell => {
@@ -902,7 +909,9 @@ const GUI = (() => {
     };
 })();
 
-/// ----- MAIN -----
+/**
+ * driver module connects GUI and gameFactory.
+ */
 const driver = (() => {
     const cells = GUI.getAllCells();
     const onePlayerRadio = document.getElementById('onePlayerRadio');
@@ -994,6 +1003,5 @@ const driver = (() => {
     restartGameBtn.addEventListener('click', startNewGame);
     return { startNewGame };
 })();
-
 
 driver.startNewGame();
