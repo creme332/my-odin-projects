@@ -73,7 +73,7 @@ body {
     grid-template-rows: repeat(4, 1fr);
     gap: 0.2rem;
     background-color: aliceblue;
-    /* animation: rotate 2s ease-in-out; */
+
 }
 
 @keyframes autorotate {

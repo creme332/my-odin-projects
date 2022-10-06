@@ -225,6 +225,10 @@ const gameFactory = (player1name, player2name) => {
         return currentPlayer.markerColour;
     }
 
+    /**
+     * Returns a random valid move. Used for testing purposes only.
+     * @returns {List} A list containing 3 integers denoting board num, row num, column num.
+     */
     function getComputerRandomMove() {
         let z, x, y;
         z = x = y = 0;
@@ -981,10 +985,7 @@ const driver = (() => {
     function startNewGame() {
         myGame.resetGame();
         GUI.clearBoard();
-
-        cells.forEach(cell => {
-            cell.removeEventListener('click', processUserInput);
-        });
+        disableUserInput();
 
         playerCount = onePlayerRadio.checked ? 1 : 2;
         if (playerCount == 2) {
