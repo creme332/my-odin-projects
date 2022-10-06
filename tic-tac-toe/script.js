@@ -40,7 +40,7 @@ const gameFactory = (player1name, player2name) => {
         ]
     ]; //must generate on runtime
     const DIMENSION = cube.length; //4x4x4
-    const maxDepth = 1; // Increasing this value will make game SLOWER and may cause browser to crash.
+    const maxDepth = 2; // Increasing this value will make game SLOWER and may cause browser to crash.
     let totalMovesLeft = Math.pow(DIMENSION, 3);
 
     function resetGame() {
@@ -235,22 +235,280 @@ const gameFactory = (player1name, player2name) => {
         return [z, x, y];
     }
 
+    function evaluate() {
+        //https://github.com/ghorned/Qubic#heuristic
+        let x = 0, o = 0, total = 0;
+        const ai = player1.marker;
+        const human = player2.marker;
+        let i, j, k;
+
+        // Scores rows
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                for (k = 0; k < DIMENSION; k++) {
+                    if (cube[i][j][k] == ai) {
+                        x++;
+                    }
+                    if (cube[i][j][k] == human) {
+                        o++;
+                    }
+                }
+                if (x > 0 && o == 0) {
+                    total += Math.pow(x, 2);
+                }
+                if (o > 0 && x == 0) {
+                    total -= Math.pow(o, 2);
+                }
+                x = 0, o = 0;
+            }
+        }
+
+        // Scores columns
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                for (k = 0; k < DIMENSION; k++) {
+                    if (cube[i][k][j] == ai) {
+                        x++;
+                    }
+                    if (cube[i][k][j] == human) {
+                        o++;
+                    }
+                }
+                if (x > 0 && o == 0) {
+                    total += Math.pow(x, 2);
+                }
+                if (o > 0 && x == 0) {
+                    total -= Math.pow(o, 2);
+                }
+                x = 0, o = 0;
+            }
+        }
+
+        // Scores pillars
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                for (k = 0; k < DIMENSION; k++) {
+                    if (cube[k][i][j] == ai) {
+                        x++;
+                    }
+                    if (cube[k][i][j] == human) {
+                        o++;
+                    }
+                }
+                if (x > 0 && o == 0) {
+                    total += Math.pow(x, 2);
+                }
+                if (o > 0 && x == 0) {
+                    total -= Math.pow(o, 2);
+                }
+                x = 0, o = 0;
+            }
+        }
+
+        // Scores diagonals (by layer)
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                if (cube[i][j][j] == ai) {
+                    x++;
+                }
+                if (cube[i][j][j] == human) {
+                    o++;
+                }
+            }
+            if (x > 0 && o == 0) {
+                total += Math.pow(x, 2);
+            }
+            if (o > 0 && x == 0) {
+                total -= Math.pow(o, 2);
+            }
+            x = 0, o = 0;
+        }
+
+        k = 3;
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                if (cube[i][j][k] == ai) {
+                    x++;
+                }
+                if (cube[i][j][k] == human) {
+                    o++;
+                }
+                k--;
+            }
+            if (x > 0 && o == 0) {
+                total += Math.pow(x, 2);
+            }
+            if (o > 0 && x == 0) {
+                total -= Math.pow(o, 2);
+            }
+            x = 0, o = 0;
+        }
+
+        // Scores diagonals (by row)
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                if (cube[j][i][j] == ai) {
+                    x++;
+                }
+                if (cube[j][i][j] == human) {
+                    o++;
+                }
+            }
+            if (x > 0 && o == 0) {
+                total += Math.pow(x, 2);
+            }
+            if (o > 0 && x == 0) {
+                total -= Math.pow(o, 2);
+            }
+            x = 0, o = 0;
+        }
+
+        k = 3;
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                if (cube[j][i][k] == ai) {
+                    x++;
+                }
+                if (cube[j][i][k] == human) {
+                    o++;
+                }
+                k--;
+            }
+            if (x > 0 && o == 0) {
+                total += Math.pow(x, 2);
+            }
+            if (o > 0 && x == 0) {
+                total -= Math.pow(o, 2);
+            }
+            x = 0, o = 0;
+        }
+
+        // Scores diagonals (by column)
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                if (cube[j][j][i] == ai) {
+                    x++;
+                }
+                if (cube[j][j][i] == human) {
+                    o++;
+                }
+            }
+            if (x > 0 && o == 0) {
+                total += Math.pow(x, 2);
+            }
+            if (o > 0 && x == 0) {
+                total -= Math.pow(o, 2);
+            }
+            x = 0, o = 0;
+        }
+
+        for (i = 0; i < DIMENSION; i++) {
+            for (j = 0; j < DIMENSION; j++) {
+                k = DIMENSION - 1 - j;
+                if (cube[j][k][i] == ai) {
+                    x++;
+                }
+                if (cube[j][k][i] == human) {
+                    o++;
+                }
+            }
+            if (x > 0 && o == 0) {
+                total += Math.pow(x, 2);
+            }
+            if (o > 0 && x == 0) {
+                total -= Math.pow(o, 2);
+            }
+            x = 0, o = 0;
+        }
+
+        // Scores super-diagonals
+        for (i = 0; i < DIMENSION; i++) {
+            if (cube[i][i][i] == ai) {
+                x++;
+            }
+            if (cube[i][i][i] == human) {
+                o++;
+            }
+        }
+        if (x > 0 && o == 0) {
+            total += Math.pow(x, 2);
+        }
+        if (o > 0 && x == 0) {
+            total -= Math.pow(o, 2);
+        }
+        x = 0, o = 0;
+
+        j = 3;
+        for (i = 0; i < DIMENSION; i++) {
+            if (cube[j][i][i] == ai) {
+                x++;
+            }
+            if (cube[j][i][i] == human) {
+                o++;
+            }
+            j--;
+        }
+        if (x > 0 && o == 0) {
+            total += Math.pow(x, 2);
+        }
+        if (o > 0 && x == 0) {
+            total -= Math.pow(o, 2);
+        }
+        x = 0, o = 0;
+
+        j = 3;
+        for (i = 0; i < DIMENSION; i++) {
+            if (cube[i][i][j] == ai) {
+                x++;
+            }
+            if (cube[i][i][j] == human) {
+                o++;
+            }
+            j--;
+        }
+        if (x > 0 && o == 0) {
+            total += Math.pow(x, 2);
+        }
+        if (o > 0 && x == 0) {
+            total -= Math.pow(o, 2);
+        }
+        x = 0, o = 0;
+
+        j = 3;
+        for (i = 0; i < DIMENSION; i++) {
+            if (cube[j][i][j] == ai) {
+                x++;
+            }
+            if (cube[j][i][j] == human) {
+                o++;
+            }
+            j--;
+        }
+        if (x > 0 && o == 0) {
+            total += Math.pow(x, 2);
+        }
+        if (o > 0 && x == 0) {
+            total -= Math.pow(o, 2);
+        }
+        x = 0, o = 0;
+
+        return total;
+    }
 
     function minimax(depth, maximizingPlayerTurn, alpha, beta) {
         // Note : Here, exeptionally, currentPlayer denotes the player who made the LAST move.
-        // This is because we are checking for wins from the last round at the start of current round.
+        // This is because we are checking for wins from the LAST turn at the start of current turn.
         currentPlayer = maximizingPlayerTurn ? player2 : player1;
         let winningLine = wincheck();
 
         if (winningLine.length == DIMENSION) { //base case 1
-            if (maximizingPlayerTurn) { //minimizing player made winning move last turn
-                return -100;
-            }
-            return 100; //maximizing player made winning move
+            // return -100 if minimizing player from last turn made winning move 
+            //return 100 if maximizing player from LAST turn made winning move
+            return maximizingPlayerTurn ? -100 : 100;
         }
 
         if (totalMovesLeft == 0 || depth == maxDepth) { //base case 2
-            return 0;
+            return evaluate();
         }
 
         let MaxEval = -Number.MAX_VALUE, MinEval = Number.MAX_VALUE; //scores for maximising and minimising players
@@ -291,7 +549,6 @@ const gameFactory = (player1name, player2name) => {
     function getComputerMove() {
 
         // return getComputerRandomMove();
-
         let bestCoord, MaxScore = -Number.MAX_VALUE;
 
         //loop through each empty cells
@@ -309,7 +566,6 @@ const gameFactory = (player1name, player2name) => {
 
                         //calculate score of playing in current empty cell
                         let score = minimax(0, false, -Number.MAX_VALUE, Number.MAX_VALUE);
-
                         if (score > MaxScore) {
                             bestCoord = [z, x, y];
                             MaxScore = score;
