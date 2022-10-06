@@ -7,10 +7,8 @@ A prototype sign-up-form which follows most of the [Nielsen Norman Group guideli
 [▶ Live preview](https://creme332.github.io/my-odin-projects/sign-up-form/)
 
 ![Website screenshot on tablets](assets/responsive1.png)
-Website screenshot on tablets
 
 ![Website screenshot on mobile](assets/responsive2.png)
-Website screenshot on tablets
 
 # 🚀Features
 
