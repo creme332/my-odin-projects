@@ -48,7 +48,6 @@ Resource | How I used it
 [Game 1](https://www.mathsisfun.com/games/foursight-3d-tic-tac-toe.html), [Game 2](https://github.com/klimbin/Qubic) | For inspiration
 [Codewars kata](https://www.codewars.com/kata/5aa67541373c2e69a20000c9) | To test win-checking algorithm
  [Link 1](https://css-tricks.com/how-css-perspective-works/), [Link 2](https://3dtransforms.desandro.com/perspective)| For reference on CSS Perspective
-  | 
 [MIT video](https://www.youtube.com/watch?v=STjW3eH0Cik&ab_channel=MITOpenCourseWare), [Sebastian Lague video](https://www.youtube.com/watch?v=l-hh51ncgDI&t=142s&ab_channel=SebastianLague)| To implement minimax algorithm with alpha-beta pruning.
 
 # To-Do
