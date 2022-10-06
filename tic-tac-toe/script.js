@@ -56,7 +56,7 @@ const gameFactory = (player1name, player2name) => {
         totalMovesLeft = Math.pow(DIMENSION, 3);
     }
 
-    function wincheck() { // check wincheck.js for explanation
+    function wincheck() { // see wincheck.js for explanation
         const playerMarker = currentPlayer.marker;
         let winningCoord = []; //list of coordinates of points on winning line. Format: (plane, row, column)
         const board_1D = cube[lastMove.plane]; // board on which player made a move 
@@ -138,7 +138,7 @@ const gameFactory = (player1name, player2name) => {
 
         // At this point, Case 1, 2 are over.
 
-        // The code below Case 3, 4 is NON_OPTIMAL.
+        // The code below Case 3, 4 is NON-OPTIMAL.
 
         function getBorderCells(DIMENSION) {
             let coords = [];
@@ -806,8 +806,24 @@ const GUI = (() => {
 
     function toggleBoardTransparency() {
         boards.forEach(board => {
+
+            //make board color transparent 
             board.style.backgroundColor = transparencyCheckbox.checked ?
                 BOARD_TRANSPARENT_COLOUR : BOARD_DEFAULT_COLOUR;
+
+            let boardCells = board.querySelectorAll('.cell');
+            boardCells.forEach(cell => {
+                //make empty cells transparent
+                let currentCellColor = cell.style.backgroundColor;
+                if (transparencyCheckbox.checked && currentCellColor ==
+                    BOARD_DEFAULT_COLOUR) {
+                    cell.style.backgroundColor = BOARD_TRANSPARENT_COLOUR;
+                }
+                if (!transparencyCheckbox.checked && currentCellColor ==
+                    BOARD_TRANSPARENT_COLOUR) {
+                    cell.style.backgroundColor = BOARD_DEFAULT_COLOUR;
+                }
+            });
         });
     }
 
