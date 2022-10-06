@@ -235,6 +235,7 @@ const gameFactory = (player1name, player2name) => {
         return [z, x, y];
     }
 
+
     function minimax(depth, maximizingPlayerTurn, alpha, beta) {
         // Note : Here, exeptionally, currentPlayer denotes the player who made the LAST move.
         // This is because we are checking for wins from the last round at the start of current round.
@@ -249,9 +250,6 @@ const gameFactory = (player1name, player2name) => {
         }
 
         if (totalMovesLeft == 0 || depth == maxDepth) { //base case 2
-            // if(depth==maxDepth){
-            //     console.log('max depth reached');
-            // }
             return 0;
         }
 
@@ -310,7 +308,7 @@ const gameFactory = (player1name, player2name) => {
                         totalMovesLeft--;
 
                         //calculate score of playing in current empty cell
-                        let score = minimax(0, false, -9999, 9999);
+                        let score = minimax(0, false, -Number.MAX_VALUE, Number.MAX_VALUE);
 
                         if (score > MaxScore) {
                             bestCoord = [z, x, y];
