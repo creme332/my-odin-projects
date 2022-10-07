@@ -7,7 +7,7 @@ let rowCount = 0;
 
 function initialiseTable() {
     function getOldLibrary() {
-        //retrieve data from localStorage and return as a list of Book objects
+        //retrieve data from localStorage in JSON format and return as a list of Book objects
         let oldLibrary = JSON.parse(localStorage.getItem(localStorageItemName) || '[]');
 
         if (oldLibrary.length == 0) { //old library not found
@@ -35,7 +35,6 @@ function initialiseTable() {
 
     for (let i = 0; i < oldLibrary.length; i++) {
         let book = oldLibrary[i];
-        console.log(book)
         addToTable(book);
     }
 }
@@ -215,7 +214,6 @@ function updateProgressBar(e) {
     const percent = Math.min(100, parseInt(100 * currentpg / totalpg));
     progressbar.style.width = `${percent}%`;
     progressbar.textContent = `${percent}%`;
-    console.log(percent);
 }
 
 addRowBtn.addEventListener("click", () => {
