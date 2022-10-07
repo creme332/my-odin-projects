@@ -38,7 +38,7 @@ table {
 /* space buttons in Actions column */
 tr td:nth-last-child(1) {
     display: flex;
-    justify-content: space-between;
+    gap:1em;
 }
 
 .container table td {
