@@ -103,7 +103,7 @@ const GUI = (() => {
         tempNode.removeAttribute('id');
 
         tempNode.querySelector('.row-counter').textContent = rowIndex;
-        tempNode.querySelector('.row-title').textContent = bookObj.title;
+        tempNode.querySelector('.row-title').value = bookObj.title;
         tempNode.querySelector('.row-author').value = bookObj.author;
         tempNode.querySelector('.row-currentpg').value = bookObj.currentpage;
         tempNode.querySelector('.row-totalpg').value = bookObj.totalpages;
@@ -208,19 +208,19 @@ const GUI = (() => {
         const newCurrentPage = parseInt(currentPgInput.value);
         const newTotalPage = parseInt(totalPgInput.value);
 
-        if(newCurrentPage > newTotalPage){
+        if (newCurrentPage > newTotalPage) {
             currentPgInput.setCustomValidity("Current page must be less than or equal to total pages.");
             totalPgInput.setCustomValidity("Current page must be less than or equal to total pages.");
             currentPgInput.reportValidity();
             totalPgInput.reportValidity();
             return false;
         }
-        if(newCurrentPage < 0){
+        if (newCurrentPage < 0) {
             currentPgInput.setCustomValidity("Value must be greater than or equal to 0.");
             currentPgInput.reportValidity();
             return false;
         }
-        if(totalPgInput<1){
+        if (totalPgInput < 1) {
             totalPgInput.setCustomValidity("Value must be greater than or equal to 1.");
             totalPgInput.reportValidity();
             return false;
@@ -280,19 +280,22 @@ const GUI = (() => {
         toggleEditing(lastRow, true);
     });
 
-    //implement search bar : https://stackoverflow.com/a/51187875/17627866
     searchBar.addEventListener('keyup', () => {
-        const trs = getAllRowElements(); //exclude template
+        const trs = getAllRowElements();
+        const books = myLibrary.books;
         const filter = searchBar.value;
         const regex = new RegExp(filter, 'i');
-        const isFoundInTds = td => regex.test(td.innerHTML);
-        const isFound = childrenArr => childrenArr.some(isFoundInTds);
-        const setTrStyleDisplay = ({ style, children }) => {
-            style.display = isFound([
-                ...children // <-- All columns
-            ]) ? '' : 'none'
+
+        for (let i = 0; i < myLibrary.size; i++) {
+            let book = books[i];
+            let row = trs[i];
+
+            if (regex.test(book.title) || regex.test(book.author)) { // row contains filter
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            };
         };
-        trs.forEach(setTrStyleDisplay);
     });
 
 })();
