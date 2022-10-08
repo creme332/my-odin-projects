@@ -6,24 +6,28 @@
 
 A prototype website to keep track of your books and organise your bookshelf.
 
-![GIF of website](assets/library.gif)
+![GIF of website](assets/libraryv2.gif)
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/library/)
 
-> To save your changes to a row after editing it, you **must** toggle off the Edit button.
-
-> An empty table will always get initialised with some random books when website is refreshed.
+### Notes
+- Search functionality is **case-insensitive** and only looks for matches with title and author name.
+- To save your changes after editing a row, you **must** toggle off the `Edit` button.
 
 # 🚀Features
 - Functional search bar.
 - Custom-made dynamic progress bar.
-- Local Storage to store data after browser is closed/refreshed.
+- Local Storage to store your changes after browser is closed/refreshed.
+- Input validation.
 
 # 🔨 To-Do
-- [ ] Use textarea instead of div for user input. 
-- [ ] Break table if line too long.
-- [ ] Add input validation for page fields.
+- [ ]
 
 ### ✔ Done
+- [x] Use textarea instead of div for user input. 
+- [x] Use docstring to explain function
+- [x] Break table if line too long.
+- [x] Add input validation for page fields.
+- [x] add classnames to td
 - [x] Make website responsive.
 - [x] Edit myLibrary array when field is edited.
