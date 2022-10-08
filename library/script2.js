@@ -88,6 +88,7 @@ const GUI = (() => {
     const tableBody = document.querySelector("#library").querySelector("tbody");
     const addRowBtn = document.querySelector("#addRowBtn");
     const searchBar = document.querySelector("#searchBar");
+    const progressLoadingTiming = {duration: 2000, iterations: 1};
 
     (function initialiseTable(){
         let rowIndex = 0;
@@ -98,87 +99,38 @@ const GUI = (() => {
     })();
 
     function displayBook(bookObj, rowIndex) {
-    
-        //create a new row for table with all information
-        let row = document.createElement("tr");
-    
-        // add row counter to row
-        let counterCol = document.createElement("td");
-        counterCol.textContent = rowIndex;
-        row.appendChild(counterCol);
-    
-        //add title to row
-        let titleColumn = document.createElement("td");
-        let t = document.createElement("input");
-        // titleColumn.appendChild(t);
-        titleColumn.textContent = bookObj.title;
-        row.appendChild(titleColumn);
-    
-        //add author name to row
-        let authorColumn = document.createElement("td");
-        authorColumn.textContent = bookObj.author;
-        row.appendChild(authorColumn);
-    
-        //add current page count to row
-        let currentpageCol = document.createElement("td");
-        currentpageCol.textContent = bookObj.currentpage;
-        row.appendChild(currentpageCol);
-    
-        //add total page count to row
-        let totalpageCol = document.createElement("td");
-        totalpageCol.textContent = bookObj.totalpages;
-        row.appendChild(totalpageCol);
-    
-        //add progress bar to row
-        let progressColumn = document.createElement("td");
-        let progressBarContainer = document.createElement("div");
-        progressBarContainer.classList.add("progress");
-        let progressBar = document.createElement('div');
+        let tempNode = document.querySelector("#row-template").cloneNode(true);
+        tempNode.removeAttribute('id');
+
+        tempNode.querySelector('.row-counter').textContent = rowIndex;
+        tempNode.querySelector('.row-title').textContent = bookObj.title;
+        tempNode.querySelector('.row-author').value = bookObj.author;
+        tempNode.querySelector('.row-currentpg').value = bookObj.currentpage;
+        tempNode.querySelector('.row-totalpg').value = bookObj.totalpages;
+
+        let progressBarContainer = tempNode.querySelector('.progress');
+        let progressBar = tempNode.querySelector('.progress-bar.bg-success');
         const percentCompleted = parseInt(bookObj.currentpage / bookObj.totalpages * 100);
+
+        progressBar.style.width = `${percentCompleted}%`;
+        progressBar.textContent = `${percentCompleted}%`;
+
         //add animation to progress bar
         const progressLoadingAnimation = [
             { width: `0%` },
             { width: `${percentCompleted}%` },
         ];
-        const progressLoadingTiming = {
-            duration: 2000,
-            iterations: 1,
-        }
         progressBar.animate(progressLoadingAnimation, progressLoadingTiming);
-        progressBar.classList.add("progress-bar", "bg-success");
-        progressBar.style.width = `${percentCompleted}%`;
-        progressBar.textContent = `${percentCompleted}%`;
-        progressBarContainer.appendChild(progressBar);
-        progressColumn.appendChild(progressBarContainer);
-        row.appendChild(progressColumn);
-    
-    
-        //add buttons to row
-        let actionColumn = document.createElement("td");
-    
-        let editBtn = document.createElement("button");
-        editBtn.setAttribute("type", "button");
-        editBtn.classList.add("btn", "editbtn", "btn-outline-secondary");
-        editBtn.textContent = "Edit";
-    
-        let deleteBtn = document.createElement("button");
-        deleteBtn.setAttribute("type", "button");
-        deleteBtn.classList.add("btn", "deletebtn", "btn-outline-danger");
-        deleteBtn.textContent = "Delete";
-    
-        actionColumn.appendChild(editBtn);
-        actionColumn.appendChild(deleteBtn);
-        row.appendChild(actionColumn);
-    
-        tableBody.appendChild(row);
+  
+        tableBody.appendChild(tempNode);
     
         // update progress bar when page fields are updated
-        currentpageCol.addEventListener("input", updateProgressBar);
-        totalpageCol.addEventListener("input", updateProgressBar);
+        tempNode.querySelector('.row-currentpg').addEventListener("input", updateProgressBar);
+        tempNode.querySelector('.row-totalpg').addEventListener("input", updateProgressBar);
     
         // add event listeners to buttons
-        deleteBtn.addEventListener("click", RemoveFromTable);
-        editBtn.addEventListener("click", editRow);
+        tempNode.querySelector('.deletebtn').addEventListener("click", RemoveFromTable);
+        tempNode.querySelector('.editbtn').addEventListener("click", editRow);
     }
     
     function RemoveFromTable(e) {
@@ -216,8 +168,8 @@ const GUI = (() => {
 
     function editRow(e) {
         function checkEditingMode(row) {
-            const titleField = row.querySelectorAll('td')[1];
-            return titleField.getAttribute('contenteditable') == 'true';
+            const titleField = row.querySelector('.row-title');
+            return titleField.getAttribute('disabled') == 'true';
         }
         function toggleEditing(row, activateEditing) {
             const allFields = row.querySelectorAll("td");
@@ -226,9 +178,9 @@ const GUI = (() => {
             for (let i = 1; i < allFields.length - 2; i++) {
                 f = allFields[i];
                 if (activateEditing) {
-                    f.setAttribute("contenteditable", true);
+                    f.removeAttribute('disabled');
                 } else {
-                    f.setAttribute("contenteditable", false);
+                    f.setAttribute("disabled", true);
                 }
             }
         }

@@ -10,6 +10,11 @@ body {
     padding: 50px;
 }
 
+#row-template{
+    outline:1px solid red;
+    display:none;
+}
+
 .container {
     height: auto;
     /* outline: 1px solid; */
@@ -39,6 +44,12 @@ table {
 tr td:nth-last-child(1) {
     display: flex;
     gap:1em;
+    align-items: center;
+}
+tr td:nth-last-child(1) {
+    display: flex;
+    gap:1em;
+    vertical-align: middle;
 }
 
 .container table td {
@@ -66,4 +77,24 @@ table caption {
 
 #addRowBtn:hover {
     background-color: #dedede;
+}
+
+#library input{
+    background-color: transparent;
+    border: 0;
+    color: #212529;
+
+    border-style: none;
+    padding: 0;
+}
+#library input[type = 'number']{
+    width: 70px;
+}
+
+#library textarea{
+    resize: none;
+    background-color: transparent;
+    border: 0;
+    color: #212529;
+    overflow: auto ;
 }

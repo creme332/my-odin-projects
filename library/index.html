@@ -13,7 +13,7 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script src="script2.js" defer></script>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
     <title>Library</title>
@@ -46,6 +46,30 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr id="row-template">
+                        <td class="row-counter">0</td>
+                        <td>
+                            <textarea class="row-title" rows="1" disabled>Book title</textarea>
+                        </td>
+                        <td>
+                            <textarea rows="1" class="row-author" disabled>Author name</textarea>
+                        </td>
+                        <td>
+                            <input type="number" class="row-currentpg" min="0" disabled placeholder="0">
+                        </td>
+                        <td>
+                            <input type="number" class="row-totalpg" min="0" disabled placeholder="0">
+                        </td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar bg-success">0%</div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn editbtn btn-outline-secondary">Edit</button>
+                            <button type="button" class="btn deletebtn btn-outline-danger">Delete</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
