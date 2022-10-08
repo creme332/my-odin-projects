@@ -10,9 +10,9 @@ body {
     padding: 50px;
 }
 
-#row-template{
-    outline:1px solid red;
-    display:none;
+#row-template {
+    outline: 1px solid red;
+    display: none;
 }
 
 .container {
@@ -34,21 +34,22 @@ body {
     background-color: rgb(33, 209, 156) !important;
 }
 
-th,
+/* th,
 td,
 table {
-    /* outline: 1px solid; */
-}
+    outline: 1px solid;
+} */
 
 /* space buttons in Actions column */
 tr td:nth-last-child(1) {
     display: flex;
-    gap:1em;
+    gap: 1em;
     align-items: center;
 }
+
 tr td:nth-last-child(1) {
     display: flex;
-    gap:1em;
+    gap: 1em;
     vertical-align: middle;
 }
 
@@ -79,22 +80,23 @@ table caption {
     background-color: #dedede;
 }
 
-#library input{
+#library input {
     background-color: transparent;
     border: 0;
     color: #212529;
+    text-overflow: ellipsis;
 
     border-style: none;
     padding: 0;
 }
-#library input[type = 'number']{
+
+#library input[type='number'] {
     width: 70px;
 }
 
-#library textarea{
+#library textarea {
     resize: none;
     background-color: transparent;
     border: 0;
     color: #212529;
-    overflow: auto ;
 }
