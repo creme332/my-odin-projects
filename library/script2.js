@@ -207,12 +207,26 @@ const GUI = (() => {
 
         const newCurrentPage = parseInt(currentPgInput.value);
         const newTotalPage = parseInt(totalPgInput.value);
-        currentPgInput.reportValidity();
-        totalPgInput.reportValidity();
 
-        return (newCurrentPage <= newTotalPage &&
-            currentPgInput.checkValidity() &&
-            totalPgInput.checkValidity());
+        if(newCurrentPage > newTotalPage){
+            currentPgInput.setCustomValidity("Current page must be less than or equal to total pages.");
+            totalPgInput.setCustomValidity("Current page must be less than or equal to total pages.");
+            currentPgInput.reportValidity();
+            totalPgInput.reportValidity();
+            return false;
+        }
+        if(newCurrentPage < 0){
+            currentPgInput.setCustomValidity("Value must be greater than or equal to 0.");
+            currentPgInput.reportValidity();
+            return false;
+        }
+        if(totalPgInput<1){
+            totalPgInput.setCustomValidity("Value must be greater than or equal to 1.");
+            totalPgInput.reportValidity();
+            return false;
+        }
+
+        return true;
     };
 
     function editRow(e) {
