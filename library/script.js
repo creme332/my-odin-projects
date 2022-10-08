@@ -1,239 +1,301 @@
-const localStorageItemName = 'myLibrary';
-let myLibrary = [];
-const tableBody = document.querySelector("#library").querySelector("tbody");
-const addRowBtn = document.querySelector("#addRowBtn");
-const searchBar = document.querySelector("#searchBar");
-let rowCount = 0; 
+class Book {
+    constructor(title, author, currentpage, totalpages) {
+        this.title = title;
+        this.author = author;
+        this.currentpage = currentpage;
+        this.totalpages = totalpages;
+    }
+}
 
-function initialiseTable() {
-    function getOldLibrary() {
-        //retrieve data from localStorage in JSON format and return as a list of Book objects
-        let oldLibrary = JSON.parse(localStorage.getItem(localStorageItemName) || '[]');
+class Library {
+    #BooksArray = []; // array of Book objects
+    #localStorageKey = 'myLibrary';
 
-        if (oldLibrary.length == 0) { //old library not found
+    constructor() {
+        //Initialise BooksArray with data from localStorage 
+
+        // localStorage data is initially in JSON format
+        let JSON_Library = localStorage.getItem(this.#localStorageKey);
+
+        //check if user is a first-time user
+        if (JSON_Library === null) {
+            //Initialise library with some books
             const book1 = new Book('The Art of Problem Solving', 'Vladimir Stewart', 123, 424);
             const book2 = new Book('The Great Alexander Falls', 'Alexander Arnold', 2102, 3213);
-            const book3 = new Book('An Ideal House', 'Roland Yotube', 1102, 2132);
-            return [book1, book2, book3];
+            const book3 = new Book('An Ideal House', 'Roland Youtube', 1102, 2132);
+            this.#BooksArray = [book1, book2, book3];
+            this.backup();
+            return;
         }
 
-        // convert oldLibrary to a list of Book objects
-        let bookLibrary = [];
+        // convert JSON to an array of objects
+        let objectsArray = JSON.parse(JSON_Library || '[]');
 
-        for (let i = 0; i < oldLibrary.length; i++) {
-            let book = oldLibrary[i];
-            let bookObj = new Book(book['title'],
-                book['author'],
-                book['currentpage'],
-                book['totalpages']);
-            bookLibrary.push(bookObj);
+        //if library is empty, do nothing
+        if (objectsArray.length == 0) {
+            return;
         }
-        return bookLibrary;
+
+        // convert objects to Book objects and push to booksArray
+        objectsArray.forEach(obj => {
+            let bookObj = Object.assign(new Book(), obj);
+            this.#BooksArray.push(bookObj);
+        });
+    };
+
+    addBook(bookObj) {
+        this.#BooksArray.push(bookObj);
+
+        //backup changes 
+        this.backup();
+    };
+
+    removeBook(bookIndex) {
+        this.#BooksArray.splice(bookIndex, 1);
+
+        //backup changes 
+        this.backup();
+    };
+
+    editBook(index, updatedBookObj) {
+        this.#BooksArray[index] = updatedBookObj;
+
+        //backup changes 
+        this.backup();
     }
 
-    let oldLibrary = getOldLibrary();
-
-    for (let i = 0; i < oldLibrary.length; i++) {
-        let book = oldLibrary[i];
-        addToTable(book);
+    get size() {
+        return this.#BooksArray.length;
     }
-}
-function Book(title, author, currentpage, totalpages) {
-    this.title = title;
-    this.author = author;
-    this.currentpage = currentpage;
-    this.totalpages = totalpages;
-}
 
-function addToTable(bookObj) {
-    myLibrary.push(bookObj);
-    localStorage.setItem(localStorageItemName, JSON.stringify(myLibrary));
+    get books() {
+        return this.#BooksArray;
+    };
 
-    let row = document.createElement("tr");
+    backup() {
+        localStorage.setItem(this.#localStorageKey, this.to_json);
+    };
 
-    // append first empty td for counter
-    let counterCol = document.createElement("td");
-    counterCol.textContent = rowCount;
-    row.appendChild(counterCol);
-    rowCount++;
-
-    //add title
-    let titleColumn = document.createElement("td");
-    titleColumn.textContent = bookObj.title;
-    row.appendChild(titleColumn);
-
-    //add author name
-    let authorColumn = document.createElement("td");
-    authorColumn.textContent = bookObj.author;
-    row.appendChild(authorColumn);
-
-    //add current page count
-    let currentpageCol = document.createElement("td");
-    currentpageCol.textContent = bookObj.currentpage;
-    row.appendChild(currentpageCol);
-
-    //add total page count
-    let totalpageCol = document.createElement("td");
-    totalpageCol.textContent = bookObj.totalpages;
-    row.appendChild(totalpageCol);
-
-    //add progress bar
-    let progressColumn = document.createElement("td");
-    let progressBarContainer = document.createElement("div");
-    progressBarContainer.classList.add("progress");
-    let progressBar = document.createElement('div');
-    const percentCompleted = parseInt(bookObj.currentpage / bookObj.totalpages * 100);
-    //add animation to progress bar
-    const progressLoadingAnimation = [
-        { width: `0%` },
-        { width: `${percentCompleted}%` },
-    ];
-    const progressLoadingTiming = {
-        duration: 2000,
-        iterations: 1,
+    get to_json() {
+        //get library in JSON format
+        return JSON.stringify(this.#BooksArray);
     }
-    progressBar.animate(progressLoadingAnimation, progressLoadingTiming);
-    progressBar.classList.add("progress-bar", "bg-success");
-    progressBar.style.width = `${percentCompleted}%`;
-    progressBar.textContent = `${percentCompleted}%`;
-    progressBarContainer.appendChild(progressBar);
-    progressColumn.appendChild(progressBarContainer);
-    row.appendChild(progressColumn);
+};
 
+const myLibrary = new Library();
 
-    //add buttons
-    let actionColumn = document.createElement("td");
+const GUI = (() => {
+    const tableBody = document.querySelector("#library").querySelector("tbody");
+    const addNewRowBtn = document.querySelector("#addRowBtn");
+    const searchBar = document.querySelector("#searchBar");
+    const progressLoadingTiming = { duration: 2000, iterations: 1 };
 
-    let editBtn = document.createElement("button");
-    editBtn.setAttribute("type", "button");
-    editBtn.classList.add("btn", "editbtn", "btn-outline-secondary");
-    editBtn.textContent = "Edit";
+    (function initialiseTable() {
+        let rowIndex = 0;
+        myLibrary.books.forEach(book => {
+            displayBook(book, rowIndex);
+            rowIndex++;
+        })
+    })();
 
-    let deleteBtn = document.createElement("button");
-    deleteBtn.setAttribute("type", "button");
-    deleteBtn.classList.add("btn", "deletebtn", "btn-outline-danger");
-    deleteBtn.textContent = "Delete";
+    function displayBook(bookObj, rowIndex) {
+        let tempNode = document.querySelector("#row-template").cloneNode(true);
+        tempNode.removeAttribute('id');
 
-    actionColumn.appendChild(editBtn);
-    actionColumn.appendChild(deleteBtn);
-    row.appendChild(actionColumn);
+        tempNode.querySelector('.row-counter').textContent = rowIndex;
+        tempNode.querySelector('.row-title').value = bookObj.title;
+        tempNode.querySelector('.row-author').value = bookObj.author;
+        tempNode.querySelector('.row-currentpg').value = bookObj.currentpage;
+        tempNode.querySelector('.row-totalpg').value = bookObj.totalpages;
 
-    tableBody.appendChild(row);
+        let progressBar = tempNode.querySelector('.progress-bar.bg-success');
+        const percentCompleted = parseInt(bookObj.currentpage / bookObj.totalpages * 100);
 
-    // update progress bar when page fields are updated
-    currentpageCol.addEventListener("input", updateProgressBar);
-    totalpageCol.addEventListener("input", updateProgressBar);
+        progressBar.style.width = `${percentCompleted}%`;
+        progressBar.textContent = `${percentCompleted}%`;
 
-    // add event listeners to buttons
-    deleteBtn.addEventListener("click", RemoveFromTable);
-    editBtn.addEventListener("click", editRow);
-}
+        //add animation to progress bar
+        const progressLoadingAnimation = [
+            { width: `0%` },
+            { width: `${percentCompleted}%` },
+        ];
+        progressBar.animate(progressLoadingAnimation, progressLoadingTiming);
 
-function RemoveFromTable(e) {
-    const allRows = tableBody.querySelectorAll("tr");
-    let currentRow = e.target.parentNode.parentNode;
-    let rowIndex = parseInt(currentRow.querySelector("td").textContent);
+        tableBody.appendChild(tempNode);
 
-    //decrement row index of all rows after currentRow
-    for (let i = rowIndex + 1; i < rowCount; i++) {
-        let currentCounter = allRows[i].querySelector("td");
-        currentCounter.textContent = i - 1;
-    }
-    rowCount--;
+        // update progress bar when page fields are updated
+        tempNode.querySelector('.row-currentpg').addEventListener("input", updateProgressBar);
+        tempNode.querySelector('.row-totalpg').addEventListener("input", updateProgressBar);
 
-    //delete from myLibrary list
-    myLibrary.splice(rowIndex, 1);
-    localStorage.setItem(localStorageItemName, JSON.stringify(myLibrary));
+        // add event listeners to buttons
+        tempNode.querySelector('.deletebtn').addEventListener("click", RemoveFromTable);
+        tempNode.querySelector('.editbtn').addEventListener("click", editRow);
+    };
 
-    //delete from DOM
-    currentRow.parentNode.removeChild(currentRow);
-}
+    function RemoveFromTable(e) {
+        const allRows = tableBody.querySelectorAll("tr");
+        let currentRow = e.target.closest("tr");
+        let rowIndex = parseInt(currentRow.querySelector(".row-counter").textContent);
 
-function refreshLibraryArray(rowElement) {
-    //call this function after user input to
-    // update contents of myLibrary with user input
+        //decrement row index of all rows after currentRow
+        for (let i = rowIndex + 1; i < myLibrary.size; i++) {
+            let currentCounter = allRows[i].querySelector("td");
+            currentCounter.textContent = i - 1;
+        }
 
-    const rowIndex = parseInt(rowElement.querySelector('td').textContent);
-    const allFields = rowElement.querySelectorAll("td");
-    const author = allFields[1].textContent;
-    const title = allFields[2].textContent;
-    const curpg = allFields[3].textContent;
-    const totpg = allFields[4].textContent;
+        //delete book object from myLibrary 
+        myLibrary.removeBook(rowIndex);
 
-    myLibrary[rowIndex] = new Book(author, title, curpg, totpg);
-    localStorage.setItem(localStorageItemName, JSON.stringify(myLibrary));
-}
-function editRow(e) {
-    function checkEditingMode(row) {
-        const titleField = row.querySelectorAll('td')[1];
-        return titleField.getAttribute('contenteditable') == 'true';
-    }
+        //delete from DOM
+        tableBody.removeChild(currentRow);
+    };
+
+    function refreshLibraryArray(rowElement) {
+        //call this function when Edit button is toggled off to
+        // update contents of myLibrary with user input
+
+        const rowIndex = parseInt(rowElement.querySelector('.row-counter').textContent);
+        const newAuthor = rowElement.querySelector('.row-author').value;
+        const newTitle = rowElement.querySelector('.row-title').value;
+        const newCurrentPage = rowElement.querySelector('.row-currentpg').value;
+        const newTotalPage = rowElement.querySelector('.row-totalpg').value;
+
+        myLibrary.editBook(rowIndex, new Book(newTitle, newAuthor, newCurrentPage, newTotalPage));
+    };
+
     function toggleEditing(row, activateEditing) {
-        const allFields = row.querySelectorAll("td");
-
-        // make fields 2-5 editable.
-        for (let i = 1; i < allFields.length - 2; i++) {
-            f = allFields[i];
-            if (activateEditing) {
-                f.setAttribute("contenteditable", true);
-            } else {
-                f.setAttribute("contenteditable", false);
-            }
-        }
-    }
-    let currentRow = e.target.parentNode.parentNode;
-    const activeEditingBGColor = "#6c757d";
-    const activeEditingColor = "white";
-
-    const InactiveEditingBGColor = "transparent";
-    const InactiveEditingColor = "#6c757d";
-
-    if (checkEditingMode(currentRow)) {
-        //turn off editing
-        e.target.style.color = InactiveEditingColor;
-        e.target.style.backgroundColor = InactiveEditingBGColor;
-        toggleEditing(currentRow, false);
-        refreshLibraryArray(currentRow);
-
-    } else {
-        //turn on editing
 
         //change color of edit button
-        e.target.style.color = activeEditingColor;
-        e.target.style.backgroundColor = activeEditingBGColor;
+        const editBtn = row.querySelector('.editbtn');
+        const activeEditingBGColor = "#6c757d";
+        const activeEditingColor = "white";
+        const InactiveEditingBGColor = "transparent";
+        const InactiveEditingColor = "#6c757d";
 
-        toggleEditing(currentRow, true);
-    }
-}
-function updateProgressBar(e) {
-    let currentRow = e.target.parentNode;
-    let fields = currentRow.querySelectorAll('td');
-    let currentpg = Math.max(0, parseInt(fields[3].textContent));
-    let totalpg = Math.max(0, parseInt(fields[4].textContent));
-    let progressbar = fields[5].querySelector('.progress-bar');
-    const percent = Math.min(100, parseInt(100 * currentpg / totalpg));
-    progressbar.style.width = `${percent}%`;
-    progressbar.textContent = `${percent}%`;
-}
+        if (!activateEditing) {
+            editBtn.style.color = InactiveEditingColor;
+            editBtn.style.backgroundColor = InactiveEditingBGColor;
+        } else {
+            editBtn.style.color = activeEditingColor;
+            editBtn.style.backgroundColor = activeEditingBGColor;
+        }
 
-addRowBtn.addEventListener("click", () => {
-    const emptyBook = new Book('Book', 'Author', 50, 100);
-    addToTable(emptyBook);
-});
+        //make input fields editable if needed
+        const InputFields = row.querySelectorAll(".input-field");
+        InputFields.forEach(f => {
+            if (activateEditing) {
+                f.removeAttribute('disabled');
+            } else {
+                f.setAttribute("disabled", true);
+            }
+        });
 
-//implement search bar : https://stackoverflow.com/a/51187875/17627866
-searchBar.addEventListener('keyup', () => {
-    const trs = tableBody.querySelectorAll('tr');
-    const filter = searchBar.value;
-    const regex = new RegExp(filter, 'i');
-    const isFoundInTds = td => regex.test(td.innerHTML);
-    const isFound = childrenArr => childrenArr.some(isFoundInTds);
-    const setTrStyleDisplay = ({ style, children }) => {
-        style.display = isFound([
-            ...children // <-- All columns
-        ]) ? '' : 'none'
+        //toggle resize of textarea
+        const textAreaBoxes = row.querySelectorAll('textarea');
+        textAreaBoxes.forEach(f => {
+            if (activateEditing) {
+                f.style.resize = 'auto';
+            } else {
+                f.style.resize = 'none';
+            }
+        });
     };
-    trs.forEach(setTrStyleDisplay);
-});
 
-initialiseTable();
+    function isValidRow(rowElement) {
+        const currentPgInput = rowElement.querySelector('.row-currentpg');
+        const totalPgInput = rowElement.querySelector('.row-totalpg');
+
+        const newCurrentPage = parseInt(currentPgInput.value);
+        const newTotalPage = parseInt(totalPgInput.value);
+
+        if (newCurrentPage > newTotalPage) {
+            currentPgInput.setCustomValidity("Current page must be less than or equal to total pages.");
+            totalPgInput.setCustomValidity("Current page must be less than or equal to total pages.");
+            currentPgInput.reportValidity();
+            totalPgInput.reportValidity();
+            return false;
+        }
+        if (newCurrentPage < 0) {
+            currentPgInput.setCustomValidity("Value must be greater than or equal to 0.");
+            currentPgInput.reportValidity();
+            return false;
+        }
+        if (totalPgInput < 1) {
+            totalPgInput.setCustomValidity("Value must be greater than or equal to 1.");
+            totalPgInput.reportValidity();
+            return false;
+        }
+
+        return true;
+    };
+
+    function editRow(e) {
+        function isRowEditable(row) {
+            const titleField = row.querySelector('.row-title');
+            return !titleField.hasAttribute('disabled');
+        }
+
+        let currentRow = e.target.closest("tr");
+
+        if (isRowEditable(currentRow)) {
+            if (isValidRow(currentRow)) {
+                //turn off editing
+                toggleEditing(currentRow, false);
+
+                //update library
+                refreshLibraryArray(currentRow);
+            };
+
+        } else {
+            //turn on editing
+            toggleEditing(currentRow, true);
+        };
+    }
+
+    function updateProgressBar(e) {
+        let currentRow = e.target.closest("tr");
+
+        let currentpg = parseInt(currentRow.querySelector('.row-currentpg').value);
+        let totalpg = parseInt(currentRow.querySelector('.row-totalpg').value);
+
+        if (isValidRow(currentRow)) {
+            let progressbar = currentRow.querySelector('.progress-bar');
+            const percent = Math.min(100, parseInt(100 * currentpg / totalpg));
+            progressbar.style.width = `${percent}%`;
+            progressbar.textContent = `${percent}%`;
+        };
+    };
+
+    function getAllRowElements() {
+        return tableBody.querySelectorAll('tr:not(#row-template)'); //exclude template row
+    };
+
+    addNewRowBtn.addEventListener("click", () => {
+        const emptyBook = new Book('', '', 50, 100);
+        myLibrary.addBook(emptyBook);
+        displayBook(emptyBook, myLibrary.size - 1);
+
+        //make a newly added row editable
+        let lastRow = getAllRowElements()[myLibrary.size - 1];
+        toggleEditing(lastRow, true);
+    });
+
+    searchBar.addEventListener('keyup', () => {
+        const trs = getAllRowElements();
+        const books = myLibrary.books;
+        const filter = searchBar.value;
+        const regex = new RegExp(filter, 'i');
+
+        for (let i = 0; i < myLibrary.size; i++) {
+            let book = books[i];
+            let row = trs[i];
+
+            if (regex.test(book.title) || regex.test(book.author)) { // row contains filter
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            };
+        };
+    });
+
+})();
