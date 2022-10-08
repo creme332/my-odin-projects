@@ -8,8 +8,6 @@
  * @returns {object}
  */
 const playerFactory = (name, marker, markerColour) => {
-    //name, markerColour  : string
-    //marker : digit
     return { name, marker, markerColour };
 };
 
@@ -141,9 +139,19 @@ const gameFactory = (player1name, player2name) => {
         }
 
         // At this point, Case 1, 2 are over.
+        // The code below for Case 3, 4 is NON-OPTIMAL.
 
-        // The code below Case 3, 4 is NON-OPTIMAL.
-
+        /**
+            Returns coordinates of cells along borders.
+        _______________ 
+       | x | x | x | x |
+       | x |   |   | x |
+       | x |   |   | x |
+       | x | x | x | x |
+        ▔▔▔▔▔▔▔▔
+         * @param {Integer} DIMENSION 
+         * @returns {List}
+         */
         function getBorderCells(DIMENSION) {
             let coords = [];
             // move right
