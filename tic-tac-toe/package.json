@@ -1,12 +1,12 @@
 {
   "name": "tic-tac-toe",
   "version": "1.0.0",
-  "description": "Test function which checks for win in 3D tictactoe",
+  "description": "Play 3D Tic-Tac-Toe game on a free-to-rotate 4x4x4 grid against a friend or an AI.",
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "creme332",
+  "author": "creme332 <c34560814@gmail.com> (https://github.com/creme332)",
   "license": "MIT",
   "scripts": {
     "test": "jest"
