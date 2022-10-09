@@ -27,7 +27,30 @@ Here's a **non-exhaustive** list of possible winning lines :
 ![A diagram showing all possible lines which passes thrugh exactly 4 boards](assets/wins.png)
 
 More information about the 76 possible winning lines can be found in `wincheck.js`.
- 
+
+## Installing and testing
+
+Clone repository locally
+```bash
+git clone git@github.com:creme332/my-odin-projects.git
+```
+
+### Testing
+`wincheck.test.js` contains a set of tests to verify that the win checking algorithm is working properly. Jest is used for testing.
+
+Move to `tic-tac-toe` project directory.
+ ```bash
+cd tic-tac-toe 
+ ```
+
+Install dependencies 
+```
+npm install
+```
+Run tests 
+ ```
+ npm run test
+ ```
 ## AI
 AI uses minimax algorithm with alpha-beta pruning. The depth of the minimax algorithm is set to 3. While this depth can be increased to make the AI stronger, the response time of AI will increase significantly and may cause website to crash.
 
