@@ -20,7 +20,10 @@ Play 3D Tic-Tac-Toe on a free-to-rotate 4x4x4 grid against a friend or an AI.
 
 # Usage
 
-## Rules
+## How to play
+
+After choosing a game mode, click on "Restart game" button.
+
 Players take turns placing their markers in blank cells in the array. The first player to place four of their own markers in a line wins. The winning line can be horizontal, vertical, or diagonal on a single board as in regular tic-tac-toe, or vertically in a column, or a diagonal line through four boards. 
 
 Here's a **non-exhaustive** list of possible winning lines :
@@ -28,14 +31,27 @@ Here's a **non-exhaustive** list of possible winning lines :
 
 More information about the 76 possible winning lines can be found in `wincheck.js`.
 
-## Installing and testing
+## Settings
+The sliders are not for cosmetic purposes and can be used to visualise the winning lines better. 
+
+If auto-rotate is on and the the rotating grid is not fully visible, try increasing `perspective`. For explantion on the settings, hover on the `i` icon
+![Bootstrap popover explanation for perspective](assets/hover.png) 
+
+
+
+## AI
+AI uses minimax algorithm with alpha-beta pruning. The depth of the minimax algorithm is set to 3. While this depth can be increased to make the AI stronger, the response time of AI will increase significantly and may cause website to crash.
+
+The heuristic for the algorithm can be found [here](https://github.com/ghorned/Qubic#heuristic).
+
+# Installation
 
 Clone repository locally
 ```bash
 git clone git@github.com:creme332/my-odin-projects.git
 ```
 
-### Testing
+## Testing
 `wincheck.test.js` contains a set of tests to verify that the win checking algorithm is working properly. Jest is used for testing.
 
 Move to `tic-tac-toe` project directory.
@@ -51,17 +67,8 @@ Run tests
  ```
  npm run test
  ```
-## AI
-AI uses minimax algorithm with alpha-beta pruning. The depth of the minimax algorithm is set to 3. While this depth can be increased to make the AI stronger, the response time of AI will increase significantly and may cause website to crash.
 
-The heuristic for the algorithm can be found [here](https://github.com/ghorned/Qubic#heuristic).
-
-## Other
-If auto-rotate is on and the the rotating grid is not fully visible, try increasing `perspective`.
-
-After clicking on a game mode radio button, you have to click on "Restart game" for the change to take place.
-
-# Resources
+# References
 
 Resource | How I used it
 ---|---
@@ -72,6 +79,9 @@ Resource | How I used it
 [Codewars kata](https://www.codewars.com/kata/5aa67541373c2e69a20000c9) | To test win-checking algorithm
  [Link 1](https://css-tricks.com/how-css-perspective-works/), [Link 2](https://3dtransforms.desandro.com/perspective)| For reference on CSS Perspective
 [MIT video](https://www.youtube.com/watch?v=STjW3eH0Cik&ab_channel=MITOpenCourseWare), [Sebastian Lague video](https://www.youtube.com/watch?v=l-hh51ncgDI&t=142s&ab_channel=SebastianLague)| To implement minimax algorithm with alpha-beta pruning.
+
+# License 
+MIT
 
 # To-Do
 - [ ] Add varying difficulty levels for 1-player
