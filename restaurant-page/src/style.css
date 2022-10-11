@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
+
+:root {
+    --logo-color: #ef227d;
+    --logo-border-color : white;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: 'marqueem', 'Times New Roman', Times, serif;
+
+    display: flex;
+    justify-content: center;
+    /* height: 100vh; */
+    height: auto;
+    width: 100vw;    
+}
+
+nav{
+    padding-top: 22px;
+    outline:3px solid greenyellow;
+
+}
+nav ul{
+    margin: auto;
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    /* outline:3px solid greenyellow; */
+
+}
+nav li{
+    color: rgb(199, 198, 198);
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 25.2px;
+    padding:10px;
+
+}
+ 
+nav li:nth-last-child(1){
+    background-color: var(--logo-color);
+    padding:10px;
+
+}
+
+nav li:hover{
+    color: white;
+}
+/* CSS for homepage starts here */
+
+#content {
+    display: flex;
+    flex-direction: column;
+    gap:6em;
+    height: 100%;
+    width: 60%;
+    outline:5px solid green;
+}
+
+#logo {
+    color: white;
+    /* outline: 10px solid blue; */
+    width: 70%;
+    align-self: center;
+    /* height: 60%; */
+    /* margin: auto; */
+    text-align: center;
+}
+
+.neonText {
+    font-size: 5rem;
+    /* color: var(--logo-color); */
+    text-shadow:
+        0 0 7px var(--logo-color),
+        0 0 10px var(--logo-color),
+        0 0 21px var(--logo-color),
+        0 0 42px var(--logo-color),
+        0 0 82px var(--logo-color),
+        0 0 92px var(--logo-color),
+        0 0 102px var(--logo-color),
+        0 0 151px var(--logo-color);
+}
+
+
+#logo h1 {
+    /* font-size: 4rem; */
+    animation: pulsate 1.5s infinite alternate;
+    border: 0.2rem solid #fff;
+    border-radius: 10px;
+    padding: 0.4em;
+    box-shadow: 0 0 .2rem #fff,
+        0 0 .2rem #fff,
+        0 0 2rem var(--logo-color),
+        0 0 0.8rem var(--logo-color),
+        0 0 2.8rem var(--logo-color),
+        inset 0 0 1.3rem var(--logo-color);
+}
+
+@keyframes pulsate {
+
+    100% {
+
+        text-shadow:
+            0 0 4px #fff,
+            0 0 11px #fff,
+            0 0 19px #fff,
+            0 0 20px var(--logo-color),
+            0 0 40px var(--logo-color),
+            0 0 40px var(--logo-color),
+            0 0 100px var(--logo-color),
+            0 0 110px var(--logo-color);
+
+    }
+
+    0% {
+
+        text-shadow:
+            0 0 2px #fff,
+            0 0 4px #fff,
+            0 0 6px #fff,
+            0 0 10px var(--logo-color),
+            0 0 45px var(--logo-color),
+            0 0 45px var(--logo-color),
+            0 0 70px var(--logo-color),
+            0 0 80px var(--logo-color);
+
+    }
+}
+
+#content h3{
+    font-size: 36px;
+    text-align: center;
+    /* outline: 1px solid yellow; */
+}
+a{  
+    text-decoration: none;
+}
+
+#content>h3>a:hover{
+    --logo-color: white;
+}
+
+.card-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    outline:1px solid whitesmoke;
+}
+.card:nth-child(1),.card:nth-child(3){
+    /* background-color: gray ; */
+}
+.card{
+    display: flex;
+    flex-direction: column;
+}
+.card-image{
+    height: 70%;
+}
+.card-image > img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+
+  }
+/* CSS for homepage ends here */
