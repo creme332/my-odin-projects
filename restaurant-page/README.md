@@ -3,11 +3,10 @@
 ![JavaScript shield](https://img.shields.io/badge/-JavaScript-yellow)
 ![CSS3 shield](https://img.shields.io/badge/-CSS3-orange)
 ![Jest shield](https://img.shields.io/badge/-Webpack-red)
-![Boostrap shield](https://img.shields.io/badge/Bootstrap-5.2.2-brightgreen)
 
-A simple restaurant homepage generated entirely with JavaScript. 
+A simple single-page application for a  restaurant homepage. JavaScript was used to create entire HTML file dynamically. 
 
-![GIF](src/assets/creme332.png)
+![here](thundercutalley.png)
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/restaurant-page/)
 
@@ -34,9 +33,15 @@ npm install
 # 📌 Attributions
 Resource | Source
 ---|---
-resource| owner
+UI | ThunderCut Alley website made by [effector](https://effector.ie/). Original UI can be found [here](thundercutalley.png).
+[marquee-moon font](src/assets/marqueem.ttf) | Raymond Larabie
+Neon light logo | [Silvia O'Dwyer](https://css-tricks.com/how-to-create-neon-text-with-css/)
 
 # 🔨 To-Do
+ improve semantics
+
+ create assets folder for dist
+
 - [ ] Make website responsive.
 - [ ] Add sitemap + request indexing.
 - [ ] Add project social media preview.
