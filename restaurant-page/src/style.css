@@ -3,6 +3,7 @@
 :root {
     --logo-color: #ef227d;
     --logo-border-color : white;
+    --selected-tab-color: white;
 }
 
 body {
@@ -19,16 +20,15 @@ body {
 
 nav{
     padding-top: 22px;
-    outline:3px solid greenyellow;
+    /* outline:3px solid greenyellow; */
 
 }
 nav ul{
     margin: auto;
-    width: 40%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
     /* outline:3px solid greenyellow; */
-
 }
 nav li{
     color: rgb(199, 198, 198);
@@ -39,13 +39,14 @@ nav li{
     letter-spacing: 2px;
     line-height: 25.2px;
     padding:10px;
-
+}
+nav li:nth-child(1){
+    color: var(--selected-tab-color);
 }
  
 nav li:nth-last-child(1){
     background-color: var(--logo-color);
     padding:10px;
-
 }
 
 nav li:hover{
@@ -59,7 +60,7 @@ nav li:hover{
     gap:6em;
     height: 100%;
     width: 60%;
-    outline:5px solid green;
+    /* outline:5px solid green; */
 }
 
 #logo {
@@ -67,14 +68,10 @@ nav li:hover{
     /* outline: 10px solid blue; */
     width: 70%;
     align-self: center;
-    /* height: 60%; */
-    /* margin: auto; */
     text-align: center;
 }
-
 .neonText {
     font-size: 5rem;
-    /* color: var(--logo-color); */
     text-shadow:
         0 0 7px var(--logo-color),
         0 0 10px var(--logo-color),
@@ -86,10 +83,9 @@ nav li:hover{
         0 0 151px var(--logo-color);
 }
 
-
 #logo h1 {
     /* font-size: 4rem; */
-    animation: pulsate 1.5s infinite alternate;
+    animation: pulsate 0.5s infinite alternate;
     border: 0.2rem solid #fff;
     border-radius: 10px;
     padding: 0.4em;
@@ -137,8 +133,10 @@ nav li:hover{
     text-align: center;
     /* outline: 1px solid yellow; */
 }
-a{  
+
+#content h3>a{
     text-decoration: none;
+    color: var(--logo-color);
 }
 
 #content>h3>a:hover{
@@ -147,14 +145,15 @@ a{
 
 .card-container{
     width: 100%;
-    height: 100%;
+    height: 300px;
     display: flex;
-    outline:1px solid whitesmoke;
+    /* outline:1px solid whitesmoke; */
 }
 .card:nth-child(1),.card:nth-child(3){
     /* background-color: gray ; */
 }
 .card{
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
@@ -166,6 +165,12 @@ a{
     width: 100%;
     height: 100%;
     max-height: 100%;
+
+  }
+  .card-title{
+    text-align: center;
+    font-size: 27px;
+    letter-spacing: 2px;
 
   }
 /* CSS for homepage ends here */
