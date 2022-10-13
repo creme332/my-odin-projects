@@ -35,7 +35,7 @@ const HomePageFactory = (main) => {
     }
   
     function addLogo() {
-      const logoName = 'thai me up';
+      const logoName = '大目小明';
       const heading = createHtmlElement('h1', null, ['neonText'], logoName, null);
       const logoContainer = createHtmlElement('div', 'logo', null, null, [heading]);
       main.appendChild(logoContainer);

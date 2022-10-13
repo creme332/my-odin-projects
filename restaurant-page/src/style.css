@@ -21,8 +21,8 @@ body {
 
 #nav {
     padding-top: 22px;
-    /* outline:3px solid greenyellow; */
-
+    outline: 3px solid greenyellow;
+    transition: 1s;
 }
 
 #nav ul {
@@ -30,7 +30,7 @@ body {
     width: 65%;
     display: flex;
     justify-content: space-between;
-    /* outline:3px solid greenyellow; */
+    outline: 3px solid greenyellow;
 }
 
 #nav li {
@@ -42,6 +42,7 @@ body {
     letter-spacing: 2px;
     line-height: 25.2px;
     padding: 10px;
+    outline: 1px solid white;
 }
 
 #nav ul li:hover {
@@ -54,19 +55,78 @@ body {
     padding: 10px;
 }
 
+li#toggle-nav-bar{
+    display: none;
+    order:-1;
+    margin-left: auto;
+    padding-right: 20px;
+    /* display: none; */
+}
+
+@media screen and (max-width:1000px) {
+
+    #content {
+        width: 100% !important;
+    }
+
+    /* make nav bar occupy full width of screen  */
+    #nav{
+        /* position: fixed; */
+        inset: 0 0 0 30%;
+    }
+    #nav ul{
+        width: 100%;
+    }
+    /* display only toggle icon */
+    #nav ul li{
+        display: none;
+    }
+    #nav ul li#toggle-nav-bar{
+        display: block;
+    }
+
+
+    #nav ul.active{
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+    }
+    #nav ul.active{
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        /* height: 100vh; */
+        background-color: var(--logo-color);
+    }
+    #nav ul.active li{
+        color:white !important; 
+        display: grid;
+        place-items: center;
+    }
+
+    li#toggle-nav-bar{
+        display: block;
+    }
+}
+
+@media screen and (max-width:400px) {
+    #content.home .card-container {
+        flex-direction: column;
+    }
+}
 
 /* CSS for homepage starts here */
 
-#content {
+#content.home {
     display: flex;
     flex-direction: column;
     gap: 5em;
     height: 100%;
     width: 60%;
-    /* outline:5px solid green; */
+    outline: 5px solid green;
 }
 
-#logo {
+#content.home #logo {
     color: white;
     /* outline: 10px solid blue; */
     width: 70%;
@@ -74,7 +134,7 @@ body {
     text-align: center;
 }
 
-.neonText {
+#content.home .neonText {
     font-size: 5rem;
     text-shadow:
         0 0 7px var(--logo-color),
@@ -87,7 +147,7 @@ body {
         0 0 151px var(--logo-color);
 }
 
-#logo h1 {
+#content.home #logo h1 {
     /* font-size: 4rem; */
     animation: pulsateText 0.5s infinite alternate, pulsateBoxShadow 0.5s infinite;
     border: 0.2rem solid #fff;
@@ -137,67 +197,65 @@ body {
     100% {
 
         box-shadow:
-        0 0 .2rem #fff,
-        0 0 .2rem #fff,
-        0 0 2rem var(--logo-color),
-        0 0 0.8rem var(--logo-color),
-        0 0 2.8rem var(--logo-color),
-        inset 0 0 1.3rem var(--logo-color)
-
+            0 0 .2rem #fff,
+            0 0 .2rem #fff,
+            0 0 2rem var(--logo-color),
+            0 0 0.8rem var(--logo-color),
+            0 0 2.8rem var(--logo-color),
+            inset 0 0 1.3rem var(--logo-color)
     }
 
     0% {
 
         box-shadow:
-        0 0 .3rem #fff,
-        0 0 .3rem #fff,
-        0 0 3rem var(--logo-color),
-        0 0 0.9rem var(--logo-color),
-        0 0 2.2rem var(--logo-color),
-        inset 0 0 1.3rem var(--logo-color)
-
+            0 0 .3rem #fff,
+            0 0 .3rem #fff,
+            0 0 3rem var(--logo-color),
+            0 0 0.9rem var(--logo-color),
+            0 0 2.2rem var(--logo-color),
+            inset 0 0 1.3rem var(--logo-color)
     }
 }
 
-#content h3 {
+#content.home h3 {
     font-size: 36px;
     text-align: center;
     /* outline: 1px solid yellow; */
 }
 
-#content h3>a {
+#content.home h3>a {
     text-decoration: none;
     color: var(--logo-color);
 }
 
-#content>h3>a:hover {
+#content.home>h3>a:hover {
     --logo-color: white;
 }
 
-.card-container {
+#content.home .card-container {
     width: 100%;
     /* height: 100px; */
     display: flex;
     /* outline:1px solid whitesmoke; */
 }
 
-.card:nth-child(1),
-.card:nth-child(3) {
+#content.home .card:nth-child(1),
+#content.home .card:nth-child(3) {
     /* background-color: gray ; */
 }
 
-.card {
+#content.home .card {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-.card-image {
+#content.home .card-image {
     height: 60%;
     /* outline: 1px solid red; */
 }
 
-.card-image>img {
+#content.home .card-image>img {
     object-fit: contain;
     width: 100%;
     height: 100%;
@@ -205,14 +263,20 @@ body {
 
 }
 
-.card-title {
+#content.home .card-title {
     text-align: center;
     font-size: 27px;
     letter-spacing: 2px;
 
 }
 
-.card-title:hover{
+.card-title:hover {
     color: var(--logo-color);
 }
+
 /* CSS for homepage ends here */
+
+/* CSS for menu page starts here */
+
+
+/* CSS for menu page ends here */
