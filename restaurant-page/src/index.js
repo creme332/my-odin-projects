@@ -11,7 +11,7 @@ import font from './assets/marqueem.ttf';
 //import my modules
 import { createHtmlElement } from './helper';
 
-const k  = createHtmlElement('main','content',null,null,null);
+const k = createHtmlElement('main', 'content', null, null, null);
 document.querySelector('body').appendChild(k);
 
 (function loadFont() {
@@ -39,8 +39,24 @@ const card = (title, imageSrc, alt) => {
   const navBar = createHtmlElement('nav', null, null, null, [unorderedList]);
   main.appendChild(navBar);
 })();
+function colorNavBar(val) {
+  const values = ['home', 'menu', 'gallery', 'contact', 'book'];
+  let index = values.findIndex((el) => { return el == val });
 
-const menu = (() => {
+  const valueLi = document.querySelector('nav').querySelectorAll('li');
+  const inactiveTabColor = '#bfbfbf';
+  const activeTabColor = 'white';
+  //change color of all unselected tabs
+  valueLi.forEach(t => t.style.color = inactiveTabColor);
+  //change color of selected tab
+  valueLi[index].style.color = activeTabColor;
+  //keep Book button white
+  valueLi[valueLi.length - 1].style.color = activeTabColor;
+  return index;
+}
+console.log(colorNavBar('home'));
+
+const loadHomePage = (() => {
   const main = document.getElementById('content');
 
   (function createMenu() {
