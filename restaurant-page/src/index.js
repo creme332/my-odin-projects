@@ -58,7 +58,7 @@ const menu = (() => {
   })();
 
   function addLogo() {
-    const logoName = 'Adult Eats';
+    const logoName = 'thai me up';
     const heading = createHtmlElement('h1', null, ['neonText'], logoName, null);
     const logoContainer = createHtmlElement('div', 'logo', null, null, [heading]);
     main.appendChild(logoContainer);
@@ -78,8 +78,9 @@ const menu = (() => {
       const cardImg = new Image();
       cardImg.src = cardsArray[i].imageSrc;
       cardImg.alt = cardsArray[i].alt;
+      const cardImgContainer = createHtmlElement('div', null, ['card-image'], null, [cardImg]);
       const cardTitle = createHtmlElement('div', null, ['card-title'], cardsArray[i].title, null);
-      const card = createHtmlElement('div', null, ['card'], null, [cardImg, cardTitle]);
+      const card = createHtmlElement('div', null, ['card'], null, [cardImgContainer, cardTitle]);
       cardsContainer.appendChild(card);
     }
     main.appendChild(cardsContainer);

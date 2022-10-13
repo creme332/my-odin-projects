@@ -57,7 +57,7 @@ nav li:hover{
 #content {
     display: flex;
     flex-direction: column;
-    gap:6em;
+    gap:5em;
     height: 100%;
     width: 60%;
     /* outline:5px solid green; */
@@ -145,7 +145,7 @@ nav li:hover{
 
 .card-container{
     width: 100%;
-    height: 300px;
+    /* height: 100px; */
     display: flex;
     /* outline:1px solid whitesmoke; */
 }
@@ -158,7 +158,8 @@ nav li:hover{
     flex-direction: column;
 }
 .card-image{
-    height: 70%;
+    height: 60%;
+    /* outline: 1px solid red; */
 }
 .card-image > img {
     object-fit: contain;
