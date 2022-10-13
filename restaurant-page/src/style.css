@@ -89,7 +89,7 @@ body {
 
 #logo h1 {
     /* font-size: 4rem; */
-    animation: pulsate 0.5s infinite alternate;
+    animation: pulsateText 0.5s infinite alternate, pulsateBoxShadow 0.5s infinite;
     border: 0.2rem solid #fff;
     border-radius: 10px;
     padding: 0.4em;
@@ -101,7 +101,7 @@ body {
         inset 0 0 1.3rem var(--logo-color);
 }
 
-@keyframes pulsate {
+@keyframes pulsateText {
 
     100% {
 
@@ -128,6 +128,33 @@ body {
             0 0 45px var(--logo-color),
             0 0 70px var(--logo-color),
             0 0 80px var(--logo-color);
+
+    }
+}
+
+@keyframes pulsateBoxShadow {
+
+    100% {
+
+        box-shadow:
+        0 0 .2rem #fff,
+        0 0 .2rem #fff,
+        0 0 2rem var(--logo-color),
+        0 0 0.8rem var(--logo-color),
+        0 0 2.8rem var(--logo-color),
+        inset 0 0 1.3rem var(--logo-color)
+
+    }
+
+    0% {
+
+        box-shadow:
+        0 0 .3rem #fff,
+        0 0 .3rem #fff,
+        0 0 3rem var(--logo-color),
+        0 0 0.9rem var(--logo-color),
+        0 0 2.2rem var(--logo-color),
+        inset 0 0 1.3rem var(--logo-color)
 
     }
 }
@@ -185,4 +212,7 @@ body {
 
 }
 
+.card-title:hover{
+    color: var(--logo-color);
+}
 /* CSS for homepage ends here */
