@@ -36,9 +36,10 @@ const card = (title, imageSrc, alt) => {
   values.forEach(val => {
     unorderedList.appendChild(createHtmlElement('li', null, null, val, null));
   });
-  const navBar = createHtmlElement('nav', null, null, null, [unorderedList]);
+  const navBar = createHtmlElement('nav', 'nav', null, null, [unorderedList]);
   main.appendChild(navBar);
 })();
+
 function colorNavBar(val) {
   const values = ['home', 'menu', 'gallery', 'contact', 'book'];
   let index = values.findIndex((el) => { return el == val });

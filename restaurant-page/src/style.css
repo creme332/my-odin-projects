@@ -19,13 +19,13 @@ body {
     width: 100vw;
 }
 
-nav {
+#nav {
     padding-top: 22px;
     /* outline:3px solid greenyellow; */
 
 }
 
-nav ul {
+#nav ul {
     margin: auto;
     width: 60%;
     display: flex;
@@ -33,7 +33,7 @@ nav ul {
     /* outline:3px solid greenyellow; */
 }
 
-nav li {
+#nav li {
     color: var(--unselected-tab-color);
     font-family: 'Oswald', sans-serif;
     font-size: 18px;
@@ -44,11 +44,11 @@ nav li {
     padding: 10px;
 }
 
-nav ul li:hover {
+#nav ul li:hover {
     color: var(--selected-tab-color) !important;
 }
 
-nav ul li:nth-last-child(1) {
+#nav ul li:nth-last-child(1) {
     color: var(--selected-tab-color);
     background-color: var(--logo-color);
     padding: 10px;
