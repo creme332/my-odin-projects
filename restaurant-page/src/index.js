@@ -1,18 +1,11 @@
-//import stylesheets
+//import styles
 import './reset.css';
 import './style.css';
-
-//import assets
-import bottleImg from './assets/bottleandglass.gif';
-import danceImg from './assets/dancingwomen.gif';
-import drugImg from './assets/rotatingpill.gif';
 import font from './assets/marqueem.ttf';
 
 //import my modules
 import { createHtmlElement } from './helper';
-
-const k = createHtmlElement('main', 'content', null, null, null);
-document.querySelector('body').appendChild(k);
+import { HomePageFactory } from './home';
 
 (function loadFont() {
   const new_font = new FontFace('marqueem', `url(${font})`);
@@ -25,82 +18,50 @@ document.querySelector('body').appendChild(k);
 
 })();
 
-const card = (title, imageSrc, alt) => {
-  return { title, imageSrc, alt };
-};
+const everything = (() => {
+  const main = createHtmlElement('main', 'content', null, null, null);
+  document.querySelector('body').appendChild(main);
+  const tabNames = ['home', 'menu', 'gallery', 'contact', 'book'];
 
-(function addNavBar() {
-  const main = document.getElementById('content');
-  const unorderedList = document.createElement('ul');
-  const values = ['home', 'menu', 'gallery', 'contact', 'book'];
-  values.forEach(val => {
-    unorderedList.appendChild(createHtmlElement('li', null, null, val, null));
-  });
-  const navBar = createHtmlElement('nav', 'nav', null, null, [unorderedList]);
-  main.appendChild(navBar);
-})();
+  (function addNavBar() {
+    const unorderedList = document.createElement('ul');
+    tabNames.forEach(tab => {
+      unorderedList.appendChild(createHtmlElement('li', null, null, tab, null));
+    });
+    const navBar = createHtmlElement('nav', 'nav', null, null, [unorderedList]);
+    main.appendChild(navBar);
 
-function colorNavBar(val) {
-  const values = ['home', 'menu', 'gallery', 'contact', 'book'];
-  let index = values.findIndex((el) => { return el == val });
+    //add event listeners
+    const tabElements = document.querySelectorAll('li');
+    tabElements.forEach(el => el.addEventListener('click', switchTab));
 
-  const valueLi = document.querySelector('nav').querySelectorAll('li');
-  const inactiveTabColor = '#bfbfbf';
-  const activeTabColor = 'white';
-  //change color of all unselected tabs
-  valueLi.forEach(t => t.style.color = inactiveTabColor);
-  //change color of selected tab
-  valueLi[index].style.color = activeTabColor;
-  //keep Book button white
-  valueLi[valueLi.length - 1].style.color = activeTabColor;
-  return index;
-}
-console.log(colorNavBar('home'));
-
-const loadHomePage = (() => {
-  const main = document.getElementById('content');
-
-  (function createMenu() {
-    addLogo();
-    addHeadingInfo();
-
-    //create cards
-    let cardsArray = [];
-    cardsArray.push(card('drinks', bottleImg, 'A gif of a neon-style bottle and a glass cheering'));
-    cardsArray.push(card('drugs', drugImg, 'A gif of a neon-style pill rotating'));
-    cardsArray.push(card('dance', danceImg, 'A gif of a neon-style women dancing'));
-
-    //add cards
-    addCards(cardsArray);
   })();
 
-  function addLogo() {
-    const logoName = 'thai me up';
-    const heading = createHtmlElement('h1', null, ['neonText'], logoName, null);
-    const logoContainer = createHtmlElement('div', 'logo', null, null, [heading]);
-    main.appendChild(logoContainer);
-  }
-
-  function addHeadingInfo() {
-    const t1 = createHtmlElement('span', null, null, ` over 18's only`, null);
-    const anchor = createHtmlElement('a', null, null, 'book here', null);
-    anchor.href = '#';
-    const heading = createHtmlElement('h3', null, null, null, [anchor, t1]);
-    main.appendChild(heading);
-  }
-
-  function addCards(cardsArray) {
-    const cardsContainer = createHtmlElement('div', null, ['card-container'], null, null);
-    for (let i = 0; i < cardsArray.length; i++) {
-      const cardImg = new Image();
-      cardImg.src = cardsArray[i].imageSrc;
-      cardImg.alt = cardsArray[i].alt;
-      const cardImgContainer = createHtmlElement('div', null, ['card-image'], null, [cardImg]);
-      const cardTitle = createHtmlElement('div', null, ['card-title'], cardsArray[i].title, null);
-      const card = createHtmlElement('div', null, ['card'], null, [cardImgContainer, cardTitle]);
-      cardsContainer.appendChild(card);
+  function switchTab(e) {
+    const tabElements = document.querySelectorAll('li');
+    const selectedTab = e.target;
+    if (selectedTab.textContent != 'book') {
+      colorNavBar(selectedTab.textContent);
     }
-    main.appendChild(cardsContainer);
   }
+
+  function colorNavBar(val) {
+    const values = ['home', 'menu', 'gallery', 'contact', 'book'];
+    let index = values.findIndex((el) => { return el == val });
+
+    const valueLi = document.querySelector('nav').querySelectorAll('li');
+    const inactiveTabColor = '#bfbfbf';
+    const activeTabColor = 'white';
+    //change color of all unselected tabs
+    valueLi.forEach(t => t.style.color = inactiveTabColor);
+    //change color of selected tab
+    valueLi[index].style.color = activeTabColor;
+    //keep Book button white
+    valueLi[valueLi.length - 1].style.color = activeTabColor;
+  }
+
+  const homePage = HomePageFactory(main);
+
+  homePage.displayHomeTab();
 
 })();

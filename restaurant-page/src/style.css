@@ -4,7 +4,7 @@
     --logo-color: #ef227d;
     --logo-border-color: white;
     --selected-tab-color: white;
-    --unselected-tab-color: gray;
+    --unselected-tab-color: #bfbfbf;
 }
 
 body {
@@ -27,7 +27,7 @@ body {
 
 #nav ul {
     margin: auto;
-    width: 60%;
+    width: 65%;
     display: flex;
     justify-content: space-between;
     /* outline:3px solid greenyellow; */
