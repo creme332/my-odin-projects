@@ -19,6 +19,14 @@ body {
     width: 100vw;
 }
 
+#content {
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
+    height: 100%;
+    width: 60%;
+    /* outline: 5px solid green; */
+}
 
 /* CSS for nav bar starts here */
 #nav {
@@ -111,15 +119,6 @@ li#toggle-nav-bar {
 
 
 /* CSS for homepage starts here */
-
-#content.home {
-    display: flex;
-    flex-direction: column;
-    gap: 5em;
-    height: 100%;
-    width: 60%;
-    /* outline: 5px solid green; */
-}
 
 #content.home #logo {
     color: white;

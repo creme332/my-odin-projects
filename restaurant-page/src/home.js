@@ -12,6 +12,7 @@ const HomePageFactory = (main) => {
     };
   
     function displayHomeTab() {
+      main.classList.add('home');
       addLogo();
       addHeadingInfo();
   
@@ -29,6 +30,7 @@ const HomePageFactory = (main) => {
       const h3 = document.querySelector('h3');
       const logo = document.querySelector('#logo');
       const container = document.querySelector('.card-container');
+      main.classList.remove('home');
       container.remove();
       logo.remove();
       h3.remove();
