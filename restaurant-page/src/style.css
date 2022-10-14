@@ -269,7 +269,55 @@ li#toggle-nav-bar {
 
 /* CSS for homepage ends here */
 
+
 /* CSS for menu page starts here */
+.menu-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-bottom: 100px;
+    /* outline:1px solid red; */
+}
+.menu-card{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    /* outline:1px solid rosybrown; */
+}
 
-
+#content.menu .menu-title{
+    font-size: 40px;
+    letter-spacing: 2px;
+    color: var(--logo-color);
+    display: grid;
+    place-items: center;
+    /* outline:1px solid blue; */
+}
+.menu-ingredients{
+    width: 60%;
+    /* font-family: 'Oswald', sans-serif; */
+    font-size: 25px;
+    letter-spacing: 2px;
+    /* outline:1px solid white; */
+}
+.menu-line{
+    flex:1;
+    
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 3px dotted #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+.menu-sub-container{
+    display: flex;
+    gap:1em;
+}
+.menu-cost{
+    color: yellow;
+    font-size: 40px;
+    letter-spacing: 2px;
+    /* outline:1px solid green; */
+}
 /* CSS for menu page ends here */

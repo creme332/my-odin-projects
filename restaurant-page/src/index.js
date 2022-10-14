@@ -7,6 +7,7 @@ import toggleSVG from './assets/menu.svg'
 //import my modules
 import { createHtmlElement } from './helper';
 import { HomePageFactory } from './home';
+import { MenuPageFactory } from './menu';
 
 (function loadFont() {
   const new_font = new FontFace('marqueem', `url(${font})`);
@@ -23,6 +24,7 @@ const everything = (() => {
   const main = createHtmlElement('main', 'content', ['home'], null, null);
   document.querySelector('body').appendChild(main);
   const homePage = HomePageFactory(main);
+  const menuPage = MenuPageFactory(main);
 
   const tabNames = ['home', 'menu', 'gallery', 'contact', 'book'];
   const fakeTabs = ['contact', 'book']; //tabs which are ignored when clicked on
@@ -47,7 +49,7 @@ const everything = (() => {
 
     //add event listeners to all li except toggle button and last 2
     const tabElements = document.querySelectorAll('li');
-    for (let i = 1; i < tabElements.length-2; i++) {
+    for (let i = 1; i < tabElements.length - 2; i++) {
       tabElements[i].addEventListener('click', switchTab);
     }
 
@@ -55,11 +57,11 @@ const everything = (() => {
     toggleBtn.addEventListener('click', toggleNav);
   };
 
-  function toggleNav(){
+  function toggleNav() {
     const unorderedList = document.querySelector('ul');
-    if(unorderedList.classList.contains('active')){
+    if (unorderedList.classList.contains('active')) {
       unorderedList.classList.remove('active');
-    }else{
+    } else {
       unorderedList.classList.add('active');
     }
   }
@@ -71,26 +73,27 @@ const everything = (() => {
 
     //remove current tab
     if (currentTab == 'home') homePage.removeHomeTab();
+    if (currentTab == 'menu') menuPage.removeMenuTab();
 
     //change color in nav bar
     colorNavBar(selectedTab);
 
-    //display new tab
+    //load new tab
     if (selectedTab == 'home') {
       homePage.displayHomeTab();
     }
     if (selectedTab == 'menu') {
+      menuPage.displayMenuTab();
     }
     if (selectedTab == 'gallery') {
     }
 
     currentTab = selectedTab;
-
   }
 
-  function colorNavBar(val) {
-    let index = tabNames.findIndex((el) => { return el == val });
-    const tabElements = document.querySelector('nav').querySelectorAll('li');
+  function colorNavBar(selectedTab) {
+    let index = tabNames.findIndex((el) => { return el == selectedTab });
+    const tabElements = document.querySelector('nav').querySelectorAll('li:not([id*="toggle-nav-bar"]');
     const inactiveTabColor = '#bfbfbf';
     const activeTabColor = 'white';
     //change color of all unselected tabs
@@ -102,6 +105,10 @@ const everything = (() => {
   }
 
   addNavBar();
+
+  colorNavBar('home');
   homePage.displayHomeTab();
+
+  // menuPage.displayMenuTab();
 
 })();
