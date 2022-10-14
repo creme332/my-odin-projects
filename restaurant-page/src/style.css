@@ -108,7 +108,8 @@ li#toggle-nav-bar {
     }
 
     #nav ul.active li {
-        color: white;
+        /* all li must always be white */
+        color: white !important;
         display: grid;
         place-items: center;
     }
@@ -271,21 +272,22 @@ li#toggle-nav-bar {
 
 
 /* CSS for menu page starts here */
-.menu-container{
+#content.menu .menu-container {
     display: flex;
     flex-direction: column;
     gap: 2em;
     margin-bottom: 100px;
     /* outline:1px solid red; */
 }
-.menu-card{
+
+#content.menu .menu-card {
     display: flex;
     flex-direction: column;
     gap: 1em;
     /* outline:1px solid rosybrown; */
 }
 
-#content.menu .menu-title{
+#content.menu .menu-title {
     font-size: 40px;
     letter-spacing: 2px;
     color: var(--logo-color);
@@ -293,16 +295,18 @@ li#toggle-nav-bar {
     place-items: center;
     /* outline:1px solid blue; */
 }
-.menu-ingredients{
+
+#content.menu .menu-ingredients {
     width: 60%;
     /* font-family: 'Oswald', sans-serif; */
     font-size: 25px;
     letter-spacing: 2px;
     /* outline:1px solid white; */
 }
-.menu-line{
-    flex:1;
-    
+
+#content.menu .menu-line {
+    flex: 1;
+
     display: block;
     height: 1px;
     border: 0;
@@ -310,14 +314,36 @@ li#toggle-nav-bar {
     margin: 1em 0;
     padding: 0;
 }
-.menu-sub-container{
+
+#content.menu .menu-sub-container {
     display: flex;
-    gap:1em;
+    gap: 1em;
 }
-.menu-cost{
+
+#content.menu .menu-cost {
     color: yellow;
     font-size: 40px;
     letter-spacing: 2px;
     /* outline:1px solid green; */
 }
+
+@media screen and (max-width:710px) {
+    #content.menu .menu-sub-container {
+        flex-direction: column;
+    }
+
+    #content.menu .menu-ingredients {
+        width: 100%;
+    }
+
+    #content.menu .menu-line {
+        display: none;
+    }
+
+    #content.menu .menu-cost {
+        display: grid;
+        place-items: center;
+    }
+}
+
 /* CSS for menu page ends here */
