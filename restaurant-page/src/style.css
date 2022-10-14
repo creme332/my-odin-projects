@@ -20,19 +20,20 @@ body {
 }
 
 
-/* css for nav bar starts here */
+/* CSS for nav bar starts here */
 #nav {
     padding-top: 22px;
-    outline: 3px solid greenyellow;
+    /* outline: 3px solid greenyellow; */
     transition: 1s;
 }
 
 #nav ul {
+    transition: 0.4s;
     margin: auto;
     width: 65%;
     display: flex;
     justify-content: space-between;
-    outline: 3px solid greenyellow;
+    /* outline: 3px solid greenyellow; */
 }
 
 #nav li {
@@ -44,7 +45,7 @@ body {
     letter-spacing: 2px;
     line-height: 25.2px;
     padding: 10px;
-    outline: 1px solid white;
+    /* outline: 1px solid white; */
 }
 
 #nav ul li:hover {
@@ -57,60 +58,55 @@ body {
     padding: 10px;
 }
 
-li#toggle-nav-bar{
+li#toggle-nav-bar {
     display: none;
-    order:-1;
+    order: -1;
     margin-left: auto;
     padding-right: 20px;
     /* display: none; */
 }
 
 @media screen and (max-width:1000px) {
-
-    #content {
-        width: 100% !important;
-    }
-
-    /* make nav bar occupy full width of screen  */
-    #nav ul{
-        transition: 1s;
+    body #content.home {
         width: 100%;
     }
+
+    /* make nav bar occupy full width so that toggle
+    button is pushed right */
+    #nav ul {
+        width: 100%;
+    }
+
     /* display only toggle icon */
-    #nav ul li{
+    #nav ul li {
         display: none;
     }
-    #nav ul li#toggle-nav-bar{
+
+    #nav ul li#toggle-nav-bar {
         display: block;
     }
 
-
-    #nav ul.active{
+    /* css when nav bar is displayed fully */
+    #nav ul.active {
+        width: auto;
+        height: auto;
         position: fixed;
-        height: 100vh;
-        /* inset: 0 0 0 60%; */
+        inset: 0 0 0 60%;
         flex-direction: column;
-        justify-content: space-between;
-        /* width: 100%; */
+        justify-content: flex-start;
+        gap: 2em;
         background-color: var(--logo-color);
+        padding-top: 22px;
     }
-    #nav ul.active li{
-        color:white !important; 
+
+    #nav ul.active li {
+        color: white;
         display: grid;
         place-items: center;
     }
-
-    li#toggle-nav-bar{
-        display: block;
-    }
 }
 
-@media screen and (max-width:400px) {
-    #content.home .card-container {
-        flex-direction: column;
-    }
-}
-/* css for nav bar ends here */
+/* CSS for nav bar ends here */
 
 
 
@@ -122,7 +118,7 @@ li#toggle-nav-bar{
     gap: 5em;
     height: 100%;
     width: 60%;
-    outline: 5px solid green;
+    /* outline: 5px solid green; */
 }
 
 #content.home #logo {
@@ -238,11 +234,6 @@ li#toggle-nav-bar{
     /* outline:1px solid whitesmoke; */
 }
 
-#content.home .card:nth-child(1),
-#content.home .card:nth-child(3) {
-    /* background-color: gray ; */
-}
-
 #content.home .card {
     flex-grow: 1;
     display: flex;
@@ -259,18 +250,22 @@ li#toggle-nav-bar{
     width: 100%;
     height: 100%;
     max-height: 100%;
-
 }
 
 #content.home .card-title {
     text-align: center;
     font-size: 27px;
     letter-spacing: 2px;
-
 }
 
 .card-title:hover {
     color: var(--logo-color);
+}
+
+@media screen and (max-width:400px) {
+    #content.home .card-container {
+        flex-direction: column;
+    }
 }
 
 /* CSS for homepage ends here */
