@@ -84,6 +84,9 @@ Resource | How I used it
 MIT
 
 # To-Do
+- [ ] Add possibility to control sliders with mouse (eg scroll wheel changes perspective)
+- [ ] Improve UI
+- [ ] Add "How to play" popover.
 - [ ] Add varying difficulty levels for 1-player
 - [ ] Improve win-checking algorithm for Case 3, 4.
 - [ ] Test all 76 possible winning lines with Jest.
