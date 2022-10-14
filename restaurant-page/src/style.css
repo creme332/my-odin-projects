@@ -19,6 +19,8 @@ body {
     width: 100vw;
 }
 
+
+/* css for nav bar starts here */
 #nav {
     padding-top: 22px;
     outline: 3px solid greenyellow;
@@ -70,11 +72,8 @@ li#toggle-nav-bar{
     }
 
     /* make nav bar occupy full width of screen  */
-    #nav{
-        /* position: fixed; */
-        inset: 0 0 0 30%;
-    }
     #nav ul{
+        transition: 1s;
         width: 100%;
     }
     /* display only toggle icon */
@@ -87,15 +86,12 @@ li#toggle-nav-bar{
 
 
     #nav ul.active{
+        position: fixed;
+        height: 100vh;
+        /* inset: 0 0 0 60%; */
         flex-direction: column;
         justify-content: space-between;
-        width: 100%;
-    }
-    #nav ul.active{
-        flex-direction: column;
-        justify-content: space-between;
-        width: 100%;
-        /* height: 100vh; */
+        /* width: 100%; */
         background-color: var(--logo-color);
     }
     #nav ul.active li{
@@ -114,6 +110,9 @@ li#toggle-nav-bar{
         flex-direction: column;
     }
 }
+/* css for nav bar ends here */
+
+
 
 /* CSS for homepage starts here */
 

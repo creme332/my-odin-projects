@@ -7,7 +7,6 @@ import toggleSVG from './assets/menu.svg'
 //import my modules
 import { createHtmlElement } from './helper';
 import { HomePageFactory } from './home';
-import { ConcatenationScope } from 'webpack';
 
 (function loadFont() {
   const new_font = new FontFace('marqueem', `url(${font})`);
@@ -53,12 +52,18 @@ const everything = (() => {
     }
 
     //add event listener to toggle btn
-    // toggleBtn.addEventListener('click', toggleNav);
+    toggleBtn.addEventListener('click', toggleNav);
   };
 
   function toggleNav(){
-    console.log('hello');
+    const unorderedList = document.querySelector('ul');
+    if(unorderedList.classList.contains('active')){
+      unorderedList.classList.remove('active');
+    }else{
+      unorderedList.classList.add('active');
+    }
   }
+
   function switchTab(e) {
     const tabElements = document.querySelectorAll('li');
     const selectedTab = e.target.textContent;
