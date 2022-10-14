@@ -258,7 +258,7 @@ li#toggle-nav-bar {
     letter-spacing: 2px;
 }
 
-.card-title:hover {
+#content.home .card-title:hover {
     color: var(--logo-color);
 }
 
@@ -347,3 +347,29 @@ li#toggle-nav-bar {
 }
 
 /* CSS for menu page ends here */
+
+/* CSS for gallery page starts here */
+#content.gallery .gallery-container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(5, clamp(auto, 20%, 200px));
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:1em;
+}
+
+#content.gallery .img-container {
+    outline: 1px solid white;
+    overflow: hidden;
+}
+
+#content.gallery .img-container>img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 100%;
+    transition: 1s;
+}
+
+#content.gallery .img-container:hover img {
+transform: scale(1.5);}
+
+/* CSS for gallery page ends here */

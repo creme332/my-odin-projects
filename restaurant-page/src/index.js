@@ -8,6 +8,7 @@ import toggleSVG from './assets/menu.svg'
 import { createHtmlElement } from './helper';
 import { HomePageFactory } from './home';
 import { MenuPageFactory } from './menu';
+import { GalleryPageFactory } from './gallery';
 
 (function loadFont() {
   const new_font = new FontFace('marqueem', `url(${font})`);
@@ -21,10 +22,11 @@ import { MenuPageFactory } from './menu';
 })();
 
 const everything = (() => {
-  const main = createHtmlElement('main', 'content', ['home'], null, null);
+  const main = createHtmlElement('main', 'content', null, null, null);
   document.querySelector('body').appendChild(main);
   const homePage = HomePageFactory(main);
   const menuPage = MenuPageFactory(main);
+  const galleryPage = GalleryPageFactory(main);
 
   const tabNames = ['home', 'menu', 'gallery', 'contact', 'book'];
   const fakeTabs = ['contact', 'book']; //tabs which are ignored when clicked on
@@ -74,6 +76,7 @@ const everything = (() => {
     //remove current tab
     if (currentTab == 'home') homePage.removeHomeTab();
     if (currentTab == 'menu') menuPage.removeMenuTab();
+    if (currentTab == 'gallery') galleryPage.removeGalleryTab();
 
     //change color in nav bar
     colorNavBar(selectedTab);
@@ -86,6 +89,7 @@ const everything = (() => {
       menuPage.displayMenuTab();
     }
     if (selectedTab == 'gallery') {
+      galleryPage.displayGalleryTab();
     }
 
     currentTab = selectedTab;
@@ -108,7 +112,7 @@ const everything = (() => {
 
   colorNavBar('home');
   homePage.displayHomeTab();
-
+  // galleryPage.displayGalleryTab();
   // menuPage.displayMenuTab();
 
 })();
