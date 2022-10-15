@@ -11,9 +11,10 @@ import { HomePageFactory } from './home';
 import { MenuPageFactory } from './menu';
 import { GalleryPageFactory } from './gallery';
 
-const everything = (() => {
+const driver = (() => {
   const main = createHtmlElement('main', 'content', null, null, null);
   document.querySelector('body').appendChild(main);
+
   const homePage = HomePageFactory(main);
   const menuPage = MenuPageFactory(main);
   const galleryPage = GalleryPageFactory(main);
@@ -59,7 +60,6 @@ const everything = (() => {
   }
 
   function switchTab(e) {
-    const tabElements = document.querySelectorAll('li');
     const selectedTab = e.target.textContent;
     if (fakeTabs.includes(selectedTab) || selectedTab == currentTab) return;
 

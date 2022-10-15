@@ -1,5 +1,5 @@
 /**
- * Creates and returns an HTML element
+ * Creates and returns an HTML element.
  * @param {string} type HTML type : div, nav, ul, ...
  * @param {string} id HTML ID
  * @param {[string]} arrayClasses 
@@ -24,6 +24,14 @@ export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChild
   return element;
 }
 
+/** Returns `<img></img>` with some optional parameters.
+ * 
+ * @param {string} src source path
+ * @param {string} alt alternative text
+ * @param {[string]} arrayClasses array of classes
+ * @param {[HTMLElement]} arrayChildren array of HTML children
+ * @returns 
+ */
 export function createImgElement(src, alt, arrayClasses, arrayChildren) {
   const Img = new Image();
   Img.src = src;
