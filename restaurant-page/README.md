@@ -58,6 +58,7 @@ Neon light logo | [Silvia O'Dwyer](https://css-tricks.com/how-to-create-neon-tex
 Gallery images | Unsplash
 
 # 🔨 To-Do
+- [ ] add meta description.
 - [ ] add contact page
  - [ ] improve semantics
  - [ ] add loading animation when page has not loaded yet
