@@ -57,10 +57,11 @@ const GalleryPageFactory = (main) => {
         imgContainer = getImgWithContainer(peopleEating_img, 'People sitting in a calm environment');
         gallery.appendChild(imgContainer);
 
-        for (let i = 0; i < imageCount; i++) {
-            imgContainer = getImgWithContainer(`https://source.unsplash.com/random/?nightclub&${Math.random()}`, 'A random image from Unsplash with keyword nightclub');
-            gallery.appendChild(imgContainer);
-        }
+        // generate random images for testing
+        // for (let i = 0; i < imageCount; i++) {
+        //     imgContainer = getImgWithContainer(`https://source.unsplash.com/random/?nightclub&${Math.random()}`, 'A random image from Unsplash with keyword nightclub');
+        //     gallery.appendChild(imgContainer);
+        // }
 
         main.appendChild(gallery);
     };
