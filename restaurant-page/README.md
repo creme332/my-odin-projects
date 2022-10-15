@@ -28,11 +28,27 @@ Install dependencies.
  ```bash
 npm install
  ```
-In development mode, use 
+
+ ## Development mode
+Set the `mode` in `webpack.config.js` parameter to `development`.
+
+**webpack.config.js**
+```js
+    module.exports = {
+    mode: 'development',
+    entry: './src/index.js',
+    plugins: [
+        new HtmlWebpackPlugin({
+        title: 'Development',
+        }),
+    ],
++  devtool: 'inline-source-map',
+   ...
+```
+To view changes in real-time,
  ```bash
 npx webpack --watch
  ```
- to update changes in real-time.
 # 📌 Attributions
 Resource | Source
 ---|---
