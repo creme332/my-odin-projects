@@ -6,7 +6,8 @@ module.exports = {
   entry: './src/index.js',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
+      title: 'Restaurant',
+      favicon: "./src/assets/favicon-16x16.png"
     }),
   ],
   // devtool: 'inline-source-map',
