@@ -8,20 +8,20 @@
  * @returns {HTMLElement} HTML element
  */
 export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChildren) {
-    const element = document.createElement(type);
+  const element = document.createElement(type);
 
-    if (id) element.id = id;
+  if (id) element.id = id;
 
-    if (arrayClasses)
-      arrayClasses.forEach((myClass) => element.classList.add(myClass));
+  if (arrayClasses)
+    arrayClasses.forEach((myClass) => element.classList.add(myClass));
 
-    if (txtContent) element.textContent = txtContent;
+  if (txtContent) element.textContent = txtContent;
 
-    if (arrayChildren) {
-      arrayChildren.forEach((child) => element.appendChild(child));
-    }
+  if (arrayChildren) {
+    arrayChildren.forEach((child) => element.appendChild(child));
+  }
 
-    return element;
+  return element;
 }
 
 export function createImgElement(src, alt, arrayClasses, arrayChildren) {

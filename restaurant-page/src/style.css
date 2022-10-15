@@ -2,10 +2,12 @@
     font-family: 'marqueem';
     src: url('./assets/marqueem.ttf');
 }
+
 @font-face {
     font-family: 'Oswald';
     src: url('./assets/Oswald-SemiBold.ttf');
 }
+
 :root {
     --logo-color: #ef227d;
     --logo-border-color: white;
@@ -359,7 +361,7 @@ li#toggle-nav-bar {
     display: grid;
     /* grid-template-rows: repeat(2, 1fr); */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap:1em;
+    gap: 1em;
 }
 
 #content.gallery .img-container {
@@ -375,6 +377,7 @@ li#toggle-nav-bar {
 }
 
 #content.gallery .img-container:hover img {
-transform: scale(1.5);}
+    transform: scale(1.5);
+}
 
 /* CSS for gallery page ends here */
