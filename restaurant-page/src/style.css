@@ -1,5 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
-
+@font-face {
+    font-family: 'marqueem';
+    src: url('./assets/marqueem.ttf');
+}
+@font-face {
+    font-family: 'Oswald';
+    src: url('./assets/Oswald-SemiBold.ttf');
+}
 :root {
     --logo-color: #ef227d;
     --logo-border-color: white;

@@ -1,25 +1,15 @@
 //import styles
 import './reset.css';
 import './style.css';
-import font from './assets/marqueem.ttf';
 
-import toggleSVG from './assets/menu.svg'
+//import toggle navbar icon
+import toggleSVG from './assets/menu.svg';
+
 //import my modules
 import { createHtmlElement } from './helper';
 import { HomePageFactory } from './home';
 import { MenuPageFactory } from './menu';
 import { GalleryPageFactory } from './gallery';
-
-(function loadFont() {
-  const new_font = new FontFace('marqueem', `url(${font})`);
-
-  new_font.load().then(function (loaded_face) {
-    document.fonts.add(loaded_face);
-  }).catch(function (error) {
-    alert('Font was not properly loaded !', error);
-  });
-
-})();
 
 const everything = (() => {
   const main = createHtmlElement('main', 'content', null, null, null);
