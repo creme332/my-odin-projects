@@ -8,7 +8,7 @@ A simple restaurant website generated entirely with JavaScript.
 
 ![GIF of restaurant website in action](resto.gif)
 
-[▶ Live Preview](https://creme332.github.io/my-odin-projects/restaurant-page/)
+[▶ Live Preview](https://creme332.github.io/my-odin-projects/restaurant-page/dist/)
 
 # 🚀Features
 - Responsive website.
@@ -21,7 +21,7 @@ git clone git@github.com:creme332/my-odin-projects.git
 ```
 Go to project directory.
 ```bash
- cd my-odin-projects/restaurant-page
+cd my-odin-projects/restaurant-page
  ```
 
 Install dependencies.
@@ -30,7 +30,7 @@ npm install
  ```
 
  ## Development mode
-Set the `mode` in `webpack.config.js` parameter to `development`.
+Set the `mode` in `webpack.config.js` parameter to `development` and add `devtool`.
 
 **webpack.config.js**
 ```js
@@ -55,7 +55,7 @@ Resource | Source
 UI | ThunderCut Alley website made by [Effector](https://effector.ie/). Original UI can be found [here](thundercutalley.png).
 [marquee-moon font](src/assets/marqueem.ttf) | Raymond Larabie
 Neon light logo | [Silvia O'Dwyer](https://css-tricks.com/how-to-create-neon-text-with-css/)
-Gallery images | Unsplash
+[Gallery images](dist/images/) | Unsplash
 
 # 🔨 To-Do
 - [ ] add meta description.
