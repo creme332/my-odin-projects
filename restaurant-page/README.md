@@ -38,11 +38,11 @@ UI | ThunderCut Alley website made by [effector](https://effector.ie/). Original
 Neon light logo | [Silvia O'Dwyer](https://css-tricks.com/how-to-create-neon-text-with-css/)
 
 # 🔨 To-Do
--  [ ] make a responsive nav bar
  - [ ] improve semantics
- - [ ]do everything after font and images have loaded
+ - [ ] do everything after font and images have loaded
  - [ ]add loading animation when page has not loaded yet
  - [ ]add transitions when switching from one tab to another.
  - [ ] create assets folder for dist
-- [ ] make website responsive
 ### ✔ Done
+-  [x] make a responsive nav bar
+- [x] make website responsive
