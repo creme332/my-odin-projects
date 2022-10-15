@@ -23,3 +23,18 @@ export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChild
 
     return element;
 }
+
+export function createImgElement(src, alt, arrayClasses, arrayChildren) {
+  const Img = new Image();
+  Img.src = src;
+  Img.alt = alt;
+
+  if (arrayClasses)
+    arrayClasses.forEach((myClass) => Img.classList.add(myClass));
+
+  if (arrayChildren) {
+    arrayChildren.forEach((child) => Img.appendChild(child));
+  }
+
+  return Img;
+}
