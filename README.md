@@ -6,7 +6,7 @@
 |Landing Page| Flexbox |[Link](https://github.com/creme332/my-odin-projects/tree/main/landing-page)     |   [Demo](https://creme332.github.io/my-odin-projects/landing-page/) |⭐
 |Rock Paper Scissors|JavaScript Basics| [Link](https://github.com/creme332/my-odin-projects/tree/main/rps-game)     |   [Demo](https://creme332.github.io/my-odin-projects/rps-game/) |⭐⭐⭐
 |Etch-a-Sketch|JavaScript Basics| [Link](https://github.com/creme332/my-odin-projects/tree/main/etch-a-sketch)     |   [Demo](https://creme332.github.io/my-odin-projects/etch-a-sketch/) |⭐⭐
-|Calculator | JavaScript Basics|[Link](https://github.com/creme332/my-odin-projects/tree/main/calculator)   |   [Demo](https://creme332.github.io/my-odin-projects/calculator/) |💩
+|Calculator | JavaScript Basics|[Link](https://github.com/creme332/my-odin-projects/tree/main/calculator)   |   [Demo](https://creme332.github.io/my-odin-projects/calculator/) |⭐
 |Calculator v2| JavaScript Basics| [Link](https://github.com/creme332/abacusLite)    |   [Demo](https://creme332.github.io/abacusLite/) |⭐⭐⭐
 
 # 🚀 Full Stack JavaScript
@@ -15,6 +15,6 @@
 |----|----|---|---|--|
 |Sign-up Form| Forms|[Link](https://github.com/creme332/my-odin-projects/tree/main/sign-up-form)     |   [Demo](https://creme332.github.io/my-odin-projects/sign-up-form/) |⭐⭐
 Admin Dashboard| Grid|[Link](https://github.com/creme332/my-odin-projects/tree/main/admin-dashboard)     |   [Demo](https://creme332.github.io/my-odin-projects/admin-dashboard/) |⭐⭐
-Library v2| Objects and Object constructors, OOP|[Link](https://github.com/creme332/my-odin-projects/tree/main/library)     |   [Demo](https://creme332.github.io/my-odin-projects/library/) |⭐⭐
+Library v2| Objects and Object constructors, OOP|[Link](https://github.com/creme332/my-odin-projects/tree/main/library)     |   [Demo](https://creme332.github.io/my-odin-projects/library/) |⭐
 Tic Tac Toe| Factory functions and module patterns|[Link](https://github.com/creme332/my-odin-projects/tree/main/tic-tac-toe)     |   [Demo](https://creme332.github.io/my-odin-projects/tic-tac-toe/) | ⭐⭐⭐
-Restaurant page| ES6 modules, Webpack|[Link](https://github.com/creme332/my-odin-projects/tree/main/restaurant-page)     |   [Demo](https://creme332.github.io/my-odin-projects/restaurant-page/) | 
+Restaurant page| ES6 modules, Webpack|[Link](https://github.com/creme332/my-odin-projects/tree/main/restaurant-page)     |   [Demo](https://creme332.github.io/my-odin-projects/restaurant-page/dist/) | ⭐
