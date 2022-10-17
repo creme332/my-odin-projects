@@ -58,6 +58,7 @@ Neon light logo | [Silvia O'Dwyer](https://css-tricks.com/how-to-create-neon-tex
 [Gallery images](dist/images/) | Unsplash
 
 # 🔨 To-Do
+- [ ] fix bug with sidebar on small screens (color flashing)
 - [ ] add meta description.
 - [ ] add contact page
  - [ ] improve semantics
