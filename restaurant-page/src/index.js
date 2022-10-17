@@ -52,11 +52,7 @@ const driver = (() => {
 
   function toggleNav() {
     const unorderedList = document.querySelector('ul');
-    if (unorderedList.classList.contains('active')) {
-      unorderedList.classList.remove('active');
-    } else {
-      unorderedList.classList.add('active');
-    }
+    unorderedList.classList.toggle('active');
   }
 
   function switchTab(e) {
