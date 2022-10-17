@@ -1,7 +1,26 @@
+:root {
+    --player1-color: #fb2dd9;
+    --player2-color: #2d9bfb;
+}
+
 body {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
     height: 100vh;
+    background-color: #FFDEE9;
+    background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+}
+
+#offcanvas {
+    height: 60vh;
+}
+
+#offcanvas img {
+    height: 1000px;
+}
+
+.navIcon {
+    color: black;
+    background-color: transparent;
+    border: 0;
 }
 
 .custom-tooltip {
@@ -41,6 +60,11 @@ body {
     border: 1px solid;
     border-color: rgb(164, 164, 164);
     transition: .5s;
+
+    /* font-size: 1rem;
+    font-weight: 900;
+    display: grid;
+    place-items: center; */
 }
 
 .not-allowed {
@@ -48,7 +72,8 @@ body {
 }
 
 .winning-cell {
-    animation: blink .7s infinite;
+    animation: blink 1s infinite;
+    /* border: 1px solid black; */
 }
 
 @keyframes blink {
@@ -72,8 +97,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 0.2rem;
-    background-color: aliceblue;
-
+    /* background-color: aliceblue; */
 }
 
 @keyframes autorotate {
@@ -92,23 +116,13 @@ body {
     animation: autorotate 10s linear infinite;
 }
 
-.settings {
-    display: grid;
-    place-items: center;
-    /* outline: 1px solid; */
-    overflow-y: scroll;
-    background-color: rgb(247, 245, 243);
-    padding-top: 10px;
-}
-
 .menu {
-    width: 90%;
     display: flex;
     flex-direction: column;
     gap: 1em;
 }
 
-.settings .menu li {
+.menu li {
     display: flex;
     flex-direction: column;
 }

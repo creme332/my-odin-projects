@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Play 3D Tic-Tac-Toe on a free-to-rotate 4x4x4 grid against a friend or an AI.">
+    <meta name="description" content="Play 3D Tic-Tac-Toe on a free-to-rotate 4x4x4 grid against a friend or an AI.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="reset.css">
@@ -21,122 +20,164 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- my code -->
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
+    <nav>
+        <button class="btn btn-primary navIcon" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <span class="material-symbols-outlined">
+                settings
+            </span>
+        </button>
+
+        <button class="btn btn-primary navIcon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+            aria-controls="offcanvasExample">
+            <span class="material-symbols-outlined">
+                integration_instructions
+            </span>
+        </button>
+    </nav>
     <div class="left">
         <div class="scene">
         </div>
     </div>
-    <div class="settings">
-        <ul class="menu">
-            <h1>Settings</h1>
 
-            <h3>Game mode</h3>
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasLabel">How to play</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>
+                3D tic-tac-toe, also known as Qubic, is an abstract strategy board game, for two
+                players. It is similar in concept to traditional tic-tac-toe but is played in a cubical array of cells
+                . Players take turns placing their markers in blank cells in the array. The first player to
+                achieve four of their own markers in a row wins. The winning row can be horizontal, vertical, or
+                diagonal on a single board as in regular tic-tac-toe, or vertically in a column, or a diagonal line
+                through four boards.
+            </p>
+            <p>Here are some of the 76 possible winning lines :</p>
+            <img src="assets/wins2.png" alt="">
+        </div>
+    </div>
 
-            <li>
-                <div class="form-check">
-                    <input class="form-check-input" name="gameMode" type="radio" id="onePlayerRadio">
-                    <label class="form-check-label" for="onePlayerRadio">
-                        1-player
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" name="gameMode" type="radio" id="twoPlayerRadio" checked>
-                    <label class="form-check-label" for="twoPlayerRadio">
-                        2-player
-                    </label>
-                </div>
-            </li>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h1 class="offcanvas-title" id="offcanvasExampleLabel">Settings</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="menu">
+                <h3>Game mode</h3>
 
-            <li>
-                <button type="button" id="restart-btn" class="btn btn-dark">Restart game</button>
-            </li>
-            <h3>Viewing</h3>
-            <li>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="transparent-checkbox">
-                    <label class="form-check-label" for="transparent-checkbox">
-                        Transparent board
-                    </label>
-                </div>
-            </li>
-            <li>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="threeD-checkbox">
-                    <label class="form-check-label" for="threeD-checkbox">
-                        Disable 3D
-                    </label>
-                </div>
-            </li>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" name="gameMode" type="radio" id="onePlayerRadio">
+                        <label class="form-check-label" for="onePlayerRadio">
+                            1-player
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="gameMode" type="radio" id="twoPlayerRadio" checked>
+                        <label class="form-check-label" for="twoPlayerRadio">
+                            2-player
+                        </label>
+                    </div>
+                </li>
 
-            <li>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="autorotate-checkbox">
-                    <label class="form-check-label" for="autorotate-checkbox">
-                        Auto-rotate
-                    </label>
-                </div>
-            </li>
-            <h4>Rotation</h4>
-            <li>
-                <label for="xSlider">rotateX = <span id="xval">0</span>&deg;</label>
-                <input class="rotationslider" data-unit="deg" id="xSlider" type="range" value="0" min="0" max="360">
-            </li>
+                <li>
+                    <button type="button" id="restart-btn" class="btn btn-dark">Restart game</button>
+                </li>
+                <h3>Viewing</h3>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="transparent-checkbox">
+                        <label class="form-check-label" for="transparent-checkbox">
+                            Transparent board
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="threeD-checkbox">
+                        <label class="form-check-label" for="threeD-checkbox">
+                            Disable 3D
+                        </label>
+                    </div>
+                </li>
 
-            <li>
-                <label for="ySlider">rotateY = <span id="yval">0</span>&deg;</label>
-                <input class="rotationslider" data-unit="deg" id="ySlider" type="range" value="0" min="0" max="360">
-            </li>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="autorotate-checkbox">
+                        <label class="form-check-label" for="autorotate-checkbox">
+                            Auto-rotate
+                        </label>
+                    </div>
+                </li>
+                <h4>Rotation</h4>
+                <li>
+                    <label for="xSlider">rotateX = <span id="xval">0</span>&deg;</label>
+                    <input class="rotationslider" data-unit="deg" id="xSlider" type="range" value="0" min="0" max="360">
+                </li>
 
-            <li>
-                <label for="zSlider">rotateZ = <span id="zval">0</span>&deg;</label>
-                <input class="rotationslider" data-unit="deg" id="zSlider" type="range" value="0" min="0" max="360">
-            </li>
-            <h4>Perspective</h4>
+                <li>
+                    <label for="ySlider">rotateY = <span id="yval">0</span>&deg;</label>
+                    <input class="rotationslider" data-unit="deg" id="ySlider" type="range" value="0" min="0" max="360">
+                </li>
 
-            <li>
-                <label for="Pers">Perspective = <span id="pval"></span> px <span>
-                        <svg data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Determines the distance between the z=0 plane and the user"
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                            class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                        </svg>
-                    </span></label>
+                <li>
+                    <label for="zSlider">rotateZ = <span id="zval">0</span>&deg;</label>
+                    <input class="rotationslider" data-unit="deg" id="zSlider" type="range" value="0" min="0" max="360">
+                </li>
+                <h4>Perspective</h4>
 
-                <input class="perspectiveslider" data-unit="px" id="Pers" type="range" value="0" min="100" max="1000"
-                    step="10">
-            </li>
-            <h5>
-                Perspective origin
-                <svg data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip"
-                    data-bs-title="Determines the position at which the viewer is looking"
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                    class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                </svg>
+                <li>
+                    <label for="Pers">Perspective = <span id="pval"></span> px <span>
+                            <svg data-bs-toggle="tooltip" data-bs-placement="right"
+                                data-bs-custom-class="custom-tooltip"
+                                data-bs-title="Determines the distance between the z=0 plane and the user"
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                            </svg>
+                        </span></label>
 
-            </h5>
-            <li> <label for="Pers">Horizontal = <span id="phval"></span> %</label>
-                <input class="perspectiveslider" data-unit="%" id="PersHorizontal" type="range" value="0" min="-100"
-                    max="1000" step="10">
-            </li>
-            <li>
-                <label for="Pers">Vertical = <span id="pvval"></span> %</label>
-                <input class="perspectiveslider" data-unit="%" id="PersVertical" type="range" value="0" min="-100"
-                    max="500" step="10">
-            </li>
+                    <input class="perspectiveslider" data-unit="px" id="Pers" type="range" value="0" min="100"
+                        max="1000" step="10">
+                </li>
+                <h5>
+                    Perspective origin
+                    <svg data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Determines the position at which the viewer is looking"
+                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                    </svg>
 
-            <li>
-                <button type="button" id="reset-btn" class="btn btn-warning">Reset to default settings</button>
-            </li>
-        </ul>
+                </h5>
+                <li> <label for="Pers">Horizontal = <span id="phval"></span> %</label>
+                    <input class="perspectiveslider" data-unit="%" id="PersHorizontal" type="range" value="0" min="-100"
+                        max="1000" step="10">
+                </li>
+                <li>
+                    <label for="Pers">Vertical = <span id="pvval"></span> %</label>
+                    <input class="perspectiveslider" data-unit="%" id="PersVertical" type="range" value="0" min="-100"
+                        max="500" step="10">
+                </li>
+
+                <li>
+                    <button type="button" id="reset-btn" class="btn btn-warning">Reset to default settings</button>
+                </li>
+            </ul>
+        </div>
     </div>
 </body>
 

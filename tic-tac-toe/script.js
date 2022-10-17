@@ -21,8 +21,8 @@ const playerFactory = (name, marker, markerColour) => {
 const gameFactory = (player1name, player2name) => {
     const DIMENSION = 4;
     const emptyGridCellMarker = 0;
-    const player1 = playerFactory(player1name, 1, 'red'); //maximising player => AI
-    const player2 = playerFactory(player2name, 2, 'green');
+    const player1 = playerFactory(player1name, 1, getComputedStyle(document.body).getPropertyValue('--player1-color')); //maximising player => AI
+    const player2 = playerFactory(player2name, 2, getComputedStyle(document.body).getPropertyValue('--player2-color'));
     const maxDepth = 2; // Used by AI.
     // Increasing maxDepth will improve AI and make game SLOWER (browser may crash).
 
@@ -910,10 +910,11 @@ const GUI = (() => {
     // Initialise
     setBoardTransformations(DEFAULT_SETTINGS);
 
-    // Setup Bootstrap tooltips
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
+    // Setup Bootstrap tooltips and popovers
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
     return {
         displayMove, getCellCartesianCoordinate, getCellElement,
         getAllCells, clearBoard, displayCoordinates,
