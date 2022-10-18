@@ -7,7 +7,7 @@
 
 Play 3D Tic-Tac-Toe on a free-to-rotate 4x4x4 grid against a friend or an AI. 
 
-![GIF of game](assets/ttt.gif)
+![GIF of game](assets/v2.gif)
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/tic-tac-toe/)
 
@@ -31,7 +31,7 @@ Here's a **non-exhaustive** list of possible winning lines :
 
 ![A diagram showing all possible lines which passes thrugh exactly 4 boards](assets/wins.png)
 
-More information about the 76 possible winning lines can be found in `wincheck.js`.
+More information about the 76 possible winning lines can be found in [`wincheck.js`](wincheck.js).
 
 ## Settings
 The sliders are **not** for cosmetic purposes and can be used to visualise the winning lines better. 
