@@ -42,9 +42,6 @@ body {
     align-items: center;
     transform-style: preserve-3d;
     perspective-origin: bottom left;
-    /* perspective: 310px; */
-    /* outline: 1px solid; */
-    /* width: 60%; */
 }
 
 .disable3Dscene {
@@ -61,11 +58,6 @@ body {
     border: 1px solid;
     border-color: rgb(164, 164, 164);
     transition: .5s;
-
-    /* font-size: 1rem;
-    font-weight: 900;
-    display: grid;
-    place-items: center; */
 }
 
 .not-allowed {
@@ -74,7 +66,6 @@ body {
 
 .winning-cell {
     animation: blink 1s infinite;
-    /* border: 1px solid black; */
 }
 
 @keyframes blink {
@@ -98,7 +89,6 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 0.2rem;
-    /* background-color: aliceblue; */
 }
 
 @keyframes autorotate {
