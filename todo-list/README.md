@@ -28,5 +28,6 @@ resource| owner
 # 🔨 To-Do
 - [ ] add sound effects : https://github.com/Melvin-Abraham/todomatic/tree/master/public
 - [ ] Make website responsive.
+- use project to track bugs with project itself.
 
 ### ✔ Done

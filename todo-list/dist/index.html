@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,87 @@
     <meta name="description" content="Description of the page less than 150 characters">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
     <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>"> 
-    <title>New Web Project</title>
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <title>To-do</title>
+
+    <!-- remove below for production -->
+    <!-- <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js" defer></script> -->
+    <!-- remove above for production -->
 <script defer src="main.js"></script></head>
+
 <body>
-    <h1>Website works</h1>
-    <img src="https://source.unsplash.com/random" alt="Random image">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Projects</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul>
+                <li>Coding</li>
+                <li>School</li>
+                <li>Life</li>
+            </ul>
+        </div>
+    </div>
+    <nav>
+        <div class="toggle-btn">
+            <img src="images/113d59e2703636dfe157.svg" height="25" width="25" alt="" data-bs-toggle="offcanvas"
+                data-bs-target="#sidebar" aria-controls="sidebar">
+        </div>
+        <h6 class="project-title">🎉 To-do</h6>
+    </nav>
+    <main>
+        <h1 class="project-title">🎉 To-do</h1>
+        <div class="options-tab">
+            <ul>
+                <li>Kanban</li>
+                <li>Calendar</li>
+            </ul>
+        </div>
+        <div class="kanban-container">
+            <div class="col">
+                <div class="col-header">
+                    <div class="col-title highlight">
+                        Next
+                    </div>
+                    <div class="col-counter">0</div>
+                </div>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-title">📃 Investigate issue</div>
+                        <div class="card-priority highlight">High 🔥</div>
+                        <div class="card-date">16 October</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🐛 Fix bug in CSS</div>
+                        <div class="card-priority highlight">High 🔥</div>
+                        <div class="card-date">16 October</div>
+                    </div>
+                </div>
+                <div class="new-row">+ New</div>
+            </div>
+            <div class="col">
+                <div class="col-header">
+                    <div class="col-title highlight">
+                        In Progress
+                    </div>
+                    <div class="col-counter">1</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-header">
+                    <div class="col-title highlight">
+                        Completed
+                    </div>
+                    <div class="col-counter">5</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 </body>
+
 </html>
