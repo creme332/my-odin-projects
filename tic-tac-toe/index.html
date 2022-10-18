@@ -30,25 +30,25 @@
 <body>
     <nav>
         <button class="btn btn-primary navIcon" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            data-bs-target="#settings-section" aria-controls="offcanvasExample">
             <span class="material-symbols-outlined">
                 settings
             </span>
         </button>
 
-        <button class="btn btn-primary navIcon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+        <button class="btn btn-primary navIcon" type="button" data-bs-toggle="offcanvas" data-bs-target="#htp-section"
             aria-controls="offcanvasExample">
             <span class="material-symbols-outlined">
                 integration_instructions
             </span>
         </button>
     </nav>
-    <div class="left">
+    <div class="scene-container">
         <div class="scene">
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="htp-section" aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasLabel">How to play</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="settings-section" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h1 class="offcanvas-title" id="offcanvasExampleLabel">Settings</h1>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

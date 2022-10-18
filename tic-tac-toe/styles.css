@@ -9,11 +9,11 @@ body {
     background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
 }
 
-#offcanvas {
+#htp-section {
     height: 60vh;
 }
 
-#offcanvas img {
+#htp-section img {
     height: 1000px;
 }
 
@@ -27,7 +27,7 @@ body {
     --bs-tooltip-bg: var(--bs-primary);
 }
 
-.left {
+.scene-container {
     overflow: auto;
     display: flex;
     justify-content: center;
@@ -42,8 +42,9 @@ body {
     align-items: center;
     transform-style: preserve-3d;
     perspective-origin: bottom left;
-    perspective: 310px;
+    /* perspective: 310px; */
     /* outline: 1px solid; */
+    /* width: 60%; */
 }
 
 .disable3Dscene {

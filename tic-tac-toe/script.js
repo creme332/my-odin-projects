@@ -733,6 +733,7 @@ const GUI = (() => {
         return cells;
     }
 
+
     function setBoardTransformations(setting) {
         //rotate board
         rotateBoard(parseInt(setting.rotateX),
@@ -895,6 +896,44 @@ const GUI = (() => {
         });
     });
 
+    /**
+     * Implement feature whereby user can use mouse to view grid from different angles.
+     */
+    (function dragToRotate() {
+        const delta = 6;
+        let startX;
+        let startY;
+        let mouseDown = false;
+
+        const sceneContainer = document.querySelector('.scene-container');
+        sceneContainer.addEventListener('mousedown', function (event) {
+            event.preventDefault();
+            startX = event.pageX;
+            startY = event.pageY;
+            mouseDown = true;
+        });
+
+        sceneContainer.addEventListener('mousemove', function (e) {
+            if (!mouseDown) return;
+            e.preventDefault();
+
+            const diffX = Math.abs(e.pageX - startX);
+            const diffY = Math.abs(e.pageY - startY);
+            console.log(diffX, diffY);
+            if (diffX < delta && diffY < delta) { //not dragging
+                return;
+            }
+            startX = e.pageX / window.innerWidth * 500;
+            startY = e.pageY / window.innerHeight * 500;
+
+            updateScenePerspective(persSlider.value, startX, startY);
+        });
+
+        sceneContainer.addEventListener('mouseup', function (e) {
+            mouseDown = false;
+        });
+    })();
+
     // Implement toggle 3D effect feature
     threeDCheckbox.addEventListener('input', toggle3DMode);
 
@@ -911,10 +950,13 @@ const GUI = (() => {
     setBoardTransformations(DEFAULT_SETTINGS);
 
     // Setup Bootstrap tooltips and popovers
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    (function BootstrapInitialiser() {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    })();
+
     return {
         displayMove, getCellCartesianCoordinate, getCellElement,
         getAllCells, clearBoard, displayCoordinates,
