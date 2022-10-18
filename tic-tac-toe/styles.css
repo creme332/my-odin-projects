@@ -129,18 +129,7 @@ body {
 }
 
 @media screen and (max-width:650px) {
-    body {
-        display: flex;
-
-        flex-direction: column;
-        height: auto;
-    }
-
     .disable3Dscene {
         flex-direction: column;
-    }
-
-    .left {
-        height: 100vh;
     }
 }
