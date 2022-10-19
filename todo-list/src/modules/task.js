@@ -1,14 +1,16 @@
 /**
  * A Task represents a to-do item and belongs to a single Project.
  */
- export class Task {
+export class Task {
     _title;
     _description;
     _priority;
     _duedate;
     _status;
     _id;
-   
+    static #priorityList = ['High 🔥', 'Medium 🕶', 'Low 👶'];
+    static #statusList = ['Next', 'In Progress', 'Completed'];
+
     /**
      * 
      * @param {string} title Brief title of to-do item
@@ -25,7 +27,6 @@
         this._duedate = duedate;
         this._status = status;
         this._id = id;
-
     }
 
     get title() {
@@ -42,8 +43,12 @@
         return this._description;
     }
 
-    set priority(priority) {
-        this._priority = priority;
+    set priority(priorityLevel) {
+        this._priority = Task.getPriority(priorityLevel);
+    }
+    static getPriority(priorityLevel) {
+        if (priorityLevel < 0 || priorityLevel >= this.#priorityList.length) return '❌ Invalid priority level';
+        return this.#priorityList[priorityLevel];
     }
     get priority() {
         return this._priority;
@@ -56,11 +61,19 @@
         return this._duedate;
     }
 
-    set status(status) {
-        this._status= status;
+    set status(statusIndex) {
+        this._status = Task.getStatus;
+    }
+    static getStatus(statusIndex) {
+        if (statusIndex < 0 || statusIndex >= this.#statusList.length) return '❌ Invalid status level';
+        return this.#statusList[statusIndex];
     }
     get status() {
         return this._status;
+    }
+    getStatusIndex() {
+        console.log(Task.#statusList, this._status)
+        return Task.#statusList.indexOf(this._status);
     }
 
     set id(id) {
@@ -72,5 +85,6 @@
 
 }
 
-// let task1 = new Task('title1', 'dsad', 'High', '12/3/3', 'Next', 1);
-// console.log(task1);
+// let task1 = new Task('title1', 'dsad', Task.priority, '12/3/3', 'Next', 1);
+// console.log(Task.getPriority(1));
+// console.log(Task.getStatus(3));
