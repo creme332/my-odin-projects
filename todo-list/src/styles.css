@@ -1,9 +1,9 @@
 :root {
     --gray: rgb(194, 193, 193);
-    --card-high-priority: red;
-    --card-medium-priority: yellow;
-    --card-low-priority: green;
-
+    --red: #ffe2dd;
+    --yellow: #fdecc8;
+    --green: #dbeddb;
+    --gray-hover: rgb(248, 248, 248);
 }
 
 body {
@@ -23,26 +23,23 @@ nav {
     /* background-color: rgb(249, 211, 211); */
 }
 
-.toggle-btn,
-h6 {
-    /* outline: 1px solid red; */
-
-}
-
-nav .toggle-btn {
-    /* vertical-align: bottom; */
-    /* background-color: black; */
-}
-
 nav .project-title {
     height: 100%;
     font-size: 15px;
     margin-bottom: 0;
 }
 
-#sidebar li:hover {
-    background-color: rgb(233, 233, 233);
+#sidebar ul {
+    margin-left: 0;
+    padding-left: 0;
+}
 
+#sidebar li {
+    padding: 5px;
+}
+
+#sidebar li:hover {
+    background-color: var(--gray-hover);
 }
 
 main {
@@ -79,7 +76,7 @@ main .options-tab ul {
 
 .options-tab li:nth-child(1) {
     color: black;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: 500;
 }
 
@@ -88,15 +85,15 @@ main .options-tab ul {
     grid-template-columns: repeat(3, 1fr);
     gap: 1em;
     width: 100%;
-    height: 200px;
     /* outline: 1px solid; */
 }
 
-.col, .cards-container {
+.col,
+.cards-container {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    height: 100%;
+    /* height: 100%; */
     /* background-color: rgb(220, 220, 220); */
 }
 
@@ -121,11 +118,11 @@ main .options-tab ul {
 }
 
 .col:nth-child(2) .col-title {
-    background-color: rgb(255, 249, 164);
+    background-color: var(--yellow);
 }
 
 .col:nth-child(3) .col-title {
-    background-color: rgb(184, 255, 175);
+    background-color: var(--green);
 }
 
 .col-counter {
@@ -139,14 +136,26 @@ main .options-tab ul {
     padding: 9px;
 }
 
+.card:hover {
+    background-color: var(--gray-hover);
+}
+
 .card-title {
     font-weight: 500;
     display: flex;
     padding: 8px 10px 6px 6px;
 }
 
-.card-priority {
-    background-color: rgb(255, 234, 234);
+.high-priority {
+    background-color: var(--red);
+}
+
+.medium-priority {
+    background-color: var(--yellow);
+}
+
+.low-priority {
+    background-color: var(--green);
 }
 
 .card-date,
@@ -163,5 +172,5 @@ main .options-tab ul {
 }
 
 .new-row:hover {
-    background-color: rgb(238, 238, 238);
+    background-color: var(--gray-hover);
 }
