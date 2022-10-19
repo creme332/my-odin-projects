@@ -15,7 +15,7 @@
 |----|----|---|---|--|
 |Sign-up Form| Forms|[Link](https://github.com/creme332/my-odin-projects/tree/main/sign-up-form)     |   [Demo](https://creme332.github.io/my-odin-projects/sign-up-form/) |⭐⭐
 Admin Dashboard| Grid|[Link](https://github.com/creme332/my-odin-projects/tree/main/admin-dashboard)     |   [Demo](https://creme332.github.io/my-odin-projects/admin-dashboard/) |⭐⭐
-Library v2| Objects and Object constructors, OOP|[Link](https://github.com/creme332/my-odin-projects/tree/main/library)     |   [Demo](https://creme332.github.io/my-odin-projects/library/) |⭐
+Library | Objects and Object constructors, OOP|[Link](https://github.com/creme332/my-odin-projects/tree/main/library)     |   [Demo](https://creme332.github.io/my-odin-projects/library/) |⭐
 Tic Tac Toe| Factory functions and module patterns|[Link](https://github.com/creme332/my-odin-projects/tree/main/tic-tac-toe)     |   [Demo](https://creme332.github.io/my-odin-projects/tic-tac-toe/) | ⭐⭐⭐
 Restaurant Page| ES6 modules, Webpack|[Link](https://github.com/creme332/my-odin-projects/tree/main/restaurant-page)     |   [Demo](https://creme332.github.io/my-odin-projects/restaurant-page/dist/) | ⭐
-Todo List| ES6 modules, Webpack, SOLID principles|[Link](https://github.com/creme332/my-odin-projects/tree/main/todo-list)     |   [Demo](https://creme332.github.io/my-odin-projects/todo-list/dist/) | ⭐
+Todo List| SOLID principles|[Link](https://github.com/creme332/my-odin-projects/tree/main/todo-list)     |   [Demo](https://creme332.github.io/my-odin-projects/todo-list/dist/) | 
