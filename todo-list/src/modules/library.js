@@ -1,7 +1,7 @@
 /**
  * A Library has zero or more Project objects. 
  */
- export class Project {
+ export class Library {
     #libraryArray = [];
     _id;
     _title;
