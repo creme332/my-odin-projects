@@ -9,6 +9,11 @@ module.exports = {
             template: 'src/template.html',
         }),
     ],
+    devServer: {
+        static: path.resolve(__dirname, 'dist'),
+        port: 8080,
+        hot: true
+    },
     devtool: 'inline-source-map',
     output: {
         filename: 'main.js',
