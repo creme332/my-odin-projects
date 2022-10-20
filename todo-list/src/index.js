@@ -236,6 +236,10 @@ function initialiseLibrary() {
   project.addTask(task);
 
   lib.addProject(project);
+
+  project = new Project('❓ Empty project', lib.size);
+  lib.addProject(project);
+
 }
 
 function refreshSidebar() {
@@ -253,7 +257,6 @@ function refreshSidebar() {
 }
 
 function clearKanban() {
-
   //remove all cards
   document.querySelectorAll('.kanban-container .card')
     .forEach(card => card.remove());
@@ -281,26 +284,46 @@ function updateProjectTitles(newProjectTitle) {
   document.querySelector('main .project-title').textContent = newProjectTitle;
 
 }
+
 function switchProject(e) {
   const list = document.querySelectorAll('#sidebar .project-list li');
 
+  //get the LI element on which user clicked
+  let liElement = e.target;
+  if(e.target.nodeName == 'path'){ //user clicked on delete btn
+    return;
+  }
+  if(e.target.nodeName != 'LI'){ //user clicked on DIV containing project title
+    liElement = e.target.closest('li');
+  }
+
   //get position of clicked project in Library
   let projectIndex = 0;
-  while (!list[projectIndex].isEqualNode(e.target)) {
+  // console.log(list[projectIndex]);
+  // console.log(e.target.nodeName);
+  while (!list[projectIndex].isEqualNode(liElement)) {
     projectIndex++;
   }
-  console.log(projectIndex);
+  // console.log(projectIndex);
+  const projectObj = lib.getProject(projectIndex);
 
-  const projectClass = lib.getProject(projectIndex);
+  if(projectObj == activeProjectObj){ //user clicked on currently active project
+    console.log('no switch required');
+    return;
+  }
+  activeProjectObj = projectObj;
   clearKanban();
-  addCards(projectClass.tasks)
+  addCards(projectObj.tasks)
   refreshCardsCounter()
-  updateProjectTitles(projectClass.title)
+  updateProjectTitles(projectObj.title)
 }
 initialiseLibrary()
+let activeProjectObj = lib.projects[0];
+
 refreshSidebar()
 clearKanban()
-addCards(lib.projects[0].tasks)
+addCards(activeProjectObj.tasks)
+updateProjectTitles(activeProjectObj.title)
 refreshCardsCounter()
 
 document.querySelectorAll('#sidebar .project-list li').forEach(el => {
