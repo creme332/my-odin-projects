@@ -246,7 +246,9 @@ function refreshSidebar() {
 
   //add new items
   for (const project of lib.projects) {
-    list.appendChild(createHtmlElement('li', null, null, project.title, null));
+    const titleContainer = createHtmlElement('div', null, ['project-title'], project.title, null);
+    const deleteBtn = createHtmlElement('i', null, ['fa-solid', 'fa-trash', 'delete-icon'], null, null);
+    list.appendChild(createHtmlElement('li', null, null, null, [titleContainer, deleteBtn]));
   }
 }
 
@@ -275,7 +277,9 @@ function addCards(tasksArray) {
 }
 
 function updateProjectTitles(newProjectTitle) {
-  document.querySelectorAll('.project-title').forEach(el => el.textContent = newProjectTitle);
+  document.querySelector('nav .project-title').textContent = newProjectTitle;
+  document.querySelector('main .project-title').textContent = newProjectTitle;
+
 }
 function switchProject(e) {
   const list = document.querySelectorAll('#sidebar .project-list li');

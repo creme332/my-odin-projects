@@ -18,7 +18,7 @@ nav {
     padding: 10px 12px;
     gap: 1em;
     width: 100%;
-    background-color: rgb(249, 211, 211);
+    /* background-color: rgb(249, 211, 211); */
 }
 
 nav .project-title {
@@ -48,11 +48,26 @@ nav .project-title {
 }
 
 #sidebar li {
+    display: flex;
+    justify-content: space-between;
     padding: 5px;
 }
 
 #sidebar li:hover {
     background-color: var(--gray-hover);
+}
+.delete-icon{
+    color: #bbbbbb;
+}
+.delete-icon:hover{
+    color: red;
+}
+#sidebar li .delete-icon {
+    display: none;
+}
+
+#sidebar li:hover .delete-icon {
+    display: inline;
 }
 
 main {
@@ -69,6 +84,8 @@ main .project-title {
 }
 
 main .options-tab {
+    display: flex;
+    justify-content: space-between;
     /* outline: 1px solid black; */
     border-bottom: 1px solid rgb(221, 221, 221);
 }
@@ -87,7 +104,7 @@ main .options-tab ul {
     /* outline:1px solid ; */
 }
 
-.options-tab li:nth-child(1) {
+.options-tab .display-type li:nth-child(1) {
     color: black;
     /* text-decoration: underline; */
     font-weight: 500;
