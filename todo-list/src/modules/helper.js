@@ -33,14 +33,14 @@ export function createCardElement(cardObj) {
   const title = createHtmlElement('div', null, ['card-title'], cardObj.title, null);
 
   let priorityClass = ['card-priority', 'highlight'];
-  let statusIndex = cardObj.getStatusIndex();
-  if (statusIndex == 0) {
+  let priorityLevel = cardObj.getPriorityIndex();
+  if (priorityLevel == 0) {
     priorityClass.push('high-priority');
   }
-  if (statusIndex == 1) {
+  if (priorityLevel == 1) {
     priorityClass.push('medium-priority');
   }
-  if (statusIndex == 2) {
+  if (priorityLevel == 2) {
     priorityClass.push('low-priority');
   }
   const priority = createHtmlElement('div', null, priorityClass, cardObj.priority, null);

@@ -8,7 +8,7 @@ export class Task {
     _duedate;
     _status;
     _id;
-    static #priorityList = ['High 🔥', 'Medium 🕶', 'Low 👶'];
+    static #priorityList = ['High 🔥', 'Medium 😶', 'Low 👶'];
     static #statusList = ['Next', 'In Progress', 'Completed'];
 
     /**
@@ -53,6 +53,9 @@ export class Task {
     get priority() {
         return this._priority;
     }
+    getPriorityIndex() {
+        return Task.#priorityList.indexOf(this._priority);
+    }
 
     set duedate(duedate) {
         this._duedate = duedate;
@@ -72,7 +75,6 @@ export class Task {
         return this._status;
     }
     getStatusIndex() {
-        console.log(Task.#statusList, this._status)
         return Task.#statusList.indexOf(this._status);
     }
 
