@@ -46,5 +46,6 @@ export function createCardElement(cardObj) {
   const priority = createHtmlElement('div', null, priorityClass, cardObj.priority, null);
 
   const date = createHtmlElement('div', null, ['card-date'], cardObj.duedate, null);
-  return createHtmlElement('div', null, ['card'], null, [title, priority, date]);
+  const editBtn  = createHtmlElement('i',null,['fa-solid', 'fa-pen-to-square', 'edit-btn' ],null,null);
+  return createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtn]);
 }

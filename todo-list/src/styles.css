@@ -4,6 +4,7 @@
     --yellow: #fdecc8;
     --green: #dbeddb;
     --gray-hover: rgb(248, 248, 248);
+    --icon-color: #bbbbbb;
 }
 
 body {
@@ -56,12 +57,15 @@ nav .project-title {
 #sidebar li:hover {
     background-color: var(--gray-hover);
 }
-.delete-icon{
-    color: #bbbbbb;
+
+.delete-icon {
+    color: var(--icon-color);
 }
-.delete-icon:hover{
+
+.delete-icon:hover {
     color: red;
 }
+
 #sidebar li .delete-icon {
     display: none;
 }
@@ -101,7 +105,13 @@ main .options-tab ul {
 
 .options-tab li {
     color: var(--gray);
+    padding:5px;
+    border-radius: 3px;
     /* outline:1px solid ; */
+}
+.options-tab li:hover {
+background-color: var(--gray-hover);
+
 }
 
 .options-tab .display-type li:nth-child(1) {
@@ -203,4 +213,20 @@ main .options-tab ul {
 
 .new-row:hover {
     background-color: var(--gray-hover);
+}
+
+.edit-btn {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--icon-color);
+}
+
+.card:hover .edit-btn {
+    display: block;
+}
+
+.edit-btn:hover {
+    color: black;
 }
