@@ -15,18 +15,31 @@ body {
 nav {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    /* justify-content: stretch; */
     padding: 10px 12px;
     gap: 1em;
     width: 100%;
-    /* background-color: rgb(249, 211, 211); */
+    background-color: rgb(249, 211, 211);
 }
 
 nav .project-title {
     height: 100%;
     font-size: 15px;
     margin-bottom: 0;
+}
+
+.toggle-btn {
+    height: 20px;
+    width: 20px;
+    /* outline:1px solid; */
+}
+
+.toggle-btn>.faaa+.faaa,
+.toggle-btn:hover>.faaa {
+    display: none;
+}
+
+.toggle-btn:hover>.faaa+.faaa {
+    display: inherit;
 }
 
 #sidebar ul {

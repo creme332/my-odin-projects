@@ -20,6 +20,12 @@ var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas')
 var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
   return new Offcanvas(offcanvasEl);
 })
+
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+
 const lib = new Library('Main', 0);
 
 function initialiseLibrary() {
@@ -42,6 +48,17 @@ function initialiseLibrary() {
     format(new Date(2014, 1, 11),
       'MM/dd/yyyy'),
     Task.getStatus(0),
+    project.size
+  );
+  project.addTask(task);
+
+  task = new Task(
+    '🕷 Hire a web designer',
+    'brrrrr haha lol',
+    Task.getPriority(1),
+    format(new Date(2014, 1, 11),
+      'MM/dd/yyyy'),
+    Task.getStatus(2),
     project.size
   );
   project.addTask(task);
