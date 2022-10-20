@@ -2,7 +2,7 @@
  * A Library has zero or more Project objects. 
  */
  export class Library {
-    #libraryArray = [];
+    #projectsArray = [];
     _id;
     _title;
 
@@ -24,18 +24,22 @@
     }
 
     addProject(projectObj){
-        this.#libraryArray.push(projectObj);
+        this.#projectsArray.push(projectObj);
     }
 
     removeProject(projectIndex){
-        this.#libraryArray.splice(projectIndex, 1);
+        this.#projectsArray.splice(projectIndex, 1);
     }
 
     get projects(){
-        return this.#libraryArray;
+        return this.#projectsArray;
+    }
+
+    getProject(projectID){
+        return this.#projectsArray[projectID];
     }
 
     get size(){
-        return this.#libraryArray.length;
+        return this.#projectsArray.length;
     }
 }
