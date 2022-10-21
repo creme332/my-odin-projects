@@ -13,6 +13,7 @@ body {
     font-family: sans-serif;
 }
 
+/* nav styles start here */
 nav {
     display: flex;
     flex-direction: row;
@@ -43,6 +44,9 @@ nav .project-title {
     display: inherit;
 }
 
+/* nav styles end here */
+
+/* sidebar styles start here */
 #sidebar ul {
     margin-left: 0;
     padding-left: 0;
@@ -74,6 +78,9 @@ nav .project-title {
     display: block;
 }
 
+/* sidebar styles end here */
+
+/* main styles start here */
 main {
     height: auto;
     /* outline: 1px solid; */
@@ -103,14 +110,17 @@ main .options-tab ul {
 
 }
 
+/* main styles end here */
+
 .options-tab li {
     color: var(--gray);
-    padding:5px;
+    padding: 5px;
     border-radius: 3px;
     /* outline:1px solid ; */
 }
+
 .options-tab li:hover {
-background-color: var(--gray-hover);
+    background-color: var(--gray-hover);
 
 }
 
@@ -229,4 +239,37 @@ background-color: var(--gray-hover);
 
 .edit-btn:hover {
     color: black;
+}
+
+#expanded-card {
+    width: 50%;
+}
+
+.input-group-text {
+    width: 110px;
+}
+
+#expanded-card form h1 {
+    margin-bottom: 32px;
+}
+
+#expanded-card form h1:focus {
+    outline: 0;
+}
+
+form {
+    height: 50vh;
+    /* outline: 1px solid; */
+
+}
+
+
+.form-floating {
+    /* outline: 1px solid; */
+
+    height: 100%;
+}
+
+.form-floating #floatingTextarea2 {
+    height: 100%;
 }

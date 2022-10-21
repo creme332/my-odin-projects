@@ -11,18 +11,12 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
     <title>To-do</title>
-
-    <!-- remove below for production -->
-    <!-- <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="index.js" defer></script> -->
-    <!-- remove above for production -->
 </head>
 
 <body>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Projects</h5>
+            <h5 class="offcanvas-title" id="sidebarLabel">Projects</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -30,6 +24,52 @@
             </ul>
             <div class="new-row">+ New</div>
 
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="expanded-card">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="delete-btn"><i class="fa-solid fa-trash"></i></div>
+        </div>
+        <div class="offcanvas-body">
+            <form>
+                <h1 contenteditable="true">🎄 My project</h1>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                    <select class="form-select" id="inputGroupSelect01">
+                        <option value="1">Next</option>
+                        <option value="2">In Progress</option>
+                        <option value="3">Completed</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Priority</label>
+                    <select class="form-select" id="inputGroupSelect01">
+                        <option value="1">High</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Low</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Due Date</span>
+                    <input type="date" class="form-control" placeholder="Username" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Description</span>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+                    <label for="floatingTextarea2">Comments</label>
+                </div>
+
+            </form>
         </div>
     </div>
     <nav>
