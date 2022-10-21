@@ -1,10 +1,12 @@
-//import my modules
 import { Library } from './library';
 import { Project } from './project';
 import { Task } from './task';
 import { format } from 'date-fns';
 
-
+/**
+ * Returns a sample Library with projects and tasks. 
+ * @returns { Library } A library object
+ */
 export function initialiseLibrary() {
     const lib = new Library('Main', 0);
   

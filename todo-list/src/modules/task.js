@@ -15,9 +15,9 @@ export class Task {
      * 
      * @param {string} title Brief title of to-do item
      * @param {string} description Brief description of to-do item
-     * @param {string} priority Allowed values : `High🔥`,  `Medium`, `Low`
+     * @param {string} priority Allowed values : ['High 🔥', 'Medium 😶', 'Low 👶']
      * @param {date} duedate A date object
-     * @param {string} status Allowed values : `Next`,  `In Progress`, `Completed`
+     * @param {string} status Allowed values : ['Next', 'In Progress', 'Completed']
      * @param {integer} id Index of the Task in an array of Tasks.
      */
     constructor(title, description, priority, duedate, status, id) {
@@ -86,7 +86,3 @@ export class Task {
     }
 
 }
-
-// let task1 = new Task('title1', 'dsad', Task.priority, '12/3/3', 'Next', 1);
-// console.log(Task.getPriority(1));
-// console.log(Task.getStatus(3));

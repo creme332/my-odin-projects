@@ -3,7 +3,7 @@
  */
 export class Project {
     #tasksArray = [];
-    _id;
+    _id; // index of Project in Library
     _title;
 
     /**
@@ -46,9 +46,3 @@ export class Project {
         return this.#tasksArray.length;
     }
 }
-
-// let p = new Project('hell world',1);
-// p.addTask('test');
-// console.log(p.tasks)
-// p.removeTask(1);
-// console.log(p.size)

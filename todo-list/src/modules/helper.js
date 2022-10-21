@@ -25,7 +25,7 @@ export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChild
 }
 
 /**
- * Returns an HTML card storing todo item main details.
+ * Returns an HTML card with a todo item's details.
  * @param {Task} cardObj 
  * @returns {HTMLElement}
  */
