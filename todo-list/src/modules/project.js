@@ -1,7 +1,7 @@
 /**
  * A Project has zero or more Tasks objects and belongs to a single Library.
  */
- export class Project {
+export class Project {
     #tasksArray = [];
     _id;
     _title;
@@ -23,19 +23,26 @@
         this._title = title;
     }
 
-    addTask(taskObj){
+    get id() {
+        return this._id;
+    }
+    set id(id) {
+        this._id = id;
+    }
+
+    addTask(taskObj) {
         this.#tasksArray.push(taskObj);
     }
 
-    removeTask(taskIndex){
+    removeTask(taskIndex) {
         this.#tasksArray.splice(taskIndex, 1);
     }
 
-    get tasks(){
+    get tasks() {
         return this.#tasksArray;
     }
 
-    get size(){
+    get size() {
         return this.#tasksArray.length;
     }
 }
