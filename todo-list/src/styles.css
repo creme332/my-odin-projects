@@ -58,20 +58,20 @@ nav .project-title {
     background-color: var(--gray-hover);
 }
 
-.delete-icon {
+.delete-btn {
     color: var(--icon-color);
 }
 
-.delete-icon:hover {
+.delete-btn:hover {
     color: red;
 }
 
-#sidebar li .delete-icon {
+#sidebar li .delete-btn {
     display: none;
 }
 
-#sidebar li:hover .delete-icon {
-    display: inline;
+#sidebar li:hover .delete-btn {
+    display: block;
 }
 
 main {
