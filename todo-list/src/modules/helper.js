@@ -50,8 +50,7 @@ export function createCardElement(taskObj) {
 
   const formattedDate = formatDistance(taskObj.duedate, new Date(), { addSuffix: true });
   const date = createHtmlElement('div', null, ['card-date'], formattedDate, null);
-  const editBtn = createHtmlElement('i', null, ['fa-solid', 'fa-pen-to-square'], null, null);
-  const editBtnContainer = createHtmlElement('div', null, ['edit-btn'], null, [editBtn]);
-  const cardId = createHtmlElement('div', null, ['card-id'], taskObj.id.toString(), null);
-  return createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer, cardId]);
+  const editBtn = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
+  const editBtnContainer = createHtmlElement('div', null, ['delete-btn'], null, [editBtn]);
+  return createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer]);
 }

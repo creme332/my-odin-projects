@@ -110,6 +110,14 @@ const controller = (() => {
     //add event listener for when expanded card view is closed => editing mode is off
     expandedCardCanvas.addEventListener('hidden.bs.offcanvas', updateTask.bind(null, taskObj), { once: true });
   }
+  function deleteTask(taskObj, e) {
+    e.stopPropagation();
+    activeProjectObj.removeTask(taskObj.id);
+    e.target.closest('.card').remove();
+    refreshKanbanCardsCounter();
+    console.log('deleted task ', lib);
+  }
+
   /**
    * Updates kanban by placing cards in their correct columns.
    * @param {[Task]} tasksArray A list of Task objects
@@ -124,6 +132,8 @@ const controller = (() => {
       //add event listeners to card
 
       cardElement.addEventListener('click', openTask.bind(null, task));
+      cardElement.querySelector('.delete-btn').addEventListener('click', deleteTask.bind(null, task));
+
       cols[colIndex].querySelector('.cards-container').appendChild(cardElement);
     }
   }
@@ -234,19 +244,11 @@ const controller = (() => {
 
   document.querySelectorAll('#sidebar .project-list .delete-btn').forEach(el => {
     el.addEventListener('click', deleteKanbanProject);
-  })
-
-  //Add below code to switchKanban()
-  document.querySelectorAll('.kanban-container .card').forEach(card => {
-    let editbtn = card.querySelector('.edit-btn');
-    editbtn.addEventListener('click', makeCardEditable);
-    // listenCardChanges(card, saveCardChanges);
-  })
-
+  });
 
   const mainTitle = document.querySelector('main .project-title');
 
-  function test(){
+  function changeProjectTitle() {
     console.log('title changed');
     let newTitle = mainTitle.textContent;
     updateHomepageProjectTitles(newTitle);
@@ -256,9 +258,6 @@ const controller = (() => {
     activeProjectObj.title = newTitle;
   }
 
-  listenCardChanges(mainTitle, test);
-
-
-
+  listenCardChanges(mainTitle, changeProjectTitle);
 
 })();

@@ -66,7 +66,7 @@ nav .project-title {
     color: var(--icon-color);
 }
 
-.delete-btn:hover {
+.card .delete-btn:hover, .delete-btn:hover {
     color: red;
 }
 
@@ -227,7 +227,7 @@ main .options-tab ul {
     background-color: var(--gray-hover);
 }
 
-.edit-btn {
+.card .delete-btn {
     display: none;
     position: absolute;
     top: 10px;
@@ -235,12 +235,8 @@ main .options-tab ul {
     color: var(--icon-color);
 }
 
-.card:hover .edit-btn {
+.card:hover .delete-btn {
     display: block;
-}
-
-.edit-btn:hover {
-    color: black;
 }
 
 #expanded-card {
