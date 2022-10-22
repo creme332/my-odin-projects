@@ -18,6 +18,7 @@ import '@fortawesome/fontawesome-free/js/solid';
 const controller = (() => {
   const lib = initialiseLibrary();
   let activeProjectObj = lib.projects[0];
+  const expandedCardCanvas = document.querySelector('#expanded-card');
 
   /**
    * Initialises sidebar by adding project names and enabling Bootstrap. 
@@ -32,7 +33,7 @@ const controller = (() => {
       return new Offcanvas(offcanvasEl);
     });
 
-    const list = document.querySelector('.offcanvas-body ul');
+    const list = document.querySelector('#sidebar .offcanvas-body ul');
 
     //clear current items in sidebar
     list.querySelectorAll('li').forEach(i => i.remove());
@@ -67,41 +68,47 @@ const controller = (() => {
     })
   }
 
+  function updateTask(taskObj, e) {
+    console.log('UPDATED task ');
+
+    taskObj.title = expandedCardCanvas.querySelector('.offcanvas-body h1').textContent;
+    taskObj.status = expandedCardCanvas.querySelector('#statusGroup').value;
+    taskObj.priority = expandedCardCanvas.querySelector('#priorityGroup').value;
+    taskObj.description = expandedCardCanvas.querySelector('#description').value;
+    // console.log(taskObj);
+
+    //update library (when `activeProjectObj` is updated, `lib` is also updated)
+    activeProjectObj.tasks[taskObj.id] = taskObj;
+    console.log(lib);
+
+    clearKanban();
+    addKanbanCards(activeProjectObj.tasks)
+    refreshKanbanCardsCounter();
+  }
+
   function openTask(taskObj, e) {
-    const expandedCardCanvas = document.querySelector('#expanded-card');
+    console.log('OPENED task ');
 
     expandedCardCanvas.querySelector('.offcanvas-body h1').textContent = taskObj.title;
+
     // unselect any previous dropdown options
     expandedCardCanvas.querySelectorAll('option').forEach(i => {
       i.removeAttribute('selected');
     });
+
     //fill offcanvas with task details
     const statusDropdownItems = expandedCardCanvas.querySelectorAll('#statusGroup option');
-    // console.log(taskObj)
-    // console.log(statusDropdownItems[taskObj.getStatusIndex()]);
     statusDropdownItems[taskObj.getStatusIndex()].setAttribute('selected', 'selected');
     const priorityDropdownItems = expandedCardCanvas.querySelectorAll('#priorityGroup option');
     priorityDropdownItems[taskObj.getPriorityIndex()].setAttribute('selected', 'selected');
     expandedCardCanvas.querySelector('#description').value = taskObj.description;
-    console.log(taskObj.duedate)
     expandedCardCanvas.querySelector('#dueDate').valueAsDate = taskObj.duedate;
 
     //open offcanvas
-    const bsOffcanvas = new Offcanvas(expandedCardCanvas);
-    bsOffcanvas.show()
+    new Offcanvas(expandedCardCanvas).show();
 
     //add event listener for when expanded card view is closed => editing mode is off
-    expandedCardCanvas.addEventListener('hidden.bs.offcanvas', event => {
-      taskObj.title = expandedCardCanvas.querySelector('.offcanvas-body h1').textContent;
-      taskObj.status = expandedCardCanvas.querySelector('#statusGroup').value;
-      taskObj.priority = expandedCardCanvas.querySelector('#priorityGroup').value;
-      taskObj.description = expandedCardCanvas.querySelector('#description').value;
-      // console.log(taskObj);
-
-      //update library (when `activeProjectObj` is updated, `lib` is also updated)
-      activeProjectObj.tasks[taskObj.id] = taskObj;
-      console.log(lib);
-    }, { once: true });
+    expandedCardCanvas.addEventListener('hidden.bs.offcanvas', updateTask.bind(null, taskObj), { once: true });
   }
   /**
    * Updates kanban by placing cards in their correct columns.
@@ -116,15 +123,16 @@ const controller = (() => {
 
       //add event listeners to card
 
-      cardElement.addEventListener('click', openTask.bind(null, task))
+      cardElement.addEventListener('click', openTask.bind(null, task));
       cols[colIndex].querySelector('.cards-container').appendChild(cardElement);
     }
   }
+
   /**
    * Updates project title being displayed on page.
    * @param {String} newProjectTitle 
    */
-  function updateProjectTitles(newProjectTitle) {
+  function updateHomepageProjectTitles(newProjectTitle) {
     document.querySelector('nav .project-title').textContent = newProjectTitle;
     document.querySelector('main .project-title').textContent = newProjectTitle;
   }
@@ -160,7 +168,7 @@ const controller = (() => {
     clearKanban();
     addKanbanCards(projectObj.tasks)
     refreshKanbanCardsCounter()
-    updateProjectTitles(projectObj.title)
+    updateHomepageProjectTitles(projectObj.title)
     activeProjectObj = projectObj;
   }
 
@@ -185,7 +193,7 @@ const controller = (() => {
       clearKanban();
       refreshKanbanCardsCounter()
       activeProjectObj = new Project('❌ DELETED PROJECT', -1);
-      updateProjectTitles('❌ DELETED PROJECT')
+      updateHomepageProjectTitles('❌ DELETED PROJECT')
     }
 
     lib.removeProject(projectIndex);
@@ -202,25 +210,22 @@ const controller = (() => {
       card.removeAttribute('contenteditable');
     }, { once: true });
   }
-  function saveCardChanges() {
-    console.log(' a change occurred');
 
-  }
-  function listenCardChanges(card, listener) {
-
-    card.addEventListener("blur", listener);
-    card.addEventListener("keyup", listener);
-    card.addEventListener("paste", listener);
-    card.addEventListener("copy", listener);
-    card.addEventListener("cut", listener);
-    card.addEventListener("delete", listener);
+  function listenCardChanges(div, listener) {
+    console.log('title changed');
+    div.addEventListener("blur", listener);
+    div.addEventListener("keyup", listener);
+    div.addEventListener("paste", listener);
+    div.addEventListener("copy", listener);
+    div.addEventListener("cut", listener);
+    div.addEventListener("delete", listener);
     // div.addEventListener("mouseup", listener);
 
   }
 
   initialiseSidebar()
   addKanbanCards(activeProjectObj.tasks)
-  updateProjectTitles(activeProjectObj.title)
+  updateHomepageProjectTitles(activeProjectObj.title)
   refreshKanbanCardsCounter()
 
   document.querySelectorAll('#sidebar .project-list li').forEach(el => {
@@ -235,8 +240,24 @@ const controller = (() => {
   document.querySelectorAll('.kanban-container .card').forEach(card => {
     let editbtn = card.querySelector('.edit-btn');
     editbtn.addEventListener('click', makeCardEditable);
-    listenCardChanges(card, saveCardChanges);
+    // listenCardChanges(card, saveCardChanges);
   })
+
+
+  const mainTitle = document.querySelector('main .project-title');
+
+  function test(){
+    console.log('title changed');
+    let newTitle = mainTitle.textContent;
+    updateHomepageProjectTitles(newTitle);
+    //update project title in sidebar
+    const projectItemInSidebar = document.querySelectorAll('#sidebar .project-list li')[activeProjectObj.id];
+    projectItemInSidebar.textContent = newTitle;
+    activeProjectObj.title = newTitle;
+  }
+
+  listenCardChanges(mainTitle, test);
+
 
 
 

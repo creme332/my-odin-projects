@@ -93,7 +93,9 @@ main {
 main .project-title {
     font-size: 40px;
 }
-
+main .project-title:focus {
+    outline:0;
+}
 main .options-tab {
     display: flex;
     justify-content: space-between;
@@ -147,9 +149,6 @@ main .options-tab ul {
     /* background-color: rgb(220, 220, 220); */
 }
 
-.card-id{
-    display: none;
-}
 .col-header {
     display: flex;
     gap: 1em;
