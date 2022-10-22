@@ -26,7 +26,8 @@
 
         </div>
     </div>
-    <div class="offcanvas offcanvas-end show" tabindex="-1" id="expanded-card">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="expanded-card">
         <div class="offcanvas-header">
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="delete-btn"><i class="fa-solid fa-trash"></i></div>
@@ -36,37 +37,37 @@
                 <h1 contenteditable="true">🎄 My project</h1>
 
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
-                    <select class="form-select" id="inputGroupSelect01">
-                        <option value="1">Next</option>
-                        <option value="2">In Progress</option>
-                        <option value="3">Completed</option>
+                    <label class="input-group-text" for="statusGroup">Status</label>
+                    <select class="form-select" id="statusGroup">
+                        <option value="Next">Next</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
                     </select>
                 </div>
 
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="inputGroupSelect01">Priority</label>
-                    <select class="form-select" id="inputGroupSelect01">
-                        <option value="1">High</option>
-                        <option value="2">Medium</option>
-                        <option value="3">Low</option>
+                    <label class="input-group-text" for="priorityGroup">Priority</label>
+                    <select class="form-select" id="priorityGroup">
+                        <option value="High 🔥">High 🔥</option>
+                        <option value="Medium 😶">Medium 😶</option>
+                        <option value="Low 👶">Low 👶</option>
                     </select>
                 </div>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Due Date</span>
-                    <input type="date" class="form-control" placeholder="Username" aria-label="Username"
+                    <span class="input-group-text" for="dueDate">Due Date</span>
+                    <input type="date" class="form-control" id="dueDate" aria-label="Due Date">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" for="description">Description</span>
+                    <input type="text" class="form-control" id="description" aria-label="Username"
                         aria-describedby="basic-addon1">
                 </div>
 
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Description</span>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-                    <label for="floatingTextarea2">Comments</label>
+                    <textarea class="form-control" id="commentSection"></textarea>
+                    <label for="commentSection">Comments</label>
                 </div>
 
             </form>
