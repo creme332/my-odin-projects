@@ -1,3 +1,5 @@
+import { format, formatDistance } from 'date-fns';
+
 /**
  * Creates and returns an HTML element.
  * @param {string} type HTML type : div, nav, ul, ...
@@ -26,14 +28,14 @@ export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChild
 
 /**
  * Returns an HTML card with a todo item's details.
- * @param {Task} cardObj 
+ * @param {Task} taskObj 
  * @returns {HTMLElement}
  */
-export function createCardElement(cardObj) {
-  const title = createHtmlElement('div', null, ['card-title'], cardObj.title, null);
+export function createCardElement(taskObj) {
+  const title = createHtmlElement('div', null, ['card-title'], taskObj.title, null);
 
   let priorityClass = ['card-priority', 'highlight'];
-  let priorityLevel = cardObj.getPriorityIndex();
+  let priorityLevel = taskObj.getPriorityIndex();
   if (priorityLevel == 0) {
     priorityClass.push('high-priority');
   }
@@ -43,9 +45,13 @@ export function createCardElement(cardObj) {
   if (priorityLevel == 2) {
     priorityClass.push('low-priority');
   }
-  const priority = createHtmlElement('div', null, priorityClass, cardObj.priority, null);
 
-  const date = createHtmlElement('div', null, ['card-date'], cardObj.duedate, null);
-  const editBtn  = createHtmlElement('i',null,['fa-solid', 'fa-pen-to-square', 'edit-btn' ],null,null);
-  return createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtn]);
+  const priority = createHtmlElement('div', null, priorityClass, taskObj.priority, null);
+
+  const formattedDate = formatDistance(taskObj.duedate, new Date(), { addSuffix: true });
+  const date = createHtmlElement('div', null, ['card-date'], formattedDate, null);
+  const editBtn = createHtmlElement('i', null, ['fa-solid', 'fa-pen-to-square'], null, null);
+  const editBtnContainer = createHtmlElement('div', null, ['edit-btn'], null, [editBtn]);
+  const cardId = createHtmlElement('div', null, ['card-id'], taskObj.id.toString(), null);
+  return createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer, cardId]);
 }
