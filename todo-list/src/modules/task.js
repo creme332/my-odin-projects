@@ -43,8 +43,8 @@ export class Task {
         return this._description;
     }
 
-    set priority(priorityLevel) {
-        this._priority = Task.getPriority(priorityLevel);
+    set priority(priority) {
+        this._priority = priority;
     }
     static getPriority(priorityLevel) {
         if (priorityLevel < 0 || priorityLevel >= this.#priorityList.length) return '❌ Invalid priority level';
@@ -64,11 +64,16 @@ export class Task {
         return this._duedate;
     }
 
-    set status(statusIndex) {
-        this._status = Task.getStatus;
+    set status(status) {
+        this._status = status;
     }
     static getStatus(statusIndex) {
-        if (statusIndex < 0 || statusIndex >= this.#statusList.length) return '❌ Invalid status level';
+        if (statusIndex < 0 || statusIndex >= this.#statusList.length){
+            const error = '❌ Invalid status level';
+            console.log(error);
+            console.log(`${this}`);
+            return error
+        }; 
         return this.#statusList[statusIndex];
     }
     get status() {
