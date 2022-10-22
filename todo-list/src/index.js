@@ -260,4 +260,24 @@ const controller = (() => {
 
   listenCardChanges(mainTitle, changeProjectTitle);
 
+  function addNewProject() {
+    const emptyProject = new Project('🎭 Untitled', lib.size);
+    lib.addProject(emptyProject);
+
+    const titleContainer = createHtmlElement('div', null, ['project-title'], emptyProject.title, null);
+    const deleteIcon = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
+    const IconContainer = createHtmlElement('div', null, ['delete-btn'], null, [deleteIcon]);
+    const row = createHtmlElement('li', null, null, null,
+    [titleContainer, IconContainer]);
+    document.querySelector('#sidebar .project-list').appendChild(row);
+    row.addEventListener('click', switchKanbanProject);
+    IconContainer.addEventListener('click', deleteKanbanProject);
+  }
+
+
+  document.querySelector('#sidebar .new-row')
+    .addEventListener('click', addNewProject);
+
+
+
 })();
