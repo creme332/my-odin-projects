@@ -2,8 +2,8 @@
  * A Project has zero or more Tasks objects and belongs to a single Library.
  */
 export class Project {
-    #tasksArray = [];
     _id; // index of Project in Library
+    #tasksArray = [];
     _title;
 
     /**
@@ -36,6 +36,13 @@ export class Project {
 
     removeTask(taskIndex) {
         this.#tasksArray.splice(taskIndex, 1);
+        this.#updateTaskIds();
+    }
+
+    #updateTaskIds() {
+        for (let id = 0; id < this.size; id++) {
+            this.#tasksArray[id].id = id;
+        }
     }
 
     get tasks() {
