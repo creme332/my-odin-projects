@@ -4,7 +4,7 @@ import './styles.css';
 
 //import my modules
 import { Project } from './modules/project';
-import { createHtmlElement, createCardElement } from './modules/helper';
+import { createCardElement, createSidebarProjectElement } from './modules/helper';
 import { initialiseLibrary } from './modules/init';
 
 // Boostrap imports
@@ -20,30 +20,26 @@ const controller = (() => {
   let activeProjectObj = lib.projects[0];
   const expandedCardCanvas = document.querySelector('#expanded-card');
 
+  function addProjectToSidebar(projectObj) {
+    const list = document.querySelector('#sidebar .offcanvas-body .project-list');
+    const projectElement = createSidebarProjectElement(projectObj);
+    list.appendChild(projectElement);
+
+    //add event listeners
+    projectElement.addEventListener('click', switchKanbanProject.bind(null, projectObj));
+    projectElement.
+      querySelector('.delete-btn').
+      addEventListener('click', deleteProject.bind(null, projectObj));
+  }
+
   /**
    * Initialises sidebar by adding project names and enabling Bootstrap. 
    * 
    * ⚠ Do not call this function more than once as it will ALL clear event listeners on the list items in sidebar.
    */
   function initialiseSidebar() {
-
-    //Bootstrap code to enable sidebar
-    var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'));
-    var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
-      return new Offcanvas(offcanvasEl);
-    });
-
-    const list = document.querySelector('#sidebar .offcanvas-body ul');
-
-    //clear current items in sidebar
-    list.querySelectorAll('li').forEach(i => i.remove());
-
-    //add new items
-    for (const project of lib.projects) {
-      const titleContainer = createHtmlElement('div', null, ['project-title'], project.title, null);
-      const deleteIcon = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
-      const IconContainer = createHtmlElement('div', null, ['delete-btn'], null, [deleteIcon]);
-      list.appendChild(createHtmlElement('li', null, null, null, [titleContainer, IconContainer]));
+    for (const projectObj of lib.projects) {
+      addProjectToSidebar(projectObj);
     }
   }
 
@@ -75,14 +71,13 @@ const controller = (() => {
     taskObj.status = expandedCardCanvas.querySelector('#statusGroup').value;
     taskObj.priority = expandedCardCanvas.querySelector('#priorityGroup').value;
     taskObj.description = expandedCardCanvas.querySelector('#description').value;
-    // console.log(taskObj);
 
     //update library (when `activeProjectObj` is updated, `lib` is also updated)
     activeProjectObj.tasks[taskObj.id] = taskObj;
     console.log(lib);
 
     clearKanban();
-    addKanbanCards(activeProjectObj.tasks)
+    addKanbanCards(activeProjectObj.tasks);
     refreshKanbanCardsCounter();
   }
 
@@ -110,12 +105,13 @@ const controller = (() => {
     //add event listener for when expanded card view is closed => editing mode is off
     expandedCardCanvas.addEventListener('hidden.bs.offcanvas', updateTask.bind(null, taskObj), { once: true });
   }
+
   function deleteTask(taskObj, e) {
     e.stopPropagation();
     activeProjectObj.removeTask(taskObj.id);
     e.target.closest('.card').remove();
     refreshKanbanCardsCounter();
-    console.log('deleted task ', lib);
+    console.log('DELETE task ', lib);
   }
 
   /**
@@ -152,62 +148,41 @@ const controller = (() => {
    * @param {Event} e click event on a list item in sidebar
    * @returns 
    */
-  function switchKanbanProject(e) {
-    const list = document.querySelectorAll('#sidebar .project-list li');
-
-    //get the LI element on which user clicked
-    let liElement = e.target;
-
-    if (e.target.nodeName != 'LI') { //user clicked on containers inside <li></li>
-      if (e.target.nodeName == 'path') { //user clicked on delete icon
-        return;
-      }
-      liElement = e.target.closest('li');
-    }
-
-    //get position of clicked project in Library
-    let projectIndex = 0;
-    while (!list[projectIndex].isEqualNode(liElement)) {
-      projectIndex++;
-    }
-    const projectObj = lib.getProject(projectIndex);
-
+  function switchKanbanProject(projectObj, e) {
     if (projectObj == activeProjectObj) { //user clicked on currently active project
       return;
     }
     clearKanban();
-    addKanbanCards(projectObj.tasks)
-    refreshKanbanCardsCounter()
-    updateHomepageProjectTitles(projectObj.title)
+    addKanbanCards(projectObj.tasks);
+    refreshKanbanCardsCounter();
+    updateHomepageProjectTitles(projectObj.title);
     activeProjectObj = projectObj;
   }
 
   /**
    * Deletes a project from sidebar and from library.
+   * @param {Project} projectObj Project to be deleted
    * @param {Event} e click event on trash-icon in sidebar
    */
-  function deleteKanbanProject(e) {
-    const list = document.querySelectorAll('#sidebar .project-list li');
+  function deleteProject(projectObj, e) {
+    e.stopPropagation(); //to prevent expanded-card from opening
 
     //get the LI element containing clicked button
     let liElement = e.target.closest('li');
 
-    //get position of corresponding project in Library
-    let projectIndex = 0;
-    while (!list[projectIndex].isEqualNode(liElement)) {
-      projectIndex++;
-    }
+    console.log('must delete this project : ', projectObj);
+    console.log('active project', activeProjectObj);
 
-    const projectToBeDeleted = lib.getProject(projectIndex);
-    if (JSON.stringify(projectToBeDeleted) == JSON.stringify(activeProjectObj)) {
+    if (JSON.stringify(projectObj) == JSON.stringify(activeProjectObj)) {
       clearKanban();
-      refreshKanbanCardsCounter()
+      refreshKanbanCardsCounter();
       activeProjectObj = new Project('❌ DELETED PROJECT', -1);
-      updateHomepageProjectTitles('❌ DELETED PROJECT')
+      updateHomepageProjectTitles('❌ DELETED PROJECT');
     }
 
-    lib.removeProject(projectIndex);
+    lib.removeProject(projectObj.id);
     liElement.remove();
+    console.log('Deleted project', lib);
   }
 
   function makeCardEditable(e) {
@@ -233,51 +208,45 @@ const controller = (() => {
 
   }
 
-  initialiseSidebar()
-  addKanbanCards(activeProjectObj.tasks)
-  updateHomepageProjectTitles(activeProjectObj.title)
-  refreshKanbanCardsCounter()
-
-  document.querySelectorAll('#sidebar .project-list li').forEach(el => {
-    el.addEventListener('click', switchKanbanProject);
-  })
-
-  document.querySelectorAll('#sidebar .project-list .delete-btn').forEach(el => {
-    el.addEventListener('click', deleteKanbanProject);
-  });
-
-  const mainTitle = document.querySelector('main .project-title');
-
   function changeProjectTitle() {
+
+    //if currently on a deleted project, do nothing.
+    if (activeProjectObj.id < 0) return;
+
     console.log('title changed');
     let newTitle = mainTitle.textContent;
     updateHomepageProjectTitles(newTitle);
+
     //update project title in sidebar
-    const projectItemInSidebar = document.querySelectorAll('#sidebar .project-list li')[activeProjectObj.id];
-    projectItemInSidebar.textContent = newTitle;
+    const projectTitleContainer = document.
+      querySelectorAll('#sidebar .project-list li')[activeProjectObj.id].
+      querySelector('.project-title');
+    projectTitleContainer.textContent = newTitle;
+
     activeProjectObj.title = newTitle;
   }
 
-  listenCardChanges(mainTitle, changeProjectTitle);
-
-  function addNewProject() {
+  function createNewProject() {
     const emptyProject = new Project('🎭 Untitled', lib.size);
     lib.addProject(emptyProject);
-
-    const titleContainer = createHtmlElement('div', null, ['project-title'], emptyProject.title, null);
-    const deleteIcon = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
-    const IconContainer = createHtmlElement('div', null, ['delete-btn'], null, [deleteIcon]);
-    const row = createHtmlElement('li', null, null, null,
-    [titleContainer, IconContainer]);
-    document.querySelector('#sidebar .project-list').appendChild(row);
-    row.addEventListener('click', switchKanbanProject);
-    IconContainer.addEventListener('click', deleteKanbanProject);
+    addProjectToSidebar(emptyProject);
   }
 
+  initialiseSidebar();
+  addKanbanCards(activeProjectObj.tasks);
+  updateHomepageProjectTitles(activeProjectObj.title);
+  refreshKanbanCardsCounter();
+
+  const mainTitle = document.querySelector('main .project-title');
+  listenCardChanges(mainTitle, changeProjectTitle);
 
   document.querySelector('#sidebar .new-row')
-    .addEventListener('click', addNewProject);
+    .addEventListener('click', createNewProject);
 
-
+  //Bootstrap code to enable offcanvas element
+  let offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'));
+  offcanvasElementList.map(function (offcanvasEl) {
+    return new Offcanvas(offcanvasEl);
+  });
 
 })();
