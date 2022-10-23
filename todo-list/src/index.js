@@ -16,6 +16,14 @@ import './scss/styles.scss';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 
+//fullcalendar
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+
+import { format } from 'date-fns';
+
 const controller = (() => {
   const lib = initialiseLibrary();
   let activeProjectObj = lib.projects[0];
@@ -197,17 +205,6 @@ const controller = (() => {
     console.log('Deleted project', lib);
   }
 
-  function makeCardEditable(e) {
-    const card = e.target.closest('.card');
-    card.setAttribute('contenteditable', 'true');
-    card.focus();
-
-    //when card loses focus, make card uneditable
-    card.addEventListener('blur', function (evt) {
-      card.removeAttribute('contenteditable');
-    }, { once: true });
-  }
-
   function listenCardChanges(div, listener) {
     console.log('title changed');
     div.addEventListener("blur", listener);
@@ -293,6 +290,73 @@ const controller = (() => {
   document.querySelectorAll('.kanban-container .new-row')
     .forEach(btn => {
       btn.addEventListener('click', createTask);
-    })
+    });
 
+    function toggleViews(){
+      document.querySelector('.kanban-container').classList.toggle('hide');
+      document.querySelector('#calendar').classList.toggle('hide');
+      document.querySelector('#kanban-view-btn').classList.toggle('selected-view');
+      document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
+    }
+  document.querySelector('#calendar-view-btn')
+  .addEventListener('click',()=>{
+    if(document.querySelector('#calendar').classList.contains('hide')){
+      toggleViews();
+      calendarFactory.renderCalendar(activeProjectObj.tasks);
+    }
+  });
+
+  document.querySelector('#kanban-view-btn')
+  .addEventListener('click',()=>{
+    if(document.querySelector('.kanban-container').classList.contains('hide')){
+      toggleViews();
+    }
+  })
+})();
+
+
+const calendarFactory = (()=>{
+  const calendarEl = document.getElementById('calendar');
+
+  function parseEvents(tasksArray){
+    let eventList = [];
+    for (let task of tasksArray){
+      let obj = {
+        "title": task.title,
+        "start": format(task.duedate, "yyyy-MM-dd"),
+        "classNames" : [],
+      };
+      if(task.getPriorityIndex()==0){
+        obj.classNames = ['high-priority'];
+      }
+      if(task.getPriorityIndex()==1){
+        obj.classNames = ['medium-priority'];
+      }
+      if(task.getPriorityIndex()==2){
+        obj.classNames = ['low-priority'];
+      }
+      eventList.push(obj);
+    }
+    console.log(eventList);
+    return eventList;
+  }
+
+  function renderCalendar(tasksArray){
+    const calendar = new Calendar(calendarEl, {
+      plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      },
+      initialDate: new Date(),
+      navLinks: true, // can click day/week names to navigate views
+      editable: true,
+      dayMaxEvents: true, // allow "more" link when too many events
+      events: parseEvents(tasksArray)
+    });
+  
+    calendar.render();
+  }
+  return { renderCalendar };
 })();

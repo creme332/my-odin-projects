@@ -45,3 +45,11 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* fullcalendar css resets */
+#calendar .fc-col-header-cell-cushion, #calendar .fc-event-time,
+#calendar .fc-daygrid-day-number,
+#calendar .fc-event-title{
+    color:black;
+    text-decoration: none;
+} 

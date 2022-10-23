@@ -66,7 +66,8 @@ nav .project-title {
     color: var(--icon-color);
 }
 
-.card .delete-btn:hover, .delete-btn:hover {
+.card .delete-btn:hover,
+.delete-btn:hover {
     color: red;
 }
 
@@ -93,9 +94,11 @@ main {
 main .project-title {
     font-size: 40px;
 }
+
 main .project-title:focus {
-    outline:0;
+    outline: 0;
 }
+
 main .options-tab {
     display: flex;
     justify-content: space-between;
@@ -123,13 +126,16 @@ main .options-tab ul {
 
 .options-tab li:hover {
     background-color: var(--gray-hover);
-
 }
 
-.options-tab .display-type li:nth-child(1) {
+main .options-tab li.selected-view {
     color: black;
     /* text-decoration: underline; */
     font-weight: 500;
+}
+
+.hide {
+    display: none !important;
 }
 
 .kanban-container {
@@ -139,6 +145,18 @@ main .options-tab ul {
     width: 100%;
     /* outline: 1px solid; */
 }
+
+
+#calendar {
+    width: 100%;
+}
+
+#calendar .fc-event-title {
+    padding: 5px;
+}
+
+
+
 
 .col,
 .cards-container {
@@ -198,16 +216,22 @@ main .options-tab ul {
     padding: 8px 10px 6px 6px;
 }
 
-.high-priority {
+.high-priority,
+#calendar .high-priority {
     background-color: var(--red);
+    border: 0;
 }
 
-.medium-priority {
+.medium-priority,
+#calendar .medium-priority {
     background-color: var(--yellow);
+    border: 0;
 }
 
-.low-priority {
+.low-priority,
+#calendar .low-priority {
     background-color: var(--green);
+    border: 0;
 }
 
 .card-date,
