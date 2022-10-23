@@ -4,6 +4,7 @@ import './styles.css';
 
 //import my modules
 import { Project } from './modules/project';
+import { Task } from './modules/task';
 import { createCardElement, createSidebarProjectElement } from './modules/helper';
 import { initialiseLibrary } from './modules/init';
 
@@ -20,6 +21,10 @@ const controller = (() => {
   let activeProjectObj = lib.projects[0];
   const expandedCardCanvas = document.querySelector('#expanded-card');
 
+  /** Adds a single project of list type  with event listeners to sidebar.
+   * 
+   * @param {Project} projectObj 
+   */
   function addProjectToSidebar(projectObj) {
     const list = document.querySelector('#sidebar .offcanvas-body .project-list');
     const projectElement = createSidebarProjectElement(projectObj);
@@ -30,6 +35,21 @@ const controller = (() => {
     projectElement.
       querySelector('.delete-btn').
       addEventListener('click', deleteProject.bind(null, projectObj));
+  }
+
+  /** Adds a single to-do item with event listeners to kanban-container.
+   * 
+   * @param {Task} taskObj 
+   */
+  function addCardToKanban(taskObj) {
+    const allCols = document.querySelectorAll('.kanban-container .col');
+
+    let cardElement = createCardElement(taskObj);
+    allCols[taskObj.getStatusIndex()].querySelector('.cards-container').appendChild(cardElement);
+
+    cardElement.addEventListener('click', openTask.bind(null, taskObj));
+    cardElement.querySelector('.delete-btn').addEventListener('click', deleteTask.bind(null, taskObj));
+
   }
 
   /**
@@ -122,15 +142,7 @@ const controller = (() => {
     const cols = document.querySelectorAll('.kanban-container .col');
 
     for (let task of tasksArray) {
-      let colIndex = task.getStatusIndex();
-      let cardElement = createCardElement(task);
-
-      //add event listeners to card
-
-      cardElement.addEventListener('click', openTask.bind(null, task));
-      cardElement.querySelector('.delete-btn').addEventListener('click', deleteTask.bind(null, task));
-
-      cols[colIndex].querySelector('.cards-container').appendChild(cardElement);
+      addCardToKanban(task);
     }
   }
 
@@ -232,6 +244,35 @@ const controller = (() => {
     addProjectToSidebar(emptyProject);
   }
 
+  function createTask(e) {
+    //do not create task on deleted project "screen"
+    if (activeProjectObj.id < 0) return;
+
+    console.log('CREATE task');
+
+    //find index of column where new task must be inserted
+    const allCols = document.querySelectorAll('.kanban-container .col');
+    const col = e.target.closest('.col');
+    let colIndex = 0;
+    while (!col.isEqualNode(allCols[colIndex])) {
+      colIndex++;
+    }
+
+    const emptyTask = new Task(
+      '💋 Untitled',
+      'A description',
+      Task.getPriority(2),
+      new Date(),
+      Task.getStatus(colIndex),
+      activeProjectObj.size);
+
+    activeProjectObj.addTask(emptyTask);
+    addCardToKanban(emptyTask);
+    refreshKanbanCardsCounter();
+
+    console.log(lib);
+  }
+
   initialiseSidebar();
   addKanbanCards(activeProjectObj.tasks);
   updateHomepageProjectTitles(activeProjectObj.title);
@@ -248,5 +289,10 @@ const controller = (() => {
   offcanvasElementList.map(function (offcanvasEl) {
     return new Offcanvas(offcanvasEl);
   });
+
+  document.querySelectorAll('.kanban-container .new-row')
+    .forEach(btn => {
+      btn.addEventListener('click', createTask);
+    })
 
 })();
