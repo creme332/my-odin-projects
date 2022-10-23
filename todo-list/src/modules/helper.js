@@ -54,3 +54,11 @@ export function createCardElement(taskObj) {
   const editBtnContainer = createHtmlElement('div', null, ['delete-btn'], null, [editBtn]);
   return createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer]);
 }
+
+export function createSidebarProjectElement(projectObj){
+  const titleContainer = createHtmlElement('div', null, ['project-title'], projectObj.title, null);
+  const deleteIcon = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
+  const deleteIconContainer = createHtmlElement('div', null, ['delete-btn'], null, [deleteIcon]);
+  const listItem = createHtmlElement('li', null, null, null, [titleContainer, deleteIconContainer]);
+  return listItem;
+}
