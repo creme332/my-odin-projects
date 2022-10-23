@@ -4,6 +4,7 @@
   "description": "A simple to-do list",
   "main": "index.js",
   "scripts": {
+    "start": "webpack serve --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "creme332",
@@ -22,12 +23,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.0",
+    "@fullcalendar/core": "^5.11.3",
+    "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/list": "^5.11.3",
+    "@fullcalendar/timegrid": "^5.11.3",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.2",
     "date-fns": "^2.29.3"
-  },
-  "scripts": {
-    "start": "webpack serve --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
