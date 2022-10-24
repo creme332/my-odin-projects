@@ -7,6 +7,7 @@ import { Project } from './modules/project';
 import { Task } from './modules/task';
 import { createCardElement, createSidebarProjectElement } from './modules/helper';
 import { initialiseLibrary } from './modules/init';
+import { htmlFactory } from './modules/htmlFactory';
 
 // Boostrap imports
 import { Offcanvas } from 'bootstrap';
@@ -99,6 +100,7 @@ const controller = (() => {
     taskObj.status = expandedCardCanvas.querySelector('#statusGroup').value;
     taskObj.priority = expandedCardCanvas.querySelector('#priorityGroup').value;
     taskObj.description = expandedCardCanvas.querySelector('#description').value;
+    taskObj.duedate = expandedCardCanvas.querySelector('#dueDate').valueAsDate;
 
     //update library (when `activeProjectObj` is updated, `lib` is also updated)
     activeProjectObj.tasks[taskObj.id] = taskObj;
@@ -292,47 +294,54 @@ const controller = (() => {
       btn.addEventListener('click', createTask);
     });
 
-    function toggleViews(){
-      document.querySelector('.kanban-container').classList.toggle('hide');
-      document.querySelector('#calendar').classList.toggle('hide');
-      document.querySelector('#kanban-view-btn').classList.toggle('selected-view');
-      document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
-    }
+  function toggleViews() {
+    document.querySelector('.kanban-container').classList.toggle('hide');
+    document.querySelector('#calendar').classList.toggle('hide');
+    document.querySelector('#kanban-view-btn').classList.toggle('selected-view');
+    document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
+  }
   document.querySelector('#calendar-view-btn')
-  .addEventListener('click',()=>{
-    if(document.querySelector('#calendar').classList.contains('hide')){
-      toggleViews();
-      calendarFactory.renderCalendar(activeProjectObj.tasks);
-    }
-  });
+    .addEventListener('click', () => {
+      if (document.querySelector('#calendar').classList.contains('hide')) {
+        toggleViews();
+        calendarFactory.renderCalendar(activeProjectObj.tasks);
+      }
+    });
 
   document.querySelector('#kanban-view-btn')
-  .addEventListener('click',()=>{
-    if(document.querySelector('.kanban-container').classList.contains('hide')){
-      toggleViews();
-    }
-  })
+    .addEventListener('click', () => {
+      if (document.querySelector('.kanban-container').classList.contains('hide')) {
+        toggleViews();
+      }
+    })
 })();
 
+const kanbanFactory = (() => {
 
-const calendarFactory = (()=>{
+})();
+
+const sidebarFactory = (() => {
+
+})();
+
+const calendarFactory = (() => {
   const calendarEl = document.getElementById('calendar');
 
-  function parseEvents(tasksArray){
+  function parseEvents(tasksArray) {
     let eventList = [];
-    for (let task of tasksArray){
+    for (let task of tasksArray) {
       let obj = {
         "title": task.title,
         "start": format(task.duedate, "yyyy-MM-dd"),
-        "classNames" : [],
+        "classNames": [],
       };
-      if(task.getPriorityIndex()==0){
+      if (task.getPriorityIndex() == 0) {
         obj.classNames = ['high-priority'];
       }
-      if(task.getPriorityIndex()==1){
+      if (task.getPriorityIndex() == 1) {
         obj.classNames = ['medium-priority'];
       }
-      if(task.getPriorityIndex()==2){
+      if (task.getPriorityIndex() == 2) {
         obj.classNames = ['low-priority'];
       }
       eventList.push(obj);
@@ -341,9 +350,9 @@ const calendarFactory = (()=>{
     return eventList;
   }
 
-  function renderCalendar(tasksArray){
+  function renderCalendar(tasksArray) {
     const calendar = new Calendar(calendarEl, {
-      plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
+      plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
@@ -355,8 +364,11 @@ const calendarFactory = (()=>{
       dayMaxEvents: true, // allow "more" link when too many events
       events: parseEvents(tasksArray)
     });
-  
+
     calendar.render();
   }
   return { renderCalendar };
 })();
+
+
+console.log(htmlFactory.getKanbanCols());
