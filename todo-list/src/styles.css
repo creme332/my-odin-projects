@@ -204,6 +204,15 @@ main .options-tab li.selected-view {
     flex-direction: column;
     gap: 0.5em;
     padding: 9px;
+    cursor:move;
+}
+
+.card .delete-btn{
+    cursor:default;
+}
+
+.card.dragging{
+    opacity:0.5;
 }
 
 .card:hover {

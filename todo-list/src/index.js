@@ -21,7 +21,8 @@ import '@fortawesome/fontawesome-free/js/solid';
 const controller = (() => {
   const lib = initialiseLibrary();
   let activeProjectObj = lib.projects[0];
-
+  let draggedTaskObj;
+  
   /** Adds a single project of list type  with event listeners to sidebar.
    * 
    * @param {Project} projectObj 
@@ -50,6 +51,19 @@ const controller = (() => {
 
     cardElement.addEventListener('click', openTask.bind(null, taskObj));
     cardElement.querySelector('.delete-btn').addEventListener('click', deleteTask.bind(null, taskObj));
+
+    //add event listeners for drag and drop feature
+    cardElement.addEventListener('dragstart', (e) => {
+      draggedTaskObj = taskObj;
+      console.log('drag start', draggedTaskObj)
+      cardElement.classList.add('dragging');
+    });
+
+    cardElement.addEventListener('dragend', (e) => {
+      draggedTaskObj = {};
+      console.log('drag end', draggedTaskObj)
+      cardElement.classList.remove('dragging');
+    });
   }
 
   /**
@@ -277,9 +291,56 @@ const controller = (() => {
     document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
   }
 
+  function dragFeature() {
+    const containers = document.querySelectorAll('.col');
+
+    containers.forEach(c => {
+      c.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        console.log('drag over');
+
+        const draggedElement = document.querySelector('.dragging');
+        const cardContainer = c.querySelector('.cards-container');
+        const afterElement = getDragAfterElement(cardContainer, e.clientY);
+
+        draggedTaskObj.status = Task.getStatus(getColumnIndex(c));
+        console.log(lib)
+        if (afterElement == null) {
+          cardContainer.appendChild(draggedElement);
+        } else {
+          cardContainer.insertBefore(draggedElement, afterElement);
+        }
+      })
+    })
+
+    function getColumnIndex(col) {
+      let columnIndex = 0;
+      while (!containers[columnIndex].isEqualNode(col)) {
+        columnIndex++;
+      }
+      return columnIndex;
+    }
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')]
+
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect()
+        const offset = y - box.top - box.height / 2
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child }
+        } else {
+          return closest
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element
+    }
+  }
+
+  dragFeature();
+
   calendarFactory.getButton()
     .addEventListener('click', () => {
-      if (document.querySelector('#calendar').classList.contains('hide')) {
+      if (document.querySelector('#calendar').classList.contains('hide') && activeProjectObj.id>=0) {
         toggleViews();
         calendarFactory.renderCalendar(activeProjectObj.tasks);
       }
