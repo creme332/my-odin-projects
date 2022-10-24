@@ -11,7 +11,7 @@ import { htmlFactory, expandedCard } from './modules/htmlFactory';
 import { calendarFactory } from './modules/calendarFactory';
 
 // Boostrap imports
-import { Offcanvas } from 'bootstrap';
+import { Offcanvas, Dropdown } from 'bootstrap';
 import './scss/styles.scss';
 
 //font-awesome-free imports
@@ -22,7 +22,7 @@ const controller = (() => {
   const lib = initialiseLibrary();
   let activeProjectObj = lib.projects[0];
   let draggedTaskObj;
-  
+
   /** Adds a single project of list type  with event listeners to sidebar.
    * 
    * @param {Project} projectObj 
@@ -276,6 +276,8 @@ const controller = (() => {
   offcanvasElementList.map(function (offcanvasEl) {
     return new Offcanvas(offcanvasEl);
   });
+  const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
+  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new Dropdown(dropdownToggleEl))
 
   //add event listeners to add buttons in kanban
   const addButtons = document.querySelectorAll('.kanban-container .new-row');
@@ -310,6 +312,7 @@ const controller = (() => {
         } else {
           cardContainer.insertBefore(draggedElement, afterElement);
         }
+        refreshKanbanCardsCounter();
       })
     })
 
@@ -340,7 +343,7 @@ const controller = (() => {
 
   calendarFactory.getButton()
     .addEventListener('click', () => {
-      if (document.querySelector('#calendar').classList.contains('hide') && activeProjectObj.id>=0) {
+      if (document.querySelector('#calendar').classList.contains('hide') && activeProjectObj.id >= 0) {
         toggleViews();
         calendarFactory.renderCalendar(activeProjectObj.tasks);
       }
@@ -352,6 +355,7 @@ const controller = (() => {
         toggleViews();
       }
     })
+
 })();
 
 

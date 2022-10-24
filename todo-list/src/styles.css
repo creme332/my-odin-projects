@@ -6,8 +6,13 @@
     --gray-hover: rgb(248, 248, 248);
     --icon-color: #bbbbbb;
 }
-
+#calendar .fc-button, #calendar .fc-button-group {
+    background-color: white !important;
+    color: black;
+    /* border: 1px solid; */
+}
 body {
+    width: 100vw;
     display: flex;
     flex-direction: column;
     font-family: sans-serif;
@@ -106,25 +111,24 @@ main .options-tab {
     border-bottom: 1px solid rgb(221, 221, 221);
 }
 
-main .options-tab ul {
+main .options-tab>ul {
     padding: 0;
     display: flex;
     align-items: center;
     gap: 2em;
     /* outline:1px solid ; */
-
 }
 
 /* main styles end here */
 
-.options-tab li {
+.options-tab>ul li {
     color: var(--gray);
     padding: 5px;
     border-radius: 3px;
     /* outline:1px solid ; */
 }
 
-.options-tab li:hover {
+.options-tab>ul li:hover {
     background-color: var(--gray-hover);
 }
 
@@ -132,6 +136,22 @@ main .options-tab li.selected-view {
     color: black;
     /* text-decoration: underline; */
     font-weight: 500;
+}
+
+.options-tab ul:nth-child(2) li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown>button {
+    color: var(--gray);
+    background-color: transparent;
+    border: 0;
+}
+
+#sort-menu .dropdown-item:hover {
+    background-color: var(--gray-hover);
 }
 
 .hide {
@@ -204,15 +224,15 @@ main .options-tab li.selected-view {
     flex-direction: column;
     gap: 0.5em;
     padding: 9px;
-    cursor:move;
+    cursor: move;
 }
 
-.card .delete-btn{
-    cursor:default;
+.card .delete-btn {
+    cursor: default;
 }
 
-.card.dragging{
-    opacity:0.5;
+.card.dragging {
+    opacity: 0.5;
 }
 
 .card:hover {
