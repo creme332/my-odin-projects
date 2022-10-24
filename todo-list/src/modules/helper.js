@@ -47,10 +47,8 @@ export function createCardElement(taskObj) {
   }
   const priority = createHtmlElement('div', null, priorityClass, taskObj.priority, null);
   
-  console.log(taskObj.duedate)
-  const dateOnly =  new Date(taskObj.duedate.toDateString()); 
-  
-  const formattedDate = formatDistance(dateOnly, new Date(), { addSuffix: true });
+
+  const formattedDate = formatDistance(taskObj.duedate, new Date(), { addSuffix: true });
   const date = createHtmlElement('div', null, ['card-date'], formattedDate, null);
   const editBtn = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
   const editBtnContainer = createHtmlElement('div', null, ['delete-btn'], null, [editBtn]);
