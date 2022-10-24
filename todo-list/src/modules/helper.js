@@ -45,14 +45,19 @@ export function createCardElement(taskObj) {
   if (priorityLevel == 2) {
     priorityClass.push('low-priority');
   }
-
   const priority = createHtmlElement('div', null, priorityClass, taskObj.priority, null);
-
-  const formattedDate = formatDistance(taskObj.duedate, new Date(), { addSuffix: true });
+  
+  console.log(taskObj.duedate)
+  const dateOnly =  new Date(taskObj.duedate.toDateString()); 
+  
+  const formattedDate = formatDistance(dateOnly, new Date(), { addSuffix: true });
   const date = createHtmlElement('div', null, ['card-date'], formattedDate, null);
   const editBtn = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
   const editBtnContainer = createHtmlElement('div', null, ['delete-btn'], null, [editBtn]);
-  return createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer]);
+
+  const card  = createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer]);
+  card.setAttribute('draggable',true);
+  return  card;
 }
 
 export function createSidebarProjectElement(projectObj){
