@@ -2,12 +2,12 @@
  * A Task represents a to-do item and belongs to a single Project.
  */
 export class Task {
+    _id;
     _title;
     _description;
     _priority;
     _duedate;
     _status;
-    _id;
     static #priorityList = ['High 🔥', 'Medium 😶', 'Low 👶'];
     static #statusList = ['Next', 'In Progress', 'Completed'];
 

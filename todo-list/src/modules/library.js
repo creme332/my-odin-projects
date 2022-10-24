@@ -3,8 +3,8 @@
  * 
  */
 export class Library {
-    #projectsArray = [];
     _id; // index of current Library in some other array. 
+    #projectsArray = [];
     _title;
 
     /**
