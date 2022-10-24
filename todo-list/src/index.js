@@ -7,7 +7,7 @@ import { Project } from './modules/project';
 import { Task } from './modules/task';
 import { createCardElement, createSidebarProjectElement } from './modules/helper';
 import { initialiseLibrary } from './modules/init';
-import { htmlFactory } from './modules/htmlFactory';
+import { htmlFactory, expandedCard } from './modules/htmlFactory';
 
 // Boostrap imports
 import { Offcanvas } from 'bootstrap';
@@ -28,7 +28,6 @@ import { format } from 'date-fns';
 const controller = (() => {
   const lib = initialiseLibrary();
   let activeProjectObj = lib.projects[0];
-  const expandedCardCanvas = document.querySelector('#expanded-card');
 
   /** Adds a single project of list type  with event listeners to sidebar.
    * 
@@ -96,14 +95,12 @@ const controller = (() => {
   function updateTask(taskObj, e) {
     console.log('UPDATED task ');
 
-    taskObj.title = expandedCardCanvas.querySelector('.offcanvas-body h1').textContent;
-    taskObj.status = expandedCardCanvas.querySelector('#statusGroup').value;
-    taskObj.priority = expandedCardCanvas.querySelector('#priorityGroup').value;
-    taskObj.description = expandedCardCanvas.querySelector('#description').value;
-    taskObj.duedate = expandedCardCanvas.querySelector('#dueDate').valueAsDate;
+    taskObj.title = expandedCard.getTitle();
+    taskObj.status = expandedCard.getStatus();
+    taskObj.priority = expandedCard.getPriority();
+    taskObj.description = expandedCard.getDescription();
+    taskObj.duedate = expandedCard.getDueDate();
 
-    //update library (when `activeProjectObj` is updated, `lib` is also updated)
-    activeProjectObj.tasks[taskObj.id] = taskObj;
     console.log(lib);
 
     clearKanban();
@@ -114,26 +111,21 @@ const controller = (() => {
   function openTask(taskObj, e) {
     console.log('OPENED task ');
 
-    expandedCardCanvas.querySelector('.offcanvas-body h1').textContent = taskObj.title;
+    //fill expanded card with task details
+    expandedCard.setTitle(taskObj.title);
+    expandedCard.setStatus(taskObj.getStatusIndex());
+    expandedCard.setPriority(taskObj.getPriorityIndex());
+    expandedCard.setDueDate(taskObj.duedate);
+    expandedCard.setDescription(taskObj.description);
 
-    // unselect any previous dropdown options
-    expandedCardCanvas.querySelectorAll('option').forEach(i => {
-      i.removeAttribute('selected');
-    });
-
-    //fill offcanvas with task details
-    const statusDropdownItems = expandedCardCanvas.querySelectorAll('#statusGroup option');
-    statusDropdownItems[taskObj.getStatusIndex()].setAttribute('selected', 'selected');
-    const priorityDropdownItems = expandedCardCanvas.querySelectorAll('#priorityGroup option');
-    priorityDropdownItems[taskObj.getPriorityIndex()].setAttribute('selected', 'selected');
-    expandedCardCanvas.querySelector('#description').value = taskObj.description;
-    expandedCardCanvas.querySelector('#dueDate').valueAsDate = taskObj.duedate;
-
-    //open offcanvas
-    new Offcanvas(expandedCardCanvas).show();
+    //open expanded view of card
+    expandedCard.show();
 
     //add event listener for when expanded card view is closed => editing mode is off
-    expandedCardCanvas.addEventListener('hidden.bs.offcanvas', updateTask.bind(null, taskObj), { once: true });
+    expandedCard.getElement().
+      addEventListener('hidden.bs.offcanvas',
+        updateTask.bind(null, taskObj),
+        { once: true });
   }
 
   function deleteTask(taskObj, e) {
@@ -300,6 +292,7 @@ const controller = (() => {
     document.querySelector('#kanban-view-btn').classList.toggle('selected-view');
     document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
   }
+  
   document.querySelector('#calendar-view-btn')
     .addEventListener('click', () => {
       if (document.querySelector('#calendar').classList.contains('hide')) {
@@ -370,5 +363,3 @@ const calendarFactory = (() => {
   return { renderCalendar };
 })();
 
-
-console.log(htmlFactory.getKanbanCols());
