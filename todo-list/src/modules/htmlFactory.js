@@ -30,7 +30,10 @@ export const htmlFactory = (() => {
     }
 
 
-    return { getKanbanCols };
+    return {
+        getKanbanCols, getSidebarProjectList, getSidebarProjectListItems,
+        setNavProjectTitle, setMainProjectTitle, getMainProjectTitleElement
+    };
 })();
 
 export const expandedCard = (() => {
