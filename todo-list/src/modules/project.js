@@ -3,7 +3,7 @@
  */
 export class Project {
     _id; // index of Project in Library
-    #tasksArray = [];
+    #tasksArray;
     _title;
 
     /**
@@ -11,9 +11,10 @@ export class Project {
      * @param {string} title 
      * @param {integer} id Index of project in a Library array
      */
-    constructor(title, id) {
+    constructor(title, id, tasksArray=[]) {
         this._title = title;
         this._id = id;
+        this.#tasksArray = tasksArray;
     }
 
     get title() {
@@ -51,5 +52,14 @@ export class Project {
 
     get size() {
         return this.#tasksArray.length;
+    }
+
+    getData() {
+        let object = {
+            "_id": this.id,
+            "_title": this.title,
+            "#tasksArray": this.#tasksArray
+        };
+        return object;
     }
 }

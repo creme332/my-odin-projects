@@ -4,7 +4,7 @@
  */
 export class Library {
     _id; // index of current Library in some other array. 
-    #projectsArray = [];
+    #projectsArray;
     _title;
 
     /**
@@ -12,9 +12,10 @@ export class Library {
      * @param {string} title 
      * @param {integer} id Index of library
      */
-    constructor(title, id) {
+    constructor(title, id, projectsArray = []) {
         this._title = title;
         this._id = id;
+        this.#projectsArray = projectsArray;
     }
 
     get title() {
@@ -52,5 +53,18 @@ export class Library {
 
     get size() {
         return this.#projectsArray.length;
+    }
+
+    getData() {
+        let object = {
+            "_id": this.id,
+            "_title": this.title,
+            "#projectsArray": [],
+        };
+
+        for (const project of this.#projectsArray){
+            object["#projectsArray"].push(project.getData());
+        }
+        return object;
     }
 }
