@@ -2,11 +2,64 @@ import { Library } from './library';
 import { Project } from './project';
 import { Task } from './task';
 
+export const WebStorageAPI = (() => {
+  const keyName = 'creme332-todo-project';
+
+  /**
+   * Saves current state of library to browser localStorage
+   * @param {Library} libraryObj 
+   */
+  function save(libraryObj) {
+    let stringJSON = JSON.stringify(libraryObj.getData());
+    localStorage.setItem(keyName, stringJSON);
+  }
+
+  /**
+   * Fetches library data from localStorage and returns it in the correct format.
+   * @returns {Library} `Library` object containing `Project` and `Task` objects
+   */
+  function load() {
+    let stringJSON = localStorage.getItem(keyName);
+
+    //user is visiting website for the first time
+    if (stringJSON === null) {
+      return getSampleLibrary();
+    }
+
+    let LibraryJSON = JSON.parse(stringJSON || '[]');
+
+    //if there are no projects, put a default project in library
+    if (LibraryJSON['#projectsArray'].length == 0) {
+      const libraryObj = new Library('Main', 0, [new Project('🎭 Untitled', 0)]);
+      return libraryObj;
+    }
+    
+    //Assign class objects to data in LibraryJSON
+    let projectsArrayObj = [];
+    for (const projectJSON of LibraryJSON['#projectsArray']) {
+      let tasksArrayObj = [];
+      for (const taskJSON of projectJSON['#tasksArray']) {
+        const taskObj = Object.assign(new Task(), taskJSON);
+        taskObj.duedate = new Date(taskObj.duedate); //duedate is initially serialized
+        tasksArrayObj.push(taskObj);
+      }
+      const projectObj = new Project(projectJSON['_title'], parseInt(projectJSON['_id']), tasksArrayObj);
+      projectsArrayObj.push(projectObj);
+    }
+    const libraryObj = new Library('Main', 0, projectsArrayObj);
+
+    return libraryObj;
+  }
+
+  return { save, load };
+})();
+
+
 /**
  * Returns a sample Library with projects and tasks. 
  * @returns { Library } A library object
  */
-export function initialiseLibrary() {
+function getSampleLibrary() {
   const lib = new Library('Main', 0);
 
   let project = new Project('🖥 Coding', lib.size);
@@ -24,7 +77,7 @@ export function initialiseLibrary() {
     '🐛 Fix bug in CSS',
     'blablabla',
     Task.getPriority(0),
-    new Date(2022, 10, 11),
+    new Date(2022, 10, 12),
     Task.getStatus(0),
     project.size
   );
@@ -34,7 +87,7 @@ export function initialiseLibrary() {
     '🕷 Hire a web designer',
     'brrrrr haha lol',
     Task.getPriority(1),
-    new Date(2022, 10, 11),
+    new Date(2022, 10, 15),
     Task.getStatus(2),
     project.size
   );
@@ -44,7 +97,7 @@ export function initialiseLibrary() {
     '🎃 Add feature',
     'blablabla',
     Task.getPriority(2),
-    new Date(2022, 10, 11),
+    new Date(2022, 10, 15),
     Task.getStatus(1),
     project.size
   );
@@ -68,7 +121,7 @@ export function initialiseLibrary() {
     '🍰 Buy groceries',
     'Clean room before mom gets home',
     Task.getPriority(2),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 11),
     Task.getStatus(0),
     project.size
   );
@@ -78,7 +131,7 @@ export function initialiseLibrary() {
     '🙈 Wash face',
     'Clean room before mom gets home',
     Task.getPriority(1),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 12),
     Task.getStatus(0),
     project.size
   );
@@ -88,7 +141,7 @@ export function initialiseLibrary() {
     '🚪 Buy a door handle',
     'Clean room before mom gets home',
     Task.getPriority(1),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 12),
     Task.getStatus(0),
     project.size
   );
@@ -98,7 +151,7 @@ export function initialiseLibrary() {
     '🐢 Feed pet',
     'Clean room before mom gets home',
     Task.getPriority(0),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 5),
     Task.getStatus(0),
     project.size
   );
@@ -108,7 +161,7 @@ export function initialiseLibrary() {
     '🛫 Clean air conditioner',
     'Clean room before mom gets home',
     Task.getPriority(1),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 5),
     Task.getStatus(0),
     project.size
   );
@@ -118,7 +171,7 @@ export function initialiseLibrary() {
     '🎨 Paint walls of bathroom',
     'Clean room before mom gets home',
     Task.getPriority(0),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 7),
     Task.getStatus(0),
     project.size
   );
@@ -128,7 +181,7 @@ export function initialiseLibrary() {
     '🧹 Clean room',
     'Clean room before mom gets home',
     Task.getPriority(0),
-    new Date(2022, 10, 11),
+    new Date(2022, 10, 17),
     Task.getStatus(1),
     project.size
   );
@@ -138,7 +191,7 @@ export function initialiseLibrary() {
     '🔑 Search for missing key',
     'blablabla',
     Task.getPriority(2),
-    new Date(2022, 10, 11),
+    new Date(2022, 10, 17),
     Task.getStatus(1),
     project.size
   );
@@ -148,7 +201,7 @@ export function initialiseLibrary() {
     '💧 Wash dishes',
     'blablabla',
     Task.getPriority(1),
-    new Date(2022, 100, 11),
+    new Date(2022, 10, 25),
     Task.getStatus(2),
     project.size
   );
@@ -161,7 +214,7 @@ export function initialiseLibrary() {
     '➕ Do math homework (page 112)',
     'blablabla',
     Task.getPriority(2),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 17),
     Task.getStatus(0),
     project.size
   );
@@ -171,7 +224,7 @@ export function initialiseLibrary() {
     '🍏 Do physics homework (page 12)',
     'blablabla',
     Task.getPriority(0),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 17),
     Task.getStatus(0),
     project.size
   );
@@ -181,7 +234,7 @@ export function initialiseLibrary() {
     '🙂 Send Mr John a reminder',
     'blablabla',
     Task.getPriority(2),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 17),
     Task.getStatus(2),
     project.size
   );
@@ -191,7 +244,7 @@ export function initialiseLibrary() {
     '🤪 Learn Java',
     'Please',
     Task.getPriority(1),
-    new Date(2022, 10, 11),
+    new Date(2022, 11, 17),
     Task.getStatus(1),
     project.size
   );

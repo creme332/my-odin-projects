@@ -6,7 +6,7 @@ import './styles.css';
 import { Project } from './modules/project';
 import { Task } from './modules/task';
 import { createCardElement, createSidebarProjectElement } from './modules/helper';
-import { initialiseLibrary } from './modules/init';
+import { WebStorageAPI } from './modules/storage';
 import { htmlFactory, expandedCard } from './modules/htmlFactory';
 import { calendarFactory } from './modules/calendarFactory';
 
@@ -18,10 +18,17 @@ import './scss/styles.scss';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 
+
 const controller = (() => {
-  const lib = initialiseLibrary();
+  const lib = WebStorageAPI.load();
   let activeProjectObj = lib.projects[0];
-  let draggedTaskObj;
+  let draggedTaskObj; //task object of card currently being dragged
+
+  //save changes every 1s
+  setInterval(() => {
+    WebStorageAPI.save(lib);
+    // console.log(lib);
+  }, 1000);
 
   /** Adds a single project of list type  with event listeners to sidebar.
    * 
@@ -55,13 +62,13 @@ const controller = (() => {
     //add event listeners for drag and drop feature
     cardElement.addEventListener('dragstart', (e) => {
       draggedTaskObj = taskObj;
-      console.log('drag start', draggedTaskObj)
+      console.log('drag start', draggedTaskObj);
       cardElement.classList.add('dragging');
     });
 
     cardElement.addEventListener('dragend', (e) => {
       draggedTaskObj = {};
-      console.log('drag end', draggedTaskObj)
+      console.log('drag end', draggedTaskObj);
       cardElement.classList.remove('dragging');
     });
   }
@@ -260,6 +267,60 @@ const controller = (() => {
     console.log(lib);
   }
 
+  function toggleViews() {
+    document.querySelector('.kanban-container').classList.toggle('hide');
+    document.querySelector('#calendar').classList.toggle('hide');
+    document.querySelector('#kanban-view-btn').classList.toggle('selected-view');
+    document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
+  }
+
+  function dragFeature() {
+    const containers = document.querySelectorAll('.col');
+
+    containers.forEach(col => {
+      col.addEventListener('dragover', addDraggedElementToColumn.bind(null, col));
+    });
+
+    function addDraggedElementToColumn(columnElement, e) {
+      e.preventDefault();
+      // console.log('drag over');
+
+      const draggedElement = document.querySelector('.dragging');
+      const cardsContainer = columnElement.querySelector('.cards-container');
+      const afterElement = getDragAfterElement(cardsContainer, e.clientY);
+      draggedTaskObj.status = Task.getStatus(getColumnIndex(columnElement));
+
+      if (afterElement == null) {
+        cardsContainer.appendChild(draggedElement);
+      } else {
+        cardsContainer.insertBefore(draggedElement, afterElement);
+      }
+      refreshKanbanCardsCounter();
+    }
+
+    function getColumnIndex(col) {
+      let columnIndex = 0;
+      while (!containers[columnIndex].isEqualNode(col)) {
+        columnIndex++;
+      }
+      return columnIndex;
+    }
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+  }
+
+  dragFeature();
   initialiseSidebar();
   addKanbanCards(activeProjectObj.tasks);
   updateHomepageProjectTitles(activeProjectObj.title);
@@ -276,8 +337,8 @@ const controller = (() => {
   offcanvasElementList.map(function (offcanvasEl) {
     return new Offcanvas(offcanvasEl);
   });
-  const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
-  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new Dropdown(dropdownToggleEl))
+  const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+  [...dropdownElementList].map(dropdownToggleEl => new Dropdown(dropdownToggleEl));
 
   //add event listeners to add buttons in kanban
   const addButtons = document.querySelectorAll('.kanban-container .new-row');
@@ -285,62 +346,6 @@ const controller = (() => {
     let btn = addButtons[col];
     btn.addEventListener('click', createTask.bind(null, col));
   }
-
-  function toggleViews() {
-    document.querySelector('.kanban-container').classList.toggle('hide');
-    document.querySelector('#calendar').classList.toggle('hide');
-    document.querySelector('#kanban-view-btn').classList.toggle('selected-view');
-    document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
-  }
-
-  function dragFeature() {
-    const containers = document.querySelectorAll('.col');
-
-    containers.forEach(c => {
-      c.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        console.log('drag over');
-
-        const draggedElement = document.querySelector('.dragging');
-        const cardContainer = c.querySelector('.cards-container');
-        const afterElement = getDragAfterElement(cardContainer, e.clientY);
-
-        draggedTaskObj.status = Task.getStatus(getColumnIndex(c));
-        console.log(lib)
-        if (afterElement == null) {
-          cardContainer.appendChild(draggedElement);
-        } else {
-          cardContainer.insertBefore(draggedElement, afterElement);
-        }
-        refreshKanbanCardsCounter();
-      })
-    })
-
-    function getColumnIndex(col) {
-      let columnIndex = 0;
-      while (!containers[columnIndex].isEqualNode(col)) {
-        columnIndex++;
-      }
-      return columnIndex;
-    }
-
-    function getDragAfterElement(container, y) {
-      const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')]
-
-      return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect()
-        const offset = y - box.top - box.height / 2
-        if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child }
-        } else {
-          return closest
-        }
-      }, { offset: Number.NEGATIVE_INFINITY }).element
-    }
-  }
-
-  dragFeature();
-
   calendarFactory.getButton()
     .addEventListener('click', () => {
       if (document.querySelector('#calendar').classList.contains('hide') && activeProjectObj.id >= 0) {
