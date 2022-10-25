@@ -36,12 +36,7 @@ export const calendarFactory = (() => {
 
     function renderCalendar(tasksArray) {
         const calendar = new Calendar(calendarEl, {
-            plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-            },
+            plugins: [dayGridPlugin],
             initialDate: new Date(),
             navLinks: true, // can click day/week names to navigate views
             editable: true,
