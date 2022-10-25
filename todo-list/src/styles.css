@@ -6,13 +6,15 @@
     --gray-hover: rgb(248, 248, 248);
     --icon-color: #bbbbbb;
 }
+
 #calendar .fc-button, #calendar .fc-button-group {
     background-color: white !important;
     color: black;
     /* border: 1px solid; */
 }
+
 body {
-    width: 100vw;
+    width: max(420px, 100vw);
     display: flex;
     flex-direction: column;
     font-family: sans-serif;
@@ -20,6 +22,7 @@ body {
 
 /* nav styles start here */
 nav {
+    outline: 1px solid;
     display: flex;
     flex-direction: row;
     padding: 10px 12px;
@@ -88,8 +91,9 @@ nav .project-title {
 
 /* main styles start here */
 main {
+    width: 100%;
     height: auto;
-    /* outline: 1px solid; */
+    outline: 1px solid;
     padding: 40px 90px;
     display: flex;
     flex-direction: column;
@@ -107,7 +111,7 @@ main .project-title:focus {
 main .options-tab {
     display: flex;
     justify-content: space-between;
-    /* outline: 1px solid black; */
+    outline: 1px solid black;
     border-bottom: 1px solid rgb(221, 221, 221);
 }
 
@@ -177,7 +181,10 @@ main .options-tab li.selected-view {
 
 
 
+.col{
+    outline: 1px solid;
 
+}
 .col,
 .cards-container {
     display: flex;
@@ -308,19 +315,31 @@ main .options-tab li.selected-view {
     outline: 0;
 }
 
-form {
+#expanded-card form {
     height: 50vh;
     /* outline: 1px solid; */
-
 }
 
 
-.form-floating {
+#expanded-card .form-floating {
     /* outline: 1px solid; */
-
     height: 100%;
 }
 
-.form-floating #commentSection {
+#expanded-card .form-floating #commentSection {
     height: 100%;
+}
+
+@media screen and (max-width:600px) {
+    main {
+        padding: 10px 20px;
+    }
+    
+    main .project-title {
+        font-size: 30px;
+    }
+
+    #expanded-card, #sidebar {
+        width: 100%;
+    }
 }
