@@ -7,12 +7,6 @@
     --icon-color: #bbbbbb;
 }
 
-#calendar .fc-button, #calendar .fc-button-group {
-    background-color: white !important;
-    color: black;
-    /* border: 1px solid; */
-}
-
 body {
     width: max(420px, 100vw);
     display: flex;
@@ -22,7 +16,7 @@ body {
 
 /* nav styles start here */
 nav {
-    outline: 1px solid;
+    /* outline: 1px solid; */
     display: flex;
     flex-direction: row;
     padding: 10px 12px;
@@ -43,15 +37,14 @@ nav .project-title {
     /* outline:1px solid; */
 }
 
-.toggle-btn>.faaa+.faaa,
-.toggle-btn:hover>.faaa {
+nav .toggle-btn>.faaa+.faaa,
+nav .toggle-btn:hover>.faaa {
     display: none;
 }
 
 .toggle-btn:hover>.faaa+.faaa {
     display: inherit;
 }
-
 /* nav styles end here */
 
 /* sidebar styles start here */
@@ -70,6 +63,16 @@ nav .project-title {
     background-color: var(--gray-hover);
 }
 
+#sidebar li .delete-btn {
+    display: none;
+}
+
+#sidebar li:hover .delete-btn {
+    display: block;
+}
+/* sidebar styles end here */
+
+
 .delete-btn {
     color: var(--icon-color);
 }
@@ -79,21 +82,11 @@ nav .project-title {
     color: red;
 }
 
-#sidebar li .delete-btn {
-    display: none;
-}
-
-#sidebar li:hover .delete-btn {
-    display: block;
-}
-
-/* sidebar styles end here */
-
 /* main styles start here */
 main {
     width: 100%;
     height: auto;
-    outline: 1px solid;
+    /* outline: 1px solid; */
     padding: 40px 90px;
     display: flex;
     flex-direction: column;
@@ -111,7 +104,7 @@ main .project-title:focus {
 main .options-tab {
     display: flex;
     justify-content: space-between;
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
     border-bottom: 1px solid rgb(221, 221, 221);
 }
 
@@ -123,8 +116,15 @@ main .options-tab>ul {
     /* outline:1px solid ; */
 }
 
+main .options-tab li.selected-view {
+    color: black;
+    /* text-decoration: underline; */
+    font-weight: 500;
+}
+
 /* main styles end here */
 
+/* options-tab styles start here */
 .options-tab>ul li {
     color: var(--gray);
     padding: 5px;
@@ -136,17 +136,14 @@ main .options-tab>ul {
     background-color: var(--gray-hover);
 }
 
-main .options-tab li.selected-view {
-    color: black;
-    /* text-decoration: underline; */
-    font-weight: 500;
-}
+
 
 .options-tab ul:nth-child(2) li {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+/* options-tab styles end here */
 
 .dropdown>button {
     color: var(--gray);
@@ -170,21 +167,46 @@ main .options-tab li.selected-view {
     /* outline: 1px solid; */
 }
 
-
+/* calendar styles start here */
 #calendar {
     width: 100%;
+    min-width: 500px;
+    font-family: sans-serif;
+}
+
+#calendar .fc .fc-toolbar {
+    width: 100%;
+    outline: 1px solid;
+}
+
+#calendar .fc .fc-button {
+    padding: 5px !important;
+    font-size: 14px !important;
+    border-radius: 0.25rem !important;
+}
+
+#calendar .fc .fc-toolbar-title {
+    font-size: clamp(15px, 2vw, 100px) !important;
+}
+
+#calendar .fc-button,
+#calendar .fc-button-group {
+    background-color: white !important;
+    color: black;
+    /* border: 1px solid; */
 }
 
 #calendar .fc-event-title {
     padding: 5px;
 }
+/* calendar styles end here */
 
 
-
-.col{
-    outline: 1px solid;
+.col {
+    /* outline: 1px solid; */
 
 }
+
 .col,
 .cards-container {
     display: flex;
@@ -303,7 +325,7 @@ main .options-tab li.selected-view {
     width: 50%;
 }
 
-.input-group-text {
+#expanded-card .input-group-text {
     width: 110px;
 }
 
@@ -334,12 +356,13 @@ main .options-tab li.selected-view {
     main {
         padding: 10px 20px;
     }
-    
+
     main .project-title {
         font-size: 30px;
     }
 
-    #expanded-card, #sidebar {
+    #expanded-card,
+    #sidebar {
         width: 100%;
     }
 }
