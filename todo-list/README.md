@@ -60,8 +60,7 @@ fontawesome | Icons
 - [ ] add login page
 - [ ] create a module only for kanban view
 - [ ] create a module only for dealing with sidebar
-- [ ] optimise bundling process (dupllicate imports?, import only used icons)
-- [ ] create a release for project
+- [ ] improve website performance with treeshaking, code-splitting, bootstrap loader
 
 ### ✔ Done
 - [x] update docstrings
