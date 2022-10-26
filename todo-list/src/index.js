@@ -2,24 +2,24 @@
 import './reset.css';
 import './styles.css';
 
-// import my modules
-import { Offcanvas, Dropdown } from 'bootstrap';
-import { Project } from './modules/project';
-import { Task } from './modules/task';
-import { createCardElement, createSidebarProjectElement } from './modules/helper';
-import { WebStorageAPI } from './modules/storage';
-import { htmlFactory } from './modules/htmlFactory';
-import { expandedCard } from './modules/expandedcard';
-import { calendarFactory } from './modules/calendar';
-
 // Boostrap imports
+import { Offcanvas, Dropdown } from 'bootstrap';
 import './scss/styles.scss';
+
+// import my modules
+import Project from './modules/project';
+import Task from './modules/task';
+import { createCardElement, createSidebarProjectElement } from './modules/helper';
+import WebStorageAPI from './modules/storage';
+import htmlFactory from './modules/htmlFactory';
+import expandedCard from './modules/expandedcard';
+import calendarFactory from './modules/calendar';
 
 // font-awesome-free imports
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 
-const controller = (() => {
+(function controller() {
   const lib = WebStorageAPI.load();
   let activeProjectObj = lib.projects[0];
   let draggedTaskObj; // task object of card currently being dragged
@@ -274,9 +274,25 @@ const controller = (() => {
   function dragFeature() {
     const containers = document.querySelectorAll('.col');
 
-    containers.forEach((col) => {
-      col.addEventListener('dragover', addDraggedElementToColumn.bind(null, col));
-    });
+    function getColumnIndex(col) {
+      let columnIndex = 0;
+      while (!containers[columnIndex].isEqualNode(col)) {
+        columnIndex += 1;
+      }
+      return columnIndex;
+    }
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset, element: child };
+        }
+        return closest;
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
 
     function addDraggedElementToColumn(columnElement, e) {
       e.preventDefault();
@@ -295,25 +311,10 @@ const controller = (() => {
       refreshKanbanCardsCounter();
     }
 
-    function getColumnIndex(col) {
-      let columnIndex = 0;
-      while (!containers[columnIndex].isEqualNode(col)) {
-        columnIndex++;
-      }
-      return columnIndex;
-    }
+    containers.forEach((col) => {
+      col.addEventListener('dragover', addDraggedElementToColumn.bind(null, col));
+    });
 
-    function getDragAfterElement(container, y) {
-      const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
-      return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-          return { offset, element: child };
-        }
-        return closest;
-      }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
   }
 
   dragFeature();
@@ -335,7 +336,7 @@ const controller = (() => {
 
   // add event listeners to add tasks in kanban
   const addButtons = document.querySelectorAll('.kanban-container .new-row');
-  for (let col = 0; col < addButtons.length; col++) {
+  for (let col = 0; col < addButtons.length; col += 1) {
     const btn = addButtons[col];
     btn.addEventListener('click', createTask.bind(null, col));
   }

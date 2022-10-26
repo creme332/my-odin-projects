@@ -1,14 +1,21 @@
 /**
  * A Task represents a to-do item and belongs to a single Project.
  */
-export class Task {
+class Task {
     _id;
+
     _title;
+
     _description;
+
     _priority;
+
     _duedate;
+
     _status;
+
     static #priorityList = ['High 🔥', 'Medium 😶', 'Low 👶'];
+
     static #statusList = ['Next', 'In Progress', 'Completed'];
 
     /**
@@ -32,6 +39,7 @@ export class Task {
     get title() {
         return this._title;
     }
+
     set title(title) {
         this._title = title;
     }
@@ -39,20 +47,26 @@ export class Task {
     set description(description) {
         this._description = description;
     }
+
     get description() {
         return this._description;
+    }
+
+
+
+    static getPriority(priorityLevel) {
+        if (priorityLevel < 0 || priorityLevel >= this.#priorityList.length) return '❌ Invalid priority level';
+        return this.#priorityList[priorityLevel];
     }
 
     set priority(priority) {
         this._priority = priority;
     }
-    static getPriority(priorityLevel) {
-        if (priorityLevel < 0 || priorityLevel >= this.#priorityList.length) return '❌ Invalid priority level';
-        return this.#priorityList[priorityLevel];
-    }
+
     get priority() {
         return this._priority;
     }
+
     getPriorityIndex() {
         return Task.#priorityList.indexOf(this._priority);
     }
@@ -60,25 +74,31 @@ export class Task {
     set duedate(duedate) {
         this._duedate = duedate;
     }
+
     get duedate() {
         return this._duedate;
+    }
+
+
+
+    static getStatus(statusIndex) {
+        if (statusIndex < 0 || statusIndex >= this.#statusList.length) {
+            const error = '❌ Invalid status level';
+            console.log(error);
+            console.log(`${this}`);
+            return error
+        };
+        return this.#statusList[statusIndex];
     }
 
     set status(status) {
         this._status = status;
     }
-    static getStatus(statusIndex) {
-        if (statusIndex < 0 || statusIndex >= this.#statusList.length){
-            const error = '❌ Invalid status level';
-            console.log(error);
-            console.log(`${this}`);
-            return error
-        }; 
-        return this.#statusList[statusIndex];
-    }
+
     get status() {
         return this._status;
     }
+
     getStatusIndex() {
         return Task.#statusList.indexOf(this._status);
     }
@@ -86,8 +106,10 @@ export class Task {
     set id(id) {
         this._id = id;
     }
+
     get id() {
         return this._id;
     }
 
 }
+export default Task;

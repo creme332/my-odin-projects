@@ -34,15 +34,15 @@ export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChild
 export function createCardElement(taskObj) {
   const title = createHtmlElement('div', null, ['card-title'], taskObj.title, null);
 
-  let priorityClass = ['card-priority', 'highlight'];
-  let priorityLevel = taskObj.getPriorityIndex();
-  if (priorityLevel == 0) {
+  const priorityClass = ['card-priority', 'highlight'];
+  const priorityLevel = taskObj.getPriorityIndex();
+  if (priorityLevel === 0) {
     priorityClass.push('high-priority');
   }
-  if (priorityLevel == 1) {
+  if (priorityLevel === 1) {
     priorityClass.push('medium-priority');
   }
-  if (priorityLevel == 2) {
+  if (priorityLevel === 2) {
     priorityClass.push('low-priority');
   }
   const priority = createHtmlElement('div', null, priorityClass, taskObj.priority, null);

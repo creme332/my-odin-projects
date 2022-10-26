@@ -1,11 +1,11 @@
-import { Library } from './library';
-import { Project } from './project';
-import { Task } from './task';
+import Library from './library';
+import Project from './project';
+import Task from './task';
 
 /**
  * Handles data storage and retrieval from localStorage
  */
-export const WebStorageAPI = (() => {
+const WebStorageAPI = (() => {
   const keyName = 'creme332-todo-project';
 
   /**
@@ -13,7 +13,7 @@ export const WebStorageAPI = (() => {
    * @param {Library} libraryObj 
    */
   function save(libraryObj) {
-    let stringJSON = JSON.stringify(libraryObj.getData());
+    const stringJSON = JSON.stringify(libraryObj.getData());
     localStorage.setItem(keyName, stringJSON);
   }
 
@@ -22,33 +22,37 @@ export const WebStorageAPI = (() => {
    * @returns {Library} `Library` object containing `Project` and `Task` objects
    */
   function load() {
-    let stringJSON = localStorage.getItem(keyName);
+    const stringJSON = localStorage.getItem(keyName);
 
-    //user is visiting website for the first time
+    // user is visiting website for the first time
     if (stringJSON === null) {
       return getSampleLibrary();
     }
 
-    let LibraryJSON = JSON.parse(stringJSON || '[]');
+    const LibraryJSON = JSON.parse(stringJSON || '[]');
 
-    //if there are no projects, put a default project in library
-    if (LibraryJSON['#projectsArray'].length == 0) {
+    // if there are no projects, put a default project in library
+    if (LibraryJSON['#projectsArray'].length === 0) {
       const libraryObj = new Library('Main', 0, [new Project('🎭 Untitled', 0)]);
       return libraryObj;
     }
-    
-    //Assign class objects to data in LibraryJSON
-    let projectsArrayObj = [];
-    for (const projectJSON of LibraryJSON['#projectsArray']) {
-      let tasksArrayObj = [];
-      for (const taskJSON of projectJSON['#tasksArray']) {
+
+    // Assign class objects to data in LibraryJSON
+    const projectsArrayObj = [];
+    LibraryJSON['#projectsArray'].forEach(projectJSON => {
+
+      const tasksArrayObj = [];
+
+      projectJSON['#tasksArray'].forEach(taskJSON => {
         const taskObj = Object.assign(new Task(), taskJSON);
-        taskObj.duedate = new Date(taskObj.duedate); //duedate is initially serialized
+        taskObj.duedate = new Date(taskObj.duedate); // duedate is initially serialized
         tasksArrayObj.push(taskObj);
-      }
-      const projectObj = new Project(projectJSON['_title'], parseInt(projectJSON['_id']), tasksArrayObj);
+      });
+
+      const projectObj = new Project(projectJSON._title, parseInt(projectJSON._id, 10), tasksArrayObj);
       projectsArrayObj.push(projectObj);
-    }
+    });
+
     const libraryObj = new Library('Main', 0, projectsArrayObj);
 
     return libraryObj;
@@ -261,3 +265,5 @@ function getSampleLibrary() {
   return lib;
 
 }
+
+export default WebStorageAPI;

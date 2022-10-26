@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 /**
  * Controls everything related to calendar view.
  */
-export const calendarFactory = (() => {
+const calendarFactory = (() => {
     const calendarEl = document.getElementById('calendar');
     const switchToCalendarBtn = document.querySelector('#calendar-view-btn');
 
@@ -18,24 +18,24 @@ export const calendarFactory = (() => {
      * @returns {[JSON]} `eventList`
      */
     function parseEvents(tasksArray) {
-        let eventList = [];
-        for (let task of tasksArray) {
-            let obj = {
+        const eventList = [];
+        tasksArray.forEach(task => {
+            const obj = {
                 "title": task.title,
                 "start": format(task.duedate, "yyyy-MM-dd"),
                 "classNames": [],
             };
-            if (task.getPriorityIndex() == 0) {
+            if (task.getPriorityIndex() === 0) {
                 obj.classNames = ['high-priority'];
             }
-            if (task.getPriorityIndex() == 1) {
+            if (task.getPriorityIndex() === 1) {
                 obj.classNames = ['medium-priority'];
             }
-            if (task.getPriorityIndex() == 2) {
+            if (task.getPriorityIndex() === 2) {
                 obj.classNames = ['low-priority'];
             }
             eventList.push(obj);
-        }
+        });
         console.log(eventList);
         return eventList;
     }
@@ -55,3 +55,4 @@ export const calendarFactory = (() => {
     return { renderCalendar, getButton };
 })();
 
+export default calendarFactory;

@@ -2,9 +2,11 @@
  * A Library has zero or more Project objects. 
  * 
  */
-export class Library {
+class Library {
     _id; // index of current Library in some other array. 
+
     #projectsArray;
+
     _title;
 
     /**
@@ -21,6 +23,7 @@ export class Library {
     get title() {
         return this._title;
     }
+
     set title(title) {
         this._title = title;
     }
@@ -28,6 +31,7 @@ export class Library {
     addProject(projectObj) {
         this.#projectsArray.push(projectObj);
     }
+
     /**
      * Removes a project from Library and updates IDs of all other projects.
      * @param {Integer} projectIndex ID of project to be deleted
@@ -38,7 +42,7 @@ export class Library {
     }
 
     #updateProjectIds() {
-        for (let id = 0; id < this.size; id++) {
+        for (let id = 0; id < this.size; id += 1) {
             this.#projectsArray[id].id = id;
         }
     }
@@ -60,15 +64,18 @@ export class Library {
      * @returns {JSON}
      */
     getData() {
-        let object = {
+        const object = {
             "_id": this.id,
             "_title": this.title,
             "#projectsArray": [],
         };
 
-        for (const project of this.#projectsArray) {
+        this.#projectsArray.forEach(project => {
             object["#projectsArray"].push(project.getData());
-        }
+        });
+
         return object;
     }
 }
+
+export default Library;

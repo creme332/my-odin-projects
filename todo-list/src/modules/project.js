@@ -1,9 +1,11 @@
 /**
  * A Project has zero or more Tasks objects and belongs to a single Library.
  */
-export class Project {
+class Project {
     _id; // index of Project in Library
+
     #tasksArray;
+
     _title;
 
     /**
@@ -20,6 +22,7 @@ export class Project {
     get title() {
         return this._title;
     }
+
     set title(title) {
         this._title = title;
     }
@@ -27,6 +30,7 @@ export class Project {
     get id() {
         return this._id;
     }
+
     set id(id) {
         this._id = id;
     }
@@ -41,7 +45,7 @@ export class Project {
     }
 
     #updateTaskIds() {
-        for (let id = 0; id < this.size; id++) {
+        for (let id = 0; id < this.size; id += 1) {
             this.#tasksArray[id].id = id;
         }
     }
@@ -59,7 +63,7 @@ export class Project {
      * @returns {JSON}
      */
     getData() {
-        let object = {
+        const object = {
             "_id": this.id,
             "_title": this.title,
             "#tasksArray": this.#tasksArray
@@ -67,3 +71,5 @@ export class Project {
         return object;
     }
 }
+
+export default Project;

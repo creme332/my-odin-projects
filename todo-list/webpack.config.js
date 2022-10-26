@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoPrefixer = require('autoprefixer');
 
 module.exports = {
     mode: 'production',
@@ -54,7 +55,7 @@ module.exports = {
                         options: {
                             postcssOptions: {
                                 plugins: () => [
-                                    require('autoprefixer')
+                                    autoPrefixer 
                                 ]
                             }
                         }

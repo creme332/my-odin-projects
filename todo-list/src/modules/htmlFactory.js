@@ -1,4 +1,4 @@
-export const htmlFactory = (() => {
+const htmlFactory = (() => {
     const kanbanContainer = document.querySelector('main .kanban-container');
     const sidebarBody = document.querySelector('#sidebar .offcanvas-body');
 
@@ -9,7 +9,6 @@ export const htmlFactory = (() => {
     function getSidebarProjectListItems() {
         return sidebarBody.querySelectorAll('.project-list li');
     }
-
 
     function getKanbanCols() {
         return kanbanContainer.querySelectorAll('.col');
@@ -33,3 +32,4 @@ export const htmlFactory = (() => {
     };
 })();
 
+export default htmlFactory;

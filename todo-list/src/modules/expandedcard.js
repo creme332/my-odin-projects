@@ -3,7 +3,7 @@ import { Offcanvas } from 'bootstrap';
 /**
  * Module which controls everything about the expanded card when a task is clicked on.
  */
-export const expandedCard = (() => {
+const expandedCard = (() => {
     const card = document.querySelector('#expanded-card');
     const cardBody = card.querySelector('.offcanvas-body');
 
@@ -119,3 +119,5 @@ export const expandedCard = (() => {
         show, getElement,
     };
 })();
+
+export default expandedCard;
