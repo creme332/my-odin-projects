@@ -7,21 +7,20 @@
 
 A simple to-do list.
 
-![GIF]()
+![GIF of todo website in action](todo.gif)
+⚠ Above GIF contains some visual glitches which are not part of the website.
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/todo-list/dist)
 
 # 🚀Features
 - Sortable drag and drop to-do items
+- Responsive design
 - Calendar view
 - Kanban view
-- Recurring due dates
 - Expandable to-do items
 - Priority levels
 - Tasks can be grouped in projects
-
-# 🕶 Usage
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+- Web storage API for data storage
 
 #  🛠 Installation
 Clone repository locally
@@ -40,49 +39,31 @@ Launch web app in development mode
 ```bash
 npm start
 ```
+Go to  http://localhost:8080/ on browser.
+
 # 📌 Attributions
 Resource | For
 ---|---
 [Notion To-do template](https://www.notion.so/templates/to-dos)| UI inspiration
 [WebDevSimplified](https://www.youtube.com/watch?v=jfYWwQrtzzY&ab_channel=WebDevSimplified), [web.dev](https://web.dev/drag-and-drop/) | Sortable drag and drop feature
+fontawesome | Icons
 
 # 🔨 To-Do
+- [ ] add sorting and filtering
+- [ ] make calendar responsive
+- [ ] add touch support to drag and drop feature
 - [ ] add a delete project/task confirmation message
-- [ ] add sound effects : https://github.com/Melvin-Abraham/todomatic/tree/master/public
-- [ ] add markdown renderer for comment section
-- [ ] add sorting
-- [ ] add filtering
-
+- [ ] Allow user to perform CRUD on calendar view.
 - [ ] add start/end date for task 
 - [ ] save comments to task object
-
-- [ ] move classes to a folder
-- [ ] update docstrings
-- [ ] save data somewhere (firestore, local storage, google login)
+- [ ] add recurring due dates
 - [ ] add login page
-
-
-- [ ] Make website responsive.
-- [ ] use project to track bugs with project itself.
+- [ ] create a module only for kanban view
+- [ ] create a module only for dealing with sidebar
 - [ ] optimise bundling process (dupllicate imports?, import only used icons)
 - [ ] create a release for project
-- [ ] webpack visualiser https://web.dev/monitor-and-analyze/
 
 ### ✔ Done
-- [x] make cards draggable : https://web.dev/drag-and-drop/
-- [x] add calendar factory
-- [x] add calendar : fullcalendar
-- [x] add semicolons everywhere
-- [x] feature : add new task
-- [x] feature : add new project
-- [x] console log in each function to explain what's happening
-- [x] add helpers to create sidebar li with corresponding ev
-- [x] bug : create new project. go to project. edit title. delete project. DELETED PROJECT does not appear.
-- [x] update task ids when tasks are deleted
-- [x] make project title editable
-- [x] make cards editable and deletable
-- [x] move card from one column to another when edited === switch project
-- [x] remove card-id div
-- [x] feature : expanded view of card onclick
-- [x] fix class names id names
-- [x]  do not call switch project if click on current project 
+- [x] update docstrings
+- [x] save data somewhere (firestore, local storage, google login)
+- [x] refactor css
