@@ -2,6 +2,9 @@ import { Library } from './library';
 import { Project } from './project';
 import { Task } from './task';
 
+/**
+ * Handles data storage and retrieval from localStorage
+ */
 export const WebStorageAPI = (() => {
   const keyName = 'creme332-todo-project';
 

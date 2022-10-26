@@ -7,8 +7,9 @@ import { Project } from './modules/project';
 import { Task } from './modules/task';
 import { createCardElement, createSidebarProjectElement } from './modules/helper';
 import { WebStorageAPI } from './modules/storage';
-import { htmlFactory, expandedCard } from './modules/htmlFactory';
-import { calendarFactory } from './modules/calendarFactory';
+import { htmlFactory } from './modules/htmlFactory';
+import { expandedCard } from './modules/expandedcard';
+import { calendarFactory } from './modules/calendar';
 
 // Boostrap imports
 import { Offcanvas, Dropdown } from 'bootstrap';
@@ -23,12 +24,6 @@ const controller = (() => {
   const lib = WebStorageAPI.load();
   let activeProjectObj = lib.projects[0];
   let draggedTaskObj; //task object of card currently being dragged
-
-  //save changes every 1s
-  setInterval(() => {
-    WebStorageAPI.save(lib);
-    // console.log(lib);
-  }, 1000);
 
   /** Adds a single project of list type  with event listeners to sidebar.
    * 
@@ -340,12 +335,14 @@ const controller = (() => {
   const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
   [...dropdownElementList].map(dropdownToggleEl => new Dropdown(dropdownToggleEl));
 
-  //add event listeners to add buttons in kanban
+  //add event listeners to add tasks in kanban
   const addButtons = document.querySelectorAll('.kanban-container .new-row');
   for (let col = 0; col < addButtons.length; col++) {
     let btn = addButtons[col];
     btn.addEventListener('click', createTask.bind(null, col));
   }
+
+  //add event listeners to switch between calendar and kanban
   calendarFactory.getButton()
     .addEventListener('click', () => {
       if (document.querySelector('#calendar').classList.contains('hide') && activeProjectObj.id >= 0) {
@@ -353,13 +350,18 @@ const controller = (() => {
         calendarFactory.renderCalendar(activeProjectObj.tasks);
       }
     });
-
   document.querySelector('#kanban-view-btn')
     .addEventListener('click', () => {
       if (document.querySelector('.kanban-container').classList.contains('hide')) {
         toggleViews();
       }
     })
+
+  //save changes to library every 1s
+  setInterval(() => {
+    WebStorageAPI.save(lib);
+    // console.log(lib);
+  }, 1000);
 
 })();
 

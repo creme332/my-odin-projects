@@ -1,4 +1,4 @@
-import { format, formatDistance } from 'date-fns';
+import { formatDistance } from 'date-fns';
 
 /**
  * Creates and returns an HTML element.
@@ -46,19 +46,19 @@ export function createCardElement(taskObj) {
     priorityClass.push('low-priority');
   }
   const priority = createHtmlElement('div', null, priorityClass, taskObj.priority, null);
-  
+
 
   const formattedDate = formatDistance(taskObj.duedate, new Date(), { addSuffix: true });
   const date = createHtmlElement('div', null, ['card-date'], formattedDate, null);
   const editBtn = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
   const editBtnContainer = createHtmlElement('div', null, ['delete-btn'], null, [editBtn]);
 
-  const card  = createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer]);
-  card.setAttribute('draggable',true);
-  return  card;
+  const card = createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer]);
+  card.setAttribute('draggable', true);
+  return card;
 }
 
-export function createSidebarProjectElement(projectObj){
+export function createSidebarProjectElement(projectObj) {
   const titleContainer = createHtmlElement('div', null, ['project-title'], projectObj.title, null);
   const deleteIcon = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
   const deleteIconContainer = createHtmlElement('div', null, ['delete-btn'], null, [deleteIcon]);

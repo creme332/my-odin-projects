@@ -1,9 +1,10 @@
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
 import { format } from 'date-fns';
 
+/**
+ * Controls everything related to calendar view.
+ */
 export const calendarFactory = (() => {
     const calendarEl = document.getElementById('calendar');
     const switchToCalendarBtn = document.querySelector('#calendar-view-btn');
@@ -11,6 +12,11 @@ export const calendarFactory = (() => {
     function getButton() {
         return switchToCalendarBtn;
     }
+    /**
+     * Converts `tasksArray` into a an array of JSON which can then be used with fullCalendar.
+     * @param {[Task]} tasksArray 
+     * @returns {[JSON]} `eventList`
+     */
     function parseEvents(tasksArray) {
         let eventList = [];
         for (let task of tasksArray) {

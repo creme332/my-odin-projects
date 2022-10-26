@@ -11,7 +11,7 @@ export class Project {
      * @param {string} title 
      * @param {integer} id Index of project in a Library array
      */
-    constructor(title, id, tasksArray=[]) {
+    constructor(title, id, tasksArray = []) {
         this._title = title;
         this._id = id;
         this.#tasksArray = tasksArray;
@@ -54,6 +54,10 @@ export class Project {
         return this.#tasksArray.length;
     }
 
+    /**
+     * Returns all data contained in `Project` in JSON format.
+     * @returns {JSON}
+     */
     getData() {
         let object = {
             "_id": this.id,

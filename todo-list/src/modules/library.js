@@ -55,6 +55,10 @@ export class Library {
         return this.#projectsArray.length;
     }
 
+    /**
+     * Returns all data contained in `Library` in JSON format.
+     * @returns {JSON}
+     */
     getData() {
         let object = {
             "_id": this.id,
@@ -62,7 +66,7 @@ export class Library {
             "#projectsArray": [],
         };
 
-        for (const project of this.#projectsArray){
+        for (const project of this.#projectsArray) {
             object["#projectsArray"].push(project.getData());
         }
         return object;
