@@ -49,13 +49,13 @@ Resource | For
 fontawesome | Icons
 
 # 🔨 To-Do
+- [ ] save comments to task object
 - [ ] add sorting and filtering
 - [ ] make calendar responsive
 - [ ] add touch support to drag and drop feature
 - [ ] add a delete project/task confirmation message
 - [ ] Allow user to perform CRUD on calendar view.
 - [ ] add start/end date for task 
-- [ ] save comments to task object
 - [ ] add recurring due dates
 - [ ] add login page
 - [ ] create a module only for kanban view
