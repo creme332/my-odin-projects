@@ -12,6 +12,10 @@
   "devDependencies": {
     "autoprefixer": "^10.4.12",
     "css-loader": "^6.7.1",
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
     "html-webpack-plugin": "^5.5.0",
     "postcss-loader": "^7.0.1",
     "sass": "^1.55.0",

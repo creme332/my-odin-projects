@@ -1,8 +1,9 @@
-//import my styles
+// import my styles
 import './reset.css';
 import './styles.css';
 
-//import my modules
+// import my modules
+import { Offcanvas, Dropdown } from 'bootstrap';
 import { Project } from './modules/project';
 import { Task } from './modules/task';
 import { createCardElement, createSidebarProjectElement } from './modules/helper';
@@ -12,56 +13,55 @@ import { expandedCard } from './modules/expandedcard';
 import { calendarFactory } from './modules/calendar';
 
 // Boostrap imports
-import { Offcanvas, Dropdown } from 'bootstrap';
 import './scss/styles.scss';
 
-//font-awesome-free imports
+// font-awesome-free imports
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
-
 
 const controller = (() => {
   const lib = WebStorageAPI.load();
   let activeProjectObj = lib.projects[0];
-  let draggedTaskObj; //task object of card currently being dragged
+  let draggedTaskObj; // task object of card currently being dragged
+  const mainTitle = document.querySelector('main .project-title');
 
   /** Adds a single project of list type  with event listeners to sidebar.
-   * 
-   * @param {Project} projectObj 
+   *
+   * @param {Project} projectObj
    */
   function addProjectToSidebar(projectObj) {
     const list = htmlFactory.getSidebarProjectList();
     const projectElement = createSidebarProjectElement(projectObj);
     list.appendChild(projectElement);
 
-    //add event listeners
+    // add event listeners
     projectElement.addEventListener('click', switchKanbanProject.bind(null, projectObj));
-    projectElement.
-      querySelector('.delete-btn').
-      addEventListener('click', deleteProject.bind(null, projectObj));
+    projectElement
+      .querySelector('.delete-btn')
+      .addEventListener('click', deleteProject.bind(null, projectObj));
   }
 
   /** Adds a single to-do item with event listeners to kanban-container.
-   * 
-   * @param {Task} taskObj 
+   *
+   * @param {Task} taskObj
    */
   function addCardToKanban(taskObj) {
     const allCols = htmlFactory.getKanbanCols();
 
-    let cardElement = createCardElement(taskObj);
+    const cardElement = createCardElement(taskObj);
     allCols[taskObj.getStatusIndex()].querySelector('.cards-container').appendChild(cardElement);
 
     cardElement.addEventListener('click', openTask.bind(null, taskObj));
     cardElement.querySelector('.delete-btn').addEventListener('click', deleteTask.bind(null, taskObj));
 
-    //add event listeners for drag and drop feature
-    cardElement.addEventListener('dragstart', (e) => {
+    // add event listeners for drag and drop feature
+    cardElement.addEventListener('dragstart', () => {
       draggedTaskObj = taskObj;
       console.log('drag start', draggedTaskObj);
       cardElement.classList.add('dragging');
     });
 
-    cardElement.addEventListener('dragend', (e) => {
+    cardElement.addEventListener('dragend', () => {
       draggedTaskObj = {};
       console.log('drag end', draggedTaskObj);
       cardElement.classList.remove('dragging');
@@ -69,38 +69,39 @@ const controller = (() => {
   }
 
   /**
-   * Initialises sidebar by adding project names and enabling Bootstrap. 
-   * 
-   * ⚠ Do not call this function more than once as it will ALL clear event listeners on the list items in sidebar.
+   * Initialises sidebar by adding project names and enabling Bootstrap.
+   *
+   * ⚠ Do not call this function more than once as it will
+   * clear ALL event listeners on the list items in sidebar.
    */
   function initialiseSidebar() {
-    for (const projectObj of lib.projects) {
+    lib.projects.forEach((projectObj) => {
       addProjectToSidebar(projectObj);
-    }
+    });
   }
 
   /**
    * Removes all cards from Kanban container.
    */
   function clearKanban() {
-    //remove all cards
+    // remove all cards
     document.querySelectorAll('.kanban-container .card')
-      .forEach(card => card.remove());
+      .forEach((card) => card.remove());
   }
 
   /**
    * Updates the card counters in each column of the kanban container.
    */
   function refreshKanbanCardsCounter() {
-    //set all counters to 0
+    // set all counters to 0
     const cols = htmlFactory.getKanbanCols();
-    cols.forEach(col => {
-      let count = col.querySelectorAll('.card').length;
+    cols.forEach((col) => {
+      const count = col.querySelectorAll('.card').length;
       col.querySelector('.col-counter').textContent = count;
-    })
+    });
   }
 
-  function updateTask(taskObj, e) {
+  function updateTask(taskObj) {
     console.log('UPDATED task ');
 
     taskObj.title = expandedCard.getTitle();
@@ -116,24 +117,26 @@ const controller = (() => {
     refreshKanbanCardsCounter();
   }
 
-  function openTask(taskObj, e) {
+  function openTask(taskObj) {
     console.log('OPENED task ');
 
-    //fill expanded card with task details
+    // fill expanded card with task details
     expandedCard.setTitle(taskObj.title);
     expandedCard.setStatus(taskObj.getStatusIndex());
     expandedCard.setPriority(taskObj.getPriorityIndex());
     expandedCard.setDueDate(taskObj.duedate);
     expandedCard.setDescription(taskObj.description);
 
-    //open expanded view of card
+    // open expanded view of card
     expandedCard.show();
 
-    //add event listener for when expanded card view is closed => editing mode is off
-    expandedCard.getElement().
-      addEventListener('hidden.bs.offcanvas',
+    // add event listener for when expanded card view is closed => editing mode is off
+    expandedCard.getElement()
+      .addEventListener(
+        'hidden.bs.offcanvas',
         updateTask.bind(null, taskObj),
-        { once: true });
+        { once: true },
+      );
   }
 
   function deleteTask(taskObj, e) {
@@ -149,14 +152,14 @@ const controller = (() => {
    * @param {[Task]} tasksArray A list of Task objects
    */
   function addKanbanCards(tasksArray) {
-    for (let task of tasksArray) {
+    tasksArray.forEach(task => {
       addCardToKanban(task);
-    }
+    });
   }
 
   /**
    * Updates project title being displayed on page.
-   * @param {String} newProjectTitle 
+   * @param {String} newProjectTitle
    */
   function updateHomepageProjectTitles(newProjectTitle) {
     document.querySelector('nav .project-title').textContent = newProjectTitle;
@@ -166,10 +169,10 @@ const controller = (() => {
   /**
    * Changes from one project to another.
    * @param {Event} e click event on a list item in sidebar
-   * @returns 
+   * @returns
    */
-  function switchKanbanProject(projectObj, e) {
-    if (projectObj == activeProjectObj) { //user clicked on currently active project
+  function switchKanbanProject(projectObj) {
+    if (projectObj === activeProjectObj) { // user clicked on currently active project
       return;
     }
     clearKanban();
@@ -185,15 +188,15 @@ const controller = (() => {
    * @param {Event} e click event on trash-icon in sidebar
    */
   function deleteProject(projectObj, e) {
-    e.stopPropagation(); //to prevent expanded-card from opening
+    e.stopPropagation(); // to prevent expanded-card from opening
 
-    //get the LI element containing clicked button
-    let liElement = e.target.closest('li');
+    // get the LI element containing clicked button
+    const liElement = e.target.closest('li');
 
     console.log('must delete this project : ', projectObj);
     console.log('active project', activeProjectObj);
 
-    if (JSON.stringify(projectObj) == JSON.stringify(activeProjectObj)) {
+    if (JSON.stringify(projectObj) === JSON.stringify(activeProjectObj)) {
       clearKanban();
       refreshKanbanCardsCounter();
       activeProjectObj = new Project('❌ DELETED PROJECT', -1);
@@ -207,29 +210,27 @@ const controller = (() => {
 
   function listenCardChanges(div, listener) {
     console.log('title changed');
-    div.addEventListener("blur", listener);
-    div.addEventListener("keyup", listener);
-    div.addEventListener("paste", listener);
-    div.addEventListener("copy", listener);
-    div.addEventListener("cut", listener);
-    div.addEventListener("delete", listener);
+    div.addEventListener('blur', listener);
+    div.addEventListener('keyup', listener);
+    div.addEventListener('paste', listener);
+    div.addEventListener('copy', listener);
+    div.addEventListener('cut', listener);
+    div.addEventListener('delete', listener);
     // div.addEventListener("mouseup", listener);
-
   }
 
   function changeProjectTitle() {
-
-    //if currently on a deleted project, do nothing.
+    // if currently on a deleted project, do nothing.
     if (activeProjectObj.id < 0) return;
 
     console.log('title changed');
-    let newTitle = mainTitle.textContent;
+    const newTitle = mainTitle.textContent;
     updateHomepageProjectTitles(newTitle);
 
-    //update project title in sidebar
-    const projectTitleContainer = document.
-      querySelectorAll('#sidebar .project-list li')[activeProjectObj.id].
-      querySelector('.project-title');
+    // update project title in sidebar
+    const projectTitleContainer = document
+      .querySelectorAll('#sidebar .project-list li')[activeProjectObj.id]
+      .querySelector('.project-title');
     projectTitleContainer.textContent = newTitle;
 
     activeProjectObj.title = newTitle;
@@ -241,8 +242,8 @@ const controller = (() => {
     addProjectToSidebar(emptyProject);
   }
 
-  function createTask(colIndex, e) {
-    //do not create task on deleted project "screen"
+  function createTask(colIndex) {
+    // do not create task on deleted project "screen"
     if (activeProjectObj.id < 0) return;
 
     console.log('CREATE task');
@@ -253,7 +254,8 @@ const controller = (() => {
       Task.getPriority(2),
       new Date(),
       Task.getStatus(colIndex),
-      activeProjectObj.size);
+      activeProjectObj.size,
+    );
 
     activeProjectObj.addTask(emptyTask);
     addCardToKanban(emptyTask);
@@ -272,7 +274,7 @@ const controller = (() => {
   function dragFeature() {
     const containers = document.querySelectorAll('.col');
 
-    containers.forEach(col => {
+    containers.forEach((col) => {
       col.addEventListener('dragover', addDraggedElementToColumn.bind(null, col));
     });
 
@@ -307,10 +309,9 @@ const controller = (() => {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
         if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child };
-        } else {
-          return closest;
+          return { offset, element: child };
         }
+        return closest;
       }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
   }
@@ -321,28 +322,25 @@ const controller = (() => {
   updateHomepageProjectTitles(activeProjectObj.title);
   refreshKanbanCardsCounter();
 
-  const mainTitle = document.querySelector('main .project-title');
   listenCardChanges(mainTitle, changeProjectTitle);
 
   document.querySelector('#sidebar .new-row')
     .addEventListener('click', createNewProject);
 
-  //Bootstrap code to enable offcanvas elements
-  let offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'));
-  offcanvasElementList.map(function (offcanvasEl) {
-    return new Offcanvas(offcanvasEl);
-  });
+  // Bootstrap code to enable offcanvas elements
+  const offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'));
+  offcanvasElementList.map((offcanvasEl) => new Offcanvas(offcanvasEl));
   const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-  [...dropdownElementList].map(dropdownToggleEl => new Dropdown(dropdownToggleEl));
+  [...dropdownElementList].map((dropdownToggleEl) => new Dropdown(dropdownToggleEl));
 
-  //add event listeners to add tasks in kanban
+  // add event listeners to add tasks in kanban
   const addButtons = document.querySelectorAll('.kanban-container .new-row');
   for (let col = 0; col < addButtons.length; col++) {
-    let btn = addButtons[col];
+    const btn = addButtons[col];
     btn.addEventListener('click', createTask.bind(null, col));
   }
 
-  //add event listeners to switch between calendar and kanban
+  // add event listeners to switch between calendar and kanban
   calendarFactory.getButton()
     .addEventListener('click', () => {
       if (document.querySelector('#calendar').classList.contains('hide') && activeProjectObj.id >= 0) {
@@ -355,14 +353,11 @@ const controller = (() => {
       if (document.querySelector('.kanban-container').classList.contains('hide')) {
         toggleViews();
       }
-    })
+    });
 
-  //save changes to library every 1s
+  // save changes to library every 1s
   setInterval(() => {
     WebStorageAPI.save(lib);
     // console.log(lib);
   }, 1000);
-
 })();
-
-
