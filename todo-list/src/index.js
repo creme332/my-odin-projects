@@ -1,29 +1,32 @@
 // import my styles
-import './reset.css';
-import './styles.css';
+import "./reset.css";
+import "./styles.css";
 
 // Boostrap imports
-import { Offcanvas, Dropdown } from 'bootstrap';
-import './scss/styles.scss';
+import { Offcanvas, Dropdown } from "bootstrap";
+import "./scss/styles.scss";
 
 // import my modules
-import Project from './modules/project';
-import Task from './modules/task';
-import { createCardElement, createSidebarProjectElement } from './modules/helper';
-import WebStorageAPI from './modules/storage';
-import htmlFactory from './modules/htmlFactory';
-import expandedCard from './modules/expandedcard';
-import calendarFactory from './modules/calendar';
+import Project from "./modules/project";
+import Task from "./modules/task";
+import {
+  createCardElement,
+  createSidebarProjectElement,
+} from "./modules/helper";
+import WebStorageAPI from "./modules/storage";
+import htmlFactory from "./modules/htmlFactory";
+import expandedCard from "./modules/expandedcard";
+import calendarFactory from "./modules/calendar";
 
 // font-awesome-free imports
-import '@fortawesome/fontawesome-free/js/fontawesome';
-import '@fortawesome/fontawesome-free/js/solid';
+import "@fortawesome/fontawesome-free/js/fontawesome";
+import "@fortawesome/fontawesome-free/js/solid";
 
 (function controller() {
   const lib = WebStorageAPI.load();
   let activeProjectObj = lib.projects[0];
   let draggedTaskObj; // task object of card currently being dragged
-  const mainTitle = document.querySelector('main .project-title');
+  const mainTitle = document.querySelector("main .project-title");
 
   /** Adds a single project of list type  with event listeners to sidebar.
    *
@@ -35,10 +38,13 @@ import '@fortawesome/fontawesome-free/js/solid';
     list.appendChild(projectElement);
 
     // add event listeners
-    projectElement.addEventListener('click', switchKanbanProject.bind(null, projectObj));
+    projectElement.addEventListener(
+      "click",
+      switchKanbanProject.bind(null, projectObj)
+    );
     projectElement
-      .querySelector('.delete-btn')
-      .addEventListener('click', deleteProject.bind(null, projectObj));
+      .querySelector(".delete-btn")
+      .addEventListener("click", deleteProject.bind(null, projectObj));
   }
 
   /** Adds a single to-do item with event listeners to kanban-container.
@@ -49,22 +55,26 @@ import '@fortawesome/fontawesome-free/js/solid';
     const allCols = htmlFactory.getKanbanCols();
 
     const cardElement = createCardElement(taskObj);
-    allCols[taskObj.getStatusIndex()].querySelector('.cards-container').appendChild(cardElement);
+    allCols[taskObj.getStatusIndex()]
+      .querySelector(".cards-container")
+      .appendChild(cardElement);
 
-    cardElement.addEventListener('click', openTask.bind(null, taskObj));
-    cardElement.querySelector('.delete-btn').addEventListener('click', deleteTask.bind(null, taskObj));
+    cardElement.addEventListener("click", openTask.bind(null, taskObj));
+    cardElement
+      .querySelector(".delete-btn")
+      .addEventListener("click", deleteTask.bind(null, taskObj));
 
     // add event listeners for drag and drop feature
-    cardElement.addEventListener('dragstart', () => {
+    cardElement.addEventListener("dragstart", () => {
       draggedTaskObj = taskObj;
-      console.log('drag start', draggedTaskObj);
-      cardElement.classList.add('dragging');
+      console.log("drag start", draggedTaskObj);
+      cardElement.classList.add("dragging");
     });
 
-    cardElement.addEventListener('dragend', () => {
+    cardElement.addEventListener("dragend", () => {
       draggedTaskObj = {};
-      console.log('drag end', draggedTaskObj);
-      cardElement.classList.remove('dragging');
+      console.log("drag end", draggedTaskObj);
+      cardElement.classList.remove("dragging");
     });
   }
 
@@ -85,7 +95,8 @@ import '@fortawesome/fontawesome-free/js/solid';
    */
   function clearKanban() {
     // remove all cards
-    document.querySelectorAll('.kanban-container .card')
+    document
+      .querySelectorAll(".kanban-container .card")
       .forEach((card) => card.remove());
   }
 
@@ -96,13 +107,13 @@ import '@fortawesome/fontawesome-free/js/solid';
     // set all counters to 0
     const cols = htmlFactory.getKanbanCols();
     cols.forEach((col) => {
-      const count = col.querySelectorAll('.card').length;
-      col.querySelector('.col-counter').textContent = count;
+      const count = col.querySelectorAll(".card").length;
+      col.querySelector(".col-counter").textContent = count;
     });
   }
 
   function updateTask(taskObj) {
-    console.log('UPDATED task ');
+    console.log("UPDATED task ");
 
     taskObj.title = expandedCard.getTitle();
     taskObj.status = expandedCard.getStatus();
@@ -118,7 +129,7 @@ import '@fortawesome/fontawesome-free/js/solid';
   }
 
   function openTask(taskObj) {
-    console.log('OPENED task ');
+    console.log("OPENED task ");
 
     // fill expanded card with task details
     expandedCard.setTitle(taskObj.title);
@@ -131,20 +142,19 @@ import '@fortawesome/fontawesome-free/js/solid';
     expandedCard.show();
 
     // add event listener for when expanded card view is closed => editing mode is off
-    expandedCard.getElement()
-      .addEventListener(
-        'hidden.bs.offcanvas',
-        updateTask.bind(null, taskObj),
-        { once: true },
-      );
+    expandedCard
+      .getElement()
+      .addEventListener("hidden.bs.offcanvas", updateTask.bind(null, taskObj), {
+        once: true,
+      });
   }
 
   function deleteTask(taskObj, e) {
     e.stopPropagation();
     activeProjectObj.removeTask(taskObj.id);
-    e.target.closest('.card').remove();
+    e.target.closest(".card").remove();
     refreshKanbanCardsCounter();
-    console.log('DELETE task ', lib);
+    console.log("DELETE task ", lib);
   }
 
   /**
@@ -152,7 +162,7 @@ import '@fortawesome/fontawesome-free/js/solid';
    * @param {[Task]} tasksArray A list of Task objects
    */
   function addKanbanCards(tasksArray) {
-    tasksArray.forEach(task => {
+    tasksArray.forEach((task) => {
       addCardToKanban(task);
     });
   }
@@ -162,8 +172,8 @@ import '@fortawesome/fontawesome-free/js/solid';
    * @param {String} newProjectTitle
    */
   function updateHomepageProjectTitles(newProjectTitle) {
-    document.querySelector('nav .project-title').textContent = newProjectTitle;
-    document.querySelector('main .project-title').textContent = newProjectTitle;
+    document.querySelector("nav .project-title").textContent = newProjectTitle;
+    document.querySelector("main .project-title").textContent = newProjectTitle;
   }
 
   /**
@@ -172,7 +182,8 @@ import '@fortawesome/fontawesome-free/js/solid';
    * @returns
    */
   function switchKanbanProject(projectObj) {
-    if (projectObj === activeProjectObj) { // user clicked on currently active project
+    if (projectObj === activeProjectObj) {
+      // user clicked on currently active project
       return;
     }
     clearKanban();
@@ -191,31 +202,31 @@ import '@fortawesome/fontawesome-free/js/solid';
     e.stopPropagation(); // to prevent expanded-card from opening
 
     // get the LI element containing clicked button
-    const liElement = e.target.closest('li');
+    const liElement = e.target.closest("li");
 
-    console.log('must delete this project : ', projectObj);
-    console.log('active project', activeProjectObj);
+    console.log("must delete this project : ", projectObj);
+    console.log("active project", activeProjectObj);
 
     if (JSON.stringify(projectObj) === JSON.stringify(activeProjectObj)) {
       clearKanban();
       refreshKanbanCardsCounter();
-      activeProjectObj = new Project('❌ DELETED PROJECT', -1);
-      updateHomepageProjectTitles('❌ DELETED PROJECT');
+      activeProjectObj = new Project("❌ DELETED PROJECT", -1);
+      updateHomepageProjectTitles("❌ DELETED PROJECT");
     }
 
     lib.removeProject(projectObj.id);
     liElement.remove();
-    console.log('Deleted project', lib);
+    console.log("Deleted project", lib);
   }
 
   function listenCardChanges(div, listener) {
-    console.log('title changed');
-    div.addEventListener('blur', listener);
-    div.addEventListener('keyup', listener);
-    div.addEventListener('paste', listener);
-    div.addEventListener('copy', listener);
-    div.addEventListener('cut', listener);
-    div.addEventListener('delete', listener);
+    console.log("title changed");
+    div.addEventListener("blur", listener);
+    div.addEventListener("keyup", listener);
+    div.addEventListener("paste", listener);
+    div.addEventListener("copy", listener);
+    div.addEventListener("cut", listener);
+    div.addEventListener("delete", listener);
     // div.addEventListener("mouseup", listener);
   }
 
@@ -223,21 +234,21 @@ import '@fortawesome/fontawesome-free/js/solid';
     // if currently on a deleted project, do nothing.
     if (activeProjectObj.id < 0) return;
 
-    console.log('title changed');
+    console.log("title changed");
     const newTitle = mainTitle.textContent;
     updateHomepageProjectTitles(newTitle);
 
     // update project title in sidebar
     const projectTitleContainer = document
-      .querySelectorAll('#sidebar .project-list li')[activeProjectObj.id]
-      .querySelector('.project-title');
+      .querySelectorAll("#sidebar .project-list li")
+      [activeProjectObj.id].querySelector(".project-title");
     projectTitleContainer.textContent = newTitle;
 
     activeProjectObj.title = newTitle;
   }
 
   function createNewProject() {
-    const emptyProject = new Project('🎭 Untitled', lib.size);
+    const emptyProject = new Project("🎭 Untitled", lib.size);
     lib.addProject(emptyProject);
     addProjectToSidebar(emptyProject);
   }
@@ -246,15 +257,15 @@ import '@fortawesome/fontawesome-free/js/solid';
     // do not create task on deleted project "screen"
     if (activeProjectObj.id < 0) return;
 
-    console.log('CREATE task');
+    console.log("CREATE task");
 
     const emptyTask = new Task(
-      '💋 Untitled',
-      'A description',
+      "💋 Untitled",
+      "A description",
       Task.getPriority(2),
       new Date(),
       Task.getStatus(colIndex),
-      activeProjectObj.size,
+      activeProjectObj.size
     );
 
     activeProjectObj.addTask(emptyTask);
@@ -265,14 +276,18 @@ import '@fortawesome/fontawesome-free/js/solid';
   }
 
   function toggleViews() {
-    document.querySelector('.kanban-container').classList.toggle('hide');
-    document.querySelector('#calendar').classList.toggle('hide');
-    document.querySelector('#kanban-view-btn').classList.toggle('selected-view');
-    document.querySelector('#calendar-view-btn').classList.toggle('selected-view');
+    document.querySelector(".kanban-container").classList.toggle("hide");
+    document.querySelector("#calendar").classList.toggle("hide");
+    document
+      .querySelector("#kanban-view-btn")
+      .classList.toggle("selected-view");
+    document
+      .querySelector("#calendar-view-btn")
+      .classList.toggle("selected-view");
   }
 
   function dragFeature() {
-    const containers = document.querySelectorAll('.col');
+    const containers = document.querySelectorAll(".col");
 
     function getColumnIndex(col) {
       let columnIndex = 0;
@@ -283,23 +298,28 @@ import '@fortawesome/fontawesome-free/js/solid';
     }
 
     function getDragAfterElement(container, y) {
-      const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
-      return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-          return { offset, element: child };
-        }
-        return closest;
-      }, { offset: Number.NEGATIVE_INFINITY }).element;
+      const draggableElements = [
+        ...container.querySelectorAll(".card:not(.dragging)"),
+      ];
+      return draggableElements.reduce(
+        (closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset, element: child };
+          }
+          return closest;
+        },
+        { offset: Number.NEGATIVE_INFINITY }
+      ).element;
     }
 
     function addDraggedElementToColumn(columnElement, e) {
       e.preventDefault();
       // console.log('drag over');
 
-      const draggedElement = document.querySelector('.dragging');
-      const cardsContainer = columnElement.querySelector('.cards-container');
+      const draggedElement = document.querySelector(".dragging");
+      const cardsContainer = columnElement.querySelector(".cards-container");
       const afterElement = getDragAfterElement(cardsContainer, e.clientY);
       draggedTaskObj.status = Task.getStatus(getColumnIndex(columnElement));
 
@@ -312,9 +332,11 @@ import '@fortawesome/fontawesome-free/js/solid';
     }
 
     containers.forEach((col) => {
-      col.addEventListener('dragover', addDraggedElementToColumn.bind(null, col));
+      col.addEventListener(
+        "dragover",
+        addDraggedElementToColumn.bind(null, col)
+      );
     });
-
   }
 
   dragFeature();
@@ -325,36 +347,44 @@ import '@fortawesome/fontawesome-free/js/solid';
 
   listenCardChanges(mainTitle, changeProjectTitle);
 
-  document.querySelector('#sidebar .new-row')
-    .addEventListener('click', createNewProject);
+  document
+    .querySelector("#sidebar .new-row")
+    .addEventListener("click", createNewProject);
 
   // Bootstrap code to enable offcanvas elements
-  const offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'));
+  const offcanvasElementList = [].slice.call(
+    document.querySelectorAll(".offcanvas")
+  );
   offcanvasElementList.map((offcanvasEl) => new Offcanvas(offcanvasEl));
-  const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-  [...dropdownElementList].map((dropdownToggleEl) => new Dropdown(dropdownToggleEl));
+  const dropdownElementList = document.querySelectorAll(".dropdown-toggle");
+  [...dropdownElementList].map(
+    (dropdownToggleEl) => new Dropdown(dropdownToggleEl)
+  );
 
   // add event listeners to add tasks in kanban
-  const addButtons = document.querySelectorAll('.kanban-container .new-row');
+  const addButtons = document.querySelectorAll(".kanban-container .new-row");
   for (let col = 0; col < addButtons.length; col += 1) {
     const btn = addButtons[col];
-    btn.addEventListener('click', createTask.bind(null, col));
+    btn.addEventListener("click", createTask.bind(null, col));
   }
 
   // add event listeners to switch between calendar and kanban
-  calendarFactory.getButton()
-    .addEventListener('click', () => {
-      if (document.querySelector('#calendar').classList.contains('hide') && activeProjectObj.id >= 0) {
-        toggleViews();
-        calendarFactory.renderCalendar(activeProjectObj.tasks);
-      }
-    });
-  document.querySelector('#kanban-view-btn')
-    .addEventListener('click', () => {
-      if (document.querySelector('.kanban-container').classList.contains('hide')) {
-        toggleViews();
-      }
-    });
+  calendarFactory.getButton().addEventListener("click", () => {
+    if (
+      document.querySelector("#calendar").classList.contains("hide") &&
+      activeProjectObj.id >= 0
+    ) {
+      toggleViews();
+      calendarFactory.renderCalendar(activeProjectObj.tasks);
+    }
+  });
+  document.querySelector("#kanban-view-btn").addEventListener("click", () => {
+    if (
+      document.querySelector(".kanban-container").classList.contains("hide")
+    ) {
+      toggleViews();
+    }
+  });
 
   // save changes to library every 1s
   setInterval(() => {

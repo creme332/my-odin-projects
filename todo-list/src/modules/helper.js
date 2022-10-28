@@ -1,15 +1,21 @@
-import { formatDistance } from 'date-fns';
+import { formatDistance } from "date-fns";
 
 /**
  * Creates and returns an HTML element.
  * @param {string} type HTML type : div, nav, ul, ...
  * @param {string} id HTML ID
- * @param {[string]} arrayClasses 
- * @param {string} txtContent 
+ * @param {[string]} arrayClasses
+ * @param {string} txtContent
  * @param {[HTMLElement]} arrayChildren HTML elements which must be appended to newly created element
  * @returns {HTMLElement} HTML element
  */
-export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChildren) {
+export function createHtmlElement(
+  type,
+  id,
+  arrayClasses,
+  txtContent,
+  arrayChildren
+) {
   const element = document.createElement(type);
 
   if (id) element.id = id;
@@ -28,40 +34,97 @@ export function createHtmlElement(type, id, arrayClasses, txtContent, arrayChild
 
 /**
  * Returns an HTML card with a todo item's details.
- * @param {Task} taskObj 
+ * @param {Task} taskObj
  * @returns {HTMLElement}
  */
 export function createCardElement(taskObj) {
-  const title = createHtmlElement('div', null, ['card-title'], taskObj.title, null);
+  const title = createHtmlElement(
+    "div",
+    null,
+    ["card-title"],
+    taskObj.title,
+    null
+  );
 
-  const priorityClass = ['card-priority', 'highlight'];
+  const priorityClass = ["card-priority", "highlight"];
   const priorityLevel = taskObj.getPriorityIndex();
   if (priorityLevel === 0) {
-    priorityClass.push('high-priority');
+    priorityClass.push("high-priority");
   }
   if (priorityLevel === 1) {
-    priorityClass.push('medium-priority');
+    priorityClass.push("medium-priority");
   }
   if (priorityLevel === 2) {
-    priorityClass.push('low-priority');
+    priorityClass.push("low-priority");
   }
-  const priority = createHtmlElement('div', null, priorityClass, taskObj.priority, null);
+  const priority = createHtmlElement(
+    "div",
+    null,
+    priorityClass,
+    taskObj.priority,
+    null
+  );
 
+  const formattedDate = formatDistance(taskObj.duedate, new Date(), {
+    addSuffix: true,
+  });
+  const date = createHtmlElement(
+    "div",
+    null,
+    ["card-date"],
+    formattedDate,
+    null
+  );
+  const editBtn = createHtmlElement(
+    "i",
+    null,
+    ["fa-solid", "fa-trash"],
+    null,
+    null
+  );
+  const editBtnContainer = createHtmlElement(
+    "div",
+    null,
+    ["delete-btn"],
+    null,
+    [editBtn]
+  );
 
-  const formattedDate = formatDistance(taskObj.duedate, new Date(), { addSuffix: true });
-  const date = createHtmlElement('div', null, ['card-date'], formattedDate, null);
-  const editBtn = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
-  const editBtnContainer = createHtmlElement('div', null, ['delete-btn'], null, [editBtn]);
-
-  const card = createHtmlElement('div', null, ['card'], null, [title, priority, date, editBtnContainer]);
-  card.setAttribute('draggable', true);
+  const card = createHtmlElement("div", null, ["card"], null, [
+    title,
+    priority,
+    date,
+    editBtnContainer,
+  ]);
+  card.setAttribute("draggable", true);
   return card;
 }
 
 export function createSidebarProjectElement(projectObj) {
-  const titleContainer = createHtmlElement('div', null, ['project-title'], projectObj.title, null);
-  const deleteIcon = createHtmlElement('i', null, ['fa-solid', 'fa-trash'], null, null);
-  const deleteIconContainer = createHtmlElement('div', null, ['delete-btn'], null, [deleteIcon]);
-  const listItem = createHtmlElement('li', null, null, null, [titleContainer, deleteIconContainer]);
+  const titleContainer = createHtmlElement(
+    "div",
+    null,
+    ["project-title"],
+    projectObj.title,
+    null
+  );
+  const deleteIcon = createHtmlElement(
+    "i",
+    null,
+    ["fa-solid", "fa-trash"],
+    null,
+    null
+  );
+  const deleteIconContainer = createHtmlElement(
+    "div",
+    null,
+    ["delete-btn"],
+    null,
+    [deleteIcon]
+  );
+  const listItem = createHtmlElement("li", null, null, null, [
+    titleContainer,
+    deleteIconContainer,
+  ]);
   return listItem;
 }
