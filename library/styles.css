@@ -1,37 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
 
 body {
-    width: 100vw;
-    height: auto;
-    display: grid;
-    place-items: center;
-    background-color: #f1f3f5;
-    font-family: 'Inter', sans-serif;
-    padding: 50px;
+  width: 100vw;
+  height: auto;
+  display: grid;
+  place-items: center;
+  background-color: #f1f3f5;
+  font-family: "Inter", sans-serif;
+  padding: 50px;
 }
 
 #row-template {
-    outline: 1px solid red;
-    display: none;
+  outline: 1px solid red;
+  display: none;
 }
 
 .container {
-    height: auto;
-    /* outline: 1px solid; */
-    width: 100%;
+  height: auto;
+  /* outline: 1px solid; */
+  width: 100%;
 }
 
 .progress {
-    background-color: #a5f1db;
-    height: 0.9rem;
+  background-color: #a5f1db;
+  height: 0.9rem;
 }
 
 .progress-bar {
-    padding: 0.3rem;
+  padding: 0.3rem;
 }
 
 .bg-success {
-    background-color: rgb(33, 209, 156) !important;
+  background-color: rgb(33, 209, 156) !important;
 }
 
 /* th,
@@ -42,61 +42,61 @@ table {
 
 /* space buttons in Actions column */
 tr td:nth-last-child(1) {
-    display: flex;
-    gap: 1em;
-    align-items: center;
+  display: flex;
+  gap: 1em;
+  align-items: center;
 }
 
 tr td:nth-last-child(1) {
-    display: flex;
-    gap: 1em;
-    vertical-align: middle;
+  display: flex;
+  gap: 1em;
+  vertical-align: middle;
 }
 
 .container table td {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 th {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 table caption {
-    caption-side: top;
+  caption-side: top;
 }
 
 #addRowBtn {
-    display: grid;
-    place-items: center;
-    height: 50px;
-    background-color: #eaeaea;
+  display: grid;
+  place-items: center;
+  height: 50px;
+  background-color: #eaeaea;
 }
 
 #addRowBtn:focus {
-    outline: 0;
+  outline: 0;
 }
 
 #addRowBtn:hover {
-    background-color: #dedede;
+  background-color: #dedede;
 }
 
 #library input {
-    background-color: transparent;
-    border: 0;
-    color: #212529;
-    text-overflow: ellipsis;
+  background-color: transparent;
+  border: 0;
+  color: #212529;
+  text-overflow: ellipsis;
 
-    border-style: none;
-    padding: 0;
+  border-style: none;
+  padding: 0;
 }
 
-#library input[type='number'] {
-    width: 70px;
+#library input[type="number"] {
+  width: 70px;
 }
 
-#library textarea {
-    resize: none;
-    background-color: transparent;
-    border: 0;
-    color: #212529;
+#library input {
+  resize: none;
+  background-color: transparent;
+  border: 0;
+  color: #212529;
 }
