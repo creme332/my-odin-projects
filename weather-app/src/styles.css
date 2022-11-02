@@ -1,9 +1,144 @@
+:root {
+  --bg-gray: #fafafa;
+  --time-gray: #8a8a8a;
+}
+
 body {
   display: grid;
   height: 100vh;
   width: 100vw;
-  place-content: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 1.5fr 1.5fr;
+  grid-template-areas: "s a" "s b" "s c";
+  background-color: black;
+  gap:1em;
+}
+
+.sidebar {
+  grid-area: s;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 20px;
+}
+
+.weather-icon {
+  flex: 1;
+}
+
+.temperature {
+  display: flex;
+}
+.temperature .number {
+  font-size: 60px;
+}
+.temperature .symbol {
+  font-size: 40px;
+}
+
+.date {
+  font-size: 20px;
+}
+.date .day {
+  font-weight: 600;
+}
+.date .time {
+  color: var(--time-gray);
+}
+
+.search-bar {
+  display: flex;
+  /* width: 100%; */
+  height: 30px;
+  background-color: var(--bg-gray);
+  border-radius: 16px;
+  /* outline:1px solid; */
+  padding: 10px;
+  gap: 1em;
+  align-items: center;
+}
+.search-bar input {
+  flex: 1;
+  font-size: 14px;
+}
+
+.loader {
+  border: 3px solid #c4c4c4;
+  border-top: 3px solid black;
+  border-right: 3px solid black;
+
+  border-radius: 50%;
+  width: 9px;
+  height: 9px;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.row1 {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  gap:2em;
+  grid-area: a;
+  background-color: blue;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:2em;
+  grid-area: b;
+  background-color: green;
+}
+
+.row3 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:2em;
+  grid-area: c;
+  background-color: yellow;
+}
+
+.row1,
+.row2,
+.row3 {
+  background-color: var(--bg-gray);
+}
+
+.country-info {
+  position: relative;
+}
+
+.country-title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  color: white;
+  position: absolute;
+  z-index: 99;
+  top: 10px;
+}
+
+.country-title div {
+  display: flex;
+  gap: 0.5em;
+}
+
+.country-img {
+  border-radius: 10px;
+}
+
+.card{
+  background-color: rgb(215, 255, 214);
 }

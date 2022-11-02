@@ -45,3 +45,8 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+input, input:active{
+	border:0;
+	outline: 0;
+	background-color: transparent;
+}
