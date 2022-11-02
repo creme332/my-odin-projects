@@ -46,6 +46,14 @@ module.exports = {
                 }
             },
             {
+                test: /\.html$/,
+                use: [
+                  {
+                    loader: 'html-loader'
+                  }
+                ]
+            },
+            {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
