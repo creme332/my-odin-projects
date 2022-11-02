@@ -1,0 +1,28 @@
+{
+    "name": "weather-app",
+    "version": "1.0.0",
+    "description": "A weather dashboard that uses the OpenWeather API.",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack serve --mode development --open",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "creme332",
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.19.6",
+        "@babel/preset-env": "^7.19.4",
+        "babel-loader": "^9.0.0",
+        "css-loader": "^6.7.1",
+        "eslint": "^8.26.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "html-webpack-plugin": "^5.5.0",
+        "prettier": "2.7.1",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^4.11.1"
+    }
+}
