@@ -217,13 +217,6 @@ body {
   gap: 1em;
 }
 
-.card .stats-container {
-  height: 100%;
-  /* outline: 1px solid; */
-  display: grid;
-  place-items: center;
-}
-
 .card .stats {
   display: flex;
   /* outline: 1px solid; */
@@ -249,4 +242,11 @@ body {
 #visibility-card .stats-container {
   display: flex;
   justify-content: center;
+}
+
+#wind-card .stats-container,
+#visibility-card .stats-container {
+  height: 100%;
+  display: grid;
+  place-items: center;
 }
