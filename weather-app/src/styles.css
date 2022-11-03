@@ -4,17 +4,18 @@
 }
 
 body {
+  padding: 0em 1em 0 0;
   display: grid;
   height: 100vh;
-  width: 100vw;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 1.5fr 1.5fr;
   grid-template-areas: "s a" "s b" "s c";
-  background-color: black;
-  gap:1em;
+  /* background-color: black; */
+  background-color: var(--bg-gray);
+  gap: 1em;
 }
 
 .sidebar {
@@ -24,22 +25,33 @@ body {
   flex-direction: column;
   gap: 1em;
   padding: 20px;
+  margin-right: 1em;
 }
 
-.weather-icon {
+.sidebar .weather-icon {
   flex: 1;
 }
 
 .temperature {
   display: flex;
 }
-.temperature .number {
+.sidebar .number,
+.row2 .number,
+.row3 .number {
   font-size: 60px;
 }
-.temperature .symbol {
+.sidebar .symbol,
+.row2 .symbol,
+.row3 .symbol {
   font-size: 40px;
 }
 
+.card .number {
+  color: black;
+}
+.card .symbol {
+  color: var(--time-gray);
+}
 .date {
   font-size: 20px;
 }
@@ -86,34 +98,86 @@ body {
   }
 }
 
+/* row 1 start */
 .row1 {
+  margin-top: 1em;
   display: grid;
-  grid-template-columns: repeat(7,1fr);
-  gap:2em;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2em;
   grid-area: a;
   background-color: blue;
 }
 
-.row2 {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap:2em;
-  grid-area: b;
-  background-color: green;
+.row1 .card {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
-.row3 {
+.row1 .stats {
+  gap: 0.1em;
+}
+.row1 .card-title {
+  text-align: center;
+  font-weight: 600;
+  color: black;
+}
+
+.row1 img {
+  width: 100%;
+  margin-right: auto;
+}
+.row1 .stats {
+  display: flex;
+  justify-content: center;
+}
+/* row 1 end */
+
+/* row 2 start */
+.row2 {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  grid-area: b;
+}
+
+.row2 h2 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.row2 .card-container {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap:2em;
+  gap: 2em;
+  grid-template-columns: repeat(3, 1fr);
+
+  width: 100%;
+  height: 100%;
+}
+/* row 2 end */
+
+/* row 3 start */
+.row3 {
+  padding-bottom: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
   grid-area: c;
   background-color: yellow;
 }
 
+.row3 .stats-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* row 3 end */
+
 .row1,
 .row2,
 .row3 {
-  background-color: var(--bg-gray);
+  background-color: transparent;
 }
 
 .country-info {
@@ -139,6 +203,50 @@ body {
   border-radius: 10px;
 }
 
-.card{
-  background-color: rgb(215, 255, 214);
+.card {
+  color: var(--time-gray);
+  font-size: 20px;
+  padding: 15px;
+  min-width: 100px;
+  background-color: white;
+}
+
+#uv-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.card .stats-container {
+  height: 100%;
+  /* outline: 1px solid; */
+  display: grid;
+  place-items: center;
+}
+
+.card .stats {
+  display: flex;
+  /* outline: 1px solid; */
+  align-items: center;
+  gap: 0.5em;
+}
+
+#sun-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+#sun-card .time {
+  font-weight: 500;
+  color: black;
+}
+#sun-card .container {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+#visibility-card .stats-container {
+  display: flex;
+  justify-content: center;
 }

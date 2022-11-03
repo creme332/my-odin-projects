@@ -1,6 +1,8 @@
 // import my styles
 import "./reset.css";
 import "./styles.css";
+import "./speedometer.css"
+import "./progressbar.css"
 
 async function getWeatherData(countryName) {
   const API_KEY = "0ca9d53d2b652c10a5a8656ff1807c73";

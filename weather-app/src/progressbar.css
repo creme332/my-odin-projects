@@ -1,0 +1,36 @@
+:root {
+  --progress-bar-bgcol: #f2f2f2;
+  --progress-bar1-col: #5a9bfe;
+  --progress-bar2-col: #ff9f24;
+  --progress-bar3-col: #f4694c;
+}
+
+.progress-bar {
+  padding: 10px 0;
+  height: 120px;
+  width: 40px;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--progress-bar-bgcol);
+}
+
+.progress-bar input[type="radio"] {
+  appearance: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.progress-bar input:nth-child(1):checked {
+  background-color: var(--progress-bar1-col);
+}
+.progress-bar input:nth-child(2):checked {
+  background-color: var(--progress-bar2-col);
+}
+.progress-bar input:nth-child(3):checked {
+  background-color: var(--progress-bar3-col);
+}

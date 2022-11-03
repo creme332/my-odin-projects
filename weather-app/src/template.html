@@ -12,21 +12,25 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link
       rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁</text></svg>"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌂</text></svg>"
     />
     <title>Weather</title>
   </head>
 
   <body>
     <div class="sidebar">
-
       <div class="search-bar">
         <img src="assets/icons/search-icon.svg" alt="" />
         <input type="text" placeholder="Search city" />
         <div class="loader"></div>
       </div>
 
-      <img class =  "weather-icon" src="assets/weather/cloud-snow.svg" height="200" alt="" />
+      <img
+        class="weather-icon"
+        src="assets/weather/sun.svg"
+        height="200"
+        alt=""
+      />
 
       <div class="temperature">
         <h1 class="number">25</h1>
@@ -46,7 +50,7 @@
           </div>
         </div>
         <img
-          height="200"
+          height="160"
           class="country-img"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcTktitgWQQL6cjcai1rTfuMed-rP6m87Anw&usqp=CAU"
           alt=""
@@ -54,23 +58,172 @@
       </div>
     </div>
     <div class="row1">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
+      <div class="card">
+        <div class="card-title">Mon</div>
+        <img
+          class="weather-icon"
+          src="assets/weather/sun.svg"
+          height="70"
+          alt=""
+        />
+        <div class="stats">
+          <span class="number">6.60</span><span class="symbol">&degC</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Tue</div>
+        <img
+          class="weather-icon"
+          src="assets/weather/cloud.svg"
+          height="70"
+          alt=""
+        />
+        <div class="stats">
+          <span class="number">6.60</span><span class="symbol">&degC</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Wed</div>
+        <img
+          class="weather-icon"
+          src="assets/weather/cloud-snow.svg"
+          height="70"
+          alt=""
+        />
+        <div class="stats">
+          <span class="number">6.60</span><span class="symbol">&degC</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Thu</div>
+        <img
+          class="weather-icon"
+          src="assets/weather/lightning.svg"
+          height="70"
+          alt=""
+        />
+        <div class="stats">
+          <span class="number">6.60</span><span class="symbol">&degC</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Fri</div>
+        <img
+          class="weather-icon"
+          src="assets/weather/cloud-sun-rain.svg"
+          height="70"
+          alt=""
+        />
+        <div class="stats">
+          <span class="number">6.60</span><span class="symbol">&degC</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Sat</div>
+        <img
+          class="weather-icon"
+          src="assets/weather/cloud-sun.svg"
+          height="70"
+          alt=""
+        />
+        <div class="stats">
+          <span class="number">6.60</span><span class="symbol">&degC</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Sun</div>
+        <img
+          class="weather-icon"
+          src="assets/weather/cloud-sun.svg"
+          height="70"
+          alt=""
+        />
+        <div class="stats">
+          <span class="number">6.60</span><span class="symbol">&degC</span>
+        </div>
+      </div>
     </div>
+
     <div class="row2">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
+      <h2>Today's highlights</h2>
+      <div class="card-container">
+        <div id="uv-card" class="card">
+          <div class="card-title">UV Index</div>
+          <div class="speedometer">
+            <div class="layout-align">
+              <div id="score-meter-1" class="layout-align">
+                <div id="scorer-1-inner-div">
+                  <div id="scorer-1-inner-div-5">
+                    <div class="scorer-1-tick"></div>
+                  </div>
+                </div>
+                <div id="scorer-1-inner-div-2"></div>
+                <div id="scorer-1-inner-div-3"></div>
+                <div id="scorer-1-inner-div-4"></div>
+              </div>
+            </div>
+            <h1>6</h1>
+          </div>
+        </div>
+
+        <div id="wind-card" class="card">
+          <div class="card-title">Wind status</div>
+          <div class="stats-container">
+            <div class="stats">
+              <span class="number">6.60</span><span class="symbol">km/h</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="sun-card" class="card">
+          <div class="card-title">Sunrise and Sunset</div>
+          <div class="container">
+            <img src="assets/icons/sunrise.png" height="50" alt="" />
+            <span class="time">15:53 AM</span>
+          </div>
+          <div class="container">
+            <img src="assets/icons/sunset.png" height="50" alt="" />
+            <span class="time">15:53 PM</span>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="row3">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
+      <div id="humidity-card" class="card">
+        <div class="card-title">Humidity</div>
+        <div class="stats-container">
+          <div class="stats">
+            <span class="number">6.60</span><span class="symbol">%</span>
+          </div>
+          <form class="progress-bar">
+            <input disabled checked type="radio" name="progress-bar" />
+            <input disabled type="radio" name="progress-bar" />
+            <input disabled type="radio" name="progress-bar" />
+          </form>
+        </div>
+      </div>
+      <div id="visibility-card" class="card">
+        <div class="card-title">Visibility</div>
+        <div class="stats-container">
+          <div class="stats">
+            <span class="number">3000</span><span class="symbol">m</span>
+          </div>
+        </div>
+      </div>
+      <div id="air-card" class="card">
+        <div class="card-title">Air quality</div>
+        <div class="stats-container">
+          <div class="stats">
+            <span class="number">3</span>
+          </div>
+          <form class="progress-bar">
+            <input disabled type="radio" name="progress-bar" />
+            <input disabled checked type="radio" name="progress-bar" />
+            <input disabled type="radio" name="progress-bar" />
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>
