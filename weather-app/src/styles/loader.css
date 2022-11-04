@@ -1,0 +1,25 @@
+:root{
+    --loader-color:black;
+    --loader-border-size:3px;
+    --loader-radius:9px;
+}
+
+.loader {
+  border: var(--loader-border-size) solid #c4c4c4;
+  border-top: var(--loader-border-size) solid var(--loader-color);
+  border-right: var(--loader-border-size) solid var(--loader-color);
+
+  border-radius: 50%;
+  width: var(--loader-radius);
+  height: var(--loader-radius);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
