@@ -21,8 +21,8 @@
     <div class="sidebar">
       <div class="search-bar">
         <img src="assets/icons/search-icon.svg" alt="" />
-        <input type="text" placeholder="Search city" />
-        <div class="loader"></div>
+        <input id="search-input" type="text" placeholder="Search city" />
+        <div class="loader hide"></div>
       </div>
 
       <img
@@ -46,11 +46,13 @@
         <div class="country-title">
           <div class="">
             <img src="assets/icons/location-dot-solid.svg" alt="" />
-            <span>Spain</span>
+            <span id="city-name">Spain</span>
           </div>
         </div>
         <img
-          height="160"
+          height="200"
+          width="300"
+          id="city-img"
           class="country-img"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcTktitgWQQL6cjcai1rTfuMed-rP6m87Anw&usqp=CAU"
           alt=""
@@ -148,7 +150,7 @@
       <h2>Today's highlights</h2>
       <div class="card-container">
         <div id="uv-card" class="card">
-          <div class="card-title">UV Index</div>
+          <div class="card-title">Atmospheric pressure</div>
           <div class="speedometer">
             <div class="layout-align">
               <div id="score-meter-1" class="layout-align">
@@ -162,15 +164,18 @@
                 <div id="scorer-1-inner-div-4"></div>
               </div>
             </div>
-            <h1>6</h1>
+            <h1 id="speedometer-value">
+              <span class="number">1015</span>
+              <span>&nbsp;hPa</span>
+            </h1>
           </div>
         </div>
 
         <div id="wind-card" class="card">
-          <div class="card-title">Wind status</div>
+          <div class="card-title">Wind speed</div>
           <div class="stats-container">
             <div class="stats">
-              <span class="number">6.60</span><span class="symbol">km/h</span>
+              <span class="number">6.60</span><span class="symbol">m/s</span>
             </div>
           </div>
         </div>
@@ -179,11 +184,11 @@
           <div class="card-title">Sunrise and Sunset</div>
           <div class="container">
             <img src="assets/icons/sunrise.png" height="50" alt="" />
-            <span class="time">15:53 AM</span>
+            <span id="sunrise-time" class="time">15:53</span>
           </div>
           <div class="container">
             <img src="assets/icons/sunset.png" height="50" alt="" />
-            <span class="time">15:53 PM</span>
+            <span id="sunset-time" class="time">15:53</span>
           </div>
         </div>
       </div>

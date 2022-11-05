@@ -1,8 +1,9 @@
 :root {
-  --low-bar: green;
-  --middle-bar: orange;
-  --high-bar: red;
-  --radius:360px;
+  --speedometer-low-bar: green;
+  --speedometer-middle-bar: orange;
+  --speedometer-high-bar: red;
+  --speedometer-radius: 360px;
+  --speedometer-rotation-angle: 150deg;
 }
 @media only screen and (min-width: 761px) {
   .layout-align {
@@ -40,8 +41,8 @@
 #score-meter-1 {
   width: 300px;
   height: 150px;
-  border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);
+  border-top-left-radius: var(--speedometer-radius);
+  border-top-right-radius: var(--speedometer-radius);
   overflow: hidden;
   position: relative;
 }
@@ -51,8 +52,8 @@
   top: 40%;
   width: 60%;
   height: 60%;
-  border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);
+  border-top-left-radius: var(--speedometer-radius);
+  border-top-right-radius: var(--speedometer-radius);
   background-color: #ffffff;
   z-index: 2;
 }
@@ -63,9 +64,9 @@
   z-index: 4;
   width: 100%;
   height: 100%;
-  border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);
-  background-color: var(--low-bar);
+  border-top-left-radius: var(--speedometer-radius);
+  border-top-right-radius: var(--speedometer-radius);
+  background-color: var(--speedometer-low-bar);
   transform-origin: bottom center;
   transform: rotate(-130deg);
   z-index: 0;
@@ -77,9 +78,9 @@
   z-index: 4;
   width: 100%;
   height: 100%;
-  border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);
-  background-color: var(--high-bar);
+  border-top-left-radius: var(--speedometer-radius);
+  border-top-right-radius: var(--speedometer-radius);
+  background-color: var(--speedometer-high-bar);
   transform-origin: bottom center;
   transform: rotate(130deg);
   z-index: 0;
@@ -92,7 +93,7 @@
   height: 0;
   border-left: 100px solid transparent;
   border-right: 100px solid transparent;
-  border-bottom: 140px solid var(--middle-bar);
+  border-bottom: 140px solid var(--speedometer-middle-bar);
   transform: rotate(180deg);
 }
 .scorer-1-tick {
@@ -102,10 +103,9 @@
   width: 300%;
   height: 5px;
   background-color: #000000;
-  animation-name: ticker-mover-1;
   animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  animation-timing-function: ease-out;
+  transform-origin: right center;
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
   border-top-right-radius: 5%;
@@ -121,14 +121,16 @@
   background-color: #000000;
   z-index: 2;
 }
+
+.play-speedometer-animation {
+  animation-name: ticker-mover-1;
+}
 @keyframes ticker-mover-1 {
   0% {
-    transform-origin: right center;
     transform: rotate(0deg);
   }
   100% {
-    transform-origin: right center;
-    transform: rotate(150deg);
+    transform: rotate(var(--speedometer-rotation-angle));
   }
 }
 
@@ -138,10 +140,16 @@
 
   /* outline: 1px solid; */
 }
-
-.speedometer h1 {
-  /* outline: 1px solid; */
-  text-align: center;
+.speedometer * {
+  /* outline: 1px solid ; */
+}
+.speedometer #speedometer-value {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.speedometer #speedometer-value .number {
   font-size: 30px;
-  color: black;
 }

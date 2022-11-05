@@ -212,9 +212,38 @@ const view = (() => {
       extractLocalDate(unixTimestamp, timezone)
     );
   }
-  
-  function setUV(index){
 
+  function setPressure(val) {
+    const maxPressure = 1600;
+    const minPressure = 860;
+    const delta = parseInt(val, 10) - minPressure;
+    const rotationDeg = parseInt(
+      (180 * delta) / (maxPressure - minPressure),
+      10
+    );
+
+    const tickerElement = document.querySelector(".speedometer .scorer-1-tick");
+
+    //reset tickerElement
+    tickerElement.style.removeProperty("transform");
+
+    //play animation
+    document.documentElement.style.setProperty(
+      "--speedometer-rotation-angle",
+      `${rotationDeg}deg`
+    );
+    tickerElement.classList.add("play-speedometer-animation");
+
+    tickerElement.addEventListener(
+      "animationend",
+      () => {
+        console.log("end");
+        tickerElement.classList.remove("play-speedometer-animation");
+        tickerElement.style.transform = `rotate(${rotationDeg}deg)`;
+      },
+      { once: true }
+    );
+    document.querySelector("#speedometer-value .number").textContent = val;
   }
 
   return {
@@ -230,7 +259,7 @@ const view = (() => {
     setWindSpeed,
     setSunrise,
     setSunset,
-    setUV,
+    setPressure,
   };
 })();
 
@@ -248,8 +277,6 @@ async function to(func, ...params) {
   }
   return [result, error];
 }
-
-
 
 async function getCityImageURL(cityName) {
   const URL = `https://source.unsplash.com/random/200x300/?${cityName}-landscape`;
@@ -373,7 +400,7 @@ async function doSomething() {
     console.log(error);
   });
 
-  view.toggleLoadingAnimation(false); // stop loading animation 
+  view.toggleLoadingAnimation(false); // stop loading animation
 
   view.setCityImage(imageURL);
   view.setCityImageCaption(`${validCityName}, ${validCountryName}`);
@@ -384,7 +411,7 @@ async function doSomething() {
   view.setAirQuality(pollutionData.list[0].main.aqi);
   view.setWindSpeed(weatherData.wind.speed);
   view.setHumidity(weatherData.main.humidity);
-
+  view.setPressure(weatherData.main.pressure);
 
   view.setDate(weatherData.dt, weatherData.timezone);
   view.setSunrise(weatherData.sys.sunrise, weatherData.timezone);
