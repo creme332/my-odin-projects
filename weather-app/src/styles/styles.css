@@ -11,28 +11,34 @@ body {
   height: 100vh;
   width: 100vw;
 
-  padding: 0em 1em 0 0;
+  padding: 0em 2em 0 0;
 
   font-family: "Source Sans Pro", sans-serif;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 1.5fr 1.5fr;
   grid-template-areas: "s a" "s b" "s c";
   background-color: var(--bg-gray);
-  background-color: red;
+  /* background-color: red; */
   gap: 1em;
 }
 
 .hide {
   visibility: hidden;
 }
+
 .sidebar {
   grid-area: s;
   background-color: white;
+  /* margin-right: 1em; */
+}
+
+.sidebar > div {
   display: flex;
   flex-direction: column;
   gap: 1em;
   padding: 20px;
-  margin-right: 1em;
+  position: sticky;
+  top: 0;
 }
 
 .sidebar .weather-icon {
@@ -45,7 +51,6 @@ body {
   color: var(--time-gray);
   font-size: 20px;
   padding: 15px;
-  min-width: 100px;
   background-color: white;
 }
 
@@ -152,7 +157,7 @@ body {
 
 /* row 3 start */
 .row3 {
-  padding-bottom: 1em;
+  margin-bottom: 1em;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2em;
@@ -270,8 +275,11 @@ body {
     border-radius: 12px;
   }
   .sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    align-self: start;
     box-sizing: border-box;
-    /* width: 100%; */
     padding: 5px;
     margin-right: 0;
   }
@@ -309,5 +317,5 @@ body {
   }
 }
 body * {
-  outline: 1px solid;
+  /* outline: 1px solid; */
 }
