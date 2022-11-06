@@ -8,10 +8,10 @@
 
 * {
   box-sizing: border-box !important;
+  /* outline: 1px solid red; */
 }
 
 body {
-  /* box-sizing: border-box !important; */
   display: grid;
   height: 100vh;
   width: 100vw;
@@ -50,8 +50,8 @@ body {
   flex: 1;
 }
 
-#uv-card{
-  gap:1em;
+#uv-card {
+  gap: 1em;
 }
 
 .card {
@@ -272,7 +272,7 @@ body {
     height: auto;
     padding: 0;
     gap: 2em;
-    padding: 8px;
+    padding: 5px;
   }
 
   .row1,
@@ -308,7 +308,9 @@ body {
     margin-top: 0;
   }
   #city-img {
-    width: 100%;
+    display: block;
+    margin: auto;
+    width: 300px;
   }
   .row1 {
     overflow-x: scroll;
