@@ -22,7 +22,7 @@ const view = (() => {
     clearTimeout(timeout);
     timeout = setTimeout(controller.updateContent, checkDelay);
   });
-  
+
   function init() {
     searchBarEl.value = "Mexico City";
     controller.updateContent();
@@ -31,6 +31,15 @@ const view = (() => {
 
   function getSearchBarValue() {
     return searchBarEl.value;
+  }
+
+  function toggleRedLoader(defaultColor = true) {
+    const loader = document.querySelector(".loader");
+    if (defaultColor) {
+      loader.classList.remove("invalid-loader");
+    } else {
+      loader.classList.add("invalid-loader");
+    }
   }
 
   function toggleLoadingAnimation(showLoader = true) {
@@ -306,6 +315,7 @@ const view = (() => {
     setPressure,
     setForecastData,
     init,
+    toggleRedLoader,
   };
 })();
 
@@ -427,9 +437,12 @@ const controller = (() => {
     const searchBarValue = view.getSearchBarValue();
     if (searchBarValue === "") return;
 
-    view.toggleLoadingAnimation(); // start loading animation
+    // start loading animation
+    view.toggleRedLoader();
+    view.toggleLoadingAnimation();
 
     const geoData = await model.getGeoData(searchBarValue).catch((err) => {
+      view.toggleRedLoader(false);
       console.log(err);
     });
 
@@ -446,6 +459,7 @@ const controller = (() => {
       model.getDailyForecastData(geoData[0].lat, geoData[0].lon, validCityName),
       model.getCityImageURL(validCityName),
     ]).catch((error) => {
+      view.toggleRedLoader(false);
       console.log(error);
     });
 

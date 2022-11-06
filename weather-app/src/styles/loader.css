@@ -23,3 +23,8 @@
     transform: rotate(360deg);
   }
 }
+
+.invalid-loader{
+  border-top-color: red;
+  border-right-color: red;
+}
