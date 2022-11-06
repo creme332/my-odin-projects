@@ -19,4 +19,4 @@ Library | Objects and Object constructors, OOP|[Link](https://github.com/creme33
 Tic Tac Toe| Factory functions and module patterns|[Link](https://github.com/creme332/my-odin-projects/tree/main/tic-tac-toe)     |   [Demo](https://creme332.github.io/my-odin-projects/tic-tac-toe/) | ⭐⭐⭐
 Restaurant Page| ES6 modules, Webpack|[Link](https://github.com/creme332/my-odin-projects/tree/main/restaurant-page)     |   [Demo](https://creme332.github.io/my-odin-projects/restaurant-page/dist/) | ⭐
 Todo List| SOLID principles|[Link](https://github.com/creme332/my-odin-projects/tree/main/todo-list)     |   [Demo](https://creme332.github.io/my-odin-projects/todo-list/dist/) | ⭐⭐
-Weather App| Asynchronous JavaScript and APIs|[Link](https://github.com/creme332/my-odin-projects/tree/main/weather-app)     |   [Demo](https://creme332.github.io/my-odin-projects/weather-app/dist/) | 
+Weather App| Asynchronous JavaScript and APIs|[Link](https://github.com/creme332/my-odin-projects/tree/main/weather-app)     |   [Demo](https://creme332.github.io/my-odin-projects/weather-app/dist/) | ⭐⭐
