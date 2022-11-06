@@ -36,46 +36,53 @@ const view = (() => {
     cityNameEl.textContent = text;
   }
 
-  function setCurrentWeatherImage(weatherID) {
-    const sidebarWeatherImage = sidebarEl.querySelector(".weather-icon");
-
+  function getWeatherImgSrc(weatherID) {
+    console.log(weatherID);
     if (weatherID >= 200 && weatherID < 300) {
       // thunderstorm
-      sidebarWeatherImage.src = lightningImgSrc;
-      return;
+      return lightningImgSrc;
     }
 
     if (weatherID >= 300 && weatherID < 600) {
       // drizzle
-      sidebarWeatherImage.src = cloudSunRainImgSrc;
-      return;
+      return cloudSunRainImgSrc;
     }
 
     if (weatherID >= 600 && weatherID < 700) {
       // snow
-      sidebarWeatherImage.src = cloudSnowImgSrc;
-      return;
+      return cloudSnowImgSrc;
     }
     if (weatherID >= 700 && weatherID < 800) {
       // atmosphere
-      sidebarWeatherImage.src = sunImgSrc;
+      return sunImgSrc;
     }
     if (weatherID === 800) {
       // clear
-      sidebarWeatherImage.src = sunImgSrc;
+      return sunImgSrc;
     }
     if (weatherID === 801) {
-      sidebarWeatherImage.src = cloudSunImgSrc;
+      return cloudSunImgSrc;
     }
     if (weatherID >= 802 && weatherID < 900) {
       // clouds
-      sidebarWeatherImage.src = cloudImgSrc;
+      return cloudImgSrc;
+    }
+    return null;
+  }
+
+  function setCurrentWeatherImage(weatherID) {
+    const sidebarWeatherImage = sidebarEl.querySelector(".weather-icon");
+    const imgSrc = getWeatherImgSrc(weatherID);
+    if (imgSrc) {
+      sidebarWeatherImage.src = imgSrc;
     }
   }
 
-  function setMainTemperature(tempInKelvin) {
-    const tempInCelcius = parseInt(tempInKelvin - 273.15, 10);
-    sidebarEl.querySelector(".temperature .number").textContent = tempInCelcius;
+  function setMainTemperature(tempInCelcius) {
+    sidebarEl.querySelector(".temperature .number").textContent = parseInt(
+      tempInCelcius,
+      10
+    );
   }
 
   function extractLocalDate(dt, timezone) {
@@ -91,12 +98,7 @@ const view = (() => {
     return `${hour}:${minute}`;
   }
 
-  function setDate(unixTimestamp, timezone) {
-    const localDate = extractLocalDate(unixTimestamp, timezone); //local date in city
-    const formatTime = extractLocalTime(localDate);
-    const day = localDate.slice(0, 3); // abbreviated day
-    console.log(formatTime);
-
+  function getFullDay(abbreviatedDay) {
     const days = [
       "Sunday",
       "Monday",
@@ -106,7 +108,14 @@ const view = (() => {
       "Friday",
       "Saturday",
     ];
-    const fullDay = days.filter((val) => val.slice(0, 3) === day)[0];
+    return days.filter((val) => val.slice(0, 3) === abbreviatedDay)[0];
+  }
+
+  function setDate(unixTimestamp, timezone) {
+    const localDate = extractLocalDate(unixTimestamp, timezone); // local date in city
+    const formatTime = extractLocalTime(localDate);
+    const day = localDate.slice(0, 3); // abbreviated day
+    const fullDay = getFullDay(day);
     sidebarEl.querySelector(".date .day").textContent = `${fullDay}, `;
     sidebarEl.querySelector(".date .time").textContent = formatTime;
   }
@@ -224,10 +233,10 @@ const view = (() => {
 
     const tickerElement = document.querySelector(".speedometer .scorer-1-tick");
 
-    //reset tickerElement
+    // reset tickerElement
     tickerElement.style.removeProperty("transform");
 
-    //play animation
+    // play animation
     document.documentElement.style.setProperty(
       "--speedometer-rotation-angle",
       `${rotationDeg}deg`
@@ -246,6 +255,28 @@ const view = (() => {
     document.querySelector("#speedometer-value .number").textContent = val;
   }
 
+  function setForecastData(dailyArray, timezoneOffset) {
+    const weekCards = document.querySelectorAll(".row1 .card");
+    // get forecast data for all days except today
+    for (let i = 1; i < dailyArray.length; i += 1) {
+      const currentCard = weekCards[i - 1];
+      const el = dailyArray[i];
+      const date = extractLocalDate(el.dt, timezoneOffset);
+
+      const day = date.slice(0, 3);
+      currentCard.querySelector(".card-title").textContent = day;
+
+      const temp = parseInt(el.temp.day, 10);
+      currentCard.querySelector(".stats .number").textContent = temp;
+
+      const weatherID = parseInt(el.weather[0].id, 10);
+      const weatherImgSrc = getWeatherImgSrc(weatherID);
+      currentCard.querySelector(".weather-icon").src = weatherImgSrc;
+
+      console.log(day, weatherID, temp);
+    }
+  }
+
   return {
     setCityImage,
     setCurrentWeatherImage,
@@ -260,111 +291,123 @@ const view = (() => {
     setSunrise,
     setSunset,
     setPressure,
+    setForecastData,
   };
 })();
 
-const model = (() => {})();
+const model = (() => {
+  
+  async function to(func, ...params) {
+    let result = null;
+    let error = null;
+    try {
+      result = await func(...params);
+    } catch (e) {
+      error = e;
+    }
+    return [result, error];
+  }
+
+  async function getCityImageURL(cityName) {
+    const URL = `https://source.unsplash.com/random/200x300/?${cityName}-landscape`;
+
+    const [response, err1] = await to(fetch, URL);
+    if (err1) {
+      throw new Error(`Cannot fetch image ${cityName}`, err1);
+    }
+
+    if (response.status !== 200) {
+      throw new Error("Invalid status code", response);
+    }
+
+    const NotFoundURL =
+      "https://images.unsplash.com/source-404?fit=crop&fm=jpg&h=800&q=60&w=1200";
+    const defaultURL =
+      "https://images.unsplash.com/photo-1505521377774-103a8cc2f735?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2NzYzNTI3MA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200";
+
+    if (response.url === NotFoundURL) {
+      return defaultURL;
+    }
+    return response.url;
+  }
+
+  async function getGeoData(cityName) {
+    const URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${PUBLIC_API_KEY}`;
+    const [response, err1] = await to(fetch, URL);
+    if (err1) {
+      throw new Error(`Cannot fetch geo data of ${cityName}`, err1);
+    }
+
+    if (response.status !== 200) {
+      throw new Error("Invalid status code", response);
+    }
+
+    const geoDataJSON = await response.json();
+
+    if (geoDataJSON.length === 0) {
+      throw new Error("Invalid city name", geoDataJSON);
+    }
+    return geoDataJSON;
+  }
+
+  async function getCurrentWeatherData(cityName) {
+    const URL = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${PUBLIC_API_KEY}&units=metric`;
+    const [response, err1] = await to(fetch, URL);
+    if (err1) {
+      throw new Error(`Cannot fetch current weather data of ${cityName}`, err1);
+    }
+    if (response.status !== 200) {
+      throw new Error("Invalid status code", response);
+    }
+
+    const weather = await response.json();
+    return weather;
+  }
+
+  async function getPollutionData(latitude, longitude) {
+    const URL = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${PUBLIC_API_KEY}`;
+    const [response, err1] = await to(fetch, URL);
+    if (err1) {
+      throw new Error(
+        `Cannot fetch pollution data of (${latitude}, ${longitude})`,
+        err1
+      );
+    }
+    if (response.status !== 200) {
+      throw new Error(
+        `Invalid status code coordinates(${latitude}, ${longitude})`,
+        response
+      );
+    }
+    const weather = await response.json();
+    return weather;
+  }
+
+  async function getDailyForecastData(lat, lon, cityName = null) {
+    const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=20f7632ffc2c022654e4093c6947b4f4&units=metric`;
+    const [response, err1] = await to(fetch, URL);
+
+    if (err1) {
+      throw new Error(`Cannot fetch forecast data of ${cityName}`, err1);
+    }
+    if (response.status !== 200) {
+      throw new Error("Invalid status code", response);
+    }
+
+    const forecast = await response.json();
+    return forecast;
+  }
+
+  return {
+    getCityImageURL,
+    getGeoData,
+    getCurrentWeatherData,
+    getPollutionData,
+    getDailyForecastData,
+  };
+})();
 
 const controller = (() => {})();
-
-async function to(func, ...params) {
-  let result = null;
-  let error = null;
-  try {
-    result = await func(...params);
-  } catch (e) {
-    error = e;
-  }
-  return [result, error];
-}
-
-async function getCityImageURL(cityName) {
-  const URL = `https://source.unsplash.com/random/200x300/?${cityName}-landscape`;
-
-  const [response, err1] = await to(fetch, URL);
-  if (err1) {
-    throw new Error(`Cannot fetch image ${cityName}`, err1);
-  }
-
-  if (response.status !== 200) {
-    throw new Error("Invalid status code", response);
-  }
-
-  const NotFoundURL =
-    "https://images.unsplash.com/source-404?fit=crop&fm=jpg&h=800&q=60&w=1200";
-  const defaultURL =
-    "https://images.unsplash.com/photo-1505521377774-103a8cc2f735?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2NzYzNTI3MA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200";
-
-  if (response.url === NotFoundURL) {
-    return defaultURL;
-  }
-  return response.url;
-}
-
-async function getGeoData(cityName) {
-  const URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${PUBLIC_API_KEY}`;
-  const [response, err1] = await to(fetch, URL);
-  if (err1) {
-    throw new Error(`Cannot fetch geo data of ${cityName}`, err1);
-  }
-
-  if (response.status !== 200) {
-    throw new Error("Invalid status code", response);
-  }
-
-  const geoDataJSON = await response.json();
-
-  if (geoDataJSON.length === 0) {
-    throw new Error("Invalid city name", geoDataJSON);
-  }
-  return geoDataJSON;
-}
-
-async function getCurrentWeatherData(cityName) {
-  const URL = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${PUBLIC_API_KEY}`;
-  const [response, err1] = await to(fetch, URL);
-  if (err1) {
-    throw new Error(`Cannot fetch current weather data of ${cityName}`, err1);
-  }
-  if (response.status !== 200) {
-    throw new Error("Invalid status code", response);
-  }
-
-  const weather = await response.json();
-  return weather;
-}
-
-async function getPollutionData(latitude, longitude) {
-  const URL = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${PUBLIC_API_KEY}`;
-  const [response, err1] = await to(fetch, URL);
-  if (err1) {
-    throw new Error(
-      `Cannot fetch pollution data of (${latitude}, ${longitude})`,
-      err1
-    );
-  }
-  if (response.status !== 200) {
-    throw new Error(
-      `Invalid status code coordinates(${latitude}, ${longitude})`,
-      response
-    );
-  }
-  const weather = await response.json();
-  return weather;
-}
-
-async function getFiveDayForecastData(cityName) {
-  const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${PUBLIC_API_KEY}`;
-  const [response, err1] = await to(fetch, URL);
-  if (err1) {
-    throw new Error(`Cannot fetch current forecase data of ${cityName}`, err1);
-  }
-  if (response.status !== 200) {
-    throw new Error("Invalid status code", response);
-  }
-  const forecast = await response.json();
-  return forecast;
-}
 
 const searchBar = document.querySelector("#search-input");
 const checkDelay = 1000; // delay after user input for verification IN ms.
@@ -378,11 +421,9 @@ async function doSomething() {
 
   view.toggleLoadingAnimation(); // start loading animation
 
-  const [geoData, geoError] = await to(getGeoData, searchBar.value);
-  if (geoError) {
-    console.log(geoError);
-    return;
-  }
+  const geoData = await model.getGeoData(searchBar.value).catch((err) => {
+    console.log(err);
+  });
 
   const validCityName = geoData[0].name;
   const validCountryName = geoData[0].country;
@@ -392,13 +433,14 @@ async function doSomething() {
     forecastData = null,
     imageURL = null,
   ] = await Promise.all([
-    getCurrentWeatherData(validCityName),
-    getPollutionData(geoData[0].lat, geoData[0].lon),
-    getFiveDayForecastData(validCityName),
-    getCityImageURL(validCityName),
+    model.getCurrentWeatherData(validCityName),
+    model.getPollutionData(geoData[0].lat, geoData[0].lon),
+    model.getDailyForecastData(geoData[0].lat, geoData[0].lon, validCityName),
+    model.getCityImageURL(validCityName),
   ]).catch((error) => {
     console.log(error);
   });
+  console.log(forecastData);
 
   view.toggleLoadingAnimation(false); // stop loading animation
 
@@ -416,6 +458,7 @@ async function doSomething() {
   view.setDate(weatherData.dt, weatherData.timezone);
   view.setSunrise(weatherData.sys.sunrise, weatherData.timezone);
   view.setSunset(weatherData.sys.sunset, weatherData.timezone);
+  view.setForecastData(forecastData.daily, forecastData.timezone_offset);
 }
 
 searchBar.addEventListener("keyup", () => {
