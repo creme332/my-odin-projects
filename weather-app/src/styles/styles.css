@@ -1,25 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap");
 
 :root {
   --bg-gray: #fafafa;
   --time-gray: #8a8a8a;
-  --card-large-font-size:60px;
+  --card-large-font-size: 60px;
 }
 
 body {
-  padding: 0em 1em 0 0;
   display: grid;
   height: 100vh;
-  font-family: 'Source Sans Pro', sans-serif;
+  width: 100vw;
+
+  padding: 0em 1em 0 0;
+
+  font-family: "Source Sans Pro", sans-serif;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 1.5fr 1.5fr;
   grid-template-areas: "s a" "s b" "s c";
-  /* background-color: black; */
   background-color: var(--bg-gray);
+  background-color: red;
   gap: 1em;
 }
 
-.hide{
+.hide {
   visibility: hidden;
 }
 .sidebar {
@@ -212,7 +215,7 @@ body {
   gap: 1.5em;
 }
 #sun-card .time {
-  font-size:25px;
+  font-size: 25px;
   color: black;
 }
 #sun-card .container {
@@ -248,4 +251,63 @@ body {
 .status.bad::after {
   content: " Bad";
   color: var(--progress-bar3-col);
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+    gap: 1em;
+    /* padding: 5px; */
+  }
+  .card {
+    min-width: none;
+  }
+  .search-bar {
+    padding: 0;
+    border-radius: 12px;
+  }
+  .sidebar {
+    box-sizing: border-box;
+    /* width: 100%; */
+    padding: 5px;
+    margin-right: 0;
+  }
+
+  .sidebar * {
+    outline: 1px solid;
+  }
+
+  .sidebar .weather-icon {
+    /* height:30px;  */
+    width: 200px;
+    align-self: center;
+  }
+  .row1 {
+    margin-top: 0;
+  }
+  #city-img {
+    width: 100%;
+  }
+  .row1 {
+    overflow-x: auto;
+    /* order:99; */
+  }
+
+  .row3 {
+    padding-bottom: 0;
+  }
+  .row2,
+  .row3,
+  .row2 .card-container {
+    gap: 1em;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+body * {
+  outline: 1px solid;
 }
