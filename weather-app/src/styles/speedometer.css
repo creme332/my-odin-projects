@@ -18,9 +18,10 @@
   .layout-align {
     width: 100%;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
-    margin: 25px 0 25px 0;
+    /* margin: 15px 0 15px 0; */
+    transform: scale(0.8);
   }
 }
 /* Just for very small screen sizes */
@@ -137,11 +138,10 @@
 .speedometer {
   display: flex;
   flex-direction: column;
-
-  /* outline: 1px solid; */
+  gap: 0.3em;
 }
 .speedometer * {
-  /* outline: 1px solid ; */
+  /* outline: 1px solid; */
 }
 .speedometer #speedometer-value {
   width: 100%;
