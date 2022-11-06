@@ -12,10 +12,20 @@ import cloudImgSrc from "./assets/weather/cloud.svg";
 import lightningImgSrc from "./assets/weather/lightning.svg";
 import sunImgSrc from "./assets/weather/sun.svg";
 
-const PUBLIC_API_KEY = "0ca9d53d2b652c10a5a8656ff1807c73";
-
 const view = (() => {
   const sidebarEl = document.querySelector(".sidebar");
+  const searchBarEl = document.querySelector("#search-input");
+  const checkDelay = 1000; // delay after user input for verification IN ms.
+  let timeout = null;
+
+  searchBarEl.addEventListener("keyup", () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(controller.doSomething, checkDelay);
+  });
+
+  function getSearchBarValue() {
+    return searchBarEl.value;
+  }
 
   function toggleLoadingAnimation(showLoader = true) {
     const loader = sidebarEl.querySelector(".loader");
@@ -37,7 +47,6 @@ const view = (() => {
   }
 
   function getWeatherImgSrc(weatherID) {
-    console.log(weatherID);
     if (weatherID >= 200 && weatherID < 300) {
       // thunderstorm
       return lightningImgSrc;
@@ -246,7 +255,6 @@ const view = (() => {
     tickerElement.addEventListener(
       "animationend",
       () => {
-        console.log("end");
         tickerElement.classList.remove("play-speedometer-animation");
         tickerElement.style.transform = `rotate(${rotationDeg}deg)`;
       },
@@ -272,12 +280,11 @@ const view = (() => {
       const weatherID = parseInt(el.weather[0].id, 10);
       const weatherImgSrc = getWeatherImgSrc(weatherID);
       currentCard.querySelector(".weather-icon").src = weatherImgSrc;
-
-      console.log(day, weatherID, temp);
     }
   }
 
   return {
+    getSearchBarValue,
     setCityImage,
     setCurrentWeatherImage,
     toggleLoadingAnimation,
@@ -296,7 +303,8 @@ const view = (() => {
 })();
 
 const model = (() => {
-  
+  const PUBLIC_API_KEY = "0ca9d53d2b652c10a5a8656ff1807c73";
+
   async function to(func, ...params) {
     let result = null;
     let error = null;
@@ -407,61 +415,50 @@ const model = (() => {
   };
 })();
 
-const controller = (() => {})();
+const controller = (() => {
+  async function doSomething() {
+    const searchBarValue = view.getSearchBarValue();
+    if (searchBarValue === "") return;
 
-const searchBar = document.querySelector("#search-input");
-const checkDelay = 1000; // delay after user input for verification IN ms.
-let timeout = null;
+    view.toggleLoadingAnimation(); // start loading animation
 
-searchBar.value = "mexico city";
-doSomething();
+    const geoData = await model.getGeoData(searchBarValue).catch((err) => {
+      console.log(err);
+    });
 
-async function doSomething() {
-  if (searchBar.value === "") return;
+    const validCityName = geoData[0].name;
+    const validCountryName = geoData[0].country;
+    const [
+      weatherData = null,
+      pollutionData = null,
+      forecastData = null,
+      imageURL = null,
+    ] = await Promise.all([
+      model.getCurrentWeatherData(validCityName),
+      model.getPollutionData(geoData[0].lat, geoData[0].lon),
+      model.getDailyForecastData(geoData[0].lat, geoData[0].lon, validCityName),
+      model.getCityImageURL(validCityName),
+    ]).catch((error) => {
+      console.log(error);
+    });
 
-  view.toggleLoadingAnimation(); // start loading animation
+    view.toggleLoadingAnimation(false); // stop loading animation
 
-  const geoData = await model.getGeoData(searchBar.value).catch((err) => {
-    console.log(err);
-  });
+    view.setCityImage(imageURL);
+    view.setCityImageCaption(`${validCityName}, ${validCountryName}`);
+    view.setCurrentWeatherImage(weatherData.weather[0].id);
+    view.setMainTemperature(weatherData.main.temp);
 
-  const validCityName = geoData[0].name;
-  const validCountryName = geoData[0].country;
-  const [
-    weatherData = null,
-    pollutionData = null,
-    forecastData = null,
-    imageURL = null,
-  ] = await Promise.all([
-    model.getCurrentWeatherData(validCityName),
-    model.getPollutionData(geoData[0].lat, geoData[0].lon),
-    model.getDailyForecastData(geoData[0].lat, geoData[0].lon, validCityName),
-    model.getCityImageURL(validCityName),
-  ]).catch((error) => {
-    console.log(error);
-  });
-  console.log(forecastData);
+    view.setVisibility(weatherData.visibility);
+    view.setAirQuality(pollutionData.list[0].main.aqi);
+    view.setWindSpeed(weatherData.wind.speed);
+    view.setHumidity(weatherData.main.humidity);
+    view.setPressure(weatherData.main.pressure);
 
-  view.toggleLoadingAnimation(false); // stop loading animation
-
-  view.setCityImage(imageURL);
-  view.setCityImageCaption(`${validCityName}, ${validCountryName}`);
-  view.setCurrentWeatherImage(weatherData.weather[0].id);
-  view.setMainTemperature(weatherData.main.temp);
-
-  view.setVisibility(weatherData.visibility);
-  view.setAirQuality(pollutionData.list[0].main.aqi);
-  view.setWindSpeed(weatherData.wind.speed);
-  view.setHumidity(weatherData.main.humidity);
-  view.setPressure(weatherData.main.pressure);
-
-  view.setDate(weatherData.dt, weatherData.timezone);
-  view.setSunrise(weatherData.sys.sunrise, weatherData.timezone);
-  view.setSunset(weatherData.sys.sunset, weatherData.timezone);
-  view.setForecastData(forecastData.daily, forecastData.timezone_offset);
-}
-
-searchBar.addEventListener("keyup", () => {
-  clearTimeout(timeout);
-  timeout = setTimeout(doSomething, checkDelay);
-});
+    view.setDate(weatherData.dt, weatherData.timezone);
+    view.setSunrise(weatherData.sys.sunrise, weatherData.timezone);
+    view.setSunset(weatherData.sys.sunset, weatherData.timezone);
+    view.setForecastData(forecastData.daily, forecastData.timezone_offset);
+  }
+  return { doSomething };
+})();
