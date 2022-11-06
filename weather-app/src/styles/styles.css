@@ -3,6 +3,7 @@
 :root {
   --bg-gray: #fafafa;
   --time-gray: #8a8a8a;
+  --card-large-font-size:60px;
 }
 
 body {
@@ -51,7 +52,7 @@ body {
 .sidebar .number,
 .row2 .number,
 .row3 .number {
-  font-size: 60px;
+  font-size: var(--card-large-font-size);
 }
 .sidebar .symbol,
 .row2 .symbol,
@@ -211,7 +212,7 @@ body {
   gap: 1.5em;
 }
 #sun-card .time {
-  font-weight: 500;
+  font-size:25px;
   color: black;
 }
 #sun-card .container {
@@ -238,13 +239,13 @@ body {
 }
 .status.good::after {
   content: " Good";
-  color: #5a9bfe;
+  color: var(--progress-bar1-col);
 }
 .status.average::after {
   content: " Average";
-  color: #ff9f24;
+  color: var(--progress-bar2-col);
 }
 .status.bad::after {
   content: " Bad";
-  color: #f4694c;
+  color: var(--progress-bar3-col);
 }
