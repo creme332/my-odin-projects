@@ -8,7 +8,7 @@ A weather dashboard that displays the weather data of any city. OpenWeatherMap A
 
 ![Screenshot of weather app website](website-img.png)
 
-[▶ Live Preview](https://creme332.github.io/my-odin-projects/weather-app/)
+[▶ Live Preview](https://creme332.github.io/my-odin-projects/weather-app/dist)
 
 # 🚀Features
 - 7 day weather forecast.
@@ -47,6 +47,7 @@ To update the production deployment folder, (`dist`) :
 npx webpack --watch
 ```
 > ⚠ The OpenWeatherMap API key (free tier) was purposefully left in the code. You might want to change/remove it.
+
 # To-do
 - [ ] improve responsiveness for tablets
 - [x] add badges
