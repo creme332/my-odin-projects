@@ -357,7 +357,7 @@ const model = (() => {
   }
 
   async function getGeoData(cityName) {
-    const URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${PUBLIC_API_KEY}`;
+    const URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${PUBLIC_API_KEY}`;
     const [response, err1] = await to(fetch, URL);
     if (err1) {
       throw new Error(`Cannot fetch geo data of ${cityName}`, err1);
@@ -376,7 +376,7 @@ const model = (() => {
   }
 
   async function getCurrentWeatherData(cityName) {
-    const URL = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${PUBLIC_API_KEY}&units=metric`;
+    const URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${PUBLIC_API_KEY}&units=metric`;
     const [response, err1] = await to(fetch, URL);
     if (err1) {
       throw new Error(`Cannot fetch current weather data of ${cityName}`, err1);
@@ -390,7 +390,7 @@ const model = (() => {
   }
 
   async function getPollutionData(latitude, longitude) {
-    const URL = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${PUBLIC_API_KEY}`;
+    const URL = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${PUBLIC_API_KEY}`;
     const [response, err1] = await to(fetch, URL);
     if (err1) {
       throw new Error(
