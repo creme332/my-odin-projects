@@ -1,7 +1,7 @@
 :root{
     --loader-color:black;
     --loader-border-size:3px;
-    --loader-radius:9px;
+    --loader-radius:15px;
 }
 
 .loader {
