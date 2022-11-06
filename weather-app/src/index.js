@@ -20,8 +20,14 @@ const view = (() => {
 
   searchBarEl.addEventListener("keyup", () => {
     clearTimeout(timeout);
-    timeout = setTimeout(controller.doSomething, checkDelay);
+    timeout = setTimeout(controller.updateContent, checkDelay);
   });
+  
+  function init() {
+    searchBarEl.value = "Mexico City";
+    controller.updateContent();
+    searchBarEl.value = "";
+  }
 
   function getSearchBarValue() {
     return searchBarEl.value;
@@ -299,6 +305,7 @@ const view = (() => {
     setSunset,
     setPressure,
     setForecastData,
+    init,
   };
 })();
 
@@ -416,7 +423,7 @@ const model = (() => {
 })();
 
 const controller = (() => {
-  async function doSomething() {
+  async function updateContent() {
     const searchBarValue = view.getSearchBarValue();
     if (searchBarValue === "") return;
 
@@ -460,5 +467,7 @@ const controller = (() => {
     view.setSunset(weatherData.sys.sunset, weatherData.timezone);
     view.setForecastData(forecastData.daily, forecastData.timezone_offset);
   }
-  return { doSomething };
+  return { updateContent };
 })();
+
+view.init();
