@@ -12,6 +12,7 @@
 }
 
 body {
+  overflow: scroll;
   display: grid;
   height: 100vh;
   width: 100vw;
@@ -116,8 +117,8 @@ body {
   grid-area: a;
   background-color: blue;
 }
-
 .row1 .card {
+  max-height: 200px;
   gap: 1em;
 }
 
