@@ -445,23 +445,32 @@ const controller = (() => {
       view.toggleRedLoader(false);
       console.log(err);
     });
-
+    if (geoData === undefined) return;
     const validCityName = geoData[0].name;
     const validCountryName = geoData[0].country;
-    const [
-      weatherData = null,
-      pollutionData = null,
-      forecastData = null,
-      imageURL = null,
-    ] = await Promise.all([
-      model.getCurrentWeatherData(validCityName),
-      model.getPollutionData(geoData[0].lat, geoData[0].lon),
-      model.getDailyForecastData(geoData[0].lat, geoData[0].lon, validCityName),
-      model.getCityImageURL(validCityName),
-    ]).catch((error) => {
+    let [weatherData, pollutionData, forecastData, imageURL] = [
+      null,
+      null,
+      null,
+      null,
+    ];
+
+    try {
+      [weatherData, pollutionData, forecastData, imageURL] = await Promise.all([
+        model.getCurrentWeatherData(validCityName),
+        model.getPollutionData(geoData[0].lat, geoData[0].lon),
+        model.getDailyForecastData(
+          geoData[0].lat,
+          geoData[0].lon,
+          validCityName
+        ),
+        model.getCityImageURL(validCityName),
+      ]);
+    } catch (e) {
       view.toggleRedLoader(false);
-      console.log(error);
-    });
+      console.log(e);
+      return;
+    }
 
     view.toggleLoadingAnimation(false); // stop loading animation
 
