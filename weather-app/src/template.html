@@ -22,6 +22,8 @@
       <div class="">
         <div class="search-bar">
           <img
+            height="16"
+            width="16"
             src="assets/icons/search-icon.svg"
             alt="Black magnifying glass icon"
           />
@@ -31,7 +33,8 @@
         <img
           class="weather-icon"
           src="assets/weather/sun.svg"
-          height="200"
+          height="300"
+          width="300"
           alt="3D weather icon"
         />
         <div class="temperature">
@@ -46,6 +49,8 @@
           <div class="country-title">
             <div class="">
               <img
+                height="16"
+                width="16"
                 src="assets/icons/location-dot-solid.svg"
                 alt="Black location icon"
               />
@@ -70,6 +75,7 @@
           class="weather-icon"
           src="assets/weather/sun.svg"
           height="70"
+          width="70"
           alt="3D weather icon"
         />
         <div class="stats">
@@ -82,6 +88,7 @@
           class="weather-icon"
           src="assets/weather/cloud.svg"
           height="70"
+          width="70"
           alt="3D weather icon"
         />
         <div class="stats">
@@ -94,6 +101,7 @@
           class="weather-icon"
           src="assets/weather/cloud-snow.svg"
           height="70"
+          width="70"
           alt="3D weather icon"
         />
         <div class="stats">
@@ -106,6 +114,7 @@
           class="weather-icon"
           src="assets/weather/lightning.svg"
           height="70"
+          width="70"
           alt="3D weather icon"
         />
         <div class="stats">
@@ -118,6 +127,7 @@
           class="weather-icon"
           src="assets/weather/cloud-sun-rain.svg"
           height="70"
+          width="70"
           alt="3D weather icon"
         />
         <div class="stats">
@@ -130,6 +140,7 @@
           class="weather-icon"
           src="assets/weather/cloud-sun.svg"
           height="70"
+          width="70"
           alt="3D weather icon"
         />
         <div class="stats">
@@ -142,6 +153,7 @@
           class="weather-icon"
           src="assets/weather/cloud-sun.svg"
           height="70"
+          width="70"
           alt="3D weather icon"
         />
         <div class="stats">
@@ -190,6 +202,7 @@
             <img
               src="assets/icons/sunrise.png"
               height="80"
+              width="80"
               alt="Icon of sunrise"
             />
             <span id="sunrise-time" class="time">06:23</span>
@@ -198,6 +211,7 @@
             <img
               src="assets/icons/sunset.png"
               height="80"
+              width="80"
               alt="Icon of sunset"
             />
             <span id="sunset-time" class="time">18:53</span>
@@ -214,9 +228,25 @@
             <span class="number">23</span><span class="symbol">%</span>
           </div>
           <form class="progress-bar">
-            <input disabled checked type="radio" name="progress-bar" />
-            <input disabled type="radio" name="progress-bar" />
-            <input disabled type="radio" name="progress-bar" />
+            <input
+              aria-label="Status: Good"
+              disabled
+              checked
+              type="radio"
+              name="progress-bar"
+            />
+            <input
+              aria-label="Status: Average"
+              disabled
+              type="radio"
+              name="progress-bar"
+            />
+            <input
+              aria-label="Status: Bad"
+              disabled
+              type="radio"
+              name="progress-bar"
+            />
           </form>
         </div>
         <div class="status good">Status:</div>
@@ -237,9 +267,25 @@
             <span class="number">3</span>
           </div>
           <form class="progress-bar">
-            <input disabled type="radio" name="progress-bar" />
-            <input disabled checked type="radio" name="progress-bar" />
-            <input disabled type="radio" name="progress-bar" />
+            <input
+              aria-label="Status: Good"
+              disabled
+              type="radio"
+              name="progress-bar"
+            />
+            <input
+              aria-label="Status: Average"
+              disabled
+              checked
+              type="radio"
+              name="progress-bar"
+            />
+            <input
+              aria-label="Status: Bad"
+              disabled
+              type="radio"
+              name="progress-bar"
+            />
           </form>
         </div>
         <div class="status average">Status:</div>
