@@ -334,7 +334,7 @@ const model = (() => {
   }
 
   async function getCityImageURL(cityName) {
-    const URL = `https://source.unsplash.com/random/200x300/?${cityName}-landscape`;
+    const URL = `https://source.unsplash.com/random/300x200/?${cityName}-landscape`;
 
     const [response, err1] = await to(fetch, URL);
     if (err1) {
