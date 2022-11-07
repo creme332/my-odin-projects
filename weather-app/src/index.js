@@ -348,7 +348,7 @@ const model = (() => {
     const NotFoundURL =
       "https://images.unsplash.com/source-404?fit=crop&fm=jpg&h=800&q=60&w=1200";
     const defaultURL =
-      "https://images.unsplash.com/photo-1505521377774-103a8cc2f735?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2NzYzNTI3MA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200";
+      "https://images.unsplash.com/photo-1601585144584-2a53183be14c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=200&ixid=MnwxfDB8MXxyYW5kb218MHx8TWV4aWNvIENpdHktbGFuZHNjYXBlfHx8fHx8MTY2NzgxMTMzOA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=300";
 
     if (response.url === NotFoundURL) {
       return defaultURL;
