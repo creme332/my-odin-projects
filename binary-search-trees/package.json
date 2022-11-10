@@ -1,0 +1,20 @@
+{
+    "name": "binary-search-trees",
+    "version": "1.0.0",
+    "description": "An object-oriented implementation of a balanced binary search tree in JavaScript.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "creme332",
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.19.6",
+        "@babel/preset-env": "^7.19.4",
+        "eslint": "^8.26.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "prettier": "2.7.1"
+    }
+}
