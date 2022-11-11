@@ -126,11 +126,7 @@ class LinkedList {
   }
 
   insertAt(value, index) {
-    if (
-      (this.isEmpty() && index !== 0) ||
-      index > this.size() ||
-      index < 0
-    ) {
+    if ((this.isEmpty() && index !== 0) || index > this.size() || index < 0) {
       // this.output(`Could not insert ${value} at index ${index}`);
       return;
     }
@@ -140,7 +136,8 @@ class LinkedList {
       return;
     }
 
-    if(index === this.size()){ // insert at end of linked list
+    if (index === this.size()) {
+      // insert at end of linked list
       this.append(newNode);
       return;
     }
@@ -170,6 +167,21 @@ class LinkedList {
     currentNode.next = null;
 
     // this.output(`Removed node at index ${index}`);
+  }
+
+  reverse() {
+    if (this.size() <= 1) return;
+    let prev = this._root; // first node of old list
+    let current = prev.next; // second node of old list
+    prev.next = null; // make first node of old list point to null
+
+    while (current !== null) {
+      const nextnode = current.next;
+      current.next = prev;
+      prev = current;
+      current = nextnode;
+    }
+    this._root = prev; // make last node of old list root node of new list
   }
 }
 

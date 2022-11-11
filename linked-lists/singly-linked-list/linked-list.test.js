@@ -50,6 +50,11 @@ describe("Test methods for empty linked list", () => {
   test("find()", () => {
     expect(list.find("🍕")).toBe(null);
   });
+
+  test("reverse()", () => {
+    list.reverse();
+    expect(list.toString()).toBe("∅");
+  });
 });
 
 describe("Test methods for non-empty linked list", () => {
@@ -71,7 +76,7 @@ describe("Test methods for non-empty linked list", () => {
   });
 
   test("Get node at a valid index", () => {
-    const json =  JSON.stringify(list.at(1));
+    const json = JSON.stringify(list.at(1));
     console.log(json);
     expect(json).toBe(`{"_data":"🥟","_next":null}`);
   });
@@ -86,11 +91,11 @@ describe("Test methods for non-empty linked list", () => {
   });
 
   test("contains() for a valid value", () => {
-    expect(list.contains('🍕')).toBe(true);
+    expect(list.contains("🍕")).toBe(true);
   });
 
   test("contains() for an invalid value", () => {
-    expect(list.contains('hello')).toBe(false);
+    expect(list.contains("hello")).toBe(false);
   });
 
   test("insertAt() for an invalid value", () => {
@@ -133,9 +138,19 @@ describe("Test methods for non-empty linked list", () => {
     expect(list.toString()).toBe("( 🍕 ) ➔ ( 🥟 ) ➔ ∅");
   });
 
+  test("Reverse linked list", () => {
+    list.reverse();
+    expect(list.toString()).toBe("( 🥟 ) ➔ ( 🍕 ) ➔ ∅");
+  });
+
+  test("Reverse a larger list", () => {
+    list = new LinkedList(["🍕", "🥟", "🧂", "yess", "last-node"]);
+    list.reverse();
+    expect(list.toString()).toBe("( last-node ) ➔ ( yess ) ➔ ( 🧂 ) ➔ ( 🥟 ) ➔ ( 🍕 ) ➔ ∅");
+  });
 });
 
 test("Initialise list with array", () => {
-    const list = new LinkedList (['🍕','🥟','🍘']);
-    expect(list.toString()).toBe("( 🍕 ) ➔ ( 🥟 ) ➔ ( 🍘 ) ➔ ∅");
+  const list = new LinkedList(["🍕", "🥟", "🍘"]);
+  expect(list.toString()).toBe("( 🍕 ) ➔ ( 🥟 ) ➔ ( 🍘 ) ➔ ∅");
 });
