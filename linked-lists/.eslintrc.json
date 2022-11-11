@@ -16,6 +16,13 @@
         "no-use-before-define": ["error", {
             "functions": false
         }],
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "always"
+            }
+         ]
     }
 }
