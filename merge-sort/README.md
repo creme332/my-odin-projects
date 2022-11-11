@@ -1,6 +1,7 @@
 # 🔂 Merge Sort
 ![JavaScript shield](https://img.shields.io/badge/-JavaScript-yellow)
 ![Jest shield](https://img.shields.io/badge/-Jest-red)
+![Babel shield](https://img.shields.io/badge/-Babel-orange)
 
 Implementation of merge-sort algorithm in JavaScript.
 
@@ -29,7 +30,11 @@ Run tests:
 ```sh
 npm test
 ```
+
+Compile with babel:
+```sh
+npm run babel
+```
 # 🔨 To-Do
-- [ ] Run babel in CLI.
 - [ ] Add GUI.
-- [ ] Gihub actions workflow.
+- [ ] Set up a Gihub actions workflow to run tests.
