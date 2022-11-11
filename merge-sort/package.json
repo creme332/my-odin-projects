@@ -5,7 +5,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "babel": "babel src -d dist",
+        "babel": "babel index.js -d dist",
         "test": "jest"
     },
     "author": "creme332",
