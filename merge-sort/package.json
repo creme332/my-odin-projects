@@ -2,7 +2,7 @@
     "name": "merge-sort",
     "version": "1.0.0",
     "description": "Implementation of merge-sort algorithm in JavaScript.",
-    "main": "src/index.js",
+    "main": "index.js",
     "type": "module",
     "scripts": {
         "babel": "babel src -d dist",
