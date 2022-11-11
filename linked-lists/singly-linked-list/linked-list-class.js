@@ -122,13 +122,13 @@ class LinkedList {
   }
 
   contains(value) {
-    return !this.find(value) === null;
+    return !(this.find(value) === null);
   }
 
   insertAt(value, index) {
     if (
       (this.isEmpty() && index !== 0) ||
-      index > this.size() - 1 ||
+      index > this.size() ||
       index < 0
     ) {
       // this.output(`Could not insert ${value} at index ${index}`);
@@ -139,6 +139,12 @@ class LinkedList {
       this.prepend(newNode);
       return;
     }
+
+    if(index === this.size()){ // insert at end of linked list
+      this.append(newNode);
+      return;
+    }
+
     const currentNode = this.at(index); // node currently at index
     const beforeNode = this.at(index - 1); // node before currentNode
     newNode.next = currentNode;
