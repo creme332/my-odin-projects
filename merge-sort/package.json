@@ -2,15 +2,19 @@
     "name": "merge-sort",
     "version": "1.0.0",
     "description": "Implementation of merge-sort algorithm in JavaScript.",
-    "main": "index.js",
+    "main": "src/index.js",
+    "type": "module",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "babel": "babel src -d dist",
+        "test": "jest"
     },
     "author": "creme332",
     "license": "MIT",
     "devDependencies": {
+        "@babel/cli": "^7.19.3",
         "@babel/core": "^7.19.6",
         "@babel/preset-env": "^7.19.4",
+        "jest": "^29.3.1",
         "eslint": "^8.26.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-config-prettier": "^8.5.0",
