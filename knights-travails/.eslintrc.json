@@ -16,6 +16,9 @@
         "no-use-before-define": ["error", {
             "functions": false
         }],
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "no-plusplus":"off",
+        "no-loop-func":"off",
+        "no-restricted-syntax":"off"
     }
 }
