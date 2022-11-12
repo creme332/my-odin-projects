@@ -2,7 +2,6 @@
     "name": "binary-search-trees",
     "version": "1.0.0",
     "description": "An object-oriented implementation of a balanced binary search tree in JavaScript.",
-    "main": "index.js",
     "type": "module",
     "scripts": {
         "test": "jest",
