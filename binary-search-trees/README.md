@@ -22,17 +22,19 @@ Takes an array of data and turns it into a balanced binary tree. Returns the roo
 > ⚠ Duplicates are removed from the array.
 
 ### `insert` 
+Inserts a node to the binary tree.
 
 ### `delete`
+Deletes a node from the binary tree.
 
 ###  a `find` function which 
 Accepts a value and returns the node with the given value.
 
-### `levelOrder` 
-Traverses the tree in breadth-first level order and provide each node as the argument to the provided function. This function can be implemented using either iteration or recursion (try implementing both!). The method should return an array of values if no function is given.
+### `levelOrder`, `recursiveLevelOrder`
+Traverses the tree in breadth-first level order and returns an array of values.
 
 ###  `inorder`, `preorder`, and `postorder`
-Each of these functions should traverse the tree in their respective depth-first order and yield each node to the provided function given as an argument. The functions should return an array of values if no function is given.
+Each of these functions traverses the tree in their respective depth-first order and returns an array of values.
 
 ### `height` 
 Accepts a node and returns its height. Height is defined as the number of edges in longest path from a given node to a leaf node.
@@ -46,6 +48,14 @@ Checks if the tree is balanced. A balanced tree is one where the difference betw
 ### `rebalance`  
 Rebalances an unbalanced tree. 
 
+### `prettyPrint`
+Prints tree to console.
+
+### `invert`
+Left and right children of all non-leaf nodes are interchanged. 
+
+> ⚠ You must rebalance the tree before performing any tree operations (insert, delete, find) on the inverted tree.
+
 #  🛠 Installation
 Clone repository:
 ```sh
@@ -54,7 +64,7 @@ git clone git@github.com:creme332/my-odin-projects.git
 
 Go to project folder:
 ```sh
-cd linked-list
+cd binary-search-trees
 ```
 
 Install dependencies:
@@ -69,4 +79,5 @@ npm test
 # 🔨 To-Do
 - [ ] Run babel in CLI.
 - [ ] Add GUI.
-- [ ] Gihub actions workflow.
+- [x] Invert binary tree.
+- [ ] Add Gihub actions workflow.
