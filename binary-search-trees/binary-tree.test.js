@@ -185,7 +185,7 @@ describe("Tree operations", () => {
 
     test("delete a node with 2 children", () => {
       tree1.delete(1);
-      expect(tree1.levelOrder()).toStrictEqual([0,-1,10]);
+      expect(tree1.levelOrder()).toStrictEqual([0, -1, 10]);
     });
 
     test("delete all values", () => {
@@ -204,7 +204,7 @@ describe("Tree operations", () => {
     });
   });
 
-  describe("find",()=>{
+  describe("find", () => {
     let tree1;
     beforeEach(() => {
       tree1 = new BinaryTree([1, 1, -1, 0, 10]);
@@ -240,30 +240,39 @@ describe("Tree operations", () => {
     test("non-existent node", () => {
       expect(tree1.find(999)).toStrictEqual(null);
     });
-  })
+  });
 });
 
 describe("Tree properties", () => {
-
   describe("height", () => {
-    test("empty tree", () => {
-      tree1 = new BinaryTree();
-      expect(tree1.levelOrder()).toStrictEqual([0]);
+    test("root of empty tree", () => {
+      const tree1 = new BinaryTree();
+      expect(tree1.height(tree1.root)).toStrictEqual(0);
     });
 
-    test("tree of height 1", () => {
-      tree1.insert(1);
-      expect(tree1.levelOrder()).toStrictEqual([2, 0, 5, -1, 1, 3, 10, 1]);
+    test("invalid node", () => {
+      const tree1 = new BinaryTree([5]);
+      const node = new Node(23);
+      expect(tree1.height(node)).toStrictEqual(0);
     });
 
-    test("left node", () => {
-      tree1.insert(1);
-      expect(tree1.levelOrder()).toStrictEqual([2, 0, 5, -1, 1, 3, 10, 1]);
+    test("root node with height 0", () => {
+      const tree1 = new BinaryTree([5]);
+      expect(tree1.height(tree1.root)).toStrictEqual(0);
     });
 
-    test("node with 1 child", () => {
-      tree1.insert(1);
-      expect(tree1.levelOrder()).toStrictEqual([2, 0, 5, -1, 1, 3, 10, 1]);
+    test("node height 2", () => {
+      const tree1 = new BinaryTree([1, 1, -1, 2, 5, 3, 0, 10]);
+      expect(tree1.height(tree1.root)).toStrictEqual(2);
+    });
+
+    test("node height 3", () => {
+      const tree1 = new BinaryTree([4, 5, 6]);
+      tree1.insert(100);
+      tree1.insert(200);
+      tree1.insert(300);
+
+      expect(tree1.height(tree1.find(6))).toStrictEqual(3);
     });
   });
 
@@ -275,14 +284,14 @@ describe("Tree properties", () => {
 
     test("depth of root node", () => {
       const tree1 = new BinaryTree();
-      const node  = new Node(2);
+      const node = new Node(2);
       tree1.insert(node.data);
       expect(tree1.depth(node)).toStrictEqual(0);
     });
 
     test("left node of depth 1", () => {
-      const tree1 = new BinaryTree([5,4]);
-      const node =  new Node(6);
+      const tree1 = new BinaryTree([5, 4]);
+      const node = new Node(6);
       tree1.insert(node.data);
       expect(tree1.depth(node)).toStrictEqual(1);
     });
@@ -294,4 +303,98 @@ describe("Tree properties", () => {
       expect(tree1.depth(node)).toStrictEqual(2);
     });
   });
+
+  describe("isBalanced", () => {
+    test("empty tree", () => {
+      const tree1 = new BinaryTree();
+      expect(tree1.isBalanced()).toStrictEqual(true);
+    });
+
+    test("single node tree", () => {
+      const tree1 = new BinaryTree([0]);
+      expect(tree1.isBalanced()).toStrictEqual(true);
+    });
+
+    test("balanced tree", () => {
+      const tree1 = new BinaryTree([5, 4, 6, 8, 6]);
+      expect(tree1.isBalanced()).toStrictEqual(true);
+    });
+
+    test("unbalanced tree", () => {
+      const tree1 = new BinaryTree([5, 4, 6, 8, 6]);
+      tree1.insert(100);
+      tree1.insert(200);
+      tree1.insert(300);
+
+      console.log(tree1.prettyPrint());
+      expect(tree1.isBalanced()).toStrictEqual(false);
+    });
+  });
+
+  describe("rebalance()", () => {
+    test("empty tree", () => {
+      const tree1 = new BinaryTree();
+      tree1.rebalance();
+      expect(tree1.levelOrder()).toStrictEqual([]);
+    });
+
+    test("single node tree", () => {
+      const tree1 = new BinaryTree([0]);
+      tree1.rebalance();
+      expect(tree1.levelOrder()).toStrictEqual([0]);
+    });
+
+    test("balanced tree", () => {
+      const tree1 = new BinaryTree([5, 4, 6, 8, 6]);
+      const before = tree1.levelOrder();
+      tree1.rebalance();
+      const after = tree1.levelOrder();
+      expect(before).toStrictEqual(after);
+      expect(tree1.isBalanced()).toStrictEqual(true);
+    });
+
+    test("unbalanced tree", () => {
+      const tree1 = new BinaryTree([5, 4, 6, 8, 6]);
+      tree1.insert(100);
+      tree1.insert(200);
+      tree1.insert(300);
+      tree1.rebalance();
+      expect(tree1.isBalanced()).toStrictEqual(true);
+    });
+  });
+});
+
+test("random workflow", () => {
+  /**
+   * Returns an array of size `n` with positive and negative integers. Greatest magnitude of elements is `max`.
+   * @param {*} n
+   * @returns
+   */
+  function getRandomArray(n, max = 40) {
+    const sign = [-1, 1];
+    return Array(n)
+      .fill()
+      .map(
+        () =>
+          sign[Math.floor(Math.random() * 2)] * Math.round(Math.random() * max)
+      );
+  }
+
+  function makeTreeUnbalanced(tree) {
+    for (let i = 0; i < 5; i++) {
+      tree.insert(Math.floor(500 + Math.random() * 100));
+    }
+  }
+  const tree = new BinaryTree(getRandomArray(1000));
+  expect(tree.isBalanced()).toStrictEqual(true);
+  makeTreeUnbalanced(tree);
+  expect(tree.isBalanced()).toStrictEqual(false);
+  tree.rebalance();
+  expect(tree.isBalanced()).toStrictEqual(true);
+});
+
+test("inversion", () => {
+  const tree1 = new BinaryTree([5, 4, 6, 8, 6, 1, 2, -1, 6, 30]);
+  tree1.invert();
+  expect(tree1.levelOrder()).toStrictEqual([5, 8, 2, 30, 6, 4, 1, -1]);
 });
