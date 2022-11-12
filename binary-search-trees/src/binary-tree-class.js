@@ -289,5 +289,14 @@ class BinaryTree {
     if (current.right !== null) unvisited.push(current.right);
     return this.recursiveLevelOrder(unvisited, ans);
   }
+
+  invert(current = this.root){
+    if(current === null)return;
+    const {left, right}  = current;
+    current.left  = right;
+    current.right = left;
+    this.invert(current.left);
+    this.invert(current.right);
+  }
 }
 export default BinaryTree;
