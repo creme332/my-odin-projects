@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "test": "jest",
-        "babel": "babel index -d dist"
+        "babel": "babel src -d dist"
     },
     "author": "creme332",
     "license": "MIT",
