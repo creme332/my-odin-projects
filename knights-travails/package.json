@@ -2,7 +2,7 @@
     "name": "knights-travails",
     "version": "1.0.0",
     "description": "A visualiser for the Knights Travails problem.",
-    "main": "index.js",
+    "main": "src/scripts/index.js",
     "scripts": {
         "start": "webpack serve --mode development --open",
         "test": "echo \"Error: no test specified\" && exit 1"
