@@ -19,6 +19,8 @@
         "no-underscore-dangle": "off",
         "no-plusplus":"off",
         "no-loop-func":"off",
-        "no-restricted-syntax":"off"
+        "no-restricted-syntax":"off",
+        "no-promise-executor-return": "off"
+        
     }
 }
