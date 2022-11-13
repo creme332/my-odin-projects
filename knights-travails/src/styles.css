@@ -1,74 +1,104 @@
-@import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@600&display=swap");
 :root {
-  --black-cell: #c8c8c8;
+  --black-cell: rgb(0, 0, 0);
   --white-cell: #f5f5f4;
   --explored-cell-color: #ccbfb3;
-  --neighbour-color: #b4ccfa;
+  --neighbour-color: rgb(182, 182, 182);
+  --cell-size: 40px;
 }
+
 body {
+  counter-reset: cell-counter;
   display: grid;
   place-items: center;
   width: 100vw;
   min-height: 100vh;
-  background-color: #f3f4f6;
-  font-family: "Yanone Kaffeesatz", sans-serif;
-  font-size: 20px;
+  background-color: var(--white-cell);
+  font-family: sans-serif;
+  /* font-size: 20px; */
 }
 
 #board {
   border-collapse: separate;
   outline: 1px solid;
   border-spacing: 1px;
+  /* border-spacing: 1px; */
+  /* background-color: red; */
+  position: relative;
 }
 td {
   background-color: var(--black-cell);
-  line-height: 0px;
   position: relative;
-  font-size: 20px;
   text-align: center;
-  width: 40px;
-  height: 40px;
+  width: var(--cell-size);
+  height: var(--cell-size);
 }
-
-#horse {
-  z-index: 2;
-}
-#carrot {
+/* td::after{
+  position: absolute;
   z-index: 1;
-}
+  font-size: 10px;
+  content: counter(cell-counter);
+  counter-increment: cell-counter;
+} */
 
-tr:nth-child(odd) td:nth-child(even),
-tr:nth-child(even) td:nth-child(odd) {
-  background-color: var(--white-cell);
-}
-
+/* css for horse and carrot starts here */
 #horse,
 #carrot {
   position: absolute;
   display: grid;
   place-items: center;
   font-size: 30px;
-  width: 40px;
-  height: 40px;
-  /* outline: 3px solid red; */
+  width: var(--cell-size);
+  height: var(--cell-size);
 }
-#horse.dragging {
-  opacity: 0.5;
+#horse {
+  z-index: 2;
 }
+#carrot {
+  z-index: 1;
+}
+/* css for horse and carrot ends here */
+
+tr:nth-child(odd) td:nth-child(even),
+tr:nth-child(even) td:nth-child(odd) {
+  background-color: var(--white-cell);
+}
+
 #board tr td.shortest {
-  background-color: green;
+  background-color: gold;
+  /* box-shadow:0px 0px 0px 4px green inset; */
+
+  /* outline: 1px solid green; */
 }
 
 #board td.neighbour {
-  /* box-shadow: inset 0 0 5px #0f0; */
   /* outline: 1px solid var(--neighbour-color); */
   background-color: var(--neighbour-color);
 }
+#board td.hide {
+  opacity: 0.5;
+}
 
 pre code {
-  font-size: 30px;
+  font-size: 20px;
   background-color: #eee;
   border: 1px solid #999;
   display: block;
   padding: 20px;
+}
+
+#play-btn {
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 60px;
+  margin: auto;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  gap:2.4em;
+
 }

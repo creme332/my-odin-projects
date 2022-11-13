@@ -15,10 +15,10 @@ const model = (() => {
     function output() {
       console.log(JSON.stringify(storage));
     }
-    function get(){
+    function get() {
       return storage;
     }
-    return { empty, save, output,get };
+    return { empty, save, output, get };
   })();
 
   function knightMoves(start, end) {
@@ -91,40 +91,53 @@ const model = (() => {
 
 const view = (() => {
   const board = document.querySelector("#board");
+  const boardSize = 8;
   const horse = createHtmlElement("div", "horse", null, "🐴", null);
   const carrot = createHtmlElement("div", "carrot", null, "🥕", null);
   const playBtn = document.getElementById("play-btn");
 
   playBtn.addEventListener("click", () => {
+    resetBoardColors();
+    model.neighbourStorage.empty();
+
     const moves = model.knightMoves(getHorsePosition(), getCarrotPosition());
     console.log(moves);
     playMoves(moves);
   });
 
-  function showNeighbour(neighbours){
-    neighbours.forEach(n=>{
+  function showNeighbour(neighbours) {
+    neighbours.forEach((n) => {
       getCell(n).classList.add("neighbour");
-    })
+    });
   }
 
-  async function showWinningPath(shortestPathMoves){
-    for await (const position of shortestPathMoves) {
+  async function traceWinningPath(shortestPathArray) {
+
+    // hide cells not on shortest path and highlight shortest path
+    for (let pos = 0; pos < boardSize * boardSize; pos++) {
+      if (!shortestPathArray.includes(pos)) {
+        getCell(pos).classList.add("hide");
+      }else{
+        getCell(pos).classList.add("shortest");
+      }
+    }
+
+    // move horse along shortest path
+    for await (const position of shortestPathArray) {
       moveHorse(position);
       await new Promise((resolve) => setTimeout(resolve, 400));
-      getCell(position).classList.add("shortest");
     }
   }
 
   async function playMoves(shortestPathMoves) {
     const neighbours = model.neighbourStorage.get();
-    console.log("Minimum number of moves :", shortestPathMoves.length-1);
+    console.log("Minimum number of moves :", shortestPathMoves.length - 1);
 
     for await (const currentNeighbour of neighbours) {
       showNeighbour(currentNeighbour);
       await new Promise((resolve) => setTimeout(resolve, 500));
-
     }
-    await showWinningPath(shortestPathMoves);
+    traceWinningPath(shortestPathMoves);
   }
 
   function getCell(position) {
@@ -165,10 +178,9 @@ const view = (() => {
   }
 
   function initialiseBoard() {
-    const SIZE = 8;
-    for (let row = 0; row < SIZE; row++) {
+    for (let row = 0; row < boardSize; row++) {
       const cellsArray = [];
-      for (let col = 0; col < SIZE; col++) {
+      for (let col = 0; col < boardSize; col++) {
         const index = 8 * row + col;
         const cell = createHtmlElement("td", null, ["droppable"], null, null);
         cell.setAttribute("data-index", index);
@@ -183,6 +195,18 @@ const view = (() => {
     }
     board.querySelector(".droppable").appendChild(horse);
     board.querySelector(".droppable:nth-child(6)").appendChild(carrot);
+  }
+
+  /**
+   * Resets board to its intial colours.
+   */
+  function resetBoardColors() {
+    const allCells = board.querySelectorAll(".droppable");
+    allCells.forEach(cell=>{
+      cell.classList.remove('hide');
+      cell.classList.remove('neighbour');
+      cell.classList.remove('shortest');
+    });
   }
 
   function moveHorse(newPositionIndex) {
