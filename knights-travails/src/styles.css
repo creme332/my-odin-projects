@@ -7,7 +7,6 @@
 }
 
 body {
-  counter-reset: cell-counter;
   display: grid;
   place-items: center;
   width: 100vw;
@@ -21,34 +20,32 @@ body {
   border-collapse: separate;
   outline: 1px solid;
   border-spacing: 1px;
-  /* border-spacing: 1px; */
-  /* background-color: red; */
   position: relative;
 }
+
 td {
   background-color: var(--black-cell);
   position: relative;
   text-align: center;
-  width: var(--cell-size);
-  height: var(--cell-size);
+  /* width: var(--cell-size);
+  height: var(--cell-size); */
 }
-/* td::after{
-  position: absolute;
-  z-index: 1;
-  font-size: 10px;
-  content: counter(cell-counter);
-  counter-increment: cell-counter;
-} */
 
+td,
+#horse,
+#carrot {
+  width: 3vw;
+  height: 3vw;
+}
 /* css for horse and carrot starts here */
 #horse,
 #carrot {
   position: absolute;
   display: grid;
   place-items: center;
-  font-size: 30px;
-  width: var(--cell-size);
-  height: var(--cell-size);
+  font-size: 2vw;
+  /* width: var(--cell-size);
+  height: var(--cell-size); */
 }
 #horse {
   z-index: 2;
@@ -65,40 +62,49 @@ tr:nth-child(even) td:nth-child(odd) {
 
 #board tr td.shortest {
   background-color: gold;
-  /* box-shadow:0px 0px 0px 4px green inset; */
-
-  /* outline: 1px solid green; */
 }
 
 #board td.neighbour {
-  /* outline: 1px solid var(--neighbour-color); */
   background-color: var(--neighbour-color);
 }
+
 #board td.hide {
   opacity: 0.5;
 }
 
-pre code {
-  font-size: 20px;
-  background-color: #eee;
-  border: 1px solid #999;
-  display: block;
-  padding: 20px;
-}
-
 #play-btn {
   border: 0;
+  outline: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
-  width: 60px;
-  margin: auto;
+  height: clamp(50px, 5vw, 500px);
+  width: clamp(50px, 5vw, 500px);
+  align-self: center;
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
-  gap:2.4em;
+  gap: 2.4em;
+}
 
+@media screen and (max-width: 600px) {
+  body {
+    padding: 10px;
+    display: block;
+    height: 100vh;
+  }
+  .container {
+    outline: 1px solid;
+    height: 100%;
+  }
+
+  td,
+  #horse,
+  #carrot {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    font-size: 30px;
+  }
 }
