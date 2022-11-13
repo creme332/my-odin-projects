@@ -46,7 +46,7 @@ module.exports = {
                 }
             },
             {
-                //https://stackoverflow.com/a/67534024/17627866
+                // https://stackoverflow.com/a/67534024/17627866
                 test: /\.html$/,
                 use: [
                   {

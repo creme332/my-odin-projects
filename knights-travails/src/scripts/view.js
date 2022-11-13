@@ -7,7 +7,7 @@ const view = (() => {
   const carrot = createHtmlElement("div", "carrot", null, "🥕", null);
   const playBtn = document.getElementById("play-btn");
 
-  function getPlayButton(){
+  function getPlayButton() {
     return playBtn;
   }
 
@@ -39,8 +39,6 @@ const view = (() => {
   }
 
   async function playMoves(shortestPathMoves, neighbours) {
-    console.log("Minimum number of moves :", shortestPathMoves.length - 1);
-
     for await (const currentNeighbour of neighbours) {
       showNeighbour(currentNeighbour);
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -138,7 +136,7 @@ const view = (() => {
     getCarrotPosition,
     playMoves,
     resetBoardColors,
-    getPlayButton
+    getPlayButton,
   };
 })();
 

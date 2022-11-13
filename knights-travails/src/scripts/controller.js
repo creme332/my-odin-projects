@@ -16,7 +16,8 @@ const controller = (() => {
       view.getCarrotPosition()
     );
     const neighbours = model.neighbourStorage.get();
-    console.log(shortestPath);
+    console.log("Minimum number of moves : ", shortestPath.length - 1);
+    console.log(JSON.stringify(shortestPath));
     view.playMoves(shortestPath, neighbours);
   }
   return { animate };
