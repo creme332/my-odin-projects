@@ -95,7 +95,6 @@ tr:nth-child(even) td:nth-child(odd) {
     height: 100vh;
   }
   .container {
-    outline: 1px solid;
     height: 100%;
   }
 
