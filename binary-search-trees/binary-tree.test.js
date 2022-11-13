@@ -238,7 +238,7 @@ describe("Tree operations", () => {
     });
 
     test("non-existent node", () => {
-      expect(tree1.find(999)).toStrictEqual(null);
+      expect(tree1.find(999)).toBeNull();
     });
   });
 });

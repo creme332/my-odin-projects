@@ -15,11 +15,11 @@ describe("Test methods for empty linked list", () => {
 
   test("head()", () => {
     const list = new LinkedList();
-    expect(list.head()).toBe(null);
+    expect(list.head()).toBeNull();
   });
 
   test("tail()", () => {
-    expect(list.tail()).toBe(null);
+    expect(list.tail()).toBeNull();
   });
 
   test("isEmpty()", () => {
@@ -48,7 +48,7 @@ describe("Test methods for empty linked list", () => {
   });
 
   test("find()", () => {
-    expect(list.find("🍕")).toBe(null);
+    expect(list.find("🍕")).toBeNull();
   });
 
   test("reverse()", () => {
@@ -82,7 +82,7 @@ describe("Test methods for non-empty linked list", () => {
   });
 
   test("Get node at invalid index", () => {
-    expect(list.at(3)).toBe(null);
+    expect(list.at(3)).toBeNull();
   });
 
   test("pop()", () => {
