@@ -52,6 +52,7 @@ fontawesome | Icons
 - [ ] save comments to task object
 - [ ] add sorting and filtering
 - [ ] make calendar responsive
+- [ ] Save order of cards.
 - [ ] add touch support to drag and drop feature
 - [ ] add a delete project/task confirmation message
 - [ ] Allow user to perform CRUD on calendar view.
