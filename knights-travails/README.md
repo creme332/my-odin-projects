@@ -48,9 +48,10 @@ npx webpack --watch
 # To-do
 - [x] fix bug : animation slows down when horse and carrot are at opposite diagonals.
 - [ ] add explanation of knights travails problem to website.
-- [x] refactor code
-- [ ] knights tour
-- [ ] display shortest moves array
-- [ ] prevent spamming of play button
-- [x] add tests
-- [ ] add obstacles
+- [x] refactor code.
+- [ ] knights tour.
+- [ ] display shortest moves array on website instead of console.
+- [ ] prevent spamming of play button.
+- [x] add tests.
+- [ ] add obstacles.
+- [ ] add option to change animation speed, pause/rewind/forward animation.
