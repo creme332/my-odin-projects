@@ -20,7 +20,8 @@
 **Restaurant Page**| ES6 modules, Webpack|[Link](https://github.com/creme332/my-odin-projects/tree/main/restaurant-page)     |   [Demo](https://creme332.github.io/my-odin-projects/restaurant-page/dist/) | ⭐
 **Todo List**| SOLID principles|[Link](https://github.com/creme332/my-odin-projects/tree/main/todo-list)     |   [Demo](https://creme332.github.io/my-odin-projects/todo-list/dist/) | ⭐⭐
 **Weather App**| Asynchronous JavaScript and APIs|[Link](https://github.com/creme332/my-odin-projects/tree/main/weather-app)     |   [Demo](https://creme332.github.io/my-odin-projects/weather-app/dist/) | ⭐⭐
-**Merge Sort** | Recursion|[Link](https://github.com/creme332/my-odin-projects/tree/main/merge-sort)     |    | ⭐
-**Linked Lists** | Data structures and algorithms|[Link](https://github.com/creme332/my-odin-projects/tree/main/linked-lists)     |    | ⭐
-**Binary Search Trees** |Data structures and algorithms|[Link](https://github.com/creme332/my-odin-projects/tree/main/binary-search-trees)     |    | ⭐
+**Merge Sort** | Recursion|[Link](https://github.com/creme332/my-odin-projects/tree/main/merge-sort)     | -   | -
+**Linked Lists** | Data structures and algorithms|[Link](https://github.com/creme332/my-odin-projects/tree/main/linked-lists)     | -   | -
+**Binary Search Trees** |Data structures and algorithms|[Link](https://github.com/creme332/my-odin-projects/tree/main/binary-search-trees)     | -   | -
 **Knights Travails** | Data structures and algorithms|[Link](https://github.com/creme332/my-odin-projects/tree/main/knights-travails)     |  [Demo](https://creme332.github.io/my-odin-projects/knights-travails/dist)  | ⭐⭐
+**Testing Practice** | Test Driven Development|[Link](https://github.com/creme332/my-odin-projects/tree/main/testing-practice)     |  -  | -
