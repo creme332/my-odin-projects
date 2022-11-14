@@ -5,11 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "babel": "babel src -d dist"
   },
   "author": "creme332",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
     "babel-loader": "^9.0.0",

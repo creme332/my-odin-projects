@@ -25,3 +25,8 @@ Run tests:
 ```sh
 npm test
 ```
+
+Compile code with Babel:
+```sh
+npm run babel
+```
