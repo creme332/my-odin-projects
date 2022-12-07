@@ -1,0 +1,65 @@
+@font-face {
+  font-family: bebas;
+  src: url("./bebasneue.ttf");
+  font-weight: bold;
+}
+
+:root {
+  --table-outline-color: #e4e4ff;
+  --cell-size: 30px;
+}
+
+body {
+  font-family: bebas, sans-serif;
+  display: grid;
+  gap: 5em;
+  height: 100vh;
+  width: 100vw;
+  place-content: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 100px;
+}
+.battlefields {
+  display: flex;
+  gap: 10em;
+}
+
+.board {
+  border-collapse: separate;
+  border-spacing: 1px;
+  position: relative;
+}
+
+td {
+  outline: 2px solid var(--table-outline-color);
+  text-align: center;
+  height: var(--cell-size);
+  width: var(--cell-size);
+  position: relative;
+}
+
+td.missed-hit {
+  background-color: var(--table-outline-color);
+}
+td.missed-hit::before {
+  content: ".";
+  font-weight: 800;
+}
+
+td.good-hit {
+  background-color: pink;
+}
+
+#playButton {
+  font-family: bebas;
+  font-size: 50px;
+  border-radius: 10px;
+}
+
+#playButton:hover {
+  background-color: black;
+  color: white;
+}

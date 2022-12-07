@@ -45,3 +45,8 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+button{
+	outline:0;
+	border:0;
+}
