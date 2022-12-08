@@ -6,8 +6,7 @@ import "../styles/bebasneue.ttf";
 // import Sortable from "sortablejs";
 
 const view = (() => {
-  const myBoard = document.getElementById("myBoard");
-  const rivalBoard = document.getElementById("rivalBoard");
+  const battlefields = document.getElementById("battlefields");
   const boardSize = 10;
 
   /**
@@ -42,43 +41,74 @@ const view = (() => {
     return element;
   }
 
-  function createMyBoard() {
+  /**
+   * Returns a new 10x10 empty board.
+   * @param {string} boardID
+   * @returns
+   */
+  function getNewBoard(boardID) {
+    const newBoard = createHtmlElement("table", boardID, ["board"], null, null);
     for (let row = 0; row < boardSize; row++) {
       const cellsArray = [];
       for (let col = 0; col < boardSize; col++) {
+        const index = row * boardSize + col;
         const cell = createHtmlElement("td", null, null, null, null);
+        cell.setAttribute("data-index", index);
         cellsArray.push(cell);
       }
       const rowElement = createHtmlElement("tr", null, null, null, cellsArray);
-      myBoard.appendChild(rowElement);
+      newBoard.appendChild(rowElement);
     }
+    return newBoard;
+  }
 
-    const x = [...myBoard.querySelectorAll("td")];
+  function getMyBoard() {
+    return battlefields.querySelector("#myBoard");
+  }
+
+  function getRivalBoard() {
+    return battlefields.querySelector("#rivalBoard");
+  }
+
+  function initialiseBoards() {
+    const myBoard = getNewBoard("myBoard");
+    const rivalBoard = getNewBoard("rivalBoard");
+    battlefields.appendChild(myBoard);
+    battlefields.appendChild(rivalBoard);
+  }
+
+  function changeCellColor(cell, missed = true){
+    if(missed){
+      cell.classList.add('missed-hit');
+    }else{
+      cell.classList.add('good-hit');
+    }
+  }
+
+  function displayGuess() {
+    const x = [...getMyBoard().querySelectorAll("td")];
     x[0].classList.add("missed-hit");
     x[3].classList.add("missed-hit");
 
     x[10].classList.add("good-hit");
     x[20].classList.add("good-hit");
     x[30].classList.add("good-hit");
-    console.log(x);
+
+    const rivalCells = getRivalBoard().querySelectorAll("td");
+    rivalCells.forEach((cell) => {
+      cell.addEventListener("click", (e) => {
+        changeCellColor(e.target,false);
+        const clickedCell = e.target.getAttribute('data-index');
+        console.log(clickedCell);
+      });
+    });
   }
 
-  function createRivalBoard() {
-    for (let row = 0; row < boardSize; row++) {
-      const cellsArray = [];
-      for (let col = 0; col < boardSize; col++) {
-        const cell = createHtmlElement("td", null, null, null, null);
-        cellsArray.push(cell);
-      }
-      const rowElement = createHtmlElement("tr", null, null, null, cellsArray);
-      rivalBoard.appendChild(rowElement);
-    }
-  }
   return {
-    createMyBoard,
-    createRivalBoard,
+    initialiseBoards,
+    displayGuess,
   };
 })();
 
-view.createMyBoard();
-view.createRivalBoard();
+view.initialiseBoards();
+view.displayGuess();
