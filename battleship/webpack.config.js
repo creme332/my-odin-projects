@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'production',
-    entry: './src/index.js',
+    entry: './src/scripts/index.js',
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/template.html',
@@ -46,7 +46,6 @@ module.exports = {
                 }
             },
             {
-                //https://stackoverflow.com/a/67534024/17627866
                 test: /\.html$/,
                 use: [
                   {

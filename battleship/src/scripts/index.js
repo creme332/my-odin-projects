@@ -1,7 +1,7 @@
 // import my styles
-import "./styles/reset.css";
-import "./styles/styles.css";
-import "./styles/bebasneue.ttf";
+import "../styles/reset.css";
+import "../styles/styles.css";
+import "../styles/bebasneue.ttf";
 
 // import Sortable from "sortablejs";
 
