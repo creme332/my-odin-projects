@@ -16,7 +16,11 @@ class ShipCell {
     this._hit = hitted;
   }
 
-  get position() {
+  set pos(pos) {
+    this._position = pos;
+  }
+  
+  get pos() {
     return this._position;
   }
 }

@@ -3,9 +3,13 @@
 import Ship from "./ship";
 
 describe("Ship class", () => {
+  let cruiser;
+  beforeEach(() => {
+    cruiser = new Ship(4, true, [0, 1]);
+  });
+  
   test("basic methods for vertical cruiser", () => {
-    const cruiser = new Ship(4, true, [0, 1]);
-    const cellCoordinates = cruiser.cellsArray.map((el) => el.position);
+    const cellCoordinates = cruiser.cellsArray.map((el) => el.pos);
     console.log(cellCoordinates);
     expect(cruiser.size).toBe(4);
     expect(cruiser.sunk()).toBe(false);
@@ -18,16 +22,20 @@ describe("Ship class", () => {
     cruiser.attack(1);
     cruiser.attack(11);
     cruiser.attack(21);
-    expect(cruiser.sunk()).toBe(true);
+    expect(cruiser.sunk()).toBeTruthy();
   });
+
   test("ship rotation", () => {
-    const cruiser = new Ship(4, true, [0, 1]);
-    
+    expect(cruiser.rotatable()).toBeTruthy();
+    cruiser.rotate();
+    const cellCoordinates = cruiser.cellsArray.map((el) => el.pos);
+    expect(cellCoordinates).toStrictEqual([1,2,3,4]);
   });
+  
   test("ship of invalid size", () => {
-    let cruiser;
+    let myShip;
     const createShip = (size) => {
-      cruiser = new Ship(size, true, [0, 1]);
+      myShip = new Ship(size, true, [0, 1]);
     };
     expect(() => createShip(0)).toThrow("Invalid ship size");
     expect(() => createShip(5)).toThrow("Invalid ship size");
