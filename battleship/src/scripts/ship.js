@@ -8,7 +8,7 @@ class Ship {
 
   _size;
 
-  _coordinates;
+  _coordinates; // a list containing board index and head position
 
   _life;
 
@@ -24,6 +24,8 @@ class Ship {
    * `coord[1]` : Position of ship on particular board. (`0`-`99`)
    */
   constructor(size, verticallyOriented, coord) {
+    const BOARD_SIZE = 10;
+
     if (!(size > 0 && size < 5)) {
       throw new Error("Invalid ship size", size);
     }
@@ -32,7 +34,7 @@ class Ship {
       !(
         (coord[0] === 0 || coord[0] === 1) && // board index either 0 or 1
         coord[1] >= 0 &&
-        coord[1] < 100
+        coord[1] < BOARD_SIZE * BOARD_SIZE
       )
     ) {
       throw new Error("Invalid ship coordinates", coord);
@@ -43,7 +45,6 @@ class Ship {
     this._life = size;
 
     const headPos = coord[1];
-    const BOARD_SIZE = 10;
 
     for (let i = 0; i < this._size; i++) {
       const cellPos = headPos + (this._vertical ? BOARD_SIZE * i : i);
@@ -64,12 +65,48 @@ class Ship {
     return this._coordinates;
   }
 
-  get cellsArray(){
+  /**
+   * Returns an array of ShipCell objects
+   */
+  get cellsArray() {
     return this._cellsArray;
   }
 
   rotate() {
+    const headPos = this._coordinates[1];
+    const BOARD_SIZE = 10;
+
+    for (let i = 0; i < this._size; i++) {
+      const currentCell = this._cellsArray[i];
+      if (this._vertical) {
+        // ship is currently vertical so convert to horizontal
+        currentCell.pos = headPos + i;
+      } else {
+        // ship is currently horizontal so convert to vertical
+        currentCell.pos = headPos + i * BOARD_SIZE;
+      }
+    }
+
+    this._vertical = !this._vertical;
+
     return this._coordinates;
+  }
+
+  /**
+   * Destroys a particular cell of the ship
+   * @param {int} pos
+   */
+  attack(pos) {
+    this._cellsArray.forEach((cell) => {
+      if (cell.position === pos) {
+        cell.hit = true;
+        this._life = Math.max(this._life - 1, 0);
+      }
+    });
+  }
+
+  sunk() {
+    return this._life === 0;
   }
 }
 
