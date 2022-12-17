@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "A simple battleship game.",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "start": "webpack serve --mode development --open",
         "test": "jest"
