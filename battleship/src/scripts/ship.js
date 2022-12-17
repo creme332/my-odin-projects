@@ -1,4 +1,4 @@
-import ShipCell from "./shipcell";
+import ShipCell from "./shipcell.js";
 
 /**
  * Class for ships which are placed on battlefield.
@@ -72,7 +72,29 @@ class Ship {
     return this._cellsArray;
   }
 
+  rotatable() {
+    const headPos = this._coordinates[1];
+    const BOARD_SIZE = 10;
+    const row = parseInt(headPos.pos / BOARD_SIZE, 10);
+    const col = headPos.pos % BOARD_SIZE;
+
+    if (this._vertical) {
+      // check if last cell of ship is on board if ship is horizontal
+      if (col + this._size >= BOARD_SIZE) return false;
+    } else if (row + this._size >= BOARD_SIZE) {
+      // check if last cell of ship is on board if ship is vertical
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Rotates a vertical ship anti-clockwise OR rotates a
+   * horizontal ship clockwise. Fixed point is head position.
+   */
   rotate() {
+    if (!this.rotatable()) return;
     const headPos = this._coordinates[1];
     const BOARD_SIZE = 10;
 
@@ -88,8 +110,6 @@ class Ship {
     }
 
     this._vertical = !this._vertical;
-
-    return this._coordinates;
   }
 
   /**
@@ -98,7 +118,7 @@ class Ship {
    */
   attack(pos) {
     this._cellsArray.forEach((cell) => {
-      if (cell.position === pos) {
+      if (cell.pos === pos) {
         cell.hit = true;
         this._life = Math.max(this._life - 1, 0);
       }
