@@ -8,52 +8,72 @@ class Ship {
 
   _size;
 
-  _coordinates; // a list containing board index and head position
+  _headPos; // position of head of ship on board
 
-  _life;
+  _boardIndex; // board in which ship is found
 
-  _cellsArray = [];
+  _life; // number of alive ship cells
+
+  _cellsArray = []; // array of ShipCell objects
+
+  BOARD_SIZE = 10;
 
   /**
    * Initialise ship object.
    * @param {int} size Number of cells on ship. Must be between `1` and `4` inclusive.
    * @param {boolean} verticallyOriented `True` if ship is vertical.
-   * @param {[int, int]} coord Coordinates of ship.
-   * `coord[0]` : board (`0` or`1`) on which ship is found.
-   *
-   * `coord[1]` : Position of ship on particular board. (`0`-`99`)
+   * @param {int} boardIndex board (`0` or`1`) on which ship is found.
+   * @param {int} head Position of ship on board. (`0`-`99`)
    */
-  constructor(size, verticallyOriented, coord) {
-    const BOARD_SIZE = 10;
-
+  constructor(size, verticallyOriented, boardIndex, head) {
     if (!(size > 0 && size < 5)) {
       throw new Error("Invalid ship size", size);
     }
 
     if (
       !(
-        (coord[0] === 0 || coord[0] === 1) && // board index either 0 or 1
-        coord[1] >= 0 &&
-        coord[1] < BOARD_SIZE * BOARD_SIZE
+        (boardIndex === 0 || boardIndex === 1) && // board index either 0 or 1
+        head >= 0 &&
+        head < this.BOARD_SIZE * this.BOARD_SIZE
       )
     ) {
-      throw new Error("Invalid ship coordinates", coord);
+      throw new Error("Invalid ship coordinates", [boardIndex, head]);
     }
+
     this._size = size;
+    this._boardIndex = boardIndex;
+    this._headPos = head;
     this._vertical = verticallyOriented;
-    this._coordinates = coord;
     this._life = size;
 
-    const headPos = coord[1];
-
-    for (let i = 0; i < this._size; i++) {
-      const cellPos = headPos + (this._vertical ? BOARD_SIZE * i : i);
-      const cell = new ShipCell(cellPos);
-      this._cellsArray.push(cell);
+    if (this.fitsBoard(verticallyOriented)) {
+      for (let i = 0; i < this._size; i++) {
+        const cellPos = head + (this._vertical ? this.BOARD_SIZE * i : i);
+        const cell = new ShipCell(cellPos);
+        this._cellsArray.push(cell);
+      }
+    } else {
+      throw new Error("Ship does not fit on board because of its orientation");
     }
   }
 
-  get vertical() {
+  /**
+   * Checks if ship of given orientation will fit board.
+   * @param {boolean} verticalOrientation new orientation of ship
+   * @returns {boolean}
+   */
+  fitsBoard(verticalOrientation = true) {
+    const row = parseInt(this.headPos / this.BOARD_SIZE, 10);
+    const col = this.headPos % this.BOARD_SIZE;
+    if (verticalOrientation) {
+      if (row + this._size - 1 >= this.BOARD_SIZE) return false;
+    } else if (col + this._size - 1 >= this.BOARD_SIZE) {
+      return false;
+    }
+    return true;
+  }
+
+  get isVertical() {
     return this._vertical;
   }
 
@@ -61,8 +81,18 @@ class Ship {
     return this._size;
   }
 
-  get coordinates() {
-    return this._coordinates;
+  set headPos(newPos) {
+    if (newPos >= 0 && newPos < this.BOARD_SIZE) {
+      this.headPos = newPos;
+    }
+  }
+
+  get headPos() {
+    return this._headPos;
+  }
+
+  get boardIndex() {
+    return this._boardIndex;
   }
 
   /**
@@ -73,20 +103,7 @@ class Ship {
   }
 
   rotatable() {
-    const headPos = this._coordinates[1];
-    const BOARD_SIZE = 10;
-    const row = parseInt(headPos / BOARD_SIZE, 10);
-    const col = headPos % BOARD_SIZE;
-
-    if (this._vertical) {
-      // check if last cell of ship is on board if ship is horizontal
-      if (col + this._size - 1 >= BOARD_SIZE) return false;
-    } else if (row + this._size - 1 >= BOARD_SIZE) {
-      // check if last cell of ship is on board if ship is vertical
-      return false;
-    }
-
-    return true;
+    return this.fitsBoard(!this._vertical);
   }
 
   /**
@@ -95,17 +112,16 @@ class Ship {
    */
   rotate() {
     if (!this.rotatable()) return;
-    const headPos = this._coordinates[1];
     const BOARD_SIZE = 10;
 
     for (let i = 0; i < this._size; i++) {
       const currentCell = this._cellsArray[i];
       if (this._vertical) {
         // ship is currently vertical so convert to horizontal
-        currentCell.pos = headPos + i;
+        currentCell.pos = this._headPos + i;
       } else {
         // ship is currently horizontal so convert to vertical
-        currentCell.pos = headPos + i * BOARD_SIZE;
+        currentCell.pos = this._headPos + i * BOARD_SIZE;
       }
     }
 
@@ -125,8 +141,19 @@ class Ship {
     });
   }
 
+  /**
+   * Checks if the entire ship is destroyed
+   * @returns {boolean}
+   */
   sunk() {
     return this._life === 0;
+  }
+
+  /**
+   * Returns an list of indices representing the position of each ship cell on the board.
+   */
+  getCellPositions() {
+    return this._cellsArray.map((el) => el.pos);
   }
 }
 
