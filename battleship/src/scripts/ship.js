@@ -75,13 +75,13 @@ class Ship {
   rotatable() {
     const headPos = this._coordinates[1];
     const BOARD_SIZE = 10;
-    const row = parseInt(headPos.pos / BOARD_SIZE, 10);
-    const col = headPos.pos % BOARD_SIZE;
+    const row = parseInt(headPos / BOARD_SIZE, 10);
+    const col = headPos % BOARD_SIZE;
 
     if (this._vertical) {
       // check if last cell of ship is on board if ship is horizontal
-      if (col + this._size >= BOARD_SIZE) return false;
-    } else if (row + this._size >= BOARD_SIZE) {
+      if (col + this._size - 1 >= BOARD_SIZE) return false;
+    } else if (row + this._size - 1 >= BOARD_SIZE) {
       // check if last cell of ship is on board if ship is vertical
       return false;
     }
