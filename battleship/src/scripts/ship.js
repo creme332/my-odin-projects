@@ -1,5 +1,5 @@
 import ShipCell from "./shipcell.js";
-
+import Board from "./board.js";
 /**
  * Class for ships which are placed on battlefield.
  */
@@ -15,8 +15,6 @@ class Ship {
   _life; // number of alive ship cells
 
   _cellsArray = []; // array of ShipCell objects
-
-  BOARD_SIZE = 10;
 
   /**
    * Initialise ship object.
@@ -34,7 +32,7 @@ class Ship {
       !(
         (boardIndex === 0 || boardIndex === 1) && // board index either 0 or 1
         head >= 0 &&
-        head < this.BOARD_SIZE * this.BOARD_SIZE
+        head < Board.BOARD_SIZE * Board.BOARD_SIZE
       )
     ) {
       throw new Error("Invalid ship coordinates", [boardIndex, head]);
@@ -48,7 +46,7 @@ class Ship {
 
     if (this.fitsBoard(verticallyOriented)) {
       for (let i = 0; i < this._size; i++) {
-        const cellPos = head + (this._vertical ? this.BOARD_SIZE * i : i);
+        const cellPos = head + (this._vertical ? Board.BOARD_SIZE * i : i);
         const cell = new ShipCell(cellPos);
         this._cellsArray.push(cell);
       }
@@ -63,11 +61,11 @@ class Ship {
    * @returns {boolean}
    */
   fitsBoard(verticalOrientation = true) {
-    const row = parseInt(this.headPos / this.BOARD_SIZE, 10);
-    const col = this.headPos % this.BOARD_SIZE;
+    const row = parseInt(this.headPos / Board.BOARD_SIZE, 10);
+    const col = this.headPos % Board.BOARD_SIZE;
     if (verticalOrientation) {
-      if (row + this._size - 1 >= this.BOARD_SIZE) return false;
-    } else if (col + this._size - 1 >= this.BOARD_SIZE) {
+      if (row + this._size - 1 >= Board.BOARD_SIZE) return false;
+    } else if (col + this._size - 1 >= Board.BOARD_SIZE) {
       return false;
     }
     return true;
@@ -82,7 +80,7 @@ class Ship {
   }
 
   set headPos(newPos) {
-    if (newPos >= 0 && newPos < this.BOARD_SIZE) {
+    if (newPos >= 0 && newPos < Board.BOARD_SIZE) {
       this.headPos = newPos;
     }
   }
