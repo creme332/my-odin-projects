@@ -4,28 +4,42 @@
 class Board {
   _board;
 
-  constructor() {
-    const EMPTY_CELL = 0;
-    this._board = [...Array(Board.BOARD_SIZE)].map((_) =>
-      Array(Board.BOARD_SIZE).fill(EMPTY_CELL)
-    );
+  _shipArray;
+
+  static get EMPTY_CELL() {
+    return 0;
+  }
+
+  static get SHIP_CELL() {
+    return 1;
   }
 
   static get BOARD_SIZE() {
     return 10;
   }
 
-  _shipArray;
+  get basicBoard() {
+    return this._board;
+  }
 
   loadShips(shipArray) {
-    const SHIP_CELL = 1;
+    const newBoard = [...Array(Board.BOARD_SIZE)].map((_) =>
+      Array(Board.BOARD_SIZE).fill(Board.EMPTY_CELL)
+    );
     shipArray.forEach((ship) => {
       ship.getCellPositions().forEach((cellPos) => {
         const row = parseInt(cellPos / Board.BOARD_SIZE, 10);
         const col = cellPos % Board.BOARD_SIZE;
-        this._board[row][col] = SHIP_CELL;
+        newBoard[row][col] = Board.SHIP_CELL;
       });
     });
+
+    if (Board.validate(newBoard)) {
+      this._board = newBoard;
+      this._shipArray = shipArray;
+    } else {
+      throw new Error("Invalid board configuration given by shipArray");
+    }
   }
 
   resetBoard() {
@@ -46,8 +60,6 @@ class Board {
    * @returns {boolean}
    */
   static validate(board) {
-    const EMPTY_CELL = 0;
-    const SHIP_CELL = 1;
     /**
      * Checks if ship cell at (row, col)
      * @param {[[]]} board 10x10 board where 0 indicates empty cell and 1 indicates ship cell
@@ -67,7 +79,7 @@ class Board {
           newRow < Board.BOARD_SIZE &&
           newCol > -1 &&
           newCol < Board.BOARD_SIZE &&
-          board[newRow][newCol] === SHIP_CELL
+          board[newRow][newCol] === Board.SHIP_CELL
         ) {
           return false;
         }
@@ -117,7 +129,7 @@ class Board {
       vcells = 1;
 
       for (let j = 0; j < Board.BOARD_SIZE; j++) {
-        if (board[i][j] === SHIP_CELL) {
+        if (board[i][j] === Board.SHIP_CELL) {
           if (illegalCell(i, j)) {
             return false;
           }
@@ -128,28 +140,28 @@ class Board {
 
         if (j > 0) {
           // count consecutive horizontal ship cells
-          if (board[i][j] === EMPTY_CELL) {
+          if (board[i][j] === Board.EMPTY_CELL) {
             // streak of consecutive cells ends
             if (hcells === 4) b++;
             if (hcells === 3) c++;
             if (hcells === 2) d++;
             hcells = 1;
           } else if (
-            board[i][j] === SHIP_CELL &&
-            board[i][j - 1] === SHIP_CELL
+            board[i][j] === Board.SHIP_CELL &&
+            board[i][j - 1] === Board.SHIP_CELL
           ) {
             hcells++;
           }
 
           // count consecutive vertical ship cells
-          if (board[j][i] === EMPTY_CELL) {
+          if (board[j][i] === Board.EMPTY_CELL) {
             if (vcells === 4) b++;
             if (vcells === 3) c++;
             if (vcells === 2) d++;
             vcells = 1;
           } else if (
-            board[j][i] === SHIP_CELL &&
-            board[j - 1][i] === SHIP_CELL
+            board[j][i] === Board.SHIP_CELL &&
+            board[j - 1][i] === Board.SHIP_CELL
           ) {
             vcells++;
           }
