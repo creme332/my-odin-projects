@@ -2,9 +2,9 @@
  * Class for boards on which ships are placed.
  */
 class Board {
-  _board;
+  _board; // a 2D grid containing only 0s and 1s
 
-  _shipArray;
+  _shipArray; // a list of Ship objects representing ships on board.
 
   static get EMPTY_CELL() {
     return 0;
@@ -22,15 +22,25 @@ class Board {
     return this._board;
   }
 
+  setCellValue(cellPos, cellValue) {
+    const row = parseInt(cellPos / Board.BOARD_SIZE, 10);
+    const col = cellPos % Board.BOARD_SIZE;
+    this._board[row][col] = cellValue;
+  }
+
+  getCellValue(cellPos) {
+    const row = parseInt(cellPos / Board.BOARD_SIZE, 10);
+    const col = cellPos % Board.BOARD_SIZE;
+    return this._board[row][col];
+  }
+
   loadShips(shipArray) {
-    const newBoard = [...Array(Board.BOARD_SIZE)].map((_) =>
+    const newBoard = [...Array(Board.BOARD_SIZE)].map(() =>
       Array(Board.BOARD_SIZE).fill(Board.EMPTY_CELL)
     );
     shipArray.forEach((ship) => {
       ship.getCellPositions().forEach((cellPos) => {
-        const row = parseInt(cellPos / Board.BOARD_SIZE, 10);
-        const col = cellPos % Board.BOARD_SIZE;
-        newBoard[row][col] = Board.SHIP_CELL;
+        this.setCellValue(cellPos, Board.SHIP_CELL);
       });
     });
 
@@ -42,16 +52,49 @@ class Board {
     }
   }
 
+  /**
+   * Resets state of Board object.
+   */
   resetBoard() {
-    return Board.BOARD_SIZE;
+    this._board = [...Array(Board.BOARD_SIZE)].map(() =>
+      Array(Board.BOARD_SIZE).fill(Board.EMPTY_CELL)
+    );
+    this._shipArray = [];
   }
 
+  /**
+   * Returns the ship object of the ship having a ship cell at `pos`.
+   * Returns `null` if there's no ship at given position.
+   * Throws an error if ship corresponding to ship cell could not be found.
+   * @param {int} pos Integer `0`-`99`
+   * @returns {Ship}
+   */
   getShipAt(pos) {
-    return Board.BOARD_SIZE;
+    // check if there is a ship cell at given position
+    if (this.getCellValue(pos) !== Board.SHIP_CELL) {
+      return null;
+    }
+
+    // find ship which has a cell at given pos
+    this._shipArray.forEach((ship) => {
+      if (ship.getCellPositions().includes(pos)) {
+        return ship;
+      }
+    });
+    throw new Error(`Unknown ship cell found on board at ${pos}`, this._board);
   }
 
-  moveShipTo(ship, pos) {
-    return Board.BOARD_SIZE;
+  // TODO : Add validation check for parameters
+  moveShipTo(ship, newPos) {
+    // clear current ship from board
+    ship.getCellPositions().forEach((pos) => {
+      this.setCellValue(pos, Board.EMPTY_CELL);
+    });
+    
+    // place current ship in its new position
+    // validate new board
+    // check if ship can be placed in newPos
+    // update ship coordinates property
   }
 
   /**
