@@ -6,6 +6,12 @@ class Board {
 
   _shipArray; // a list of Ship objects representing ships on board.
 
+  constructor() {
+    this._board = [...Array(Board.BOARD_SIZE)].map(() =>
+      Array(Board.BOARD_SIZE).fill(Board.EMPTY_CELL)
+    );
+  }
+
   static get EMPTY_CELL() {
     return 0;
   }
@@ -35,15 +41,19 @@ class Board {
   }
 
   loadShips(shipArray) {
+    // create a new basic board using shipArray
     const newBoard = [...Array(Board.BOARD_SIZE)].map(() =>
       Array(Board.BOARD_SIZE).fill(Board.EMPTY_CELL)
     );
     shipArray.forEach((ship) => {
       ship.getCellPositions().forEach((cellPos) => {
-        this.setCellValue(cellPos, Board.SHIP_CELL);
+        newBoard[parseInt(cellPos / Board.BOARD_SIZE, 10)][
+          cellPos % Board.BOARD_SIZE
+        ] = Board.SHIP_CELL;
       });
     });
 
+    // if board is valid, update true board.
     if (Board.validate(newBoard)) {
       this._board = newBoard;
       this._shipArray = shipArray;
@@ -85,17 +95,38 @@ class Board {
   }
 
   // TODO : Add validation check for parameters
-  moveShipTo(ship, newPos) {
-    // clear current ship from board
-    ship.getCellPositions().forEach((pos) => {
-      this.setCellValue(pos, Board.EMPTY_CELL);
-    });
-    
-    // place current ship in its new position
-    // validate new board
-    // check if ship can be placed in newPos
-    // update ship coordinates property
-  }
+  // optimal method: copy current board. erase current ship. test if ship can be placed.
+  // moveShipTo(ship, newPos) {
+  //   const initialShipPos = ship.headPos;
+  //   let isValidMove = true;
+
+  //   // clear current ship from basic board
+  //   ship.getCellPositions().forEach((pos) => {
+  //     this.setCellValue(pos, Board.EMPTY_CELL);
+  //   });
+
+  //   // place current ship in its new position
+  //   ship.moveTo(newPos);
+
+  //   // show new ship position on basic board
+  //   ship.getCellPositions().forEach((pos) => {
+  //     this.setCellValue(pos, Board.SHIP_CELL);
+  //   });
+
+  //   // validate new board
+  //   isValidMove = Board.validate(this._board);
+
+  //   // revert changes if invalid move was made
+  //   if (!isValidMove) {
+  //     ship.getCellPositions().forEach((pos) => {
+  //       this.setCellValue(pos, Board.EMPTY_CELL);
+  //     });
+  //     ship.moveTo(initialShipPos);
+  //     ship.getCellPositions().forEach((pos) => {
+  //       this.setCellValue(pos, Board.SHIP_CELL);
+  //     });
+  //   }
+  // }
 
   /**
    * Verifies if given board is a valid board based on the rules of the game.
