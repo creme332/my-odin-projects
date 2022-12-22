@@ -59,13 +59,13 @@ describe("Ship class", () => {
     expect(() => createShip("a")).toThrow("Invalid ship size");
 
     expect(() => createShip(3, false, 9)).toThrow(
-      "Ship does not fit on board because of its orientation"
+      "Ship cannot be moved to #9 (Insufficient space)"
     );
     expect(() => createShip(3, false, 8)).toThrow(
-      "Ship does not fit on board because of its orientation"
+      "Ship cannot be moved to #8 (Insufficient space)"
     );
     expect(() => createShip(3, true, 99)).toThrow(
-      "Ship does not fit on board because of its orientation"
+      "Ship cannot be moved to #99 (Insufficient space)"
     );
   });
 
@@ -88,6 +88,19 @@ describe("Ship class", () => {
       cruiser.attack(21);
       cruiser.attack(21);
       expect(cruiser.sunk()).toBeTruthy();
+    });
+  });
+
+  describe("move ship to new position", () => {
+    test("valid position", () => {
+      cruiser.moveTo(5);
+      expect(cruiser.getCellPositions()).toStrictEqual([5, 15, 25, 35]);
+    });
+
+    test("ship going outside of board", () => {
+      expect(() => cruiser.moveTo(80)).toThrow(
+        "Ship cannot be moved to #80 (Insufficient space)"
+      );
     });
   });
 });

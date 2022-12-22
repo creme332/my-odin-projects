@@ -44,15 +44,7 @@ class Ship {
     this._vertical = verticallyOriented;
     this._life = size;
 
-    if (this.fitsBoard(verticallyOriented)) {
-      for (let i = 0; i < this._size; i++) {
-        const cellPos = head + (this._vertical ? Board.BOARD_SIZE * i : i);
-        const cell = new ShipCell(cellPos);
-        this._cellsArray.push(cell);
-      }
-    } else {
-      throw new Error("Ship does not fit on board because of its orientation");
-    }
+    this.moveTo(head);
   }
 
   /**
@@ -100,6 +92,28 @@ class Ship {
     return this._cellsArray;
   }
 
+  /**
+   * Moves ship to a new position on board, preserving its orientation.
+   * @param {int} newHeadPos
+   */
+  moveTo(newHeadPos) {
+    this._headPos = newHeadPos;
+    this._cellsArray = [];
+
+    if (this.fitsBoard(this._vertical)) {
+      for (let i = 0; i < this._size; i++) {
+        const cellPos =
+          newHeadPos + (this._vertical ? Board.BOARD_SIZE * i : i);
+        const cell = new ShipCell(cellPos);
+        this._cellsArray.push(cell);
+      }
+    } else {
+      throw new Error(
+        `Ship cannot be moved to #${newHeadPos} (Insufficient space)`
+      );
+    }
+  }
+
   rotatable() {
     return this.fitsBoard(!this._vertical);
   }
@@ -110,7 +124,6 @@ class Ship {
    */
   rotate() {
     if (!this.rotatable()) return;
-    const BOARD_SIZE = 10;
 
     for (let i = 0; i < this._size; i++) {
       const currentCell = this._cellsArray[i];
@@ -119,7 +132,7 @@ class Ship {
         currentCell.pos = this._headPos + i;
       } else {
         // ship is currently horizontal so convert to vertical
-        currentCell.pos = this._headPos + i * BOARD_SIZE;
+        currentCell.pos = this._headPos + i * Board.BOARD_SIZE;
       }
     }
 
