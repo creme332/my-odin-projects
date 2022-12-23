@@ -16,6 +16,7 @@ body {
   height: 100vh;
   width: 100vw;
   place-content: center;
+  /* background-color: #eeeeee; */
 }
 
 h1 {
@@ -62,4 +63,32 @@ td.good-hit {
 #playButton:hover {
   background-color: black;
   color: white;
+}
+
+.ship-cell {
+  height: 100%;
+  background-color: gray;
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5em;
+    height: auto;
+    width: 100vw;
+  }
+  h1 {
+    text-align: center;
+    font-size: 80px;
+  }
+  #battlefields {
+    /* outline: 5px solid; */
+    flex-direction: column;
+  }
+  #playButton {
+    width: 200px;
+  }
 }
