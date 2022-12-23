@@ -29,12 +29,18 @@ class Board {
   }
 
   setCellValue(cellPos, cellValue) {
+    if (cellPos < 0 || cellPos >= Board.BOARD_SIZE * Board.BOARD_SIZE) {
+      throw new Error(`Cannot set cell value to ${cellValue} at ${cellPos}`);
+    }
     const row = parseInt(cellPos / Board.BOARD_SIZE, 10);
     const col = cellPos % Board.BOARD_SIZE;
     this._board[row][col] = cellValue;
   }
 
   getCellValue(cellPos) {
+    if (cellPos < 0 || cellPos >= Board.BOARD_SIZE * Board.BOARD_SIZE) {
+      throw new Error(`Cannot get cell value at ${cellPos}`);
+    }
     const row = parseInt(cellPos / Board.BOARD_SIZE, 10);
     const col = cellPos % Board.BOARD_SIZE;
     return this._board[row][col];
@@ -86,47 +92,55 @@ class Board {
     }
 
     // find ship which has a cell at given pos
-    this._shipArray.forEach((ship) => {
-      if (ship.getCellPositions().includes(pos)) {
-        return ship;
+    for (let i = 0; i < this._shipArray.length; i++) {
+      if (this._shipArray[i].getCellPositions().includes(pos)) {
+        return this._shipArray[i];
       }
-    });
+    }
     throw new Error(`Unknown ship cell found on board at ${pos}`, this._board);
   }
 
-  // TODO : Add validation check for parameters
-  // optimal method: copy current board. erase current ship. test if ship can be placed.
-  // moveShipTo(ship, newPos) {
-  //   const initialShipPos = ship.headPos;
-  //   let isValidMove = true;
+  rotateShip(shipCellPos) {
+    const shipObj = this.getShipAt(shipCellPos);
+    if (shipObj === null)
+      throw new Error(`There's no ship cell at #${shipCellPos}`);
+    if (shipObj.size === 1) return false;
 
-  //   // clear current ship from basic board
-  //   ship.getCellPositions().forEach((pos) => {
-  //     this.setCellValue(pos, Board.EMPTY_CELL);
-  //   });
+    // check if ship can be rotated without  moving out of board
+    if (shipObj.rotatable()) {
+      // clear current ship from basic board
+      shipObj.getCellPositions().forEach((pos) => {
+        this.setCellValue(pos, Board.EMPTY_CELL);
+      });
 
-  //   // place current ship in its new position
-  //   ship.moveTo(newPos);
+      shipObj.rotate();
 
-  //   // show new ship position on basic board
-  //   ship.getCellPositions().forEach((pos) => {
-  //     this.setCellValue(pos, Board.SHIP_CELL);
-  //   });
+      // place rotated ship on basic board
+      shipObj.getCellPositions().forEach((pos) => {
+        this.setCellValue(pos, Board.SHIP_CELL);
+      });
 
-  //   // validate new board
-  //   isValidMove = Board.validate(this._board);
+      // check if rotation obeys rules of game
+      if (Board.validate(this._board)) {
+        return true;
+      }
+      // At this points, rotation is an invalid move so,
+      // undo changes to basic board
 
-  //   // revert changes if invalid move was made
-  //   if (!isValidMove) {
-  //     ship.getCellPositions().forEach((pos) => {
-  //       this.setCellValue(pos, Board.EMPTY_CELL);
-  //     });
-  //     ship.moveTo(initialShipPos);
-  //     ship.getCellPositions().forEach((pos) => {
-  //       this.setCellValue(pos, Board.SHIP_CELL);
-  //     });
-  //   }
-  // }
+      // clear current ship from basic board
+      shipObj.getCellPositions().forEach((pos) => {
+        this.setCellValue(pos, Board.EMPTY_CELL);
+      });
+
+      shipObj.rotate();
+
+      // place ship on basic board
+      shipObj.getCellPositions().forEach((pos) => {
+        this.setCellValue(pos, Board.SHIP_CELL);
+      });
+    }
+    return false;
+  }
 
   /**
    * Verifies if given board is a valid board based on the rules of the game.
@@ -253,6 +267,14 @@ class Board {
       return true;
     }
     return false;
+  }
+
+  getAllShipPositions() {
+    const AllShipPositions = [];
+    this._shipArray.forEach((ship) => {
+      AllShipPositions.push(ship.getCellPositions());
+    });
+    return AllShipPositions;
   }
 }
 export default Board;
