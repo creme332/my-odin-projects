@@ -4,7 +4,6 @@ import "../styles/styles.css";
 import "../styles/bebasneue.ttf";
 import Ship from "./ship";
 import Board from "./board";
-// import Sortable from "sortablejs";
 
 const model = (() => {
   const myBoard = new Board();
@@ -28,10 +27,29 @@ const model = (() => {
   function getBasicBoard(boardIndex) {
     return boardIndex === 0 ? myBoard.basicBoard : rivalBoard.basicBoard;
   }
+
+  function getAllShipPositions(boardIndex) {
+    return boardIndex === 0
+      ? myBoard.getAllShipPositions()
+      : rivalBoard.getAllShipPositions();
+  }
+
+  function getShipObj(boardIndex, pos) {
+    return boardIndex === 0
+      ? myBoard.getShipAt(pos)
+      : rivalBoard.getShipAt(pos);
+  }
+
+  function rotateShip(shipCellPos, boardIndex) {
+    return boardIndex === 0
+      ? myBoard.rotateShip(myBoard.getShipAt(shipCellPos))
+      : rivalBoard.rotateShip(rivalBoard.getShipAt(shipCellPos));
+  }
+
   myBoard.loadShips(getDefaultFleet(0));
   rivalBoard.loadShips(getDefaultFleet(1));
 
-  return { getBasicBoard };
+  return { getBasicBoard, getAllShipPositions, getShipObj, rotateShip };
 })();
 
 const view = (() => {
@@ -70,7 +88,7 @@ const view = (() => {
   }
 
   /**
-   * Returns a new 10x10 empty board.
+   * Returns a new 10x10 empty board HTML element.
    * @param {string} boardID
    * @returns
    */
@@ -101,6 +119,7 @@ const view = (() => {
   function initialiseBoards() {
     const myBoard = getNewBoard("myBoard");
     const rivalBoard = getNewBoard("rivalBoard");
+    // ! Do not change order of appending:
     battlefields.appendChild(myBoard);
     battlefields.appendChild(rivalBoard);
   }
@@ -119,7 +138,7 @@ const view = (() => {
    * @param {int} cellIndex values between 0-99
    * @returns HTMLTableCellElement
    */
-  function getCellElement(boardIndex, cellIndex) {
+  function getBoardCellElement(boardIndex, cellIndex) {
     // validate parameters
     if (!(boardIndex === 0 || boardIndex === 1)) {
       throw Error("Invalid board index");
@@ -130,6 +149,25 @@ const view = (() => {
     const boards = battlefields.querySelectorAll(".board");
     return [...boards[boardIndex].querySelectorAll("td")][cellIndex];
   }
+
+  function getShipCellElement(boardIndex, cellIndex) {
+    const shipCell = getBoardCellElement(boardIndex, cellIndex).querySelector(
+      ".ship-cell"
+    );
+    if (shipCell === null) {
+      throw new Error(`No ship cell at ${cellIndex}`);
+    }
+    return shipCell;
+  }
+
+  function moveShipCell(boardIndex, initialPos, finalPos) {
+    if (initialPos === finalPos) return;
+    const shipCell = getShipCellElement(boardIndex, initialPos);
+    const destination = getBoardCellElement(boardIndex, finalPos);
+    console.log(shipCell, destination);
+    destination.appendChild(shipCell);
+  }
+
   function listenGuess() {
     // move this function to controller.
     const cells = getRivalBoard().querySelectorAll("td");
@@ -159,32 +197,78 @@ const view = (() => {
     });
   }
 
-  function displayBasicBoard(basicBoard, boardIndex) {
+  function initialiseShips(basicBoard, boardIndex) {
+    console.log(basicBoard);
     for (let row = 0; row < Board.BOARD_SIZE; row++) {
       for (let col = 0; col < Board.BOARD_SIZE; col++) {
         const pos = row * Board.BOARD_SIZE + col;
-        const el = getCellElement(boardIndex, pos);
+        const el = getBoardCellElement(boardIndex, pos);
         if (basicBoard[row][col] === Board.SHIP_CELL) {
-          el.style.backgroundColor = "grey";
+          const shipCell = createHtmlElement(
+            "div",
+            null,
+            ["ship-cell"],
+            null,
+            null
+          );
+          el.appendChild(shipCell);
         }
       }
     }
   }
 
+  function getMyShipCells() {
+    return getMyBoard().querySelectorAll(".ship-cell");
+  }
+
   return {
     initialiseBoards,
-    displayBasicBoard,
+    initialiseShips,
     displayGuess,
     listenGuess,
-    getCellElement,
+    getBoardCellElement,
+    getMyShipCells,
+    getShipCellElement,
+    moveShipCell,
   };
 })();
 
 const controller = (() => {
   view.initialiseBoards();
-  view.displayBasicBoard(model.getBasicBoard(0), 0);
-  view.displayBasicBoard(model.getBasicBoard(1), 1);
-})();
+  view.initialiseShips(model.getBasicBoard(0), 0);
+  view.initialiseShips(model.getBasicBoard(1), 1);
+  console.log("Initial board", model.getBasicBoard(0));
 
-// view.displayGuess();
-// view.listenGuess();
+  function rotateShip(e) {
+    const cell = e.target;
+
+    // get the index of the ship cell
+    const shipCellPos = parseInt(
+      cell.closest("td").getAttribute("data-index"),
+      10
+    );
+    console.log(shipCellPos);
+    console.log("Current board: ", model.getBasicBoard(0));
+
+    const shipObj = model.getShipObj(0, shipCellPos);
+    const intialCoords = shipObj.getCellPositions();
+
+    // rotate ship in basic board
+    const changeOccurred = model.rotateShip(shipCellPos, 0);
+
+    if (changeOccurred) {
+      console.log("New board: ", model.getBasicBoard(0));
+
+      // render changes visually
+      const finalCoords = shipObj.getCellPositions();
+      for (let i = 0; i < finalCoords.length; i++) {
+        view.moveShipCell(0, intialCoords[i], finalCoords[i]);
+      }
+    }
+  }
+  // make my ships rotatable
+  const myShipCells = view.getMyShipCells();
+  myShipCells.forEach((cell) => {
+    cell.addEventListener("dblclick", rotateShip);
+  });
+})();
