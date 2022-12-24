@@ -100,46 +100,62 @@ class Board {
     throw new Error(`Unknown ship cell found on board at ${pos}`, this._board);
   }
 
-  rotateShip(shipCellPos) {
-    const shipObj = this.getShipAt(shipCellPos);
-    if (shipObj === null)
-      throw new Error(`There's no ship cell at #${shipCellPos}`);
+  /**
+   * Rotates the ship if possible.
+   * @param {Ship} shipObj
+   * @returns {boolean} rotation performed or not?
+   */
+  rotateShip(shipObj) {
+    if (shipObj === null) throw new Error(`ShipObj cannot be null`);
     if (shipObj.size === 1) return false;
 
-    // check if ship can be rotated without  moving out of board
-    if (shipObj.rotatable()) {
-      // clear current ship from basic board
-      shipObj.getCellPositions().forEach((pos) => {
-        this.setCellValue(pos, Board.EMPTY_CELL);
-      });
+    const headRow = parseInt(shipObj.headPos / Board.BOARD_SIZE, 10);
+    const headCol = shipObj.headPos % Board.BOARD_SIZE;
 
-      shipObj.rotate();
-
-      // place rotated ship on basic board
-      shipObj.getCellPositions().forEach((pos) => {
-        this.setCellValue(pos, Board.SHIP_CELL);
-      });
-
-      // check if rotation obeys rules of game
-      if (Board.validate(this._board)) {
-        return true;
+    // check surrounding cells of rotated version of ship
+    if (shipObj.isVertical) {
+      for (let col = headCol + 2; col <= headCol + shipObj.size; col++) {
+        for (let row = headRow - 1; row <= headRow + 1; row++) {
+          if (
+            col >= 0 &&
+            col < Board.BOARD_SIZE &&
+            row >= 0 &&
+            row < Board.BOARD_SIZE &&
+            this._board[row][col] === Board.SHIP_CELL
+          ) {
+            return false;
+          }
+        }
       }
-      // At this points, rotation is an invalid move so,
-      // undo changes to basic board
-
-      // clear current ship from basic board
-      shipObj.getCellPositions().forEach((pos) => {
-        this.setCellValue(pos, Board.EMPTY_CELL);
-      });
-
-      shipObj.rotate();
-
-      // place ship on basic board
-      shipObj.getCellPositions().forEach((pos) => {
-        this.setCellValue(pos, Board.SHIP_CELL);
-      });
+    } else {
+      for (let col = headCol - 1; col <= headCol + 1; col++) {
+        for (let row = headRow + 2; row <= headRow + shipObj.size; row++) {
+          if (
+            col >= 0 &&
+            col < Board.BOARD_SIZE &&
+            row >= 0 &&
+            row < Board.BOARD_SIZE &&
+            this._board[row][col] === Board.SHIP_CELL
+          ) {
+            return false;
+          }
+        }
+      }
     }
-    return false;
+
+    // clear current ship from basic board
+    shipObj.getCellPositions().forEach((pos) => {
+      this.setCellValue(pos, Board.EMPTY_CELL);
+    });
+
+    shipObj.rotate();
+
+    // place rotated ship on basic board
+    shipObj.getCellPositions().forEach((pos) => {
+      this.setCellValue(pos, Board.SHIP_CELL);
+    });
+
+    return true;
   }
 
   /**
