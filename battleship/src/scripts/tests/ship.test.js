@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import Ship from "./ship";
+import Ship from "../ship";
 
 describe("Ship class", () => {
   let cruiser;

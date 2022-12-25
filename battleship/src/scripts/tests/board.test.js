@@ -1,5 +1,5 @@
 /* eslint-disable */
-import Board from "./board";
+import Board from "../board";
 
 describe("board validation", () => {
   test("empty board", () => {
@@ -113,5 +113,4 @@ describe("board validation", () => {
     ];
     expect(Board.validate(board)).toBeFalsy();
   });
-
 });
