@@ -49,24 +49,33 @@ describe("Ship class", () => {
     });
   });
 
-  test("ship of invalid size", () => {
+  describe("ship creation", () => {
     const createShip = (size, vert = false, pos = 0) => {
       new Ship(size, vert, 0, pos);
     };
-    expect(() => createShip(0)).toThrow("Invalid ship size");
-    expect(() => createShip(5)).toThrow("Invalid ship size");
-    expect(() => createShip(-1)).toThrow("Invalid ship size");
-    expect(() => createShip("a")).toThrow("Invalid ship size");
-
-    expect(() => createShip(3, false, 9)).toThrow(
-      "Ship cannot be moved to #9 (Insufficient space)"
-    );
-    expect(() => createShip(3, false, 8)).toThrow(
-      "Ship cannot be moved to #8 (Insufficient space)"
-    );
-    expect(() => createShip(3, true, 99)).toThrow(
-      "Ship cannot be moved to #99 (Insufficient space)"
-    );
+    test("size 0", () => {
+      expect(() => createShip(0)).toThrow("Invalid ship size");
+    });
+    test("size 5", () => {
+      expect(() => createShip(5)).toThrow("Invalid ship size");
+    });
+    test("size -1", () => {
+      expect(() => createShip(-1)).toThrow("Invalid ship size");
+    });
+    test("size letter", () => {
+      expect(() => createShip("a")).toThrow("Invalid ship size");
+    });
+    test("insufficient space for ship", () => {
+      expect(() => createShip(3, false, 9)).toThrow(
+        "Ship cannot be moved to #9 (Insufficient space)"
+      );
+      expect(() => createShip(3, false, 8)).toThrow(
+        "Ship cannot be moved to #8 (Insufficient space)"
+      );
+      expect(() => createShip(3, true, 99)).toThrow(
+        "Ship cannot be moved to #99 (Insufficient space)"
+      );
+    });
   });
 
   describe("attack ship", () => {
