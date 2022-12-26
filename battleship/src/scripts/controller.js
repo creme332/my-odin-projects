@@ -1,3 +1,4 @@
+import Board from "./board";
 import model from "./model";
 import view from "./view";
 
@@ -8,13 +9,8 @@ const controller = (() => {
   console.log("Initial board", model.getBasicBoard(0));
 
   function rotateShip(e) {
-    const cell = e.target;
-
     // get the index of the ship cell
-    const shipCellPos = parseInt(
-      cell.closest("td").getAttribute("data-index"),
-      10
-    );
+    const shipCellPos = view.getCellIndex(e.target);
     console.log(shipCellPos);
     console.log("Current board: ", model.getBasicBoard(0));
 
@@ -34,11 +30,64 @@ const controller = (() => {
       }
     }
   }
-  // make my ships rotatable
+  // double click to rotate ships
   const myShipCells = view.getMyShipCells();
   myShipCells.forEach((cell) => {
     cell.addEventListener("dblclick", rotateShip);
   });
+
+  // implement drag and drop
+  let draggedShipObj; // ship obj of ship currently being dragged
+  // previous board cell on which user hovered on while dragging
+  let previousBoardCell = null;
+
+  myShipCells.forEach((cell) => {
+    cell.addEventListener("dragstart", () => {
+      // get the index of the ship cell
+      const shipCellPos = view.getCellIndex(cell);
+      draggedShipObj = model.getShipObj(0, shipCellPos);
+
+      // change color of dragged ship
+      draggedShipObj.getCellPositions().forEach((pos) => {
+        view.getShipCellElement(0, pos).classList.add("dragging");
+      });
+
+      console.log(draggedShipObj);
+      console.log("dragstart", cell);
+    });
+  });
+
+  // when drag ends
+  myShipCells.forEach((cell) => {
+    cell.addEventListener("dragend", () => {
+      console.log("stopped dragging", cell);
+
+      // reset transparency of dragged ship
+      draggedShipObj.getCellPositions().forEach((pos) => {
+        view.getShipCellElement(0, pos).classList.remove("dragging");
+      });
+
+      // remove ghost cell
+      if (previousBoardCell) {
+        previousBoardCell.classList.remove("ghost-cell");
+      }
+
+      const newShipPos = view.getCellIndex(previousBoardCell);
+      console.log("new pos", newShipPos);
+      draggedShipObj = null;
+    });
+  });
+
+  for (let pos = 0; pos < Board.BOARD_SIZE * Board.BOARD_SIZE; pos++) {
+    const cell = view.getBoardCellElement(0, pos);
+    cell.addEventListener("dragover", () => {
+      if (previousBoardCell) {
+        previousBoardCell.classList.remove("ghost-cell");
+      }
+      cell.classList.add("ghost-cell");
+      previousBoardCell = cell;
+    });
+  }
 })();
 
 export default controller;

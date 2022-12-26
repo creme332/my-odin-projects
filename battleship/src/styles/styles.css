@@ -66,10 +66,18 @@ td.good-hit {
 }
 
 .ship-cell {
+  cursor: move;
   height: 100%;
   background-color: gray;
 }
 
+.ship-cell.dragging {
+  opacity: 0.5;
+}
+
+.ghost-cell {
+  background-color: red;
+}
 @media screen and (max-width: 800px) {
   body {
     padding-top: 20px;
