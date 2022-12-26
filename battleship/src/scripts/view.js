@@ -126,6 +126,15 @@ const view = (() => {
     });
   }
 
+  /**
+   * Returns the index of a cell on board.
+   * @param {HTMLElement} el cell element or ship element
+   * @returns {int} 0-99
+   */
+  function getCellIndex(el) {
+    return parseInt(el.closest("td").getAttribute("data-index"), 10);
+  }
+
   function displayGuess() {
     const x = [...getMyBoard().querySelectorAll("td")];
     x[0].classList.add("missed-hit");
@@ -178,6 +187,7 @@ const view = (() => {
     getMyShipCells,
     getShipCellElement,
     moveShipCell,
+    getCellIndex,
   };
 })();
 
