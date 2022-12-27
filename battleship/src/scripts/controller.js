@@ -72,8 +72,21 @@ const controller = (() => {
         previousBoardCell.classList.remove("ghost-cell");
       }
 
+      // get new ship position
       const newShipPos = view.getCellIndex(previousBoardCell);
       console.log("new pos", newShipPos);
+      const intialCoords = draggedShipObj.getCellPositions();
+
+      // try to move ship
+      const boardChanged = model.moveShip(draggedShipObj, newShipPos, 0);
+      if (boardChanged) {
+        // render changes to board
+        const finalCoords = draggedShipObj.getCellPositions();
+        for (let i = 0; i < finalCoords.length; i++) {
+          view.moveShipCell(0, intialCoords[i], finalCoords[i]);
+        }
+        console.log('Rendered new ship on board');
+      }
       draggedShipObj = null;
     });
   });

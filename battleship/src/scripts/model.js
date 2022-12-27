@@ -42,10 +42,29 @@ const model = (() => {
       : rivalBoard.rotateShip(rivalBoard.getShipAt(shipCellPos));
   }
 
+  /**
+   *
+   * @param {Ship} shipObj
+   * @param {int} newHeadPos
+   * @param {int} boardIndex
+   * @returns {boolean}
+   */
+  function moveShip(shipObj, newHeadPos, boardIndex) {
+    return boardIndex === 0
+      ? myBoard.moveShip(myBoard.moveShip(shipObj, newHeadPos))
+      : rivalBoard.moveShip(rivalBoard.moveShip(shipObj, newHeadPos));
+  }
+
   myBoard.loadShips(getDefaultFleet(0));
   rivalBoard.loadShips(getDefaultFleet(1));
 
-  return { getBasicBoard, getAllShipPositions, getShipObj, rotateShip };
+  return {
+    getBasicBoard,
+    getAllShipPositions,
+    getShipObj,
+    rotateShip,
+    moveShip,
+  };
 })();
 
 export default model;

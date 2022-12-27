@@ -29,7 +29,11 @@ class Board {
   }
 
   setCellValue(cellPos, cellValue) {
-    if (cellPos < 0 || cellPos >= Board.BOARD_SIZE * Board.BOARD_SIZE) {
+    if (
+      cellPos < 0 ||
+      cellPos >= Board.BOARD_SIZE * Board.BOARD_SIZE ||
+      !(cellValue === Board.EMPTY_CELL || cellValue === Board.SHIP_CELL)
+    ) {
       throw new Error(`Cannot set cell value to ${cellValue} at ${cellPos}`);
     }
     const row = parseInt(cellPos / Board.BOARD_SIZE, 10);
@@ -98,6 +102,60 @@ class Board {
       }
     }
     throw new Error(`Unknown ship cell found on board at ${pos}`, this._board);
+  }
+
+  moveShip(shipObj, newHeadPos) {
+    console.log(shipObj, newHeadPos);
+    if (shipObj === null) throw new Error(`ShipObj cannot be null`);
+    if (shipObj.headPos === newHeadPos) {
+      return false;
+    }
+
+    // clear current ship from basic board
+    shipObj.getCellPositions().forEach((pos) => {
+      this.setCellValue(pos, Board.EMPTY_CELL);
+    });
+
+    const headRow = parseInt(newHeadPos / Board.BOARD_SIZE, 10);
+    const headCol = newHeadPos % Board.BOARD_SIZE;
+
+    // if new ship does not fit board
+    const originalPos = shipObj.headPos;
+    shipObj.headPos = newHeadPos;
+    if (!shipObj.fitsBoard(shipObj.isVertical)) return false;
+    shipObj.headPos = originalPos;
+
+    // check that no other ship will touch/overlap my ship
+    if (!shipObj.isVertical) {
+      for (let row = headRow - 1; row <= headRow + 1; row++) {
+        if (!(row < 0 || row > Board.BOARD_SIZE)) {
+          for (let col = headCol - 1; col <= headCol + shipObj.size; col++) {
+            if (!(col < 0 || col > Board.BOARD_SIZE)) {
+              if (this._board[row][col] === Board.SHIP_CELL) return false;
+            }
+          }
+        }
+      }
+    } else {
+      for (let row = headRow - 1; row <= headRow + shipObj.size; row++) {
+        if (!(row < 0 || row > Board.BOARD_SIZE)) {
+          for (let col = headCol - 1; col <= headCol + 1; col++) {
+            if (!(col < 0 || col > Board.BOARD_SIZE)) {
+              if (this._board[row][col] === Board.SHIP_CELL) return false;
+            }
+          }
+        }
+      }
+    }
+
+    // place ship on basic board in its new position
+    shipObj.moveTo(newHeadPos);
+
+    shipObj.getCellPositions().forEach((pos) => {
+      this.setCellValue(pos, Board.SHIP_CELL);
+    });
+
+    return true;
   }
 
   /**
