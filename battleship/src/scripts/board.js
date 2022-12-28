@@ -128,9 +128,9 @@ class Board {
     // check that no other ship will touch/overlap my ship
     if (!shipObj.isVertical) {
       for (let row = headRow - 1; row <= headRow + 1; row++) {
-        if (!(row < 0 || row > Board.BOARD_SIZE)) {
+        if (!(row < 0 || row >= Board.BOARD_SIZE)) {
           for (let col = headCol - 1; col <= headCol + shipObj.size; col++) {
-            if (!(col < 0 || col > Board.BOARD_SIZE)) {
+            if (!(col < 0 || col >= Board.BOARD_SIZE)) {
               if (this._board[row][col] === Board.SHIP_CELL) return false;
             }
           }
@@ -138,9 +138,9 @@ class Board {
       }
     } else {
       for (let row = headRow - 1; row <= headRow + shipObj.size; row++) {
-        if (!(row < 0 || row > Board.BOARD_SIZE)) {
+        if (!(row < 0 || row >= Board.BOARD_SIZE)) {
           for (let col = headCol - 1; col <= headCol + 1; col++) {
-            if (!(col < 0 || col > Board.BOARD_SIZE)) {
+            if (!(col < 0 || col >= Board.BOARD_SIZE)) {
               if (this._board[row][col] === Board.SHIP_CELL) return false;
             }
           }
