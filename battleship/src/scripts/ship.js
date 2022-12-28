@@ -72,8 +72,10 @@ class Ship {
   }
 
   set headPos(newPos) {
-    if (newPos >= 0 && newPos < Board.BOARD_SIZE) {
-      this.headPos = newPos;
+    if (newPos >= 0 && newPos < Board.BOARD_SIZE * Board.BOARD_SIZE) {
+      this._headPos = newPos;
+    } else {
+      throw new Error(`Cannot set headPos to ${newPos}`);
     }
   }
 
