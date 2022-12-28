@@ -49,10 +49,10 @@ const model = (() => {
    * @param {int} boardIndex
    * @returns {boolean}
    */
-  function moveShip(shipObj, newHeadPos, boardIndex) {
+  function moveShip(oldHeadPos, newHeadPos, boardIndex) {
     return boardIndex === 0
-      ? myBoard.moveShip(myBoard.moveShip(shipObj, newHeadPos))
-      : rivalBoard.moveShip(rivalBoard.moveShip(shipObj, newHeadPos));
+      ? myBoard.moveShip(myBoard.getShipAt(oldHeadPos), newHeadPos)
+      : rivalBoard.moveShip(rivalBoard.getShipAt(oldHeadPos), newHeadPos);
   }
 
   myBoard.loadShips(getDefaultFleet(0));
