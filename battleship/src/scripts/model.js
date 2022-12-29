@@ -9,6 +9,18 @@ const model = (() => {
   const myGuesses = [];
   const rivalGuesses = [];
 
+  function initialiseBoards() {
+    // reset boards
+    myBoard.resetBoard();
+    rivalBoard.resetBoard();
+    // load ships
+    myBoard.loadShips(getDefaultFleet(0));
+    rivalBoard.loadShips(getDefaultFleet(1));
+  }
+
+  function gameStarted() {
+    return gameOngoing;
+  }
   function startGame() {
     if (gameOngoing) {
       throw new Error("Cannot start an ongoing game twice");
@@ -16,17 +28,9 @@ const model = (() => {
     gameOngoing = true;
     myTurn = true;
 
-    // reset boards
-    myBoard.resetBoard();
-    rivalBoard.resetBoard();
-
     // empty guesses
     myGuesses.length = 0;
     rivalGuesses.length = 0;
-
-    // load new ships
-    myBoard.loadShips(getDefaultFleet(0));
-    rivalBoard.loadShips(getDefaultFleet(1));
   }
 
   /**
@@ -53,6 +57,14 @@ const model = (() => {
       }
     }
     return iWon || rWon;
+  }
+
+  /**
+   * Returns `true` if it is left player's turn to attack.
+   * @returns {boolean}
+   */
+  function getTurn() {
+    return myTurn;
   }
 
   function endGame() {
@@ -155,6 +167,9 @@ const model = (() => {
     endGame,
     attackBoard,
     checkWinner,
+    getTurn,
+    gameStarted,
+    initialiseBoards
   };
 })();
 
