@@ -105,16 +105,11 @@ class Board {
   }
 
   moveShip(shipObj, newHeadPos) {
-    console.log(shipObj, newHeadPos);
+    // console.log(shipObj, newHeadPos);
     if (shipObj === null) throw new Error(`ShipObj cannot be null`);
     if (shipObj.headPos === newHeadPos) {
       return false;
     }
-
-    // clear current ship from basic board
-    shipObj.getCellPositions().forEach((pos) => {
-      this.setCellValue(pos, Board.EMPTY_CELL);
-    });
 
     const headRow = parseInt(newHeadPos / Board.BOARD_SIZE, 10);
     const headCol = newHeadPos % Board.BOARD_SIZE;
@@ -122,8 +117,16 @@ class Board {
     // if new ship does not fit board
     const originalPos = shipObj.headPos;
     shipObj.headPos = newHeadPos;
-    if (!shipObj.fitsBoard(shipObj.isVertical)) return false;
+    if (!shipObj.fitsBoard(shipObj.isVertical)) {
+      shipObj.headPos = originalPos;
+      return false;
+    }
     shipObj.headPos = originalPos;
+
+    // clear current ship from basic board
+    shipObj.getCellPositions().forEach((pos) => {
+      this.setCellValue(pos, Board.EMPTY_CELL);
+    });
 
     // check that no other ship will touch/overlap my ship
     if (!shipObj.isVertical) {
@@ -131,7 +134,14 @@ class Board {
         if (!(row < 0 || row >= Board.BOARD_SIZE)) {
           for (let col = headCol - 1; col <= headCol + shipObj.size; col++) {
             if (!(col < 0 || col >= Board.BOARD_SIZE)) {
-              if (this._board[row][col] === Board.SHIP_CELL) return false;
+              if (this._board[row][col] === Board.SHIP_CELL) {
+                // new ship position is invalid.
+                // put ship back to its initial position
+                shipObj.getCellPositions().forEach((pos) => {
+                  this.setCellValue(pos, Board.SHIP_CELL);
+                });
+                return false;
+              }
             }
           }
         }
@@ -141,7 +151,14 @@ class Board {
         if (!(row < 0 || row >= Board.BOARD_SIZE)) {
           for (let col = headCol - 1; col <= headCol + 1; col++) {
             if (!(col < 0 || col >= Board.BOARD_SIZE)) {
-              if (this._board[row][col] === Board.SHIP_CELL) return false;
+              if (this._board[row][col] === Board.SHIP_CELL) {
+                // new ship position is invalid.
+                // put ship back to its initial position
+                shipObj.getCellPositions().forEach((pos) => {
+                  this.setCellValue(pos, Board.SHIP_CELL);
+                });
+                return false;
+              }
             }
           }
         }
