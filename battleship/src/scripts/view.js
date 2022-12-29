@@ -90,13 +90,20 @@ const view = (() => {
   function getBoardCellElement(boardIndex, cellIndex) {
     // validate parameters
     if (!(boardIndex === 0 || boardIndex === 1)) {
-      throw Error("Invalid board index");
+      throw Error(`Invalid board index: ${boardIndex}`);
     }
     if (!(cellIndex >= 0 && cellIndex < Board.BOARD_SIZE * Board.BOARD_SIZE)) {
-      throw Error("Invalid cell index");
+      throw Error(`Invalid cell index: ${cellIndex}`);
     }
     const boards = battlefields.querySelectorAll(".board");
     return [...boards[boardIndex].querySelectorAll("td")][cellIndex];
+  }
+
+  function getAllBoardCellElements(boardIndex) {
+    if (boardIndex === 0) {
+      return getMyBoard().querySelectorAll("td");
+    }
+    return getRivalBoard().querySelectorAll("td");
   }
 
   function getShipCellElement(boardIndex, cellIndex) {
@@ -125,6 +132,10 @@ const view = (() => {
         changeCellColor(e.target);
       });
     });
+  }
+
+  function changePlayButtonColour() {
+    getPlayButton().classList.add("started");
   }
 
   /**
@@ -212,6 +223,7 @@ const view = (() => {
 
   return {
     initialiseBoards,
+    changePlayButtonColour,
     initialiseShips,
     displayGuess,
     listenGuess,
@@ -223,7 +235,9 @@ const view = (() => {
     toggleGhostShip,
     displayWinner,
     displayTurn,
-    getPlayButton
+    getPlayButton,
+    getAllBoardCellElements,
+    changeCellColor,
   };
 })();
 

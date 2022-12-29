@@ -82,6 +82,20 @@ const model = (() => {
     }
   }
 
+  function isShip(boardIndex, pos) {
+    if (boardIndex === 0) return myBoard.getCellValue(pos) === Board.SHIP_CELL;
+    return rivalBoard.getCellValue(pos) === Board.SHIP_CELL;
+  }
+
+  function computerPlay() {
+    if (getTurn()) throw new Error('Not computer turn to play');
+    let randomMove = 0;
+    while (!attackBoard(randomMove)) {
+      randomMove++;
+    }
+    return randomMove;
+  }
+
   /**
    * Updates list of guesses. Returns `true` only if board position is valid
    * and has not been previously attacked.
@@ -169,7 +183,9 @@ const model = (() => {
     checkWinner,
     getTurn,
     gameStarted,
-    initialiseBoards
+    initialiseBoards,
+    isShip,
+    computerPlay
   };
 })();
 

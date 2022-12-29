@@ -142,11 +142,72 @@ const controller = (() => {
     }
   })();
 
+  function playComputerTurn() {
+    if (model.getTurn()) return;
+    const move = model.computerPlay();
+
+    // display move of computer
+    view.changeCellColor(
+      view.getBoardCellElement(0, move),
+      !model.isShip(1, move)
+    );
+
+    if (model.checkWinner()) {
+      handleEndGame();
+    } else {
+      // computer's turn to play
+      model.swapTurn();
+      view.displayTurn(model.getTurn());
+    }
+  }
+
+  function handleEndGame() {
+    // winner found
+    console.log("game ended");
+    view.displayWinner(model.getTurn());
+
+    // stop listening for user inputs
+    view.getAllBoardCellElements().forEach((thiscell) => {
+      thiscell.removeEventListener("click", playMyTurn);
+    });
+
+    // end game
+    model.endGame();
+  }
+
+  function playMyTurn(e) {
+    // check if it is actually my turn
+    if (!model.getTurn()) return;
+
+    const cellIndex = view.getCellIndex(e.target);
+    const boardCell = view.getBoardCellElement(1, cellIndex);
+
+    // check if i made a valid move
+    const validMove = model.attackBoard(cellIndex);
+    if (!validMove) return;
+
+    view.changeCellColor(boardCell, !model.isShip(1, cellIndex));
+
+    if (model.checkWinner()) {
+      handleEndGame();
+    } else {
+      // computer's turn to play
+      model.swapTurn();
+      view.displayTurn(model.getTurn());
+      playComputerTurn();
+    }
+  }
+
   view.getPlayButton().addEventListener(
     "click",
     () => {
       model.startGame();
       view.displayTurn(model.getTurn());
+      view.changePlayButtonColour();
+
+      view.getAllBoardCellElements().forEach((cell) => {
+        cell.addEventListener("click", playMyTurn);
+      });
     },
     { once: true }
   );
