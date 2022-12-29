@@ -2,8 +2,97 @@ import Ship from "./ship";
 import Board from "./board";
 
 const model = (() => {
+  let gameOngoing = false;
+  let myTurn = true;
   const myBoard = new Board();
   const rivalBoard = new Board();
+  const myGuesses = [];
+  const rivalGuesses = [];
+
+  function startGame() {
+    if (gameOngoing) {
+      throw new Error("Cannot start an ongoing game twice");
+    }
+    gameOngoing = true;
+    myTurn = true;
+
+    // reset boards
+    myBoard.resetBoard();
+    rivalBoard.resetBoard();
+
+    // empty guesses
+    myGuesses.length = 0;
+    rivalGuesses.length = 0;
+
+    // load new ships
+    myBoard.loadShips(getDefaultFleet(0));
+    rivalBoard.loadShips(getDefaultFleet(1));
+  }
+
+  /**
+   * Check if a player has won yet.
+   * @returns {boolean}
+   */
+  function checkWinner() {
+    let iWon = true;
+    let rWon = true;
+    for (let pos = 0; pos < Board.BOARD_SIZE * Board.BOARD_SIZE; pos++) {
+      // check if i have not won
+      if (
+        myBoard.getCellValue(pos) === Board.SHIP_CELL &&
+        !myGuesses.includes(pos)
+      ) {
+        iWon = false;
+      }
+      // check if rival has not won
+      if (
+        rivalBoard.getCellValue(pos) === Board.SHIP_CELL &&
+        !rivalGuesses.includes(pos)
+      ) {
+        rWon = false;
+      }
+    }
+    return iWon || rWon;
+  }
+
+  function endGame() {
+    if (!gameOngoing) {
+      throw new Error("Cannot end a game twice");
+    }
+    gameOngoing = false;
+  }
+
+  function swapTurn() {
+    if (gameOngoing) {
+      myTurn = !myTurn;
+    } else {
+      throw new Error("Cannot change turn when game has not started");
+    }
+  }
+
+  /**
+   * Updates list of guesses. Returns `true` only if board position is valid
+   * and has not been previously attacked.
+   * @param {int} pos position of guess : 0 - 99
+   * @returns {boolean}
+   */
+  function attackBoard(pos) {
+    if (pos < 0 || pos >= Board.BOARD_SIZE * Board.BOARD_SIZE) {
+      throw new Error(`Cannot attack invalid coordinates ${pos}`);
+    }
+    if (myTurn) {
+      if (myGuesses.includes(pos)) {
+        return false;
+      }
+      myGuesses.push(pos);
+    } else {
+      if (rivalGuesses.includes(pos)) {
+        return false;
+      }
+      rivalGuesses.push(pos);
+    }
+    return true;
+  }
 
   function getDefaultFleet(boardIndex) {
     return [
@@ -55,15 +144,17 @@ const model = (() => {
       : rivalBoard.moveShip(rivalBoard.getShipAt(oldHeadPos), newHeadPos);
   }
 
-  myBoard.loadShips(getDefaultFleet(0));
-  rivalBoard.loadShips(getDefaultFleet(1));
-
   return {
     getBasicBoard,
     getAllShipPositions,
     getShipObj,
     rotateShip,
     moveShip,
+    startGame,
+    swapTurn,
+    endGame,
+    attackBoard,
+    checkWinner,
   };
 })();
 
