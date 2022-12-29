@@ -1,4 +1,5 @@
 import Board from "./board";
+import Ship from "./ship";
 
 const view = (() => {
   const battlefields = document.getElementById("battlefields");
@@ -179,16 +180,19 @@ const view = (() => {
   }
 
   function toggleGhostShip(addShip, headPos, size, isVertical) {
-    for (let i = 0; i < size; i++) {
-      // TODO : Fix bug here. Find another way of getting coordinates of ghost ship
-      // ! VALIDATE ghost ship coords as well
-      const pos = isVertical ? headPos + Board.BOARD_SIZE * i : headPos + i;
+    let ghostShip;
+    try {
+      ghostShip = new Ship(size, isVertical, 0, headPos);
+    } catch (err) {
+      return;
+    }
+    ghostShip.getCellPositions().forEach((pos) => {
       if (addShip) {
         getBoardCellElement(0, pos).classList.add("ghost-cell");
       } else {
         getBoardCellElement(0, pos).classList.remove("ghost-cell");
       }
-    }
+    });
   }
 
   return {
