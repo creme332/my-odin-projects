@@ -11,7 +11,6 @@ const controller = (() => {
   function rotateShip(e) {
     // get the index of the ship cell
     const shipCellPos = view.getCellIndex(e.target);
-    console.log(shipCellPos);
     console.log("Current board: ", model.getBasicBoard(0));
 
     const shipObj = model.getShipObj(0, shipCellPos);
@@ -37,9 +36,9 @@ const controller = (() => {
   });
 
   // implement drag and drop
-  let draggedShipObj; // ship obj of ship currently being dragged
+  let draggedShipObj = null; // ship obj of ship currently being dragged
   // previous board cell on which user hovered on while dragging
-  let previousBoardCell = null;
+  let previousBoardCellIndex = -1;
 
   myShipCells.forEach((cell) => {
     cell.addEventListener("dragstart", () => {
@@ -52,7 +51,7 @@ const controller = (() => {
         view.getShipCellElement(0, pos).classList.add("dragging");
       });
 
-      console.log(draggedShipObj);
+      console.log("Ship currently being dragged", draggedShipObj);
       console.log("dragstart", cell);
     });
   });
@@ -67,25 +66,39 @@ const controller = (() => {
         view.getShipCellElement(0, pos).classList.remove("dragging");
       });
 
-      // remove ghost cell
-      if (previousBoardCell) {
-        previousBoardCell.classList.remove("ghost-cell");
-      }
+      view.toggleGhostShip(
+        false,
+        previousBoardCellIndex,
+        draggedShipObj.size,
+        draggedShipObj.isVertical
+      );
+
+      console.log(
+        "basic board before change in ship pos",
+        model.getBasicBoard(0)
+      );
 
       // get new ship position
-      const newShipPos = view.getCellIndex(previousBoardCell);
-      console.log("new pos", newShipPos);
+      console.log("new pos", previousBoardCellIndex);
       const intialCoords = draggedShipObj.getCellPositions();
-
       // try to move ship
-      const boardChanged = model.moveShip(draggedShipObj, newShipPos, 0);
+      const boardChanged = model.moveShip(
+        draggedShipObj.headPos,
+        previousBoardCellIndex,
+        0
+      );
+
       if (boardChanged) {
+        console.log(
+          "basic board after change in ship pos",
+          model.getBasicBoard(0)
+        );
         // render changes to board
         const finalCoords = draggedShipObj.getCellPositions();
         for (let i = 0; i < finalCoords.length; i++) {
           view.moveShipCell(0, intialCoords[i], finalCoords[i]);
         }
-        console.log('Rendered new ship on board');
+        console.log("Rendered new ship on board");
       }
       draggedShipObj = null;
     });
@@ -94,11 +107,24 @@ const controller = (() => {
   for (let pos = 0; pos < Board.BOARD_SIZE * Board.BOARD_SIZE; pos++) {
     const cell = view.getBoardCellElement(0, pos);
     cell.addEventListener("dragover", () => {
-      if (previousBoardCell) {
-        previousBoardCell.classList.remove("ghost-cell");
+      // remove current ghost ship from board
+      if (previousBoardCellIndex >= 0 && previousBoardCellIndex !== pos) {
+        view.toggleGhostShip(
+          false,
+          previousBoardCellIndex,
+          draggedShipObj.size,
+          draggedShipObj.isVertical
+        );
       }
-      cell.classList.add("ghost-cell");
-      previousBoardCell = cell;
+
+      // add new ghost ship
+      view.toggleGhostShip(
+        true,
+        pos,
+        draggedShipObj.size,
+        draggedShipObj.isVertical
+      );
+      previousBoardCellIndex = pos;
     });
   }
 })();

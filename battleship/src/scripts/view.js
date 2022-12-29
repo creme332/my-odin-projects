@@ -155,7 +155,7 @@ const view = (() => {
   }
 
   function initialiseShips(basicBoard, boardIndex) {
-    console.log(basicBoard);
+    // console.log(basicBoard);
     for (let row = 0; row < Board.BOARD_SIZE; row++) {
       for (let col = 0; col < Board.BOARD_SIZE; col++) {
         const pos = row * Board.BOARD_SIZE + col;
@@ -178,6 +178,19 @@ const view = (() => {
     return getMyBoard().querySelectorAll(".ship-cell");
   }
 
+  function toggleGhostShip(addShip, headPos, size, isVertical) {
+    for (let i = 0; i < size; i++) {
+      // TODO : Fix bug here. Find another way of getting coordinates of ghost ship
+      // ! VALIDATE ghost ship coords as well
+      const pos = isVertical ? headPos + Board.BOARD_SIZE * i : headPos + i;
+      if (addShip) {
+        getBoardCellElement(0, pos).classList.add("ghost-cell");
+      } else {
+        getBoardCellElement(0, pos).classList.remove("ghost-cell");
+      }
+    }
+  }
+
   return {
     initialiseBoards,
     initialiseShips,
@@ -188,6 +201,7 @@ const view = (() => {
     getShipCellElement,
     moveShipCell,
     getCellIndex,
+    toggleGhostShip,
   };
 })();
 
