@@ -7,6 +7,11 @@
 :root {
   --table-outline-color: #e4e4ff;
   --cell-size: 30px;
+  --bg-color: #f7f7ff;
+  --ship-cell-color: #545e75;
+  --playBtn-color: #f2d0a4;
+  --good-hit-color: #3f826d;
+  --bad-hit-color: #c03221;
 }
 
 body {
@@ -16,12 +21,13 @@ body {
   height: 100vh;
   width: 100vw;
   place-content: center;
-  /* background-color: #eeeeee; */
+  background-color: var(--bg-color);
 }
 
 h1 {
   text-align: center;
   font-size: 100px;
+  color: var(--ship-cell-color);
 }
 #battlefields {
   display: flex;
@@ -43,31 +49,29 @@ td {
 }
 
 td.missed-hit {
-  background-color: var(--table-outline-color);
-}
-td.missed-hit::before {
-  content: ".";
-  font-weight: 800;
+  background-color: var(--bad-hit-color);
 }
 
-td.good-hit {
-  background-color: pink;
+td.good-hit .ship-cell {
+  background-color: var(--good-hit-color);
 }
 
 #playButton {
   font-family: bebas;
   font-size: 50px;
   border-radius: 10px;
+  background-color: var(--ship-cell-color);
+  color: var(--bg-color);
 }
 
-#playButton:hover {
-  background-color: black;
-  color: white;
+#playButton:hover,
+#playButton.started {
+  background-color: var(--good-hit-color);
 }
 
 .ship-cell {
   height: 100%;
-  background-color: gray;
+  background-color: var(--ship-cell-color);
 }
 
 #myBoard .ship-cell {
@@ -103,4 +107,55 @@ td.good-hit {
   #playButton {
     width: 200px;
   }
+}
+
+/* Source of hover effect : https://codepen.io/t_afif/pen/poawLeQ */
+.hover-2 {
+  --c: var(--good-hit-color); /* the color */
+  --b: 0.1em; /* border length*/
+  --d: 20px; /* the cube depth */
+
+  --_s: calc(var(--d) + var(--b));
+
+  color: var(--c);
+  border: solid #0000;
+  border-width: var(--b) var(--b) var(--_s) var(--_s);
+  background: conic-gradient(
+        at left var(--d) bottom var(--d),
+        #0000 90deg,
+        rgb(255 255 255 /0.3) 0 225deg,
+        rgb(255 255 255 /0.6) 0
+      )
+      border-box,
+    conic-gradient(at left var(--_s) bottom var(--_s), #0000 90deg, var(--c) 0)
+      0 100% / calc(100% - var(--b)) calc(100% - var(--b)) border-box;
+  transform: translate(calc(var(--d) / -1), var(--d));
+  clip-path: polygon(
+    var(--d) 0%,
+    var(--d) 0%,
+    100% 0%,
+    100% calc(100% - var(--d)),
+    100% calc(100% - var(--d)),
+    var(--d) calc(100% - var(--d))
+  );
+  transition: 0.5s;
+}
+.hover-2:hover {
+  transform: translate(0, 0);
+  clip-path: polygon(
+    0% var(--d),
+    var(--d) 0%,
+    100% 0%,
+    100% calc(100% - var(--d)),
+    calc(100% - var(--d)) 100%,
+    0% 100%
+  );
+}
+
+h3 {
+  font-family: system-ui, sans-serif;
+  font-size: 4rem;
+  margin: 0 auto;
+  cursor: pointer;
+  padding: 0 0.1em;
 }
