@@ -195,6 +195,21 @@ const view = (() => {
     });
   }
 
+  function getPlayButton() {
+    return document.querySelector("#playButton");
+  }
+  /**
+   * Displays a message about winner to user.
+   * @param {boolean} iWon `true` if I won the game
+   */
+  function displayWinner(iWon) {
+    getPlayButton().textContent = iWon ? "You won!" : "You lost";
+  }
+
+  function displayTurn(myTurn) {
+    getPlayButton().textContent = myTurn ? "Your turn" : "...";
+  }
+
   return {
     initialiseBoards,
     initialiseShips,
@@ -206,6 +221,9 @@ const view = (() => {
     moveShipCell,
     getCellIndex,
     toggleGhostShip,
+    displayWinner,
+    displayTurn,
+    getPlayButton
   };
 })();
 
