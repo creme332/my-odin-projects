@@ -24,6 +24,10 @@ class Board {
     return 10;
   }
 
+  /**
+   * Returns a 2D matrix of 0s and 1s where the 1s represent ship cells.
+   * @returns {[[]]}
+   */
   get basicBoard() {
     return this._board;
   }
@@ -50,6 +54,10 @@ class Board {
     return this._board[row][col];
   }
 
+  /**
+   * Inserts ships on board.
+   * @param {[Ship]} shipArray An array of ship objects
+   */
   loadShips(shipArray) {
     // create a new basic board using shipArray
     const newBoard = [...Array(Board.BOARD_SIZE)].map(() =>
@@ -104,8 +112,13 @@ class Board {
     throw new Error(`Unknown ship cell found on board at ${pos}`, this._board);
   }
 
+  /**
+   * Moves a ship to a new position. If new position is invalid, function returns false.
+   * @param {Ship} shipObj
+   * @param {int} newHeadPos
+   * @returns {bool} True if ship has changed position.
+   */
   moveShip(shipObj, newHeadPos) {
-    // console.log(shipObj, newHeadPos);
     if (shipObj === null) throw new Error(`ShipObj cannot be null`);
     if (shipObj.headPos === newHeadPos) {
       return false;
@@ -360,6 +373,10 @@ class Board {
     return false;
   }
 
+  /**
+   * Returns a  2D list of coordinates of all ships on board.
+   * @returns {List}
+   */
   getAllShipPositions() {
     const AllShipPositions = [];
     this._shipArray.forEach((ship) => {
