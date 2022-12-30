@@ -47,14 +47,14 @@ const model = (() => {
     for (let pos = 0; pos < Board.BOARD_SIZE * Board.BOARD_SIZE; pos++) {
       // check if i have not won
       if (
-        myBoard.getCellValue(pos) === Board.SHIP_CELL &&
+        rivalBoard.getCellValue(pos) === Board.SHIP_CELL &&
         !myGuesses.includes(pos)
       ) {
         iWon = false;
       }
       // check if rival has not won
       if (
-        rivalBoard.getCellValue(pos) === Board.SHIP_CELL &&
+        myBoard.getCellValue(pos) === Board.SHIP_CELL &&
         !rivalGuesses.includes(pos)
       ) {
         rWon = false;
