@@ -149,7 +149,7 @@ const controller = (() => {
     // display move of computer
     view.changeCellColor(
       view.getBoardCellElement(0, move),
-      !model.isShip(1, move)
+      !model.isShip(0, move)
     );
 
     if (model.checkWinner()) {
