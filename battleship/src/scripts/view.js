@@ -167,16 +167,17 @@ const view = (() => {
   }
 
   function initialiseShips(basicBoard, boardIndex) {
-    // console.log(basicBoard);
     for (let row = 0; row < Board.BOARD_SIZE; row++) {
       for (let col = 0; col < Board.BOARD_SIZE; col++) {
         const pos = row * Board.BOARD_SIZE + col;
         const el = getBoardCellElement(boardIndex, pos);
         if (basicBoard[row][col] === Board.SHIP_CELL) {
+          const shipClasses =
+            boardIndex === 0 ? ["ship-cell"] : ["ship-cell", "hidden"];
           const shipCell = createHtmlElement(
             "div",
             null,
-            ["ship-cell"],
+            shipClasses,
             null,
             null
           );
