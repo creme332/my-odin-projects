@@ -1,0 +1,19 @@
+name: battleship-tests
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v3
+
+      - name : install  web dependencies for creating website
+        run: npm install
+
+      - name: Run tests
+        run: npm test
