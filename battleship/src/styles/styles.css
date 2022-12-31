@@ -78,6 +78,10 @@ td.good-hit .ship-cell {
   cursor: move;
 }
 
+.ship-cell.hidden {
+  background-color: transparent;
+}
+
 .ship-cell.dragging {
   opacity: 0.5;
 }
