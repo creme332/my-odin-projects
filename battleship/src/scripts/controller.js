@@ -6,31 +6,41 @@ const controller = (() => {
   // ! Order of initialisation is important here
   model.initialiseBoards();
   view.initialiseBoards();
-  view.initialiseShips(model.getBasicBoard(0), 0);
-  view.initialiseShips(model.getBasicBoard(1), 1);
+  view.initialiseShips(
+    model.getBasicBoard(Board.MY_BOARD_INDEX),
+    Board.MY_BOARD_INDEX
+  );
+  view.initialiseShips(
+    model.getBasicBoard(Board.RIVAL_BOARD_INDEX),
+    Board.RIVAL_BOARD_INDEX
+  );
   const myShipCells = view.getMyShipCells();
-  console.log("Initial board", model.getBasicBoard(0));
+  console.log("Initial board", model.getBasicBoard(Board.MY_BOARD_INDEX));
 
   function rotateShip(e) {
     // prevent user from changing ship configuration when game is ongoing
     if (model.gameStarted()) return;
     // get the index of the ship cell
     const shipCellPos = view.getCellIndex(e.target);
-    console.log("Current board: ", model.getBasicBoard(0));
+    console.log("Current board: ", model.getBasicBoard(Board.MY_BOARD_INDEX));
 
-    const shipObj = model.getShipObj(0, shipCellPos);
+    const shipObj = model.getShipObj(Board.MY_BOARD_INDEX, shipCellPos);
     const intialCoords = shipObj.getCellPositions();
 
     // rotate ship in basic board
-    const changeOccurred = model.rotateShip(shipCellPos, 0);
+    const changeOccurred = model.rotateShip(shipCellPos, Board.MY_BOARD_INDEX);
 
     if (changeOccurred) {
-      console.log("New board: ", model.getBasicBoard(0));
+      console.log("New board: ", model.getBasicBoard(Board.MY_BOARD_INDEX));
 
       // render changes visually
       const finalCoords = shipObj.getCellPositions();
       for (let i = 0; i < finalCoords.length; i++) {
-        view.moveShipCell(0, intialCoords[i], finalCoords[i]);
+        view.moveShipCell(
+          Board.MY_BOARD_INDEX,
+          intialCoords[i],
+          finalCoords[i]
+        );
       }
     }
   }
@@ -52,11 +62,13 @@ const controller = (() => {
 
         // get the index of the ship cell
         const shipCellPos = view.getCellIndex(cell);
-        draggedShipObj = model.getShipObj(0, shipCellPos);
+        draggedShipObj = model.getShipObj(Board.MY_BOARD_INDEX, shipCellPos);
 
         // change color of dragged ship
         draggedShipObj.getCellPositions().forEach((pos) => {
-          view.getShipCellElement(0, pos).classList.add("dragging");
+          view
+            .getShipCellElement(Board.MY_BOARD_INDEX, pos)
+            .classList.add("dragging");
         });
 
         console.log("Ship currently being dragged", draggedShipObj);
@@ -73,7 +85,9 @@ const controller = (() => {
 
         // reset transparency of dragged ship
         draggedShipObj.getCellPositions().forEach((pos) => {
-          view.getShipCellElement(0, pos).classList.remove("dragging");
+          view
+            .getShipCellElement(Board.MY_BOARD_INDEX, pos)
+            .classList.remove("dragging");
         });
 
         view.toggleGhostShip(
@@ -85,17 +99,17 @@ const controller = (() => {
 
         console.log(
           "basic board before change in ship pos",
-          model.getBasicBoard(0)
+          model.getBasicBoard(Board.MY_BOARD_INDEX)
         );
 
         // get new ship position
-        console.log("new pos", previousBoardCellIndex);
+        console.log("new position of ship", previousBoardCellIndex);
         const intialCoords = draggedShipObj.getCellPositions();
         // try to move ship
         const boardChanged = model.moveShip(
           draggedShipObj.headPos,
           previousBoardCellIndex,
-          0
+          Board.MY_BOARD_INDEX
         );
 
         if (boardChanged) {
@@ -106,7 +120,11 @@ const controller = (() => {
           // render changes to board
           const finalCoords = draggedShipObj.getCellPositions();
           for (let i = 0; i < finalCoords.length; i++) {
-            view.moveShipCell(0, intialCoords[i], finalCoords[i]);
+            view.moveShipCell(
+              Board.MY_BOARD_INDEX,
+              intialCoords[i],
+              finalCoords[i]
+            );
           }
           console.log("Rendered new ship on board");
         }
@@ -115,7 +133,7 @@ const controller = (() => {
     });
 
     for (let pos = 0; pos < Board.BOARD_SIZE * Board.BOARD_SIZE; pos++) {
-      const cell = view.getBoardCellElement(0, pos);
+      const cell = view.getBoardCellElement(Board.MY_BOARD_INDEX, pos);
       cell.addEventListener("dragover", () => {
         // ! prevent user from changing ship configuration when game is ongoing
         if (model.gameStarted()) return;
@@ -148,8 +166,8 @@ const controller = (() => {
 
     // display move of computer
     view.changeCellColor(
-      view.getBoardCellElement(0, move),
-      !model.isShip(0, move)
+      view.getBoardCellElement(Board.MY_BOARD_INDEX, move),
+      !model.isShip(Board.MY_BOARD_INDEX, move)
     );
 
     if (model.checkWinner()) {
@@ -180,13 +198,19 @@ const controller = (() => {
     if (!model.getTurn()) return;
 
     const cellIndex = view.getCellIndex(e.target);
-    const boardCell = view.getBoardCellElement(1, cellIndex);
+    const boardCell = view.getBoardCellElement(
+      Board.RIVAL_BOARD_INDEX,
+      cellIndex
+    );
 
     // check if i made a valid move
     const validMove = model.attackBoard(cellIndex);
     if (!validMove) return;
 
-    view.changeCellColor(boardCell, !model.isShip(1, cellIndex));
+    view.changeCellColor(
+      boardCell,
+      !model.isShip(Board.RIVAL_BOARD_INDEX, cellIndex)
+    );
 
     if (model.checkWinner()) {
       handleEndGame();
