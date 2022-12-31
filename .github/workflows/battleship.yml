@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name : install  project dependencies
-        run: npm install
+        run: npm install --force
 
       - name: run tests
         run: npm test
