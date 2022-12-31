@@ -3,6 +3,8 @@
 
 A single-player battleship game built using test-driven development with Jest. 
 
+![website of battleship game](battleship-website.gif)
+
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/battleship/dist)
 
 # How to play
@@ -15,11 +17,11 @@ A single-player battleship game built using test-driven development with Jest.
 >
 > On touchscreen devices, you won't be able to drag and drop your ships.
 
-# 🚀Features
+# Features
 - Responsive design
 - Drag and drop ships with ghost ship.
 
-#  🛠 Installation
+# Installation
 Clone project:
 ```
 git clone git@github.com:creme332/my-odin-projects.git
@@ -32,6 +34,8 @@ Install dependencies:
 ```
 npm install
 ```
+
+# Usage
 Run project in development mode:
 ```
 npm start
