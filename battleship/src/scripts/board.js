@@ -6,10 +6,31 @@ class Board {
 
   _shipArray; // a list of Ship objects representing ships on board.
 
-  constructor() {
+  _index; // index of board. 0 or 1
+
+  constructor(boardIndex = 0) {
     this._board = [...Array(Board.BOARD_SIZE)].map(() =>
       Array(Board.BOARD_SIZE).fill(Board.EMPTY_CELL)
     );
+    if (
+      boardIndex !== Board.MY_BOARD_INDEX &&
+      boardIndex !== Board.RIVAL_BOARD_INDEX
+    ) {
+      throw new Error(`Invalid board index ${boardIndex}`);
+    }
+    this._index = boardIndex;
+  }
+
+  get index() {
+    return this._index;
+  }
+
+  static get MY_BOARD_INDEX() {
+    return 0;
+  }
+
+  static get RIVAL_BOARD_INDEX() {
+    return 1;
   }
 
   static get EMPTY_CELL() {
@@ -55,8 +76,8 @@ class Board {
   }
 
   /**
-   * Inserts ships on board.
-   * @param {[Ship]} shipArray An array of ship objects
+   * Inserts ships on board only if `shipArray` is valid.
+   * @param {[Ship]} shipArray An array of 10 ship objects
    */
   loadShips(shipArray) {
     // create a new basic board using shipArray
@@ -76,12 +97,13 @@ class Board {
       this._board = newBoard;
       this._shipArray = shipArray;
     } else {
+      console.log(newBoard, shipArray);
       throw new Error("Invalid board configuration given by shipArray");
     }
   }
 
   /**
-   * Resets state of Board object.
+   * Removes all ships from board.
    */
   resetBoard() {
     this._board = [...Array(Board.BOARD_SIZE)].map(() =>
@@ -366,7 +388,6 @@ class Board {
       if (hcells === 2) d++;
       if (vcells === 2) d++;
     }
-    // console.log(b, c, d, s);
     if (b === 1 && c === 2 && d === 3 && s === 4) {
       return true;
     }
