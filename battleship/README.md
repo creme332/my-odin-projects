@@ -15,7 +15,7 @@ A single-player battleship game built using test-driven development with Jest.
 
 > **Warning**
 >
-> On touchscreen devices, you won't be able to drag and drop your ships.
+> On touchscreen devices, drag and drop may not function properly.
 
 # Features
 - Responsive design.
@@ -61,4 +61,4 @@ npm test
 - [ ] add ai
 - [ ] add method for restarting game.
 - [ ] implement multiplayer
-- [ ] make drag and drop work on touch screen
+- [ ] make drag and drop work on touch screen (Maybe use interactjs library)
