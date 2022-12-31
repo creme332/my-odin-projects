@@ -7,24 +7,28 @@ import Board from "./board";
 const model = (() => {
   let gameOngoing = false;
   let myTurn = true;
-  const myBoard = new Board();
-  const rivalBoard = new Board();
+  const myBoard = new Board(Board.MY_BOARD_INDEX);
+  const rivalBoard = new Board(Board.RIVAL_BOARD_INDEX);
   const myGuesses = [];
   const rivalGuesses = [];
 
+  /**
+   * Loads ships on an empty board.
+   */
   function initialiseBoards() {
     // reset boards
     myBoard.resetBoard();
     rivalBoard.resetBoard();
 
     // load ships
-    myBoard.loadShips(getDefaultFleet(0));
-    rivalBoard.loadShips(getRandomFleet(1));
+    myBoard.loadShips(getDefaultFleet(myBoard.index));
+    rivalBoard.loadShips(getRandomFleet(rivalBoard.index));
   }
 
   function gameStarted() {
     return gameOngoing;
   }
+
   function startGame() {
     if (gameOngoing) {
       throw new Error("Cannot start an ongoing game twice");
@@ -86,16 +90,31 @@ const model = (() => {
     }
   }
 
+  /**
+   * Returns true if there is a ship cell at given coordinates
+   * @param {int} boardIndex
+   * @param {int} pos
+   * @returns {boolean}
+   */
   function isShip(boardIndex, pos) {
-    if (boardIndex === 0) return myBoard.getCellValue(pos) === Board.SHIP_CELL;
+    if (boardIndex === myBoard.index)
+      return myBoard.getCellValue(pos) === Board.SHIP_CELL;
     return rivalBoard.getCellValue(pos) === Board.SHIP_CELL;
   }
 
+  /**
+   * Returns a valid move by computer.
+   * `attackBoard` is also called.
+   * @returns {int} Position of chosen cell of computer
+   */
   function computerPlay() {
-    if (getTurn()) throw new Error("Not computer turn to play");
+    if (getTurn()) throw new Error("Not computer's turn to play");
     let randomMove = 0;
     while (!attackBoard(randomMove)) {
-      randomMove++;
+      randomMove = parseInt(
+        Math.random() * Board.BOARD_SIZE * Board.BOARD_SIZE,
+        10
+      );
     }
     return randomMove;
   }
@@ -227,6 +246,11 @@ const model = (() => {
     return fleet;
   }
 
+  /**
+   * Returns the same valid Ship array every time.
+   * @param {int} boardIndex
+   * @returns {[Ship]} array of 10 `Ship` objects
+   */
   function getDefaultFleet(boardIndex) {
     return [
       new Ship(4, true, boardIndex, 0),
@@ -242,24 +266,31 @@ const model = (() => {
     ];
   }
 
+  /**
+   * Returns a matrix showing ship positions on board.
+   * @param {int} boardIndex
+   * @returns {[[]]} 2D matrix of 0s and 1s
+   */
   function getBasicBoard(boardIndex) {
-    return boardIndex === 0 ? myBoard.basicBoard : rivalBoard.basicBoard;
+    return boardIndex === myBoard.index
+      ? myBoard.basicBoard
+      : rivalBoard.basicBoard;
   }
 
   function getAllShipPositions(boardIndex) {
-    return boardIndex === 0
+    return boardIndex === myBoard.index
       ? myBoard.getAllShipPositions()
       : rivalBoard.getAllShipPositions();
   }
 
   function getShipObj(boardIndex, pos) {
-    return boardIndex === 0
+    return boardIndex === myBoard.index
       ? myBoard.getShipAt(pos)
       : rivalBoard.getShipAt(pos);
   }
 
   function rotateShip(shipCellPos, boardIndex) {
-    return boardIndex === 0
+    return boardIndex === myBoard.index
       ? myBoard.rotateShip(myBoard.getShipAt(shipCellPos))
       : rivalBoard.rotateShip(rivalBoard.getShipAt(shipCellPos));
   }
@@ -272,7 +303,7 @@ const model = (() => {
    * @returns {boolean}
    */
   function moveShip(oldHeadPos, newHeadPos, boardIndex) {
-    return boardIndex === 0
+    return boardIndex === myBoard.index
       ? myBoard.moveShip(myBoard.getShipAt(oldHeadPos), newHeadPos)
       : rivalBoard.moveShip(rivalBoard.getShipAt(oldHeadPos), newHeadPos);
   }
@@ -296,61 +327,4 @@ const model = (() => {
     getRandomFleet,
   };
 })();
-
-// function displayBoard(shipPos) {
-//   const board = [...Array(10)].map(() => Array(10).fill(0));
-//   for (let i = 0; i < 100; i++) {
-//     if (shipPos.includes(i)) {
-//       board[parseInt(i / 10, 10)][i % 10] = 1;
-//     }
-//   }
-//   console.log(board);
-// }
 export default model;
-// const y = model.getRandomFleet(0);
-// const t = new Board();
-// t.loadShips(y);
-// console.log(y);
-
-// function getTouchingCells(pos) {
-//   if (pos < 0 || pos >= 100) {
-//     throw new Error(`Invalid cell position: ${pos}`);
-//   }
-//   const cells = [];
-//   const row = parseInt(pos / 10, 10);
-//   const col = pos % 10;
-//   const translation = [
-//     [-1, -1, -1, 0, 1, 1, 1, 0],
-//     [-1, 0, 1, 1, 1, 0, -1, -1],
-//   ];
-//   for (let i = 0; i < translation[0].length; i++) {
-//     const r = row + translation[0][i];
-//     const c = col + translation[1][i];
-//     if (r >= 0 && c >= 0 && r < 10 && c < 10) {
-//       cells.push(r * 10 + c);
-//     }
-//   }
-//   return cells;
-// }
-
-// const shipPositions = [245];
-
-// const p = [11, 12].some((pos) => {
-//   const surroundingCells = getTouchingCells(pos);
-//   console.log(`For ship cell ${pos}: `);
-
-//   // is there a surrounding cell which is a ship
-//   const ans = getTouchingCells(pos).some((x) => {
-//     // is surrounding cell free?
-//     const isShip = shipPositions.includes(x);
-//     if (isShip) {
-//       console.log(`${x} is a ship`);
-//     }
-//     return isShip;
-//   });
-//   if (ans) {
-//     console.log(`Surrounding cells of ${pos} contain ship`);
-//   }
-//   return ans;
-// });
-// console.log("ship invalid: ", p);
