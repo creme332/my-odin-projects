@@ -138,6 +138,10 @@ const controller = (() => {
         // ! prevent user from changing ship configuration when game is ongoing
         if (model.gameStarted()) return;
 
+        if (draggedShipObj === null) {
+          throw new Error("Dragged ship object cannot be null at this point");
+        }
+
         // remove previous ghost ship from board
         if (previousBoardCellIndex >= 0 && previousBoardCellIndex !== pos) {
           view.toggleGhostShip(
