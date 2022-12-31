@@ -18,7 +18,7 @@ A single-player battleship game built using test-driven development with Jest.
 > On touchscreen devices, you won't be able to drag and drop your ships.
 
 # Features
-- Responsive design
+- Responsive design.
 - Drag and drop ships with ghost ship.
 
 # Installation
