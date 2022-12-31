@@ -50,117 +50,140 @@ const controller = (() => {
   });
 
   (function addDragAndDrop() {
-    // implement drag and drop
-    let draggedShipObj = null; // ship obj of ship currently being dragged
-    // previous board cell on which user hovered on while dragging
-    let previousBoardCellIndex = -1;
+    function handleDragStart(e) {
+      const cell = e.target;
+      // ! prevent user from changing ship configuration when game is ongoing
+      if (model.gameStarted()) return;
 
-    myShipCells.forEach((cell) => {
-      cell.addEventListener("dragstart", () => {
-        // ! prevent user from changing ship configuration when game is ongoing
-        if (model.gameStarted()) return;
+      // get the index of the ship cell
+      const shipCellPos = view.getCellIndex(cell);
+      draggedShipObj = model.getShipObj(Board.MY_BOARD_INDEX, shipCellPos);
 
-        // get the index of the ship cell
-        const shipCellPos = view.getCellIndex(cell);
-        draggedShipObj = model.getShipObj(Board.MY_BOARD_INDEX, shipCellPos);
-
-        // change color of dragged ship
-        draggedShipObj.getCellPositions().forEach((pos) => {
-          view
-            .getShipCellElement(Board.MY_BOARD_INDEX, pos)
-            .classList.add("dragging");
-        });
-
-        console.log("Ship currently being dragged", draggedShipObj);
-        console.log("dragstart", cell);
+      // change color of dragged ship
+      draggedShipObj.getCellPositions().forEach((pos) => {
+        view
+          .getShipCellElement(Board.MY_BOARD_INDEX, pos)
+          .classList.add("dragging");
       });
-    });
 
-    // when drag ends
-    myShipCells.forEach((cell) => {
-      cell.addEventListener("dragend", () => {
-        // ! prevent user from changing ship configuration when game is ongoing
-        if (model.gameStarted()) return;
-        console.log("stopped dragging", cell);
+      console.log("Ship currently being dragged", draggedShipObj);
+      console.log("dragstart", cell);
+    }
 
-        // reset transparency of dragged ship
-        draggedShipObj.getCellPositions().forEach((pos) => {
-          view
-            .getShipCellElement(Board.MY_BOARD_INDEX, pos)
-            .classList.remove("dragging");
-        });
+    function handleDragEnd(e) {
+      const cell = e.target;
+      // ! prevent user from changing ship configuration when game is ongoing
+      if (model.gameStarted()) return;
+      console.log("stopped dragging", cell);
 
+      // reset transparency of dragged ship
+      draggedShipObj.getCellPositions().forEach((pos) => {
+        view
+          .getShipCellElement(Board.MY_BOARD_INDEX, pos)
+          .classList.remove("dragging");
+      });
+
+      view.toggleGhostShip(
+        false,
+        previousBoardCellIndex,
+        draggedShipObj.size,
+        draggedShipObj.isVertical
+      );
+
+      console.log(
+        "basic board before change in ship pos",
+        model.getBasicBoard(Board.MY_BOARD_INDEX)
+      );
+
+      // get new ship position
+      console.log("new position of ship", previousBoardCellIndex);
+      const intialCoords = draggedShipObj.getCellPositions();
+      // try to move ship
+      const boardChanged = model.moveShip(
+        draggedShipObj.headPos,
+        previousBoardCellIndex,
+        Board.MY_BOARD_INDEX
+      );
+
+      if (boardChanged) {
+        console.log(
+          "basic board after change in ship pos",
+          model.getBasicBoard(0)
+        );
+        // render changes to board
+        const finalCoords = draggedShipObj.getCellPositions();
+        for (let i = 0; i < finalCoords.length; i++) {
+          view.moveShipCell(
+            Board.MY_BOARD_INDEX,
+            intialCoords[i],
+            finalCoords[i]
+          );
+        }
+        console.log("Rendered new ship on board");
+      }
+      draggedShipObj = null;
+    }
+
+    function handleDragMove(e) {
+      const cell = e.target;
+      const pos = view.getCellIndex(cell);
+
+      // ! prevent user from changing ship configuration when game is ongoing
+      if (model.gameStarted()) return;
+
+      if (draggedShipObj === null) {
+        throw new Error("Dragged ship object cannot be null at this point");
+      }
+
+      // remove previous ghost ship from board
+      if (previousBoardCellIndex >= 0 && previousBoardCellIndex !== pos) {
         view.toggleGhostShip(
           false,
           previousBoardCellIndex,
           draggedShipObj.size,
           draggedShipObj.isVertical
         );
+      }
 
-        console.log(
-          "basic board before change in ship pos",
-          model.getBasicBoard(Board.MY_BOARD_INDEX)
-        );
+      // add new ghost ship
+      view.toggleGhostShip(
+        true,
+        pos,
+        draggedShipObj.size,
+        draggedShipObj.isVertical
+      );
+      previousBoardCellIndex = pos;
+    }
 
-        // get new ship position
-        console.log("new position of ship", previousBoardCellIndex);
-        const intialCoords = draggedShipObj.getCellPositions();
-        // try to move ship
-        const boardChanged = model.moveShip(
-          draggedShipObj.headPos,
-          previousBoardCellIndex,
-          Board.MY_BOARD_INDEX
-        );
+    // implement drag and drop
+    let draggedShipObj = null; // ship obj of ship currently being dragged
+    // previous board cell on which user hovered on while dragging
+    let previousBoardCellIndex = -1;
 
-        if (boardChanged) {
-          console.log(
-            "basic board after change in ship pos",
-            model.getBasicBoard(0)
-          );
-          // render changes to board
-          const finalCoords = draggedShipObj.getCellPositions();
-          for (let i = 0; i < finalCoords.length; i++) {
-            view.moveShipCell(
-              Board.MY_BOARD_INDEX,
-              intialCoords[i],
-              finalCoords[i]
-            );
-          }
-          console.log("Rendered new ship on board");
-        }
-        draggedShipObj = null;
-      });
+    // when drag starts
+    myShipCells.forEach((cell) => {
+      cell.addEventListener("dragstart", handleDragStart);
+      cell.addEventListener("touchstart", handleDragStart);
     });
 
+    // when drag ends
+    myShipCells.forEach((cell) => {
+      cell.addEventListener("dragend", handleDragEnd);
+      cell.addEventListener("touchend", handleDragEnd);
+    });
+
+    // when dragging
     for (let pos = 0; pos < Board.BOARD_SIZE * Board.BOARD_SIZE; pos++) {
       const cell = view.getBoardCellElement(Board.MY_BOARD_INDEX, pos);
-      cell.addEventListener("dragover", () => {
-        // ! prevent user from changing ship configuration when game is ongoing
-        if (model.gameStarted()) return;
-
-        if (draggedShipObj === null) {
-          throw new Error("Dragged ship object cannot be null at this point");
-        }
-
-        // remove previous ghost ship from board
-        if (previousBoardCellIndex >= 0 && previousBoardCellIndex !== pos) {
-          view.toggleGhostShip(
-            false,
-            previousBoardCellIndex,
-            draggedShipObj.size,
-            draggedShipObj.isVertical
-          );
-        }
-
-        // add new ghost ship
-        view.toggleGhostShip(
-          true,
-          pos,
-          draggedShipObj.size,
-          draggedShipObj.isVertical
-        );
-        previousBoardCellIndex = pos;
-      });
+      cell.addEventListener("dragover", handleDragMove);
+      cell.addEventListener(
+        "touchmove",
+        (e) => {
+          e.preventDefault();
+          handleDragMove(e);
+        },
+        { passive: false }
+      );
     }
   })();
 
