@@ -12,8 +12,11 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v3
 
-      - name : install  web dependencies for creating website
+      - name: move to battleship project
+        run: cd battleship
+
+      - name : install  project dependencies
         run: npm install
 
-      - name: Run tests
+      - name: run tests
         run: npm test
