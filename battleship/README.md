@@ -56,9 +56,11 @@ npm test
 
 # To-do
 - [ ] dragstart EV does not work on first try
+- [ ] Mark invalid ghost ship with a different color
 - [ ] add instructions on how to play to website
 - [ ] add tests for `model.js`
 - [ ] add ai
 - [ ] add method for restarting game.
 - [ ] implement multiplayer
-- [ ] make drag and drop work on touch screen (Maybe use interactjs library)
+- [ ] make drag and drop work on touch screen (Maybe use interactjs library [like this](https://zekumoru.github.io/top-battleship/))
+
