@@ -1,0 +1,30 @@
+.preview-section {
+  display: grid;
+  place-items: center;
+}
+
+.page {
+  /* position: absolute; */
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  overflow: hidden;
+  width: 433px;
+  height: 610px;
+  padding: 30px;
+}
+
+.square {
+  position: relative;
+  left: 360px;
+  top: -50px;
+  height: 15px;
+  width: 15px;
+  background-color: black;
+}
+@media print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+  }
+}
