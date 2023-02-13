@@ -1,20 +1,111 @@
 import React, { Component } from "react";
 import { Form, InputGroup, Button, Col, Row, Accordion } from "react-bootstrap";
+import uniqid from "uniqid";
 
 class Education extends Component {
   constructor() {
     super();
 
     this.state = {
-      prof_summary: "",
+      emp_boxes: [
+        {
+          id: uniqid(),
+          school: "",
+          degree: "",
+          start_date: "",
+          end_date: "",
+          city: "",
+          description: "",
+        },
+      ],
     };
   }
 
-  setSummary(e) {
+  updateSchool(e, box_id) {
     this.setState({
-      prof_summary: e.target.value.trim(),
+      emp_boxes: this.state.emp_boxes.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, school: e.target.value.trim() };
+        }
+        return emp;
+      }),
     });
-    console.log(this.state);
+  }
+
+  updateDegree(e, box_id) {
+    this.setState({
+      emp_boxes: this.state.emp_boxes.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, degree: e.target.value.trim() };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateStartDate(e, box_id) {
+    this.setState({
+      emp_boxes: this.state.emp_boxes.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, start_date: e.target.value };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateEndDate(e, box_id) {
+    this.setState({
+      emp_boxes: this.state.emp_boxes.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, end_date: e.target.value };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateCity(e, box_id) {
+    this.setState({
+      emp_boxes: this.state.emp_boxes.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, city: e.target.value.trim() };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateDescription(e, box_id) {
+    this.setState({
+      emp_boxes: this.state.emp_boxes.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, description: e.target.value.trim() };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  addEducationBox() {
+    const default_box = {
+      id: uniqid(),
+      school: "",
+      degree: "",
+      start_date: "",
+      end_date: "",
+      city: "",
+      description: "",
+    };
+    this.setState({
+      emp_boxes: this.state.emp_boxes.concat(default_box),
+    });
+  }
+
+  removeEducationBox(e, box_id) {
+    this.setState({
+      emp_boxes: this.state.emp_boxes.filter((box) => box.box_id !== box_id),
+    });
   }
 
   render() {
