@@ -115,7 +115,11 @@ class Employment extends Component {
         <Accordion defaultActiveKey="0">
           {emp_boxes.map((emp) => {
             return (
-              <Accordion.Item key={emp.box_id} className="mb-3" eventKey="0">
+              <Accordion.Item
+                key={emp.box_id}
+                className="mb-3"
+                eventKey={emp.box_id}
+              >
                 <Accordion.Header>
                   {emp.job_title === "" ? "(Not specified)" : emp.job_title}
                 </Accordion.Header>
