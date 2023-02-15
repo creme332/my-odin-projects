@@ -7,9 +7,9 @@ class Education extends Component {
     super();
 
     this.state = {
-      emp_boxes: [
+      boxes: [
         {
-          id: uniqid(),
+          box_id: uniqid(),
           school: "",
           degree: "",
           start_date: "",
@@ -19,77 +19,81 @@ class Education extends Component {
         },
       ],
     };
+
+    this.addEducationBox = this.addEducationBox.bind(this);
+    this.removeEducationBox = this.removeEducationBox.bind(this);
   }
 
   updateSchool(e, box_id) {
+    // console.log(this.state.boxes);
     this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, school: e.target.value.trim() };
+      boxes: this.state.boxes.map((box) => {
+        if (box.box_id === box_id) {
+          return { ...box, school: e.target.value.trim() };
         }
-        return emp;
+        return box;
       }),
     });
   }
 
   updateDegree(e, box_id) {
     this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, degree: e.target.value.trim() };
+      boxes: this.state.boxes.map((box) => {
+        if (box.box_id === box_id) {
+          return { ...box, degree: e.target.value.trim() };
         }
-        return emp;
+        return box;
       }),
     });
   }
 
   updateStartDate(e, box_id) {
     this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, start_date: e.target.value };
+      boxes: this.state.boxes.map((box) => {
+        if (box.box_id === box_id) {
+          return { ...box, start_date: e.target.value };
         }
-        return emp;
+        return box;
       }),
     });
   }
 
   updateEndDate(e, box_id) {
     this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, end_date: e.target.value };
+      boxes: this.state.boxes.map((box) => {
+        if (box.box_id === box_id) {
+          return { ...box, end_date: e.target.value };
         }
-        return emp;
+        return box;
       }),
     });
   }
 
   updateCity(e, box_id) {
     this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, city: e.target.value.trim() };
+      boxes: this.state.boxes.map((box) => {
+        if (box.box_id === box_id) {
+          return { ...box, city: e.target.value.trim() };
         }
-        return emp;
+        return box;
       }),
     });
   }
 
   updateDescription(e, box_id) {
     this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, description: e.target.value.trim() };
+      boxes: this.state.boxes.map((box) => {
+        if (box.box_id === box_id) {
+          return { ...box, description: e.target.value.trim() };
         }
-        return emp;
+        return box;
       }),
     });
   }
 
   addEducationBox() {
     const default_box = {
-      id: uniqid(),
+      box_id: uniqid(),
       school: "",
       degree: "",
       start_date: "",
@@ -98,17 +102,19 @@ class Education extends Component {
       description: "",
     };
     this.setState({
-      emp_boxes: this.state.emp_boxes.concat(default_box),
+      boxes: this.state.boxes.concat(default_box),
     });
   }
 
   removeEducationBox(e, box_id) {
     this.setState({
-      emp_boxes: this.state.emp_boxes.filter((box) => box.box_id !== box_id),
+      boxes: this.state.boxes.filter((box) => box.box_id !== box_id),
     });
   }
 
   render() {
+    const { boxes } = this.state;
+
     return (
       <Form.Group className="mb-3" controlId="Education">
         <h3> Education</h3>
@@ -118,48 +124,86 @@ class Education extends Component {
         </Form.Text>
 
         <Accordion defaultActiveKey="0">
-          <Accordion.Item className="mb-3" eventKey="0">
-            <Accordion.Header>(Not specified)</Accordion.Header>
-            <Accordion.Body>
-              <Row className="mb-3">
-                <Form.Group as={Col} controlId="formBasicJobTitle">
-                  <Form.Label>School</Form.Label>
-                  <Form.Control className="blue-bg" type="text" />
-                </Form.Group>
-                <Form.Group as={Col} controlId="formBasicEmployer">
-                  <Form.Label>Degree</Form.Label>
-                  <Form.Control className="blue-bg" type="text" />
-                </Form.Group>
-              </Row>
+          {boxes.map((box) => {
+            return (
+              <Accordion.Item
+                key={box.box_id}
+                className="mb-3"
+                eventKey={box.box_id}
+              >
+                <Accordion.Header>
+                  {box.school === "" ? "(Not specified)" : box.school}
+                </Accordion.Header>
+                <Accordion.Body>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} controlId="formBasicJobTitle">
+                      <Form.Label>School</Form.Label>
+                      <Form.Control
+                        onChange={(e) => this.updateSchool(e, box.box_id)}
+                        className="blue-bg"
+                        type="text"
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formBasicEmployer">
+                      <Form.Label>Degree</Form.Label>
+                      <Form.Control
+                        onChange={(e) => this.updateDegree(e, box.box_id)}
+                        className="blue-bg"
+                        type="text"
+                      />
+                    </Form.Group>
+                  </Row>
 
-              <Row className="mb-3">
-                <InputGroup className="mb-3">
-                  <InputGroup.Text>Start & End date</InputGroup.Text>
-                  <Form.Control className="blue-bg" type="date" />
-                  <Form.Control className="blue-bg" type="date" />
-                </InputGroup>
+                  <Row className="mb-3">
+                    <InputGroup className="mb-3">
+                      <InputGroup.Text>Start & End date</InputGroup.Text>
+                      <Form.Control
+                        onChange={(e) => this.updateStartDate(e, box.box_id)}
+                        className="blue-bg"
+                        type="date"
+                      />
+                      <Form.Control
+                        onChange={(e) => this.updateEndDate(e, box.box_id)}
+                        className="blue-bg"
+                        type="date"
+                      />
+                    </InputGroup>
 
-                <Form.Group as={Col} controlId="formBasicCity">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control className="blue-bg" type="text" />
-                </Form.Group>
-              </Row>
+                    <Form.Group as={Col} controlId="formBasicCity">
+                      <Form.Label>City</Form.Label>
+                      <Form.Control
+                        onChange={(e) => this.updateCity(e, box.box_id)}
+                        className="blue-bg"
+                        type="text"
+                      />
+                    </Form.Group>
+                  </Row>
 
-              <Form.Label>Description</Form.Label>
-              <InputGroup className="mb-3">
-                <Form.Control
-                  className="blue-bg"
-                  as="textarea"
-                  aria-label="With textarea"
-                />
-              </InputGroup>
+                  <Form.Label>Description</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      onChange={(e) => this.updateDescription(e, box.box_id)}
+                      className="blue-bg"
+                      as="textarea"
+                      aria-label="With textarea"
+                    />
+                  </InputGroup>
 
-              <Button variant="danger">Delete</Button>
-            </Accordion.Body>
-          </Accordion.Item>
+                  <Button
+                    onClick={(e) => this.removeEducationBox(e, box.box_id)}
+                    variant="danger"
+                  >
+                    Delete
+                  </Button>
+                </Accordion.Body>
+              </Accordion.Item>
+            );
+          })}
         </Accordion>
 
-        <Button variant="secondary">+ Add one more education</Button>
+        <Button onClick={this.addEducationBox} variant="secondary">
+          + Add one more education
+        </Button>
       </Form.Group>
     );
   }
