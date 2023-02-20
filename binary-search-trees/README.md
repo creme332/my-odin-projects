@@ -15,7 +15,7 @@ An object-oriented implementation of a balanced binary search tree in JavaScript
             └── -27
 ```
 
-# 🕶 Usage
+# Usage
 ### `buildTree` 
 Takes an array of data and turns it into a balanced binary tree. Returns the root node.
 
@@ -27,7 +27,7 @@ Inserts a node to the binary tree.
 ### `delete`
 Deletes a node from the binary tree.
 
-###  a `find` function which 
+###  `find`
 Accepts a value and returns the node with the given value.
 
 ### `levelOrder`, `recursiveLevelOrder`
@@ -56,7 +56,7 @@ Left and right children of all non-leaf nodes are interchanged.
 
 > ⚠ You must rebalance the tree before performing any tree operations (insert, delete, find) on the inverted tree.
 
-#  🛠 Installation
+#  Installation
 Clone repository:
 ```sh
 git clone git@github.com:creme332/my-odin-projects.git
@@ -76,7 +76,7 @@ Run tests:
 ```sh
 npm test
 ```
-# 🔨 To-Do
+# To-Do
 - [ ] Run babel in CLI.
 - [ ] Add GUI.
 - [x] Invert binary tree.
