@@ -1,119 +1,22 @@
 import React, { Component } from "react";
 import { Form, InputGroup, Button, Col, Row, Accordion } from "react-bootstrap";
-import uniqid from "uniqid";
 
 class Education extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      boxes: [
-        {
-          box_id: uniqid(),
-          school: "",
-          degree: "",
-          start_date: "",
-          end_date: "",
-          city: "",
-          description: "",
-        },
-      ],
-    };
-
-    this.addEducationBox = this.addEducationBox.bind(this);
-    this.removeEducationBox = this.removeEducationBox.bind(this);
+  componentDidMount() {
+    this.props.addEduBox();
   }
-
-  updateSchool(e, box_id) {
-    // console.log(this.state.boxes);
-    this.setState({
-      boxes: this.state.boxes.map((box) => {
-        if (box.box_id === box_id) {
-          return { ...box, school: e.target.value.trim() };
-        }
-        return box;
-      }),
-    });
-  }
-
-  updateDegree(e, box_id) {
-    this.setState({
-      boxes: this.state.boxes.map((box) => {
-        if (box.box_id === box_id) {
-          return { ...box, degree: e.target.value.trim() };
-        }
-        return box;
-      }),
-    });
-  }
-
-  updateStartDate(e, box_id) {
-    this.setState({
-      boxes: this.state.boxes.map((box) => {
-        if (box.box_id === box_id) {
-          return { ...box, start_date: e.target.value };
-        }
-        return box;
-      }),
-    });
-  }
-
-  updateEndDate(e, box_id) {
-    this.setState({
-      boxes: this.state.boxes.map((box) => {
-        if (box.box_id === box_id) {
-          return { ...box, end_date: e.target.value };
-        }
-        return box;
-      }),
-    });
-  }
-
-  updateCity(e, box_id) {
-    this.setState({
-      boxes: this.state.boxes.map((box) => {
-        if (box.box_id === box_id) {
-          return { ...box, city: e.target.value.trim() };
-        }
-        return box;
-      }),
-    });
-  }
-
-  updateDescription(e, box_id) {
-    this.setState({
-      boxes: this.state.boxes.map((box) => {
-        if (box.box_id === box_id) {
-          return { ...box, description: e.target.value.trim() };
-        }
-        return box;
-      }),
-    });
-  }
-
-  addEducationBox() {
-    const default_box = {
-      box_id: uniqid(),
-      school: "",
-      degree: "",
-      start_date: "",
-      end_date: "",
-      city: "",
-      description: "",
-    };
-    this.setState({
-      boxes: this.state.boxes.concat(default_box),
-    });
-  }
-
-  removeEducationBox(e, box_id) {
-    this.setState({
-      boxes: this.state.boxes.filter((box) => box.box_id !== box_id),
-    });
-  }
-
   render() {
-    const { boxes } = this.state;
+    const {
+      education_details,
+      updateEduCity,
+      updateEduDegree,
+      updateEduDescription,
+      updateEduEndDate,
+      updateEduSchool,
+      updateEduStartDate,
+      addEduBox,
+      removeEduBox,
+    } = this.props;
 
     return (
       <Form.Group className="mb-3" controlId="Education">
@@ -124,7 +27,7 @@ class Education extends Component {
         </Form.Text>
 
         <Accordion defaultActiveKey="0">
-          {boxes.map((box) => {
+          {education_details.map((box) => {
             return (
               <Accordion.Item
                 key={box.box_id}
@@ -139,7 +42,7 @@ class Education extends Component {
                     <Form.Group as={Col} controlId="formBasicJobTitle">
                       <Form.Label>School</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateSchool(e, box.box_id)}
+                        onChange={(e) => updateEduSchool(e, box.box_id)}
                         className="blue-bg"
                         type="text"
                       />
@@ -147,7 +50,7 @@ class Education extends Component {
                     <Form.Group as={Col} controlId="formBasicEmployer">
                       <Form.Label>Degree</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateDegree(e, box.box_id)}
+                        onChange={(e) => updateEduDegree(e, box.box_id)}
                         className="blue-bg"
                         type="text"
                       />
@@ -158,12 +61,12 @@ class Education extends Component {
                     <InputGroup className="mb-3">
                       <InputGroup.Text>Start & End date</InputGroup.Text>
                       <Form.Control
-                        onChange={(e) => this.updateStartDate(e, box.box_id)}
+                        onChange={(e) => updateEduStartDate(e, box.box_id)}
                         className="blue-bg"
                         type="date"
                       />
                       <Form.Control
-                        onChange={(e) => this.updateEndDate(e, box.box_id)}
+                        onChange={(e) => updateEduEndDate(e, box.box_id)}
                         className="blue-bg"
                         type="date"
                       />
@@ -172,7 +75,7 @@ class Education extends Component {
                     <Form.Group as={Col} controlId="formBasicCity">
                       <Form.Label>City</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateCity(e, box.box_id)}
+                        onChange={(e) => updateEduCity(e, box.box_id)}
                         className="blue-bg"
                         type="text"
                       />
@@ -182,7 +85,7 @@ class Education extends Component {
                   <Form.Label>Description</Form.Label>
                   <InputGroup className="mb-3">
                     <Form.Control
-                      onChange={(e) => this.updateDescription(e, box.box_id)}
+                      onChange={(e) => updateEduDescription(e, box.box_id)}
                       className="blue-bg"
                       as="textarea"
                       aria-label="With textarea"
@@ -190,7 +93,7 @@ class Education extends Component {
                   </InputGroup>
 
                   <Button
-                    onClick={(e) => this.removeEducationBox(e, box.box_id)}
+                    onClick={(e) => removeEduBox(e, box.box_id)}
                     variant="danger"
                   >
                     Delete
@@ -201,7 +104,7 @@ class Education extends Component {
           })}
         </Accordion>
 
-        <Button onClick={this.addEducationBox} variant="secondary">
+        <Button onClick={addEduBox} variant="secondary">
           + Add one more education
         </Button>
       </Form.Group>
