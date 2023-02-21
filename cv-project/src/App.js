@@ -48,6 +48,14 @@ class App extends Component {
     this.updateEmpStartDate = this.updateEmpStartDate.bind(this);
     this.addEmploymentBox = this.addEmploymentBox.bind(this);
     this.removeEmploymentBox = this.removeEmploymentBox.bind(this);
+
+    //bindings for Personal
+    this.updatePersonalCity = this.updatePersonalCity.bind(this);
+    this.updatePersonalCountry = this.updatePersonalCountry.bind(this);
+    this.updatePersonalEmail = this.updatePersonalEmail.bind(this);
+    this.updatePersonalFname = this.updatePersonalFname.bind(this);
+    this.updatePersonalLname = this.updatePersonalLname.bind(this);
+    this.updatePersonalPhone = this.updatePersonalPhone.bind(this);
   }
 
   updateEduSchool(e, box_id) {
@@ -219,13 +227,76 @@ class App extends Component {
     });
   }
 
+  updatePersonalFname(e) {
+    this.setState({
+      personal_details: {
+        ...this.state.personal_details,
+        fname: e.target.value.trim(),
+      },
+    });
+  }
+
+  updatePersonalLname(e) {
+    this.setState({
+      personal_details: {
+        ...this.state.personal_details,
+        lname: e.target.value.trim(),
+      },
+    });
+  }
+
+  updatePersonalEmail(e) {
+    this.setState({
+      personal_details: {
+        ...this.state.personal_details,
+        email: e.target.value.trim(),
+      },
+    });
+  }
+
+  updatePersonalPhone(e) {
+    this.setState({
+      personal_details: {
+        ...this.state.personal_details,
+        phone: e.target.value.trim(),
+      },
+    });
+  }
+
+  updatePersonalCountry(e) {
+    this.setState({
+      personal_details: {
+        ...this.state.personal_details,
+        country: e.target.value.trim(),
+      },
+    });
+  }
+
+  updatePersonalCity(e) {
+    console.log(this.state.personal_details);
+    this.setState({
+      personal_details: {
+        ...this.state.personal_details,
+        city: e.target.value.trim(),
+      },
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <Form className="form-section">
-          <Personal />
+          <Personal
+            updatePersonalCity={this.updatePersonalCity}
+            updatePersonalCountry={this.updatePersonalCountry}
+            updatePersonalEmail={this.updatePersonalEmail}
+            updatePersonalFname={this.updatePersonalFname}
+            updatePersonalLname={this.updatePersonalLname}
+            updatePersonalPhone={this.updatePersonalPhone}
+          />
+
           <Professional />
-          
+
           <Employment
             employment_details={this.state.employment_details}
             updateEmpCity={this.updateEmpCity}

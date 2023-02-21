@@ -2,62 +2,15 @@ import React, { Component } from "react";
 import { Form, Col, Row } from "react-bootstrap";
 
 class Personal extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      fname: "",
-      lname: "",
-      email: "",
-      phone: "",
-      country: "",
-      city: "",
-    };
-  }
-
-  setFname(e) {
-    this.setState({
-      fname: e.target.value.trim(),
-    });
-    console.log(this.state);
-  }
-
-  setLname(e) {
-    this.setState({
-      lname: e.target.value.trim(),
-    });
-    console.log(this.state);
-  }
-
-  setEmail(e) {
-    this.setState({
-      email: e.target.value.trim(),
-    });
-    console.log(this.state);
-  }
-
-  setPhone(e) {
-    this.setState({
-      phone: e.target.value.trim(),
-    });
-    console.log(this.state);
-  }
-
-  setCountry(e) {
-    this.setState({
-      country: e.target.value.trim(),
-    });
-    console.log(this.state);
-  }
-
-  setCity(e) {
-    this.setState({
-      city: e.target.value.trim(),
-    });
-    console.log(this.state);
-  }
-
   render() {
+    const {
+      updatePersonalCity,
+      updatePersonalCountry,
+      updatePersonalEmail,
+      updatePersonalFname,
+      updatePersonalLname,
+      updatePersonalPhone,
+    } = this.props;
     return (
       <Form.Group className="mb-3" controlId="PersonalDetails">
         <h3> Personal Details</h3>
@@ -65,7 +18,7 @@ class Personal extends Component {
           <Form.Group as={Col} controlId="formGridFirstName">
             <Form.Label>First name</Form.Label>
             <Form.Control
-              onChange={(e) => this.setFname(e)}
+              onChange={(e) => updatePersonalFname(e)}
               className="blue-bg"
               type="text"
             />
@@ -73,7 +26,7 @@ class Personal extends Component {
           <Form.Group as={Col} controlId="formGridLastName">
             <Form.Label>Last name</Form.Label>
             <Form.Control
-              onChange={(e) => this.setLname(e)}
+              onChange={(e) => updatePersonalLname(e)}
               className="blue-bg"
               type="text"
             />
@@ -83,7 +36,7 @@ class Personal extends Component {
           <Form.Group as={Col} controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              onChange={(e) => this.setEmail(e)}
+              onChange={(e) => updatePersonalEmail(e)}
               className="blue-bg"
               type="email"
             />
@@ -94,18 +47,18 @@ class Personal extends Component {
           <Form.Group as={Col} controlId="formBasicTel">
             <Form.Label>Phone</Form.Label>
             <Form.Control
-              onChange={(e) => this.setPhone(e)}
+              onChange={(e) => updatePersonalPhone(e)}
               className="blue-bg"
               type="tel"
             />
           </Form.Group>
         </Row>
-        
+
         <Row>
           <Form.Group as={Col} controlId="formBasicCountry">
             <Form.Label>Country</Form.Label>
             <Form.Control
-              onChange={(e) => this.setCountry(e)}
+              onChange={(e) => updatePersonalCountry(e)}
               className="blue-bg"
               type="text"
             />
@@ -113,7 +66,7 @@ class Personal extends Component {
           <Form.Group as={Col} controlId="formBasicCity">
             <Form.Label>City</Form.Label>
             <Form.Control
-              onChange={(e) => this.setCity(e)}
+              onChange={(e) => updatePersonalCity(e)}
               className="blue-bg"
               type="text"
             />
