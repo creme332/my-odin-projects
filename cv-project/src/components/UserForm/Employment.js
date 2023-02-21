@@ -1,107 +1,21 @@
 import React, { Component } from "react";
 import { Form, InputGroup, Button, Col, Row, Accordion } from "react-bootstrap";
-import uniqid from "uniqid";
 
 class Employment extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      emp_boxes: [
-        {
-          box_id: uniqid(),
-          job_title: "",
-          employer: "",
-          start_date: "",
-          end_date: "",
-          city: "",
-        },
-      ],
-    };
-
-    this.addEmploymentBox = this.addEmploymentBox.bind(this);
-    this.removeEmploymentBox = this.removeEmploymentBox.bind(this);
-    // this.updateJobTitle = this.updateJobTitle.bind(this);
+  componentDidMount() {
+    this.props.addEmploymentBox();
   }
-
-  updateJobTitle(e, box_id) {
-    this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          console.log({ ...emp, job_title: e.target.value });
-          return { ...emp, job_title: e.target.value.trim() };
-        }
-        return emp;
-      }),
-    });
-  }
-
-  updateEmployer(e, box_id) {
-    this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, employer: e.target.value.trim() };
-        }
-        return emp;
-      }),
-    });
-  }
-
-  updateStartDate(e, box_id) {
-    this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, start_date: e.target.value };
-        }
-        return emp;
-      }),
-    });
-  }
-
-  updateEndDate(e, box_id) {
-    this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, end_date: e.target.value };
-        }
-        return emp;
-      }),
-    });
-  }
-
-  updateCity(e, box_id) {
-    this.setState({
-      emp_boxes: this.state.emp_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, city: e.target.value.trim() };
-        }
-        return emp;
-      }),
-    });
-  }
-
-  addEmploymentBox() {
-    const default_box = {
-      box_id: uniqid(),
-      job_title: "",
-      employer: "",
-      start_date: "",
-      end_date: "",
-      city: "",
-    };
-    this.setState({
-      emp_boxes: this.state.emp_boxes.concat(default_box),
-    });
-  }
-
-  removeEmploymentBox(e, box_id) {
-    this.setState({
-      emp_boxes: this.state.emp_boxes.filter((box) => box.box_id !== box_id),
-    });
-  }
-
   render() {
-    const { emp_boxes } = this.state;
+    const {
+      employment_details,
+      updateEmpCity,
+      updateEmpEmployer,
+      updateEmpEndDate,
+      updateEmpStartDate,
+      updateEmpJobTitle,
+      addEmploymentBox,
+      removeEmploymentBox,
+    } = this.props;
 
     return (
       <Form.Group className="mb-3" controlId="EmploymentHistory">
@@ -113,7 +27,7 @@ class Employment extends Component {
         </Form.Text>
 
         <Accordion defaultActiveKey="0">
-          {emp_boxes.map((emp) => {
+          {employment_details.map((emp) => {
             return (
               <Accordion.Item
                 key={emp.box_id}
@@ -129,7 +43,7 @@ class Employment extends Component {
                     <Form.Group as={Col} controlId="formBasicJobTitle">
                       <Form.Label>Job title</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateJobTitle(e, emp.box_id)}
+                        onChange={(e) => updateEmpJobTitle(e, emp.box_id)}
                         className="blue-bg"
                         type="text"
                       />
@@ -137,7 +51,7 @@ class Employment extends Component {
                     <Form.Group as={Col} controlId="formBasicEmployer">
                       <Form.Label>Employer</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateEmployer(e, emp.box_id)}
+                        onChange={(e) => updateEmpEmployer(e, emp.box_id)}
                         className="blue-bg"
                         type="text"
                       />
@@ -148,12 +62,12 @@ class Employment extends Component {
                     <InputGroup className="mb-3">
                       <InputGroup.Text>Start & End date</InputGroup.Text>
                       <Form.Control
-                        onChange={(e) => this.updateStartDate(e, emp.box_id)}
+                        onChange={(e) => updateEmpStartDate(e, emp.box_id)}
                         className="blue-bg"
                         type="date"
                       />
                       <Form.Control
-                        onChange={(e) => this.updateEndDate(e, emp.box_id)}
+                        onChange={(e) => updateEmpEndDate(e, emp.box_id)}
                         className="blue-bg"
                         type="date"
                       />
@@ -162,14 +76,14 @@ class Employment extends Component {
                     <Form.Group as={Col} controlId="formBasicCity">
                       <Form.Label>City</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateCity(e, emp.box_id)}
+                        onChange={(e) => updateEmpCity(e, emp.box_id)}
                         className="blue-bg"
                         type="text"
                       />
                     </Form.Group>
                   </Row>
                   <Button
-                    onClick={(e) => this.removeEmploymentBox(e, emp.box_id)}
+                    onClick={(e) => removeEmploymentBox(e, emp.box_id)}
                     variant="danger"
                   >
                     Delete
@@ -180,7 +94,7 @@ class Employment extends Component {
           })}
         </Accordion>
 
-        <Button onClick={this.addEmploymentBox} variant="secondary">
+        <Button onClick={addEmploymentBox} variant="secondary">
           + Add one more employment
         </Button>
       </Form.Group>

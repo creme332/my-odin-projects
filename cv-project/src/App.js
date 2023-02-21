@@ -39,6 +39,15 @@ class App extends Component {
     this.updateEduDescription = this.updateEduDescription.bind(this);
     this.addEduBox = this.addEduBox.bind(this);
     this.removeEduBox = this.removeEduBox.bind(this);
+
+    // bindings for Employment event handlers
+    this.updateEmpCity = this.updateEmpCity.bind(this);
+    this.updateEmpEmployer = this.updateEmpEmployer.bind(this);
+    this.updateEmpEndDate = this.updateEmpEndDate.bind(this);
+    this.updateEmpJobTitle = this.updateEmpJobTitle.bind(this);
+    this.updateEmpStartDate = this.updateEmpStartDate.bind(this);
+    this.addEmploymentBox = this.addEmploymentBox.bind(this);
+    this.removeEmploymentBox = this.removeEmploymentBox.bind(this);
   }
 
   updateEduSchool(e, box_id) {
@@ -132,13 +141,102 @@ class App extends Component {
     });
   }
 
+  updateEmpJobTitle(e, box_id) {
+    this.setState({
+      employment_details: this.state.employment_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          // console.log({ ...emp, job_title: e.target.value });
+          return { ...emp, job_title: e.target.value.trim() };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateEmpEmployer(e, box_id) {
+    this.setState({
+      employment_details: this.state.employment_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, employer: e.target.value.trim() };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateEmpStartDate(e, box_id) {
+    this.setState({
+      employment_details: this.state.employment_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, start_date: e.target.value };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateEmpEndDate(e, box_id) {
+    this.setState({
+      employment_details: this.state.employment_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, end_date: e.target.value };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateEmpCity(e, box_id) {
+    this.setState({
+      employment_details: this.state.employment_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, city: e.target.value.trim() };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  addEmploymentBox() {
+    const default_box = {
+      box_id: uniqid(),
+      job_title: "",
+      employer: "",
+      start_date: "",
+      end_date: "",
+      city: "",
+    };
+    this.setState({
+      employment_details: this.state.employment_details.concat(default_box),
+    });
+  }
+
+  removeEmploymentBox(e, box_id) {
+    this.setState({
+      employment_details: this.state.employment_details.filter(
+        (box) => box.box_id !== box_id
+      ),
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <Form className="form-section">
           <Personal />
           <Professional />
-          <Employment />
+          
+          <Employment
+            employment_details={this.state.employment_details}
+            updateEmpCity={this.updateEmpCity}
+            updateEmpEmployer={this.updateEmpEmployer}
+            updateEmpEndDate={this.updateEmpEndDate}
+            updateEmpStartDate={this.updateEmpStartDate}
+            updateEmpJobTitle={this.updateEmpJobTitle}
+            addEmploymentBox={this.addEmploymentBox}
+            removeEmploymentBox={this.removeEmploymentBox}
+          />
+
           <Education
             education_details={this.state.education_details}
             updateEduCity={this.updateEduCity}
