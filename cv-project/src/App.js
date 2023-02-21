@@ -56,6 +56,20 @@ class App extends Component {
     this.updatePersonalFname = this.updatePersonalFname.bind(this);
     this.updatePersonalLname = this.updatePersonalLname.bind(this);
     this.updatePersonalPhone = this.updatePersonalPhone.bind(this);
+
+    //bindings for Professional
+    this.updateProfessionalSummary = this.updateProfessionalSummary.bind(this);
+
+    //bindings for Skills
+    this.updateSkillBox = this.updateSkillBox.bind(this);
+    this.removeSkillBox = this.removeSkillBox.bind(this);
+    this.addSkillBox = this.addSkillBox.bind(this);
+
+    //bindings for Social
+    this.addSocialBox = this.addSocialBox.bind(this);
+    this.removeSocialBox = this.removeSocialBox.bind(this);
+    this.updateSocialLink = this.updateSocialLink.bind(this);
+    this.updateSocialLabel = this.updateSocialLabel.bind(this);
   }
 
   updateEduSchool(e, box_id) {
@@ -282,6 +296,82 @@ class App extends Component {
     });
   }
 
+  updateProfessionalSummary(e) {
+    this.setState({
+      professional_summary: e.target.value.trim(),
+    });
+  }
+
+  updateSkillBox(e, box_id) {
+    this.setState({
+      skill_details: this.state.skill_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, skill_name: e.target.value };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  addSkillBox() {
+    const default_box = {
+      box_id: uniqid(),
+      skill_name: "",
+    };
+    this.setState({
+      skill_details: this.state.skill_details.concat(default_box),
+    });
+  }
+
+  removeSkillBox(e, box_id) {
+    this.setState({
+      skill_details: this.state.skill_details.filter(
+        (box) => box.box_id !== box_id
+      ),
+    });
+  }
+
+  removeSocialBox(e, box_id) {
+    this.setState({
+      social_details: this.state.social_details.filter(
+        (box) => box.box_id !== box_id
+      ),
+    });
+  }
+
+  addSocialBox() {
+    const default_box = {
+      box_id: uniqid(),
+      link_name: "",
+      url: "",
+    };
+    this.setState({
+      social_details: this.state.social_details.concat(default_box),
+    });
+  }
+
+  updateSocialLabel(e, box_id) {
+    this.setState({
+      social_details: this.state.social_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, link_name: e.target.value };
+        }
+        return emp;
+      }),
+    });
+  }
+
+  updateSocialLink(e, box_id) {
+    this.setState({
+      social_details: this.state.social_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, url: e.target.value };
+        }
+        return emp;
+      }),
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -295,7 +385,9 @@ class App extends Component {
             updatePersonalPhone={this.updatePersonalPhone}
           />
 
-          <Professional />
+          <Professional
+            updateProfessionalSummary={this.updateProfessionalSummary}
+          />
 
           <Employment
             employment_details={this.state.employment_details}
@@ -319,8 +411,21 @@ class App extends Component {
             addEduBox={this.addEduBox}
             removeEduBox={this.removeEduBox}
           />
-          <Skills />
-          <Social />
+
+          <Skills
+            skill_details={this.state.skill_details}
+            updateSkillBox={this.updateSkillBox}
+            addSkillBox={this.addSkillBox}
+            removeskils={this.addSkillBox}
+          />
+
+          <Social
+            social_details={this.state.social_details}
+            addSocialBox={this.addSocialBox}
+            removeSocialBox={this.removeSocialBox}
+            updateSocialLabel={this.updateSocialLabel}
+            updateSocialLink={this.updateSocialLink}
+          />
 
           <Button variant="primary" type="submit">
             Download as PDF

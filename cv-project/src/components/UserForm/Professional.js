@@ -2,22 +2,8 @@ import React, { Component } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 
 class Professional extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      prof_summary: "",
-    };
-  }
-
-  setSummary(e) {
-    this.setState({
-      prof_summary: e.target.value.trim(),
-    });
-    console.log(this.state);
-  }
-
   render() {
+    const {updateProfessionalSummary} = this.props;
     return (
       <Form.Group className="mb-3" controlId="ProfessionalSummary">
         <h3> Professional Summary</h3>
@@ -26,7 +12,7 @@ class Professional extends Component {
           your role, experience & most importantly - your biggest achievements,
           best qualities and skills
         </Form.Text>
-        <InputGroup onChange={(e) => this.setSummary(e)}>
+        <InputGroup onChange={(e) => updateProfessionalSummary(e)}>
           <Form.Control
             className="blue-bg"
             as="textarea"

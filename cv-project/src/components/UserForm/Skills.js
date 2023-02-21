@@ -1,56 +1,13 @@
 import React, { Component } from "react";
 import { Form, Button, Row, Accordion } from "react-bootstrap";
-import uniqid from "uniqid";
 
 class Skills extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      skill_boxes: [
-        {
-          box_id: uniqid(),
-          skill_name: "",
-        },
-      ],
-    };
-
-    this.addBox = this.addBox.bind(this);
-    this.removeBox = this.removeBox.bind(this);
+  componentDidMount() {
+    this.props.addSkillBox();
   }
-
-  updateBox(e, box_id) {
-    this.setState({
-      skill_boxes: this.state.skill_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, skill_name: e.target.value };
-        }
-        return emp;
-      }),
-    });
-  }
-
-  addBox() {
-    const default_box = {
-      box_id: uniqid(),
-      skill_name: "",
-    };
-    this.setState({
-      skill_boxes: this.state.skill_boxes.concat(default_box),
-    });
-  }
-
-  removeBox(e, box_id) {
-    this.setState({
-      skill_boxes: this.state.skill_boxes.filter(
-        (box) => box.box_id !== box_id
-      ),
-    });
-  }
-
   render() {
-    const { skill_boxes } = this.state;
-    console.log(skill_boxes);
+    const { skill_details, updateSkillBox, addSkillBox, removeSkillBox } =
+      this.props;
     return (
       <Form.Group className="mb-3" controlId="Skills">
         <h3> Skills</h3>
@@ -61,7 +18,7 @@ class Skills extends Component {
         </Form.Text>
 
         <Accordion defaultActiveKey="0">
-          {skill_boxes.map((box) => {
+          {skill_details.map((box) => {
             return (
               <Accordion.Item
                 className="mb-3"
@@ -77,14 +34,14 @@ class Skills extends Component {
                   <Row className="mb-3">
                     <Form.Label>Skill</Form.Label>
                     <Form.Control
-                      onChange={(e) => this.updateBox(e, box.box_id)}
+                      onChange={(e) => updateSkillBox(e, box.box_id)}
                       className="blue-bg"
                       type="text"
                     />
                   </Row>
 
                   <Button
-                    onClick={(e) => this.removeBox(e, box.box_id)}
+                    onClick={(e) => removeSkillBox(e, box.box_id)}
                     variant="danger"
                   >
                     Delete
@@ -95,7 +52,7 @@ class Skills extends Component {
           })}
         </Accordion>
 
-        <Button onClick={this.addBox} variant="secondary">
+        <Button onClick={addSkillBox} variant="secondary">
           + Add one more skill
         </Button>
       </Form.Group>

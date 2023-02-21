@@ -1,68 +1,19 @@
 import React, { Component } from "react";
 import { Form, Button, Col, Row, Accordion } from "react-bootstrap";
-import uniqid from "uniqid";
 
 class Social extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      social_boxes: [
-        {
-          box_id: uniqid(),
-          link_name: "",
-          url: "",
-        },
-      ],
-    };
-
-    this.addBox = this.addBox.bind(this);
-    this.removeBox = this.removeBox.bind(this);
-  }
-
-  removeBox(e, box_id) {
-    this.setState({
-      social_boxes: this.state.social_boxes.filter(
-        (box) => box.box_id !== box_id
-      ),
-    });
-  }
-
-  addBox() {
-    const default_box = {
-      box_id: uniqid(),
-      link_name: "",
-      url: "",
-    };
-    this.setState({
-      social_boxes: this.state.social_boxes.concat(default_box),
-    });
-  }
-
-  updateLabel(e, box_id) {
-    this.setState({
-      social_boxes: this.state.social_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, link_name: e.target.value };
-        }
-        return emp;
-      }),
-    });
-  }
-
-  updateLink(e, box_id) {
-    this.setState({
-      social_boxes: this.state.social_boxes.map((emp) => {
-        if (emp.box_id === box_id) {
-          return { ...emp, url: e.target.value };
-        }
-        return emp;
-      }),
-    });
+  componentDidMount() {
+    this.props.addSocialBox();
   }
 
   render() {
-    const { social_boxes } = this.state;
+    const {
+      social_details,
+      addSocialBox,
+      removeSocialBox,
+      updateSocialLabel,
+      updateSocialLink,
+    } = this.props;
 
     return (
       <Form.Group className="mb-3" controlId="SocialLinks">
@@ -74,7 +25,7 @@ class Social extends Component {
         </Form.Text>
 
         <Accordion defaultActiveKey="0">
-          {social_boxes.map((box) => {
+          {social_details.map((box) => {
             return (
               <Accordion.Item
                 className="mb-3"
@@ -90,7 +41,7 @@ class Social extends Component {
                     <Form.Group as={Col} controlId="formBasicLabel">
                       <Form.Label>Label</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateLabel(e, box.box_id)}
+                        onChange={(e) => updateSocialLabel(e, box.box_id)}
                         className="blue-bg"
                         type="text"
                       />
@@ -98,7 +49,7 @@ class Social extends Component {
                     <Form.Group as={Col} controlId="formBasicLink">
                       <Form.Label>Link</Form.Label>
                       <Form.Control
-                        onChange={(e) => this.updateLink(e, box.box_id)}
+                        onChange={(e) => updateSocialLink(e, box.box_id)}
                         className="blue-bg"
                         type="text"
                       />
@@ -106,7 +57,7 @@ class Social extends Component {
                   </Row>
 
                   <Button
-                    onClick={(e) => this.removeBox(e, box.box_id)}
+                    onClick={(e) => removeSocialBox(e, box.box_id)}
                     variant="danger"
                   >
                     Delete
@@ -117,7 +68,7 @@ class Social extends Component {
           })}
         </Accordion>
 
-        <Button onClick={this.addBox} variant="secondary">
+        <Button onClick={addSocialBox} variant="secondary">
           + Add one more link
         </Button>
       </Form.Group>
