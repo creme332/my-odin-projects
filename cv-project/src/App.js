@@ -15,18 +15,47 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      employment_details: [],
+      employment_details: [
+        {
+          box_id: uniqid(),
+          job_title: "Software Engineer",
+          job_description: "",
+          employer: "Apple",
+          start_date: "02/23",
+          end_date: "02/23",
+          city: "Remote",
+        },
+        {
+          box_id: uniqid(),
+          job_title: "Game developer",
+          job_description: "",
+          employer: "MindGeeks",
+          start_date: "02/23",
+          end_date: "02/23",
+          city: "Piton",
+        },
+      ],
       education_details: [],
       personal_details: {
-        fname: "",
-        lname: "",
-        email: "",
-        phone: "",
-        country: "",
-        city: "",
+        fname: "Delo",
+        lname: " Crystal",
+        email: "crystal@gmail.com",
+        phone: "+230 5732392",
+        country: "Rodrigues",
+        city: "Port-Mathurin",
       },
-      professional_summary: "",
-      skill_details: [],
+      professional_summary:
+        "A passionate full-stack developer residing in Rodrigues.",
+      skill_details: [
+        {
+          box_id: uniqid(),
+          skill_name: "Communication",
+        },
+        {
+          box_id: uniqid(),
+          skill_name: "Teamwork",
+        },
+      ],
       social_details: [],
     };
 
@@ -46,6 +75,7 @@ class App extends Component {
     this.updateEmpEndDate = this.updateEmpEndDate.bind(this);
     this.updateEmpJobTitle = this.updateEmpJobTitle.bind(this);
     this.updateEmpStartDate = this.updateEmpStartDate.bind(this);
+    this.updateEmpJobDesc = this.updateEmpJobDesc.bind(this);
     this.addEmploymentBox = this.addEmploymentBox.bind(this);
     this.removeEmploymentBox = this.removeEmploymentBox.bind(this);
 
@@ -223,6 +253,7 @@ class App extends Component {
     const default_box = {
       box_id: uniqid(),
       job_title: "",
+      job_description: "",
       employer: "",
       start_date: "",
       end_date: "",
@@ -230,6 +261,17 @@ class App extends Component {
     };
     this.setState({
       employment_details: this.state.employment_details.concat(default_box),
+    });
+  }
+
+  updateEmpJobDesc(e, box_id) {
+    this.setState({
+      employment_details: this.state.employment_details.map((emp) => {
+        if (emp.box_id === box_id) {
+          return { ...emp, job_description: e.target.value.trim() };
+        }
+        return emp;
+      }),
     });
   }
 
@@ -287,7 +329,7 @@ class App extends Component {
   }
 
   updatePersonalCity(e) {
-    console.log(this.state.personal_details);
+    // console.log(this.state.personal_details);
     this.setState({
       personal_details: {
         ...this.state.personal_details,
@@ -395,6 +437,7 @@ class App extends Component {
             updateEmpEmployer={this.updateEmpEmployer}
             updateEmpEndDate={this.updateEmpEndDate}
             updateEmpStartDate={this.updateEmpStartDate}
+            updateEmpJobDesc={this.updateEmpJobDesc}
             updateEmpJobTitle={this.updateEmpJobTitle}
             addEmploymentBox={this.addEmploymentBox}
             removeEmploymentBox={this.removeEmploymentBox}
@@ -426,12 +469,16 @@ class App extends Component {
             updateSocialLabel={this.updateSocialLabel}
             updateSocialLink={this.updateSocialLink}
           />
-
-          <Button variant="primary" type="submit">
-            Download as PDF
-          </Button>
+          <div className="d-flex justify-content-between">
+            <Button variant="warning" type="submit">
+              Clear form
+            </Button>
+            <Button variant="primary" type="submit">
+              Download as PDF
+            </Button>
+          </div>
         </Form>{" "}
-        <Preview />
+        <Preview formInfo={this.state} />
       </div>
     );
   }

@@ -13,6 +13,7 @@ class Employment extends Component {
       updateEmpEndDate,
       updateEmpStartDate,
       updateEmpJobTitle,
+      updateEmpJobDesc,
       addEmploymentBox,
       removeEmploymentBox,
     } = this.props;
@@ -81,6 +82,18 @@ class Employment extends Component {
                         type="text"
                       />
                     </Form.Group>
+                  </Row>
+
+                  <Row className="mb-3">
+                    <Form.Label>Description</Form.Label>
+
+                    <InputGroup onChange={updateEmpJobDesc}>
+                      <Form.Control
+                        className="blue-bg"
+                        as="textarea"
+                        aria-label="textarea to input professional summary"
+                      />
+                    </InputGroup>
                   </Row>
                   <Button
                     onClick={(e) => removeEmploymentBox(e, emp.box_id)}
