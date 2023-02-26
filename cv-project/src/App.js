@@ -473,9 +473,6 @@ class App extends Component {
             <Button variant="warning" type="submit">
               Clear form
             </Button>
-            <Button variant="primary" type="submit">
-              Download as PDF
-            </Button>
           </div>
         </Form>{" "}
         <Preview formInfo={this.state} />

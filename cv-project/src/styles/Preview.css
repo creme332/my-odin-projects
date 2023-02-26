@@ -4,8 +4,8 @@
 }
 
 .page {
-  /* position: absolute; */
   border-radius: 6px;
+  outline: 1px solid red;
   background-color: rgb(255, 255, 255);
   overflow: hidden;
   width: 433px;
@@ -13,7 +13,7 @@
   padding: 30px;
 }
 
-.square {
+.page .square {
   position: relative;
   left: 360px;
   top: -50px;
@@ -21,10 +21,54 @@
   width: 15px;
   background-color: black;
 }
+
+.page h1 {
+  font-size: 28px;
+}
+.page h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 2px;
+}
+
+p {
+  font-size: 12px;
+  outline: 1px solid;
+}
+
 @media print {
   html,
   body {
     width: 210mm;
     height: 297mm;
+  }
+
+  .page {
+    border-radius: 0px;
+    overflow: hidden;
+    width: 210mm;
+    height: 297mm;
+  }
+
+  .page .square {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 40px;
+    right: 40px;
+    left: unset;
+  }
+
+  .page h1 {
+    font-size: 58px;
+  }
+  .page h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 2px;
   }
 }
