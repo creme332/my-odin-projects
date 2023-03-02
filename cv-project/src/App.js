@@ -19,23 +19,44 @@ class App extends Component {
         {
           box_id: uniqid(),
           job_title: "Software Engineer",
-          job_description: "",
+          job_description:
+            "Leveraged XYZ to build something. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non nunc mollis, egestas nulla vel,  ",
           employer: "Apple",
-          start_date: "02/23",
-          end_date: "02/23",
+          start_date: "2023-05-30",
+          end_date: "2023-08-30",
           city: "Remote",
         },
         {
           box_id: uniqid(),
           job_title: "Game developer",
-          job_description: "",
-          employer: "MindGeeks",
-          start_date: "02/23",
-          end_date: "02/23",
+          job_description:
+            "Improved performance by 20% by doing XYZ. Leverage my skills to upscale the project.",
+          employer: "Meta",
+          start_date: "2022-05-30",
+          end_date: "2022-05-30",
           city: "Piton",
         },
       ],
-      education_details: [],
+      education_details: [
+        {
+          box_id: uniqid(),
+          school: "Harvard Medical School",
+          degree: "Political science",
+          start_date: "2023",
+          end_date: "2027",
+          city: "Reduit",
+          description: "GPA 4.0/4.0",
+        },
+        {
+          box_id: uniqid(),
+          school: "",
+          degree: "",
+          start_date: "",
+          end_date: "",
+          city: "",
+          description: "",
+        },
+      ],
       personal_details: {
         fname: "Delo",
         lname: " Crystal",
@@ -49,14 +70,29 @@ class App extends Component {
       skill_details: [
         {
           box_id: uniqid(),
-          skill_name: "Communication",
+          skill_name: "React",
         },
         {
           box_id: uniqid(),
-          skill_name: "Teamwork",
+          skill_name: "Angular",
+        },
+        {
+          box_id: uniqid(),
+          skill_name: "Node.js",
         },
       ],
-      social_details: [],
+      social_details: [
+        {
+          box_id: uniqid(),
+          link_name: "Github",
+          url: "github.com",
+        },
+        {
+          box_id: uniqid(),
+          link_name: "Portfolio",
+          url: "github.com",
+        },
+      ],
     };
 
     // bindings for Education event handlers
@@ -106,7 +142,7 @@ class App extends Component {
     this.setState({
       education_details: this.state.education_details.map((box) => {
         if (box.box_id === box_id) {
-          return { ...box, school: e.target.value.trim() };
+          return { ...box, school: e.target.value };
         }
         return box;
       }),
@@ -117,7 +153,7 @@ class App extends Component {
     this.setState({
       education_details: this.state.education_details.map((box) => {
         if (box.box_id === box_id) {
-          return { ...box, degree: e.target.value.trim() };
+          return { ...box, degree: e.target.value };
         }
         return box;
       }),
@@ -150,7 +186,7 @@ class App extends Component {
     this.setState({
       education_details: this.state.education_details.map((box) => {
         if (box.box_id === box_id) {
-          return { ...box, city: e.target.value.trim() };
+          return { ...box, city: e.target.value };
         }
         return box;
       }),
@@ -161,7 +197,7 @@ class App extends Component {
     this.setState({
       education_details: this.state.education_details.map((box) => {
         if (box.box_id === box_id) {
-          return { ...box, description: e.target.value.trim() };
+          return { ...box, description: e.target.value };
         }
         return box;
       }),
@@ -198,7 +234,7 @@ class App extends Component {
       employment_details: this.state.employment_details.map((emp) => {
         if (emp.box_id === box_id) {
           // console.log({ ...emp, job_title: e.target.value });
-          return { ...emp, job_title: e.target.value.trim() };
+          return { ...emp, job_title: e.target.value };
         }
         return emp;
       }),
@@ -209,7 +245,7 @@ class App extends Component {
     this.setState({
       employment_details: this.state.employment_details.map((emp) => {
         if (emp.box_id === box_id) {
-          return { ...emp, employer: e.target.value.trim() };
+          return { ...emp, employer: e.target.value };
         }
         return emp;
       }),
@@ -242,7 +278,7 @@ class App extends Component {
     this.setState({
       employment_details: this.state.employment_details.map((emp) => {
         if (emp.box_id === box_id) {
-          return { ...emp, city: e.target.value.trim() };
+          return { ...emp, city: e.target.value };
         }
         return emp;
       }),
@@ -265,10 +301,11 @@ class App extends Component {
   }
 
   updateEmpJobDesc(e, box_id) {
+    console.log("works");
     this.setState({
       employment_details: this.state.employment_details.map((emp) => {
         if (emp.box_id === box_id) {
-          return { ...emp, job_description: e.target.value.trim() };
+          return { ...emp, job_description: e.target.value };
         }
         return emp;
       }),
@@ -287,7 +324,7 @@ class App extends Component {
     this.setState({
       personal_details: {
         ...this.state.personal_details,
-        fname: e.target.value.trim(),
+        fname: e.target.value,
       },
     });
   }
@@ -296,7 +333,7 @@ class App extends Component {
     this.setState({
       personal_details: {
         ...this.state.personal_details,
-        lname: e.target.value.trim(),
+        lname: e.target.value,
       },
     });
   }
@@ -305,7 +342,7 @@ class App extends Component {
     this.setState({
       personal_details: {
         ...this.state.personal_details,
-        email: e.target.value.trim(),
+        email: e.target.value,
       },
     });
   }
@@ -314,7 +351,7 @@ class App extends Component {
     this.setState({
       personal_details: {
         ...this.state.personal_details,
-        phone: e.target.value.trim(),
+        phone: e.target.value,
       },
     });
   }
@@ -323,7 +360,7 @@ class App extends Component {
     this.setState({
       personal_details: {
         ...this.state.personal_details,
-        country: e.target.value.trim(),
+        country: e.target.value,
       },
     });
   }
@@ -333,14 +370,14 @@ class App extends Component {
     this.setState({
       personal_details: {
         ...this.state.personal_details,
-        city: e.target.value.trim(),
+        city: e.target.value,
       },
     });
   }
 
   updateProfessionalSummary(e) {
     this.setState({
-      professional_summary: e.target.value.trim(),
+      professional_summary: e.target.value,
     });
   }
 

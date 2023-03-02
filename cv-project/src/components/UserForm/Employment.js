@@ -45,7 +45,7 @@ class Employment extends Component {
                       <Form.Label>Job title</Form.Label>
                       <Form.Control
                         onChange={(e) => updateEmpJobTitle(e, emp.box_id)}
-                        value={emp.job_title}
+                        defaultValue={emp.job_title}
                         maxLength="25"
 
                         className="blue-bg"
@@ -56,7 +56,7 @@ class Employment extends Component {
                       <Form.Label>Employer</Form.Label>
                       <Form.Control
                         onChange={(e) => updateEmpEmployer(e, emp.box_id)}
-                        value={emp.employer}
+                        defaultValue={emp.employer}
                         maxLength="25"
                         className="blue-bg"
                         type="text"
@@ -71,13 +71,13 @@ class Employment extends Component {
                         onChange={(e) => updateEmpStartDate(e, emp.box_id)}
                         className="blue-bg"
                         type="date"
-                        value={emp.start_date}
+                        defaultValue={emp.start_date}
                       />
                       <Form.Control
                         onChange={(e) => updateEmpEndDate(e, emp.box_id)}
                         className="blue-bg"
                         type="date"
-                        value={emp.end_date}
+                        defaultValue={emp.end_date}
                       />
                     </InputGroup>
 
@@ -85,7 +85,7 @@ class Employment extends Component {
                       <Form.Label>City</Form.Label>
                       <Form.Control
                         onChange={(e) => updateEmpCity(e, emp.box_id)}
-                        value={emp.city}
+                        defaultValue={emp.city}
                         className="blue-bg"
                         type="text"
                       />
@@ -101,7 +101,7 @@ class Employment extends Component {
                       <Form.Control
                         className="blue-bg"
                         as="textarea"
-                        value={emp.job_description}
+                        defaultValue={emp.job_description}
                         maxLength="150"
                         aria-label="textarea to input professional summary"
                       />
