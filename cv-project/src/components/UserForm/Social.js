@@ -44,6 +44,7 @@ class Social extends Component {
                         onChange={(e) => updateSocialLabel(e, box.box_id)}
                         className="blue-bg"
                         type="text"
+                        defaultValue={box.link_name}
                       />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formBasicLink">
@@ -52,6 +53,7 @@ class Social extends Component {
                         onChange={(e) => updateSocialLink(e, box.box_id)}
                         className="blue-bg"
                         type="text"
+                        defaultValue={box.url}
                       />
                     </Form.Group>
                   </Row>

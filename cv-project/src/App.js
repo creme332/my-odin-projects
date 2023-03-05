@@ -45,16 +45,16 @@ class App extends Component {
           start_date: "2023",
           end_date: "2027",
           city: "Reduit",
-          description: "GPA 4.0/4.0",
+          description: "Graduated with High Honors.",
         },
         {
           box_id: uniqid(),
-          school: "",
-          degree: "",
+          school: "MIT",
+          degree: "Electrical Engineering",
           start_date: "",
           end_date: "",
-          city: "",
-          description: "",
+          city: "Curepipe",
+          description: "Dropped out with honors.",
         },
       ],
       personal_details: {
@@ -462,9 +462,11 @@ class App extends Component {
             updatePersonalFname={this.updatePersonalFname}
             updatePersonalLname={this.updatePersonalLname}
             updatePersonalPhone={this.updatePersonalPhone}
+            personal_details = {this.state.personal_details}
           />
 
           <Professional
+          professional_summary = {this.state.professional_summary}
             updateProfessionalSummary={this.updateProfessionalSummary}
           />
 

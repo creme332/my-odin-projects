@@ -37,6 +37,7 @@ class Skills extends Component {
                       onChange={(e) => updateSkillBox(e, box.box_id)}
                       className="blue-bg"
                       type="text"
+                      value={box.skill_name}
                     />
                   </Row>
 

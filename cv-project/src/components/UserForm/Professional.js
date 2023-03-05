@@ -3,7 +3,7 @@ import { Form, InputGroup } from "react-bootstrap";
 
 class Professional extends Component {
   render() {
-    const {updateProfessionalSummary} = this.props;
+    const { professional_summary, updateProfessionalSummary } = this.props;
     return (
       <Form.Group className="mb-3" controlId="ProfessionalSummary">
         <h3> Professional Summary</h3>
@@ -17,6 +17,7 @@ class Professional extends Component {
             className="blue-bg"
             as="textarea"
             aria-label="textarea to input professional summary"
+            defaultValue={professional_summary}
           />
         </InputGroup>
       </Form.Group>

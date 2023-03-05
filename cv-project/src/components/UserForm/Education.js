@@ -45,6 +45,7 @@ class Education extends Component {
                         onChange={(e) => updateEduSchool(e, box.box_id)}
                         className="blue-bg"
                         type="text"
+                        defaultValue={box.school}
                       />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formBasicEmployer">
@@ -53,6 +54,7 @@ class Education extends Component {
                         onChange={(e) => updateEduDegree(e, box.box_id)}
                         className="blue-bg"
                         type="text"
+                        defaultValue={box.degree}
                       />
                     </Form.Group>
                   </Row>
@@ -78,6 +80,7 @@ class Education extends Component {
                         onChange={(e) => updateEduCity(e, box.box_id)}
                         className="blue-bg"
                         type="text"
+                        defaultValue={box.city}
                       />
                     </Form.Group>
                   </Row>
@@ -89,6 +92,7 @@ class Education extends Component {
                       className="blue-bg"
                       as="textarea"
                       aria-label="With textarea"
+                      defaultValue={box.description}
                     />
                   </InputGroup>
 

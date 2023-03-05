@@ -10,10 +10,11 @@ class Personal extends Component {
       updatePersonalFname,
       updatePersonalLname,
       updatePersonalPhone,
+      personal_details,
     } = this.props;
     return (
       <Form.Group className="mb-3" controlId="PersonalDetails">
-        <h3> Personal Details</h3>
+        <h3>Personal Details</h3>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridFirstName">
             <Form.Label>First name</Form.Label>
@@ -21,6 +22,7 @@ class Personal extends Component {
               onChange={(e) => updatePersonalFname(e)}
               className="blue-bg"
               type="text"
+              defaultValue={personal_details.fname}
             />
           </Form.Group>
           <Form.Group as={Col} controlId="formGridLastName">
@@ -29,6 +31,7 @@ class Personal extends Component {
               onChange={(e) => updatePersonalLname(e)}
               className="blue-bg"
               type="text"
+              defaultValue={personal_details.lname}
             />
           </Form.Group>
         </Row>
@@ -39,6 +42,7 @@ class Personal extends Component {
               onChange={(e) => updatePersonalEmail(e)}
               className="blue-bg"
               type="email"
+              defaultValue={personal_details.email}
             />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
@@ -50,6 +54,7 @@ class Personal extends Component {
               onChange={(e) => updatePersonalPhone(e)}
               className="blue-bg"
               type="tel"
+              defaultValue={personal_details.phone}
             />
           </Form.Group>
         </Row>
@@ -61,6 +66,7 @@ class Personal extends Component {
               onChange={(e) => updatePersonalCountry(e)}
               className="blue-bg"
               type="text"
+              defaultValue={personal_details.country}
             />
           </Form.Group>
           <Form.Group as={Col} controlId="formBasicCity">
@@ -69,6 +75,7 @@ class Personal extends Component {
               onChange={(e) => updatePersonalCity(e)}
               className="blue-bg"
               type="text"
+              defaultValue={personal_details.city}
             />
           </Form.Group>
         </Row>
