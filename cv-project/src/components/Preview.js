@@ -30,6 +30,10 @@ class Preview extends Component {
   };
 
   shortInfoComponent(personal_details, social_details) {
+    social_details = social_details.filter(
+      (e) => e.link_name.trim() !== "" && e.url.trim() !== ""
+    );
+    console.log(social_details);
     return (
       <div className="short-info">
         <p>
@@ -43,11 +47,13 @@ class Preview extends Component {
         </p>
         <p>
           <b>Links</b>{" "}
-          {social_details.map((e) => {
-            // console.log(e);
+          {social_details.map((e, index) => {
+            const name =
+              e.link_name + (index === social_details.length - 1 ? "" : ", ");
+            console.log(name);
             return (
               <a key={e.box_id} href={e.url}>
-                {e.link_name},&nbsp;
+                {name}
               </a>
             );
           })}
@@ -57,6 +63,14 @@ class Preview extends Component {
   }
 
   employmentComponent(employment_details) {
+    if (
+      employment_details.job_title.trim() === "" &&
+      employment_details.city.trim() === "" &&
+      employment_details.job_description.trim() === "" &&
+      employment_details.employer.trim() === ""
+    ) {
+      return;
+    }
     const start_date =
       employment_details.start_date === ""
         ? new Date()
@@ -67,12 +81,12 @@ class Preview extends Component {
         : new Date(employment_details.end_date);
     return (
       <div className="empBox" key={uniqid()}>
-        <p className="empBox-left">
+        <p className="date empBox-left">
           {format(start_date, "MMM y")} - {format(end_date, "MMM y")}
         </p>
         <div className="empBox-right">
           <div className="d-flex justify-content-between">
-            <b>
+            <b className="employee-title">
               {employment_details.job_title}{" "}
               {employment_details.employer === ""
                 ? ""
@@ -87,6 +101,14 @@ class Preview extends Component {
   }
 
   educationComponent(education_details) {
+    if (
+      education_details.school === "" &&
+      education_details.city === "" &&
+      education_details.degree === "" &&
+      education_details.description === ""
+    ) {
+      return;
+    }
     const start_date =
       education_details.start_date === ""
         ? new Date()
@@ -97,15 +119,15 @@ class Preview extends Component {
         : new Date(education_details.end_date);
     return (
       <div className="empBox" key={uniqid()}>
-        <p className="empBox-left">
+        <p className="date empBox-left">
           {format(start_date, "MMM y")} - {format(end_date, "MMM y")}
         </p>
         <div className="empBox-right">
           <div className="d-flex justify-content-between">
-            <b>{education_details.school}</b>
+            <b className="employee-title">{education_details.school}</b>
             <p>{education_details.city}</p>
           </div>
-          <p>{education_details.degree}</p>{" "}
+          <p className="degree">{education_details.degree}</p>{" "}
           <p>{education_details.description}</p>{" "}
         </div>
       </div>
@@ -129,21 +151,21 @@ class Preview extends Component {
         <div ref={this.setComponentRef} className="page">
           <h1>{`${personal_details.fname} ${personal_details.lname}`}</h1>
           <div className="square"></div>
-          <h6>Software Developer</h6>
+          <h6>{employment_details[0].job_title}</h6>
           {this.shortInfoComponent(personal_details, social_details)}
           <div className="d-flex justify-content-between">
-            <h3>Profile</h3>
+            <h3 className="resume-heading">Profile</h3>
             <p>{professional_summary}</p>
           </div>
-          <h3>Employment</h3>
+          <h3 className="resume-heading">Employment</h3>
           {employment_details.map((emp) => {
             return this.employmentComponent(emp);
           })}
-          <h3>Education</h3>
+          <h3 className="resume-heading">Education</h3>
           {education_details.map((emp) => {
             return this.educationComponent(emp);
           })}{" "}
-          <h3>Technical skills</h3>
+          <h3 className="resume-heading">Technical skills</h3>
           <p>{skills.join(", ")}</p>
         </div>
 

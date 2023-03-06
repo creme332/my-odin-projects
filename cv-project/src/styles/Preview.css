@@ -3,11 +3,19 @@
   place-items: center;
 }
 
+.short-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+a {
+  color: black;
+}
+
 .page {
   border-radius: 6px;
-  outline: 1px solid red;
   background-color: rgb(255, 255, 255);
-  overflow: hidden;
+  overflow: scroll;
   width: 433px;
   height: 610px;
   padding: 30px;
@@ -22,11 +30,38 @@
   background-color: black;
 }
 
+.date {
+  font-size: 10px;
+  font-weight: bold;
+}
+.empBox {
+  /* use bootstrap instead  */
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+/* .empBox,
+.empBox > *,
+.empBox-right > *,
+.empBox-right div > * {
+  outline: 1px solid;
+} */
+
 .page h1 {
+  margin-bottom: 0px;
   font-size: 28px;
 }
-.page h3 {
+
+.employee-title {
+  font-size: 14px;
+}
+
+.degree {
+  font-size: 13px;
+}
+.page .resume-heading {
   font-size: 15px;
+  margin-bottom: 15px;
   text-transform: uppercase;
   text-decoration: underline;
   text-underline-offset: 8px;
@@ -35,7 +70,6 @@
 
 p {
   font-size: 12px;
-  outline: 1px solid;
 }
 
 @media print {
@@ -44,7 +78,9 @@ p {
     width: 210mm;
     height: 297mm;
   }
-
+  p {
+    font-size: 12px;
+  }
   .page {
     border-radius: 0px;
     overflow: hidden;
@@ -64,7 +100,7 @@ p {
   .page h1 {
     font-size: 58px;
   }
-  .page h3 {
+  .page .resume-heading {
     font-size: 15px;
     text-transform: uppercase;
     text-decoration: underline;
