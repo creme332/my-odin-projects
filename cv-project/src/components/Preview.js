@@ -134,6 +134,12 @@ class Preview extends Component {
     );
   }
 
+  technicalSkills(skills) {
+    let res = skills.join(", "); // create a comma-separated list of skills
+    // remove last comma
+    return res.slice(0, -2);
+  }
+
   render() {
     const {
       employment_details,
@@ -166,7 +172,7 @@ class Preview extends Component {
             return this.educationComponent(emp);
           })}{" "}
           <h3 className="resume-heading">Technical skills</h3>
-          <p>{skills.join(", ")}</p>
+          <p>{this.technicalSkills(skills)}</p>
         </div>
 
         <ReactToPrint
