@@ -159,9 +159,9 @@ class Preview extends Component {
           <div className="square"></div>
           <h6>{employment_details[0].job_title}</h6>
           {this.shortInfoComponent(personal_details, social_details)}
-          <div className="d-flex justify-content-between">
-            <h3 className="resume-heading">Profile</h3>
-            <p>{professional_summary}</p>
+          <div className="empBox">
+            <h3 className="empBox-left resume-heading">Profile</h3>
+            <p class="empBox-right">{professional_summary}</p>
           </div>
           <h3 className="resume-heading">Employment</h3>
           {employment_details.map((emp) => {
