@@ -13,10 +13,6 @@
 .blue-bg {
   background-color: #eff2f9;
 }
-.preview-section {
-  background-color: #656e83;
-  flex: 1;
-}
 
 .form-section label {
   color: rgb(130, 139, 162);
