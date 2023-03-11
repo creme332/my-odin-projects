@@ -45,7 +45,7 @@ class Preview extends Component {
           <b>City</b> {personal_details.city}, {personal_details.country}
         </p>
         <p>
-          <b>Links</b>{" "}
+          <b> {social_details.length > 0 ? "Links" : ""}</b>{" "}
           {social_details.map((e, index) => {
             const name =
               e.link_name + (index === social_details.length - 1 ? "" : ", ");
@@ -135,7 +135,8 @@ class Preview extends Component {
   technicalSkills(skills) {
     let res = skills.join(", "); // create a comma-separated list of skills
     // remove last comma
-    return res.slice(0, -2);
+    // return res.slice(0, -2);
+    return res;
   }
 
   render() {
@@ -165,15 +166,24 @@ class Preview extends Component {
             <h3 className="empBox-left resume-heading">Profile</h3>
             <p className="empBox-right">{professional_summary}</p>
           </div>
-          <h3 className="resume-heading">Employment</h3>
+          <h3 className="resume-heading">
+            {" "}
+            {employment_details.length > 0 ? "Employment" : ""}
+          </h3>
           {employment_details.map((emp) => {
             return this.employmentComponent(emp);
           })}
-          <h3 className="resume-heading">Education</h3>
+          <h3 className="resume-heading">
+            {" "}
+            {education_details.length > 0 ? "Education" : ""}
+          </h3>
           {education_details.map((emp) => {
             return this.educationComponent(emp);
           })}{" "}
-          <h3 className="resume-heading">Technical skills</h3>
+          <h3 className="resume-heading">
+            {" "}
+            {skills.length > 0 ? "Technical Skills" : ""}
+          </h3>
           <p>{this.technicalSkills(skills)}</p>
         </div>
 
