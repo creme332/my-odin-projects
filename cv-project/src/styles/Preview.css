@@ -6,6 +6,7 @@
 }
 
 .short-info {
+  margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
@@ -32,13 +33,13 @@
   background-color: black;
 }
 
-.preview-section .date {
+.date {
   font-size: 10px;
   font-weight: bold;
   color: black;
 }
-.preview-section .empBox {
-  /* use bootstrap instead  */
+
+.empBox {
   display: grid;
   grid-template-columns: 1fr 2fr;
 }
@@ -71,7 +72,7 @@
   text-decoration-thickness: 2px;
 }
 
-.preview-section p {
+p {
   font-size: 12px;
   color: #454545;
 }
@@ -104,7 +105,7 @@
     width: 210mm;
     height: 297mm;
   }
-  .preview-section p {
+  p {
     font-size: 12px;
   }
   .page {
