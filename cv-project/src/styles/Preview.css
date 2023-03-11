@@ -1,6 +1,8 @@
 .preview-section {
   display: grid;
   place-items: center;
+  background-color: #656e83;
+  flex: 1;
 }
 
 .short-info {
@@ -8,7 +10,7 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-a {
+.preview-section a {
   color: black;
 }
 
@@ -30,12 +32,12 @@ a {
   background-color: black;
 }
 
-.date {
+.preview-section .date {
   font-size: 10px;
   font-weight: bold;
-  color:black
+  color: black;
 }
-.empBox {
+.preview-section .empBox {
   /* use bootstrap instead  */
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -69,20 +71,31 @@ a {
   text-decoration-thickness: 2px;
 }
 
-p {
+.preview-section p {
   font-size: 12px;
   color: #454545;
 }
 
-.btn-primary {
+.preview-section .btn-primary {
   border-radius: 4px;
   background-color: #1a91f0;
   padding: 13px 24px;
   font-weight: 600;
 }
 
-.btn-primary:hover {
+.preview-section .btn-primary:hover {
   background-color: #1170cd;
+}
+
+@media screen and (max-width: 1120px) {
+  .preview-section {
+    padding: 50px;
+    overflow-x: scroll;
+  }
+
+  .page {
+    margin-bottom: 20px;
+  }
 }
 
 @media print {
@@ -91,7 +104,7 @@ p {
     width: 210mm;
     height: 297mm;
   }
-  p {
+  .preview-section p {
     font-size: 12px;
   }
   .page {
@@ -112,7 +125,7 @@ p {
 
   .page h1 {
     font-size: 28px;
-    margin-bottom:15px;
+    margin-bottom: 15px;
   }
   .page .resume-heading {
     font-size: 15px;
