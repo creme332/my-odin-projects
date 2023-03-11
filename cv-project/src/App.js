@@ -498,7 +498,7 @@ class App extends Component {
             skill_details={this.state.skill_details}
             updateSkillBox={this.updateSkillBox}
             addSkillBox={this.addSkillBox}
-            removeskils={this.addSkillBox}
+            removeSkillBox={this.removeSkillBox}
           />
 
           <Social
