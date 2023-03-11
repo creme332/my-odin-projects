@@ -26,4 +26,4 @@
 **Knights Travails** | Data structures and algorithms|[Link](https://github.com/creme332/my-odin-projects/tree/main/knights-travails)     |  [Demo](https://creme332.github.io/my-odin-projects/knights-travails/dist)  | ⭐⭐
 **Testing Practice** | Test Driven Development|[Link](https://github.com/creme332/my-odin-projects/tree/main/testing-practice)     |  -  | -
 **Battleship** | Test Driven Development|[Link](https://github.com/creme332/my-odin-projects/tree/main/battleship)     |  [Demo](https://creme332.github.io/my-odin-projects/battleship/dist)  | ⭐
-**CV Application** | React|[Link](https://github.com/creme332/my-odin-projects/tree/main/battleship)     |  [Demo](https://creme332.github.io/my-odin-projects/cv-project/public)  |
+**CV Application** | React|[Link](https://github.com/creme332/my-odin-projects/tree/main/battleship)     |  [Demo](https://creme332.github.io/my-odin-projects/cv-project/public)  | ⭐⭐
