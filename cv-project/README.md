@@ -7,7 +7,7 @@ A shitty clone of [resume.io](https://resume.io/) built with React and Bootstrap
 PDF version:
 ![PDF version of resume](resume.png)
 
-[▶ Live Preview](https://creme332.github.io/my-odin-projects/cv-project/public/)
+[▶ Live Preview](https://creme332.github.io/my-odin-projects/cv-project/build/)
 
 
 # 🚀Features
