@@ -74,7 +74,7 @@ class Education extends Component {
                       />
                     </InputGroup>
 
-                    <Form.Group as={Col} controlId="formBasicCity">
+                    <Form.Group as={Col} controlId="formBasicPersonalCity">
                       <Form.Label>City</Form.Label>
                       <Form.Control
                         onChange={(e) => updateEduCity(e, box.box_id)}
@@ -91,7 +91,7 @@ class Education extends Component {
                       onChange={(e) => updateEduDescription(e, box.box_id)}
                       className="blue-bg"
                       as="textarea"
-                      aria-label="With textarea"
+                      aria-label="Enter description of education"
                       defaultValue={box.description}
                     />
                   </InputGroup>

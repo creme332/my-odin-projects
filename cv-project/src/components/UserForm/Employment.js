@@ -103,7 +103,7 @@ class Employment extends Component {
                         as="textarea"
                         defaultValue={emp.job_description}
                         maxLength="150"
-                        aria-label="textarea to input professional summary"
+                        aria-label="Area to input job description"
                       />
                     </InputGroup>
                   </Row>

@@ -16,7 +16,7 @@ class Professional extends Component {
           <Form.Control
             className="blue-bg"
             as="textarea"
-            aria-label="textarea to input professional summary"
+            aria-label="Area to input professional summary"
             defaultValue={professional_summary}
           />
         </InputGroup>

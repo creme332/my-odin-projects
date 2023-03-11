@@ -65,6 +65,7 @@ class Personal extends Component {
             <Form.Control
               onChange={(e) => updatePersonalCountry(e)}
               className="blue-bg"
+              maxLength="20"
               type="text"
               defaultValue={personal_details.country}
             />
@@ -75,6 +76,7 @@ class Personal extends Component {
               onChange={(e) => updatePersonalCity(e)}
               className="blue-bg"
               type="text"
+              maxLength="30"
               defaultValue={personal_details.city}
             />
           </Form.Group>
