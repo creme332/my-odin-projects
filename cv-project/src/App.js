@@ -2,7 +2,7 @@ import "./styles/App.css";
 import React, { Component } from "react";
 import Preview from "./components/Preview";
 import uniqid from "uniqid";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import "./styles/UserForm.css";
 import Personal from "./components/UserForm/Personal";
 import Professional from "./components/UserForm/Professional";
