@@ -15,7 +15,7 @@ a {
 .page {
   border-radius: 6px;
   background-color: rgb(255, 255, 255);
-  overflow: scroll;
+  overflow-y: scroll;
   width: 433px;
   height: 610px;
   padding: 30px;
