@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { Form, Button, Row, Accordion } from "react-bootstrap";
 
 class Skills extends Component {
-  componentDidMount() {
-    this.props.addSkillBox();
-  }
   render() {
     const { skill_details, updateSkillBox, addSkillBox, removeSkillBox } =
       this.props;
