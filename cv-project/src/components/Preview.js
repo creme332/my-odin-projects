@@ -42,7 +42,7 @@ class Preview extends Component {
           <b>Email</b> {personal_details.email}
         </p>
         <p>
-          <b>City</b> {personal_details.city}, {personal_details.country}
+          <b>City</b> {personal_details.city}
         </p>
         <p>
           <b> {social_details.length > 0 ? "Links" : ""}</b>{" "}
@@ -134,8 +134,6 @@ class Preview extends Component {
 
   technicalSkills(skills) {
     let res = skills.join(", "); // create a comma-separated list of skills
-    // remove last comma
-    // return res.slice(0, -2);
     return res;
   }
 
