@@ -20,7 +20,7 @@ class App extends Component {
           box_id: uniqid(),
           job_title: "Software Engineer",
           job_description:
-            "Leveraged XYZ to build something. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non nunc mollis, egestas nulla vel,  ",
+            "Developed dynamic and interactive websites that ensured high traffic, page views, and improved user experience.",
           employer: "Apple",
           start_date: "2023-05-30",
           end_date: "2023-08-30",
@@ -28,13 +28,13 @@ class App extends Component {
         },
         {
           box_id: uniqid(),
-          job_title: "Game developer",
+          job_title: "Web developer",
           job_description:
-            "Improved performance by 20% by doing XYZ. Leverage my skills to upscale the project.",
+            "Revamped web application, reducing hacker attacks by 10%.",
           employer: "Meta",
           start_date: "2022-05-30",
           end_date: "2022-05-30",
-          city: "Piton",
+          city: "California",
         },
       ],
       education_details: [
@@ -44,8 +44,8 @@ class App extends Component {
           degree: "Political science",
           start_date: "2023",
           end_date: "2027",
-          city: "Reduit",
-          description: "Graduated with High Honors.",
+          city: "Ohio",
+          description: "Graduated with High Honors and 4.0/4.0 GPA",
         },
         {
           box_id: uniqid(),
@@ -58,15 +58,15 @@ class App extends Component {
         },
       ],
       personal_details: {
-        fname: "Delo",
+        fname: "Julia",
         lname: " Crystal",
         email: "crystal@gmail.com",
-        phone: "+230 5732392",
-        country: "Rodrigues",
-        city: "Port-Mathurin",
+        phone: "(123) 456789",
+        country: "United States",
+        city: "California",
       },
       professional_summary:
-        "A passionate full-stack developer residing in Rodrigues.",
+        "Web developer with 5+ years of experience in designing and developing user interfaces, testing and training staff.",
       skill_details: [
         {
           box_id: uniqid(),
@@ -79,6 +79,10 @@ class App extends Component {
         {
           box_id: uniqid(),
           skill_name: "Node.js",
+        },
+        {
+          box_id: uniqid(),
+          skill_name: "Bootstrap",
         },
       ],
       social_details: [
