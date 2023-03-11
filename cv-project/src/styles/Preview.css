@@ -33,6 +33,7 @@ a {
 .date {
   font-size: 10px;
   font-weight: bold;
+  color:black
 }
 .empBox {
   /* use bootstrap instead  */
@@ -70,6 +71,7 @@ a {
 
 p {
   font-size: 12px;
+  color: #454545;
 }
 
 .btn-primary {
@@ -109,7 +111,8 @@ p {
   }
 
   .page h1 {
-    font-size: 58px;
+    font-size: 28px;
+    margin-bottom:15px;
   }
   .page .resume-heading {
     font-size: 15px;
