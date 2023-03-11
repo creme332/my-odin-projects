@@ -33,7 +33,6 @@ class Preview extends Component {
     social_details = social_details.filter(
       (e) => e.link_name.trim() !== "" && e.url.trim() !== ""
     );
-    console.log(social_details);
     return (
       <div className="short-info">
         <p>
@@ -50,7 +49,6 @@ class Preview extends Component {
           {social_details.map((e, index) => {
             const name =
               e.link_name + (index === social_details.length - 1 ? "" : ", ");
-            console.log(name);
             return (
               <a key={e.box_id} href={e.url}>
                 {name}
@@ -157,11 +155,15 @@ class Preview extends Component {
         <div ref={this.setComponentRef} className="page">
           <h1>{`${personal_details.fname} ${personal_details.lname}`}</h1>
           <div className="square"></div>
-          <h6>{employment_details[0].job_title}</h6>
+          <h6>
+            {employment_details.length > 0
+              ? employment_details[0].job_title
+              : ""}
+          </h6>
           {this.shortInfoComponent(personal_details, social_details)}
           <div className="empBox">
             <h3 className="empBox-left resume-heading">Profile</h3>
-            <p class="empBox-right">{professional_summary}</p>
+            <p className="empBox-right">{professional_summary}</p>
           </div>
           <h3 className="resume-heading">Employment</h3>
           {employment_details.map((emp) => {
