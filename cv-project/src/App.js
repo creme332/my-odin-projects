@@ -462,11 +462,11 @@ class App extends Component {
             updatePersonalFname={this.updatePersonalFname}
             updatePersonalLname={this.updatePersonalLname}
             updatePersonalPhone={this.updatePersonalPhone}
-            personal_details = {this.state.personal_details}
+            personal_details={this.state.personal_details}
           />
 
           <Professional
-          professional_summary = {this.state.professional_summary}
+            professional_summary={this.state.professional_summary}
             updateProfessionalSummary={this.updateProfessionalSummary}
           />
 
@@ -508,11 +508,11 @@ class App extends Component {
             updateSocialLabel={this.updateSocialLabel}
             updateSocialLink={this.updateSocialLink}
           />
-          <div className="d-flex justify-content-between">
+          {/* <div className="d-flex justify-content-between">
             <Button variant="warning" type="submit">
               Clear form
             </Button>
-          </div>
+          </div> */}
         </Form>{" "}
         <Preview formInfo={this.state} />
       </div>
