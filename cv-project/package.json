@@ -2,6 +2,7 @@
   "name": "cv-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://creme332.github.io/my-odin-projects/cv-project",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
