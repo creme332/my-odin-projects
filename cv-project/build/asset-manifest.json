@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/my-odin-projects/cv-project/static/css/main.0634878b.css",
-    "main.js": "/my-odin-projects/cv-project/static/js/main.80069716.js",
-    "static/js/787.34a20539.chunk.js": "/my-odin-projects/cv-project/static/js/787.34a20539.chunk.js",
-    "index.html": "/my-odin-projects/cv-project/index.html",
-    "main.0634878b.css.map": "/my-odin-projects/cv-project/static/css/main.0634878b.css.map",
-    "main.80069716.js.map": "/my-odin-projects/cv-project/static/js/main.80069716.js.map",
-    "787.34a20539.chunk.js.map": "/my-odin-projects/cv-project/static/js/787.34a20539.chunk.js.map"
+    "main.css": "/my-odin-projects/cv-project/build/static/css/main.0634878b.css",
+    "main.js": "/my-odin-projects/cv-project/build/static/js/main.337ef711.js",
+    "static/js/787.34a20539.chunk.js": "/my-odin-projects/cv-project/build/static/js/787.34a20539.chunk.js",
+    "index.html": "/my-odin-projects/cv-project/build/index.html",
+    "main.0634878b.css.map": "/my-odin-projects/cv-project/build/static/css/main.0634878b.css.map",
+    "main.337ef711.js.map": "/my-odin-projects/cv-project/build/static/js/main.337ef711.js.map",
+    "787.34a20539.chunk.js.map": "/my-odin-projects/cv-project/build/static/js/787.34a20539.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0634878b.css",
-    "static/js/main.80069716.js"
+    "static/js/main.337ef711.js"
   ]
 }
