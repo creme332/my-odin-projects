@@ -27,3 +27,4 @@
 **Testing Practice** | Test Driven Development|[Link](https://github.com/creme332/my-odin-projects/tree/main/testing-practice)     |  -  | -
 **Battleship** | Test Driven Development|[Link](https://github.com/creme332/my-odin-projects/tree/main/battleship)     |  [Demo](https://creme332.github.io/my-odin-projects/battleship/dist)  | ⭐
 **CV Application** | React|[Link](https://github.com/creme332/my-odin-projects/tree/main/cv-project)     |  [Demo](https://creme332.github.io/my-odin-projects/cv-project/build)  | ⭐⭐
+**Memory Card** | React|[Link](https://github.com/creme332/my-odin-projects/tree/main/memory-card)     |  [Demo](https://creme332.github.io/my-odin-projects/memory-card/build)  | ⭐
