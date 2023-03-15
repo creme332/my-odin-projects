@@ -10,6 +10,7 @@ Memory Card Game is a classic card game where players are required to match pair
 # 🚀Features
 - Responsive design
 - Scoreboard
+- Loading animation while pictures are loading
 # 🛠 Installation
 Clone repository locally
 ```bash
