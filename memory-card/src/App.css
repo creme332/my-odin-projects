@@ -1,10 +1,91 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:700');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 .App {
-  font-family: "roboto";
-  font-size: 100px;
+  font-family: "roboto", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
   text-align: center;
+  height: auto;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-img{
+.game-title {
+  font-size: 100px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+img:hover {
   outline: 1px solid;
+}
+
+.tog-btn {
+  height: auto;
+  background-color: transparent;
+  border: 0;
+  /* outline: 1px solid; */
+}
+
+#sound-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#info-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.tog-btn:hover {
+  outline: 1px solid;
+}
+
+.cards-container {
+  margin: auto;
+  /* outline: 1px dotted; */
+  display: flex;
+  flex-wrap: wrap;
+  width: 50vw;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+footer {
+  font-weight: 600;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+}
+
+.scores {
+  display: flex;
+  gap: 2em;
+  /* outline: 1px solid; */
+  font-weight: 700;
+  padding: 10px 20px;
+  height: 100px;
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(242, 242, 242);
+  border-radius: 10px;
+  margin: auto;
+
+  font-size: 43px;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: orange;
 }
