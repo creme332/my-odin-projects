@@ -1,14 +1,12 @@
 import "./App.css";
 import React, { useState } from "react";
-import uniqid from "uniqid";
-import imgSrc from "./assets/man-with-cat.gif";
-import imgSrc1 from "./assets/school-woman.png";
+import getCards from "./cards";
 import { GrCircleInformation, GrScorecard } from "react-icons/gr";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { BsTrophyFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
-import CorrectSoundUrl from "./assets/correct-6033.mp3";
-import IncorrectSoundUrl from "./assets/error-call-to-attention-129258.mp3";
+import CorrectSoundUrl from "./assets/sound/correct-6033.mp3";
+import IncorrectSoundUrl from "./assets/sound/error-call-to-attention-129258.mp3";
 
 function SoundButton({ soundOn, setSound }) {
   function onSoundClick() {
@@ -58,52 +56,37 @@ function CardContainer({
   setScore,
   soundOn,
 }) {
-  const allCards = [
-    {
-      src: imgSrc,
-      alt: "alt text",
-      id: uniqid(),
-    },
-    {
-      src: imgSrc,
-      alt: "alt text",
-      id: uniqid(),
-    },
-    {
-      src: imgSrc,
-      alt: "alt text",
-      id: uniqid(),
-    },
-    {
-      src: imgSrc1,
-      alt: "alt text",
-      id: uniqid(),
-    },
-    {
-      src: imgSrc1,
-      alt: "alt text",
-      id: uniqid(),
-    },
-    {
-      src: imgSrc1,
-      alt: "alt text",
-      id: uniqid(),
-    },
-    {
-      src: imgSrc1,
-      alt: "alt text",
-      id: uniqid(),
-    },
-  ];
+  const [allCards] = useState(getCards());
+
   const imgHeight = 150;
-  function shuffle() {
-    return 0;
+
+  function shuffle(array) {
+    // fisher yates shuffle : https://stackoverflow.com/a/2450976/17627866
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
   }
 
   function handleClick() {
     if (soundOn) playAudio(IncorrectSoundUrl);
     setScore(currentScore + 1);
-    setBestScore(Math.max(currentScore, bestScore));
+    setBestScore(Math.max(currentScore + 1, bestScore));
+    shuffle(allCards);
+    console.log(allCards);
   }
 
   function playAudio(url) {
@@ -131,7 +114,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [soundOn, setSound] = useState(false);
-  // const allCards = [];
+
   function onInfoClick() {
     console.log("Info button clicked");
   }
