@@ -7,18 +7,40 @@
   height: auto;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  background-color: rgb(233, 233, 233);
 }
 
-.game-title {
-  font-size: 100px;
-  font-weight: 700;
-  margin-bottom: 20px;
+img {
+  transition: 3s;
 }
+
 img:hover {
-  outline: 1px solid;
+  rotate: 360deg;
 }
 
+.header {
+  /* outline: 1px solid; */
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.scores {
+  display: flex;
+  gap: 2em;
+  font-weight: 700;
+  justify-content: center;
+  align-items: center;
+  font-size: 33px;
+}
+
+.score-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .tog-btn {
   height: auto;
   background-color: transparent;
@@ -26,17 +48,6 @@ img:hover {
   /* outline: 1px solid; */
 }
 
-#sound-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-
-#info-btn {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
 .tog-btn:hover {
   outline: 1px solid;
 }
@@ -46,7 +57,7 @@ img:hover {
   /* outline: 1px dotted; */
   display: flex;
   flex-wrap: wrap;
-  width: 50vw;
+  width: 70vw;
   justify-content: space-between;
   gap: 40px;
   margin-bottom: 20px;
@@ -57,29 +68,12 @@ footer {
   height: 30px;
   display: grid;
   place-items: center;
-  position: absolute;
+  position: sticky;
   bottom: 0;
   width: 100%;
   background-color: black;
   color: white;
   font-size: 20px;
-}
-
-.scores {
-  display: flex;
-  gap: 2em;
-  /* outline: 1px solid; */
-  font-weight: 700;
-  padding: 10px 20px;
-  height: 100px;
-  width: 300px;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(242, 242, 242);
-  border-radius: 10px;
-  margin: auto;
-
-  font-size: 43px;
 }
 
 footer a {

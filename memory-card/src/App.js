@@ -38,10 +38,10 @@ function ScoreBoard({ currentScore, bestScore }) {
     <div className="scores">
       {" "}
       <IconContext.Provider value={{ size: 42 }}>
-        <span>
+        <span className="score-item">
           <GrScorecard /> {currentScore}
         </span>
-        <span>
+        <span className="score-item">
           <BsTrophyFill /> {bestScore}
         </span>
       </IconContext.Provider>
@@ -59,7 +59,7 @@ function CardContainer({
   const [allCards] = useState(getCards());
 
   const imgHeight = 150;
-
+  const totalDisplayedCards = 15;
   function shuffle(array) {
     // fisher yates shuffle : https://stackoverflow.com/a/2450976/17627866
     let currentIndex = array.length,
@@ -121,9 +121,13 @@ function App() {
 
   return (
     <div className="App">
-      <InfoButton onInfoClick={onInfoClick} />
-      <SoundButton soundOn={soundOn} setSound={setSound} />
-      <h1 className="game-title"> memory card</h1>
+      <div className="header">
+        <InfoButton onInfoClick={onInfoClick} />
+        <ScoreBoard currentScore={score} bestScore={bestScore} />
+        <SoundButton soundOn={soundOn} setSound={setSound} />
+      </div>
+
+      {/* <h1 className="game-title"> memory card</h1> */}
       <CardContainer
         currentScore={score}
         bestScore={bestScore}
@@ -131,7 +135,6 @@ function App() {
         setBestScore={setBestScore}
         soundOn={soundOn}
       />
-      <ScoreBoard currentScore={score} bestScore={bestScore} />
       <footer>
         <span>
           {" "}
