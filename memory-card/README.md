@@ -1,16 +1,17 @@
 # Memory Card 🧠
 
-Memory Card Game is a classic card game where players are required to match pairs of cards. The game involves a set of cards with identical pairs of images that are shuffled and placed face-down. The player then turns over two cards at a time, attempting to match pairs by remembering the location of cards on the board.
+A memory card game built with React. Gain points by clicking on unclicked images. 
 
-![GIF of website]()
+![GIF of website](memory.gif)
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/memory-card/build/)
 
 
 # 🚀Features
 - Responsive design
-- Scoreboard
-- Loading animation while pictures are loading
+- Sound effects
+- Popover for instructions
+
 # 🛠 Installation
 Clone repository locally
 ```bash
@@ -32,7 +33,6 @@ Create a production build
 ```bash
 npm run build
 ```
-
-# 🔨 To-Do
-use cute icons like https://github.com/AuroraDark/jogo_da_memoria
+# Attributions
+All [images](https://github.com/creme332/memory-card/tree/main/src/assets/images) on the website were taken from [Janet Mac](https://janet-mac.com/).
 
