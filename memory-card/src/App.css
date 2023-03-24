@@ -111,6 +111,27 @@ footer a:hover {
   color: orange;
 }
 
+/* start of transition animation for panel */
+.t1 {
+  transition: ease-out 200ms;
+}
+.t2 {
+  opacity: 0;
+}
+.t3 {
+  opacity: 100ms;
+}
+.t4 {
+  transition: ease-in 150ms;
+}
+.t5 {
+  opacity: 100;
+}
+.t6 {
+  opacity: 0;
+}
+/* end of transition animation for panel */
+
 @media screen and (max-width: 500px) {
   .cards-container {
     flex-wrap: nowrap;
