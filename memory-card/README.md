@@ -11,6 +11,7 @@ A memory card game built with React. Gain points by clicking on unclicked images
 - Responsive design
 - Sound effects
 - Popover for instructions
+- Progressive image loading
 
 # 🛠 Installation
 Clone repository locally
