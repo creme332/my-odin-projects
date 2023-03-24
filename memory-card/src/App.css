@@ -112,4 +112,19 @@ footer a:hover {
     flex-direction: column;
     align-items: center;
   }
+
+  .scores {
+    gap: 1em;
+  }
+
+  .popover-panel {
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 30px;
+    min-height: 200px;
+  }
+  .popover-panel h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
 }
