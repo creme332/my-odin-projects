@@ -16,7 +16,12 @@ function SoundButton({ soundOn, setSound }) {
   }
 
   return (
-    <button id="sound-btn" className="tog-btn" onClick={onSoundClick}>
+    <button
+      id="sound-btn"
+      className="tog-btn"
+      aria-label="toggle sound"
+      onClick={onSoundClick}
+    >
       <IconContext.Provider value={{ size: 42 }}>
         {!soundOn ? <GiSoundOff /> : <GiSoundOn />}
       </IconContext.Provider>
@@ -27,7 +32,11 @@ function SoundButton({ soundOn, setSound }) {
 function InfoPopover() {
   return (
     <Popover>
-      <Popover.Button id="info-btn" className="tog-btn">
+      <Popover.Button
+        id="info-btn"
+        aria-label="toggle popover for instructions"
+        className="tog-btn"
+      >
         {" "}
         <IconContext.Provider value={{ size: 30 }}>
           <GrHelp />
@@ -45,7 +54,8 @@ function InfoPopover() {
           <h1>How to play</h1>
           <p>
             Remember all the images that you click on and try not to click on
-            the same image more than once. The game restarts when you click on the same image twice.
+            the same image more than once. The game restarts when you click on
+            the same image twice.
           </p>
         </Popover.Panel>
       </Transition>
@@ -145,6 +155,7 @@ function CardContainer({
             key={cardDetail.id}
             src={cardDetail.src}
             height={imgHeight}
+            width={imgHeight}
             alt={cardDetail.alt}
           />
         );

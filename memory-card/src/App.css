@@ -1,4 +1,10 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@font-face {
+  font-family: "roboto";
+  font-style: normal;
+  src: url("https://fonts.googleapis.com/css?family=Roboto");
+  font-display: swap;
+}
+
 .App {
   font-family: "roboto", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
