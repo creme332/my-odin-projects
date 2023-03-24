@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import getCards from "./cards";
 import { GrHelp, GrScorecard } from "react-icons/gr";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
@@ -44,9 +44,8 @@ function InfoPopover() {
         <Popover.Panel className="popover-panel">
           <h1>How to play</h1>
           <p>
-            Remember all the images that  you click on and try not to click on
-            the same image more than once. The game restarts when you click on a
-            previously clicked card.
+            Remember all the images that you click on and try not to click on
+            the same image more than once. The game restarts when you click on the same image twice.
           </p>
         </Popover.Panel>
       </Transition>
@@ -79,8 +78,14 @@ function CardContainer({
   selectedCards,
   setSelectedCards,
 }) {
-  const [allCards] = useState(getCards());
+  const [allCards, setCards] = useState(getCards());
   const imgHeight = 150;
+
+  useEffect(() => {
+    const newCards = [...allCards];
+    shuffle(newCards);
+    setCards(newCards);
+  }, []);
 
   function shuffle(array) {
     // fisher yates shuffle : https://stackoverflow.com/a/2450976/17627866
@@ -104,7 +109,7 @@ function CardContainer({
   }
 
   function handleClick(e, imgSrc) {
-    console.log(selectedCards);
+    // console.log(selectedCards);
     if (selectedCards.has(imgSrc)) {
       //incorrect guess
       if (soundOn) playAudio(IncorrectSoundUrl);
@@ -119,9 +124,10 @@ function CardContainer({
       setScore(currentScore + 1);
       setBestScore(Math.max(currentScore + 1, bestScore));
     }
-
-    shuffle(allCards);
-    console.log(selectedCards);
+    //shuffle cards
+    const newCards = [...allCards];
+    shuffle(newCards);
+    setCards(newCards);
   }
 
   function playAudio(url) {
