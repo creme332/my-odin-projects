@@ -33,6 +33,8 @@ Create a production build
 ```bash
 npm run build
 ```
+> ⚠ If you are deploying to Github, you will have to change the `homepage` attribute in `package.json` as well.
+
 # Attributions
 All [images](https://github.com/creme332/memory-card/tree/main/src/assets/images) on the website were taken from [Janet Mac](https://janet-mac.com/).
 
