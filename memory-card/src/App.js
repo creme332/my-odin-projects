@@ -1,12 +1,13 @@
 import "./App.css";
 import React, { useState } from "react";
 import getCards from "./cards";
-import { GrCircleInformation, GrScorecard } from "react-icons/gr";
+import { GrHelp, GrScorecard } from "react-icons/gr";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { BsTrophyFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import CorrectSoundUrl from "./assets/sound/correct-6033.mp3";
 import IncorrectSoundUrl from "./assets/sound/error-call-to-attention-129258.mp3";
+import { Popover, Transition } from "@headlessui/react";
 
 function SoundButton({ soundOn, setSound }) {
   function onSoundClick() {
@@ -23,13 +24,33 @@ function SoundButton({ soundOn, setSound }) {
   );
 }
 
-function InfoButton({ onInfoClick }) {
+function InfoPopover() {
   return (
-    <button id="info-btn" className="tog-btn" size="10x" onClick={onInfoClick}>
-      <IconContext.Provider value={{ size: 42 }}>
-        <GrCircleInformation />
-      </IconContext.Provider>
-    </button>
+    <Popover>
+      <Popover.Button id="info-btn" className="tog-btn">
+        {" "}
+        <IconContext.Provider value={{ size: 30 }}>
+          <GrHelp />
+        </IconContext.Provider>
+      </Popover.Button>
+      <Transition
+        enter="transition ease-out duration-200"
+        enterFrom="opacity-0 translate-y-1"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition ease-in duration-150"
+        leaveFrom="opacity-100 translate-y-0"
+        leaveTo="opacity-0 translate-y-1"
+      >
+        <Popover.Panel className="popover-panel">
+          <h1>How to play</h1>
+          <p>
+            Remember all the images that  you click on and try not to click on
+            the same image more than once. The game restarts when you click on a
+            previously clicked card.
+          </p>
+        </Popover.Panel>
+      </Transition>
+    </Popover>
   );
 }
 
@@ -37,7 +58,7 @@ function ScoreBoard({ currentScore, bestScore }) {
   return (
     <div className="scores">
       {" "}
-      <IconContext.Provider value={{ size: 42 }}>
+      <IconContext.Provider value={{ size: 42, color: "orange" }}>
         <span className="score-item">
           <GrScorecard /> {currentScore}
         </span>
@@ -55,11 +76,12 @@ function CardContainer({
   setBestScore,
   setScore,
   soundOn,
+  selectedCards,
+  setSelectedCards,
 }) {
   const [allCards] = useState(getCards());
-
   const imgHeight = 150;
-  const totalDisplayedCards = 15;
+
   function shuffle(array) {
     // fisher yates shuffle : https://stackoverflow.com/a/2450976/17627866
     let currentIndex = array.length,
@@ -81,16 +103,30 @@ function CardContainer({
     return array;
   }
 
-  function handleClick() {
-    if (soundOn) playAudio(IncorrectSoundUrl);
-    setScore(currentScore + 1);
-    setBestScore(Math.max(currentScore + 1, bestScore));
+  function handleClick(e, imgSrc) {
+    console.log(selectedCards);
+    if (selectedCards.has(imgSrc)) {
+      //incorrect guess
+      if (soundOn) playAudio(IncorrectSoundUrl);
+      setScore(0);
+      setSelectedCards(new Set());
+    } else {
+      //correct guess
+      if (soundOn) playAudio(CorrectSoundUrl);
+
+      selectedCards.add(imgSrc);
+      setSelectedCards(selectedCards);
+      setScore(currentScore + 1);
+      setBestScore(Math.max(currentScore + 1, bestScore));
+    }
+
     shuffle(allCards);
-    console.log(allCards);
+    console.log(selectedCards);
   }
 
   function playAudio(url) {
     const audio = new Audio(url);
+    audio.volume = 0.2;
     audio.currentTime = 0;
     audio.play();
   }
@@ -99,7 +135,7 @@ function CardContainer({
       {allCards.map((cardDetail) => {
         return (
           <img
-            onClick={handleClick}
+            onClick={(e) => handleClick(e, cardDetail.src)}
             key={cardDetail.id}
             src={cardDetail.src}
             height={imgHeight}
@@ -114,26 +150,23 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [soundOn, setSound] = useState(false);
-
-  function onInfoClick() {
-    console.log("Info button clicked");
-  }
+  const [selectedCards, setSelectedCards] = useState(new Set());
 
   return (
     <div className="App">
       <div className="header">
-        <InfoButton onInfoClick={onInfoClick} />
+        <InfoPopover />
         <ScoreBoard currentScore={score} bestScore={bestScore} />
         <SoundButton soundOn={soundOn} setSound={setSound} />
       </div>
-
-      {/* <h1 className="game-title"> memory card</h1> */}
       <CardContainer
         currentScore={score}
         bestScore={bestScore}
         setScore={setScore}
         setBestScore={setBestScore}
         soundOn={soundOn}
+        selectedCards={selectedCards}
+        setSelectedCards={setSelectedCards}
       />
       <footer>
         <span>

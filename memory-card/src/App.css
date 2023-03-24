@@ -45,11 +45,10 @@ img:hover {
   height: auto;
   background-color: transparent;
   border: 0;
-  /* outline: 1px solid; */
 }
 
 .tog-btn:hover {
-  outline: 1px solid;
+  color: rgb(83, 83, 83);
 }
 
 .cards-container {
@@ -60,6 +59,28 @@ img:hover {
   width: 70vw;
   justify-content: space-between;
   gap: 40px;
+  margin-bottom: 20px;
+}
+
+.popover-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-size: 30px;
+  border-radius: 10px;
+  padding: 30px;
+  min-height: 200px;
+  max-width: 50vw;
+}
+.popover-panel h1 {
+  color: orange;
+  font-size: 50px;
+  font-weight: 600;
   margin-bottom: 20px;
 }
 
@@ -82,4 +103,13 @@ footer a {
 
 footer a:hover {
   color: orange;
+}
+
+@media screen and (max-width: 500px) {
+  .cards-container {
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 }
