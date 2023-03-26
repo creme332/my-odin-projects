@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/my-odin-projects/memory-card/build/static/css/main.230e1e2a.css",
+    "main.css": "/my-odin-projects/memory-card/build/static/css/main.b8614d57.css",
     "main.js": "/my-odin-projects/memory-card/build/static/js/main.1db4e688.js",
     "static/media/3.gif": "/my-odin-projects/memory-card/build/static/media/3.ab70c9f748d985a5dd9b.gif",
     "static/media/17.gif": "/my-odin-projects/memory-card/build/static/media/17.129b9647be15bfad9eeb.gif",
@@ -22,11 +22,11 @@
     "static/media/correct-6033.mp3": "/my-odin-projects/memory-card/build/static/media/correct-6033.20e5ab83c7ff1a29624b.mp3",
     "static/media/error-call-to-attention-129258.mp3": "/my-odin-projects/memory-card/build/static/media/error-call-to-attention-129258.83aa565d7f539de5b943.mp3",
     "index.html": "/my-odin-projects/memory-card/build/index.html",
-    "main.230e1e2a.css.map": "/my-odin-projects/memory-card/build/static/css/main.230e1e2a.css.map",
+    "main.b8614d57.css.map": "/my-odin-projects/memory-card/build/static/css/main.b8614d57.css.map",
     "main.1db4e688.js.map": "/my-odin-projects/memory-card/build/static/js/main.1db4e688.js.map"
   },
   "entrypoints": [
-    "static/css/main.230e1e2a.css",
+    "static/css/main.b8614d57.css",
     "static/js/main.1db4e688.js"
   ]
 }
