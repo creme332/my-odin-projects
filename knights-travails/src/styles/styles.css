@@ -13,7 +13,6 @@ body {
   min-height: 100vh;
   background-color: var(--white-cell);
   font-family: sans-serif;
-  /* font-size: 20px; */
 }
 
 #board {
@@ -70,6 +69,21 @@ tr:nth-child(even) td:nth-child(odd) {
 
 #board td.hide {
   opacity: 0.5;
+}
+
+.instruction-box {
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  outline: 3px solid;
+  height: 100px;
+  width: 300px;
+}
+
+.instruction-box h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 7px;
 }
 
 #play-btn {
