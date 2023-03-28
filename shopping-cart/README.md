@@ -1,13 +1,16 @@
 # Shopping Cart 🛒
-
+A shopping cart website for buying shopping carts.
 
 ![GIF of website]()
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/shopping-cart/build/)
 
-
+# Built with
+- React
 # 🚀Features
 - Code coverage 100%
+
+
 
 # 🛠 Installation
 Clone repository locally
