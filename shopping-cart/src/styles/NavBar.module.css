@@ -1,24 +1,4 @@
-@font-face {
-  font-family: "Poppins";
-  font-style: normal;
-  src: url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-  font-display: swap;
-}
-
-:root {
-  --cokelat: #3a1111;
-  --yellow: #f9fe00;
-  --orange: #ffd600;
-}
-
-body {
-  padding-left: 30px;
-  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import "index.css";
 
 nav {
   outline: 1px solid;
@@ -31,8 +11,6 @@ nav {
   left: 0;
   right: 0;
   padding: 0;
-
-  color: white;
 }
 
 .logo {
@@ -44,7 +22,9 @@ nav {
   font-weight: 600;
   color: var(--cokelat);
 }
+
 nav ul {
+  /* outline: 1px solid red; */
   margin: 0;
   gap: 5em;
   height: 100%;
@@ -54,6 +34,16 @@ nav ul {
   text-decoration: none;
   list-style: none;
   font-weight: 500;
+  padding-right: 20px;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+li {
+  color: black;
+  text-decoration: none;
 }
 
 nav ul li:hover {

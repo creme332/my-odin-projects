@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  src: url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+  font-display: swap;
+}
+:root {
+  --cokelat: #3a1111;
+  --yellow: #f9fe00;
+  --orange: #ffd600;
+}
