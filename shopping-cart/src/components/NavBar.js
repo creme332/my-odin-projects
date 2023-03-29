@@ -7,7 +7,9 @@ function NavBar() {
   };
   return (
     <nav className={NavCSS.content}>
-      <div className={NavCSS.logo}>🍌 kram kram banane.</div>
+      <Link style={linkStyle} to="/">
+        <div className={NavCSS.logo}>🍌 kram kram banane.</div>
+      </Link>
       <ul className={NavCSS.ul}>
         <Link style={linkStyle} to="/">
           <li className={location.pathname === "/" ? NavCSS.bold : NavCSS.li}>
