@@ -1,5 +1,7 @@
+import HomeCSS from "./../styles/Home.module.css";
+
 function Home() {
-  return <div>Home</div>;
+  return <div className={HomeCSS.content}>Home</div>;
 }
 
 export default Home;

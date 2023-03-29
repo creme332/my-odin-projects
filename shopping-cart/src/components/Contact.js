@@ -1,6 +1,7 @@
+import ContactCSS from "./../styles/Contact.module.css";
+
 function Contact() {
-    return <div>Contact</div>;
-  }
-  
-  export default Contact;
-  
+  return <div className={ContactCSS.content}>Contact</div>;
+}
+
+export default Contact;

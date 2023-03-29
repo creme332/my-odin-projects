@@ -1,5 +1,7 @@
+import AboutCSS from "./../styles/About.module.css";
+
 function About() {
-  return <div>About page</div>;
+  return <div className={AboutCSS.about}>About page</div>;
 }
 
 export default About;
