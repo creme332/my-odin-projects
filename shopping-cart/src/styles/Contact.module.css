@@ -1,1 +1,12 @@
 @import "index.css";
+
+.contact {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 3vw;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(211, 211, 214);
+}
+  

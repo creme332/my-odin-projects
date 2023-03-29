@@ -1,14 +1,13 @@
 @import "index.css";
 
-body {
-  height: 100vh;
+.home {
+  box-sizing: border-box;
   display: grid;
   place-items: center;
-  color: black;
-  padding-left: 30px;
-  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  top: 3vw;
+  left:0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(211, 211, 214);
 }

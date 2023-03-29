@@ -1,16 +1,16 @@
 @import "index.css";
 
 nav {
+  box-sizing: border-box;
   outline: 1px solid;
   display: flex;
   justify-content: space-between;
-  width: 100vw;
   height: 3vw;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  padding: 0;
+  padding: 0 20px;
 }
 
 .logo {
@@ -34,7 +34,6 @@ nav ul {
   text-decoration: none;
   list-style: none;
   font-weight: 500;
-  padding-right: 20px;
 }
 
 .bold {
