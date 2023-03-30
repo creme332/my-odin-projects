@@ -1,11 +1,61 @@
 @import "index.css";
 
 .about {
+  box-sizing: border-box;
+  display: grid;
+  height: 100vh;
+  width: 100%;
+  grid-template-rows: repeat(1fr, 4);
+  grid-template-columns: repeat(1fr, 4);
+  grid-template-areas:
+    "b b b b"
+    "c d d d"
+    "c d d d"
+    "f f f f";
+}
+
+.a {
+  grid-area: a;
+  background-color: #a2d6f9;
+}
+
+.b {
+  grid-area: b;
+  background-image: url("./../assets/images/bana2.avif");
+  background-size: cover;
+  background-position: 0px -200px;
+}
+
+.c {
+  padding: 30px;
   display: grid;
   place-items: center;
-  position: absolute;
-  top: 3vw;
-  height: 100%;
-  width: 100%;
-  background-color: rgb(211, 211, 214);
+  font-size: 30px;
+  color: white;
+  font-weight: 700;
+  grid-area: c;
+  background-color: var(--cokelat);
+  writing-mode: vertical-lr;
+}
+
+.d {
+  display: grid;
+  grid-area: d;
+  padding: 40px;
+}
+.d p {
+  line-height: 40px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.f {
+  grid-area: f;
+  background-image: url("./../assets/images/chip2.jpg");
+  background-size: cover;
+  background-position: 0px -200px;
+}
+
+.g {
+  grid-area: g;
+  background-color: #072ac8;
 }
