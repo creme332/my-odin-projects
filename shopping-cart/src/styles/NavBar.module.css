@@ -2,15 +2,17 @@
 
 nav {
   box-sizing: border-box;
-  outline: 1px solid;
+  /* outline: 1px solid; */
   display: flex;
   justify-content: space-between;
   height: 3vw;
-  position: absolute;
+  z-index: 10;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   padding: 0 20px;
+  background-color: transparent;
 }
 
 .logo {
@@ -19,7 +21,7 @@ nav {
   display: grid;
   place-items: center;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--cokelat);
 }
 
