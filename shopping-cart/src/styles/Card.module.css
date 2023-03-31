@@ -1,1 +1,34 @@
 @import "index.css";
+
+.card {
+  color: black;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid rgb(188, 188, 188);
+  height: 250px;
+  width: 200px;
+}
+
+.card,
+.card img {
+  border-radius: 10px;
+}
+
+.cardDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 10px;
+}
+.card img {
+  width: 100%;
+  background-color: antiquewhite;
+  height: 190px;
+  object-fit: cover;
+}
+
+.card .price {
+  font-weight: 500;
+  color: gray;
+}
