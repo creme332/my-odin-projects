@@ -1,11 +1,24 @@
 @import "index.css";
 
 .products {
+  box-sizing: border-box;
   display: grid;
   place-items: center;
-  position: absolute;
-  top: 3vw;
-  height: 100%;
+  height: 100vh;
   width: 100%;
-  background-color: rgb(211, 211, 214);
+}
+
+.products .cardContainer {
+  outline: 1px solid;
+  width: 60%;
+  justify-content: space-between;
+  gap: 2em;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.products input {
+  background-color: var(--light-grey);
+  border: 0;
+  padding: 10px;
 }
