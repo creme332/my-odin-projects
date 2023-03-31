@@ -2,7 +2,7 @@
 
 .contact {
   box-sizing: border-box;
-  height: 100vh;
+  height: 110vh;
   width: 100%;
   display: grid;
   place-items: center;
@@ -11,6 +11,7 @@
 .contact form {
   padding: 20px;
   display: flex;
+  gap:1em;
   flex-direction: column;
   height: 100%;
   width: 60%;
