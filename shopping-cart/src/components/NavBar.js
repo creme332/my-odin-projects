@@ -1,5 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import NavCSS from "./../styles/NavBar.module.css";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { IconContext } from "react-icons";
+
 function NavBar() {
   const location = useLocation();
   const linkStyle = {
@@ -41,6 +44,12 @@ function NavBar() {
             Contact
           </li>
         </Link>
+        <li style={linkStyle} className={NavCSS.shoppingCart}>
+          <span className={NavCSS.number}>1</span>
+          <IconContext.Provider value={{ size: 30 }}>
+            <AiOutlineShoppingCart />
+          </IconContext.Provider>
+        </li>
       </ul>
     </nav>
   );
