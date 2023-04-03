@@ -9,7 +9,7 @@
 }
 
 .products .cardContainer {
-  outline: 1px solid;
+  /* outline: 1px solid; */
   width: 60%;
   justify-content: space-between;
   gap: 2em;
@@ -17,8 +17,28 @@
   display: flex;
 }
 
+.products .searchBar {
+  width: 40%;
+  display: flex;
+  background-color: var(--light-grey);
+}
+.products .searchBar .searchIcon {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 5px;
+  /* outline: 1px solid; */
+}
+.products .searchBar .searchIcon:hover {
+  color: orange;
+}
 .products input {
   background-color: var(--light-grey);
-  border: 0;
   padding: 10px;
+  border: 0;
+  width: 100%;
+}
+
+.products input:focus {
+  outline: 0px;
 }
