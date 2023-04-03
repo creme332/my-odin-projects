@@ -4,8 +4,15 @@
   box-sizing: border-box;
   height: 110vh;
   width: 100%;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5em;
+}
+
+.contact h1 {
+  margin-top: 60px;
 }
 
 .contact form {

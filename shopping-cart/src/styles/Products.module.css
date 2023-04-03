@@ -2,12 +2,16 @@
 
 .products {
   box-sizing: border-box;
-  display: grid;
-  place-items: center;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5em;
   width: 100%;
 }
-
+.products h1 {
+  margin-top: 60px;
+}
 .products .cardContainer {
   /* outline: 1px solid; */
   width: 60%;
