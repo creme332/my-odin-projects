@@ -42,13 +42,15 @@ nav ul {
   font-weight: 700;
 }
 
-li {
+nav li {
+  position: relative;
+
   color: black;
   text-decoration: none;
 }
 
 nav ul li:hover {
-  text-decoration: underline;
+  scale: 1.1;
 }
 
 .shoppingCart {
@@ -67,4 +69,13 @@ nav ul li:hover {
   background-color: var(--orange);
   height: 20px;
   width: 20px;
+}
+
+.underline {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--cokelat);
 }
