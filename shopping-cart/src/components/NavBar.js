@@ -3,6 +3,7 @@ import NavCSS from "./../styles/NavBar.module.css";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
+import uniqid from "uniqid";
 
 function NavBar() {
   const location = useLocation();
@@ -10,10 +11,10 @@ function NavBar() {
     textDecoration: "none",
   };
   const tabs = [
-    { tabName: "Home", pathname: "/" },
-    { tabName: "Products", pathname: "/products" },
-    { tabName: "About", pathname: "/about" },
-    { tabName: "Contact", pathname: "/contact" },
+    { tabName: "Home", pathname: "/", id: uniqid() },
+    { tabName: "Products", pathname: "/products", id: uniqid() },
+    { tabName: "About", pathname: "/about", id: uniqid() },
+    { tabName: "Contact", pathname: "/contact", id: uniqid() },
   ];
   return (
     <nav className={NavCSS.content}>
@@ -23,7 +24,7 @@ function NavBar() {
       <ul className={NavCSS.ul}>
         {tabs.map((tab) => {
           return (
-            <Link style={linkStyle} to={tab.pathname}>
+            <Link key={tab.id} style={linkStyle} to={tab.pathname}>
               <li>
                 {tab.tabName}
                 {location.pathname === tab.pathname ? (
@@ -36,7 +37,7 @@ function NavBar() {
             </Link>
           );
         })}
-        <li style={linkStyle} className={NavCSS.shoppingCart}>
+        <li key={uniqid()} style={linkStyle} className={NavCSS.shoppingCart}>
           <span className={NavCSS.number}>1</span>
           <IconContext.Provider value={{ size: 30 }}>
             <AiOutlineShoppingCart />
