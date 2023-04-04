@@ -1,0 +1,77 @@
+.background {
+  /* width: 300px; */
+
+  background-color: blue;
+}
+
+.sidebarButton {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.sidebar ul {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar li {
+  background-color: antiquewhite;
+}
+
+.sidebar > ul,
+.sidebar li {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar>  ul {
+  padding: 25px;
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  width: 230px;
+}
+
+.sidebar li {
+  list-style: none;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar .iconPlaceholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex: 40px 0;
+  margin-right: 20px;
+}
+
+.sidebar .textPlaceholder {
+  border-radius: 5px;
+  width: 200px;
+  height: 20px;
+  flex: 1;
+}
+
+.sidebar .refresh {
+  padding: 10px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

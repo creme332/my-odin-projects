@@ -4,6 +4,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
 import uniqid from "uniqid";
+import { Example } from "./Example";
 
 function NavBar() {
   const location = useLocation();
@@ -21,7 +22,7 @@ function NavBar() {
       <Link style={linkStyle} to="/">
         <div className={NavCSS.logo}>🍌 kram kram banane.</div>
       </Link>
-      <ul className={NavCSS.ul}>
+      <ul className={NavCSS.tabs}>
         {tabs.map((tab) => {
           return (
             <Link key={tab.id} style={linkStyle} to={tab.pathname}>
@@ -37,12 +38,14 @@ function NavBar() {
             </Link>
           );
         })}
-        <li key={uniqid()} style={linkStyle} className={NavCSS.shoppingCart}>
+
+        {/* <li key={uniqid()} style={linkStyle} className={NavCSS.shoppingCart}>
           <span className={NavCSS.number}>1</span>
           <IconContext.Provider value={{ size: 30 }}>
             <AiOutlineShoppingCart />
           </IconContext.Provider>
-        </li>
+        </li> */}
+        <Example />
       </ul>
     </nav>
   );
