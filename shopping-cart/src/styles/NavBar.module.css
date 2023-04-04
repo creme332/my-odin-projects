@@ -25,8 +25,8 @@ nav {
   color: var(--cokelat);
 }
 
-nav ul {
-  /* outline: 1px solid red; */
+nav > .tabs {
+  outline: 1px solid red;
   margin: 0;
   gap: 5em;
   height: 100%;
@@ -42,25 +42,25 @@ nav ul {
   font-weight: 700;
 }
 
-nav li {
+nav .tabs li {
   position: relative;
 
   color: black;
   text-decoration: none;
 }
 
-nav ul li:hover {
+nav > .tabs li:hover {
   scale: 1.1;
 }
 
-.shoppingCart {
+nav .shoppingCart {
   display: flex;
   /* outline: 1px solid; */
   justify-content: center;
   align-items: center;
 }
 
-.shoppingCart .number {
+nav .shoppingCart .number {
   display: grid;
   place-items: center;
   padding: 2px;
@@ -71,7 +71,7 @@ nav ul li:hover {
   width: 20px;
 }
 
-.underline {
+nav .underline {
   position: absolute;
   bottom: -4px;
   left: 0;

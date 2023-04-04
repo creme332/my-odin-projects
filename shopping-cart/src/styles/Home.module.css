@@ -10,29 +10,29 @@
   background-color: white;
 }
 
-.main {
+.home .main {
   width: 70%;
   /* outline: 1px solid; */
 }
-h1 {
+.home h1 {
   line-height: 70px;
   font-size: 50px;
   color: var(--cokelat);
   font-weight: 700;
   margin-bottom: 25px;
 }
-p {
+.home p {
   line-height: 25px;
   font-size: 16px;
   color: #6b6262;
   margin-bottom: 50px;
 }
-img {
+.home img {
   height: 100vh;
   width: 100%;
 }
 
-button {
+.home button {
   /* text-transform: uppercase; */
   font-family: inherit;
   font-size: 20px;
@@ -46,6 +46,6 @@ button {
   border-radius: 20px;
 }
 
-button:hover {
+.home button:hover {
   opacity: 0.8;
 }

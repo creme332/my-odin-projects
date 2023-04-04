@@ -14,19 +14,19 @@
     "f f f f";
 }
 
-.a {
+.about .a {
   grid-area: a;
   background-color: #a2d6f9;
 }
 
-.b {
+.about .b {
   grid-area: b;
   background-image: url("./../assets/images/bana2.avif");
   background-size: cover;
   background-position: 0px -200px;
 }
 
-.c {
+.about .c {
   padding: 30px;
   display: grid;
   place-items: center;
@@ -38,24 +38,24 @@
   writing-mode: vertical-lr;
 }
 
-.d {
+.about .d {
   display: grid;
   grid-area: d;
   padding: 40px;
 }
-.d p {
+.about .d p {
   line-height: 40px;
   font-size: 20px;
   margin-bottom: 10px;
 }
-.f {
+.about .f {
   grid-area: f;
   background-image: url("./../assets/images/chip2.jpg");
   background-size: cover;
   background-position: 0px -200px;
 }
 
-.g {
+.about .g {
   grid-area: g;
   background-color: #072ac8;
 }
