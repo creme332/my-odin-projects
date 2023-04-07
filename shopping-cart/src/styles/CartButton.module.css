@@ -1,0 +1,17 @@
+.shoppingCart {
+  display: flex;
+  outline: 1px solid;
+  justify-content: center;
+  align-items: center;
+}
+
+.shoppingCart .number {
+  display: grid;
+  place-items: center;
+  padding: 2px;
+  border-radius: 50%;
+  /* font-size: 30px; */
+  background-color: var(--orange);
+  height: 20px;
+  width: 20px;
+}
