@@ -9,14 +9,14 @@ function Home() {
   return (
     <div className={HomeCSS.home}>
       <div className={HomeCSS.main}>
-        <h1>Healthy snacking made delicious🍌</h1>
+        <h1 className="defaultH1">Healthy snacking made delicious🍌</h1>
         <p>
           Buy our banana chips made from 100% organic bananas. Choose from a
           wide variety of flavours including salty, caramel, smoke barbecue and
           many more.
         </p>
         <Link style={linkStyle} to="/products">
-          <button className={HomeCSS.button}>Order</button>
+          <button className="defaultButton">Order</button>
         </Link>
       </div>
       <img src={photo} alt="Banana surrounded by ingredients" />{" "}

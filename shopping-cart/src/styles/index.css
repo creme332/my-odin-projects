@@ -1,3 +1,4 @@
+/* Global styles  */
 @font-face {
   font-family: "Poppins";
   font-style: normal;
@@ -18,4 +19,30 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.defaultButton {
+  /* text-transform: uppercase; */
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: var(--cokelat);
+  color: white;
+  height: 50px;
+  width: 200px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+}
+
+.defaultButton:hover {
+  opacity: 0.8;
+}
+
+.defaultH1 {
+  line-height: 70px;
+  font-size: 50px;
+  color: var(--cokelat);
+  font-weight: 700;
+  margin-bottom: 25px;
 }

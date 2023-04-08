@@ -3,7 +3,7 @@ import ContactCSS from "./../styles/Contact.module.css";
 function Contact() {
   return (
     <div className={ContactCSS.contact}>
-      <h1>Contact Us🍌</h1>
+      <h1 className="defaultH1">Contact Us🍌</h1>
       <form>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div className={ContactCSS.group}>
@@ -36,7 +36,9 @@ function Contact() {
           ></textarea>
         </div>
 
-        <button type="submit">Send</button>
+        <button className="defaultButton" type="submit">
+          Send
+        </button>
       </form>
     </div>
   );

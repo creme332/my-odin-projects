@@ -33,7 +33,7 @@ function Products() {
   ];
   return (
     <div className={ProdCSS.products}>
-      <h1>Our flavours</h1>
+      <h1 className="defaultH1">Our flavours</h1>
       <div className={ProdCSS.searchBar}>
         <div className={ProdCSS.searchIcon}>
           <IconContext.Provider value={{ size: 25 }}>
