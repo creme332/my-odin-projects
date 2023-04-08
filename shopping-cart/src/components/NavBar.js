@@ -36,9 +36,9 @@ function NavBar() {
             </Link>
           );
         })}
-        <CartButton />
 
-        {/* <li key={uniqid()} style={linkStyle}></li> */}
+        <li key={uniqid()} style={linkStyle}>        <CartButton />
+</li>
       </ul>
     </nav>
   );
