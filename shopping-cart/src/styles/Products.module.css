@@ -24,15 +24,22 @@
   display: flex;
   background-color: var(--light-grey);
 }
+.products .searchBar,
+.products .searchBar .searchIcon {
+  border-radius: 5px;
+  /* outline: 1px solid; */
+
+}
+
 .products .searchBar .searchIcon {
   display: grid;
   place-items: center;
+  background-color: var(--orange);
   height: 100%;
   padding: 5px;
-  /* outline: 1px solid; */
 }
 .products .searchBar .searchIcon:hover {
-  color: orange;
+  scale: 1.1;
 }
 .products input {
   background-color: var(--light-grey);
