@@ -1,8 +1,14 @@
 import AboutCSS from "./../styles/About.module.css";
-
+import { motion } from "framer-motion";
 function About() {
   return (
-    <div className={AboutCSS.about}>
+    <motion.div
+      className={AboutCSS.about}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] }}
+    >
       {" "}
       <div className={AboutCSS.b}></div>
       <div className={AboutCSS.c}>About us</div>
@@ -25,7 +31,7 @@ function About() {
         </p>
       </div>
       <div className={AboutCSS.f}></div>
-    </div>
+    </motion.div>
   );
 }
 

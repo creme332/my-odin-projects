@@ -1,8 +1,14 @@
 import ContactCSS from "./../styles/Contact.module.css";
-
+import { motion } from "framer-motion";
 function Contact() {
   return (
-    <div className={ContactCSS.contact}>
+    <motion.div
+      className={ContactCSS.contact}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] }}
+    >
       <h1 className="defaultH1">Contact Us🍌</h1>
       <form>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -40,7 +46,7 @@ function Contact() {
           Send
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,13 +1,20 @@
 import HomeCSS from "./../styles/Home.module.css";
 import photo from "./../assets/images/bana.jpg";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function Home() {
   const linkStyle = {
     textDecoration: "none",
   };
   return (
-    <div className={HomeCSS.home}>
+    <motion.div
+      className={HomeCSS.home}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] }}
+    >
       <div className={HomeCSS.main}>
         <h1 className="defaultH1">Healthy snacking made delicious🍌</h1>
         <p>
@@ -20,7 +27,7 @@ function Home() {
         </Link>
       </div>
       <img src={photo} alt="Banana surrounded by ingredients" />{" "}
-    </div>
+    </motion.div>
   );
 }
 

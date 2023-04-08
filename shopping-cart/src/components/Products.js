@@ -6,6 +6,7 @@ import uniqid from "uniqid";
 import chiliSrc from "./../assets/images/chilli.png";
 import naturalSrc from "./../assets/images/leaf.png";
 import limeSrc from "./../assets/images/lime.png";
+import { motion } from "framer-motion";
 
 function Products() {
   const cardInfo = [
@@ -32,15 +33,21 @@ function Products() {
     },
   ];
   return (
-    <div className={ProdCSS.products}>
+    <motion.div
+      className={ProdCSS.products}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] }}
+    >
       <h1 className="defaultH1">Our flavours</h1>
       <div className={ProdCSS.searchBar}>
+        <input maxLength={20} placeholder="Search..." type="text" />
         <div className={ProdCSS.searchIcon}>
           <IconContext.Provider value={{ size: 25 }}>
             <BiSearch />
           </IconContext.Provider>
         </div>
-        <input maxLength={20} placeholder="Search..." type="text" />
       </div>
       <div className={ProdCSS.cardContainer}>
         {cardInfo.map((card) => {
@@ -55,7 +62,7 @@ function Products() {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
