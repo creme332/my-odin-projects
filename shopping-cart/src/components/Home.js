@@ -19,7 +19,7 @@ function Home() {
         <h1 className="defaultH1">Healthy snacking made delicious🍌</h1>
         <p>
           Buy our banana chips made from 100% organic bananas. Choose from a
-          wide variety of flavours including salty, caramel, smoke barbecue and
+          wide variety of flavours including salty, caramel, smoky barbecue and
           many more.
         </p>
         <Link style={linkStyle} to="/products">

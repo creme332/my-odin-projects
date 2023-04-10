@@ -1,6 +1,6 @@
 .shoppingCart {
   display: flex;
-  outline: 1px solid;
+  /* outline: 1px solid; */
   justify-content: center;
   align-items: center;
 }

@@ -15,6 +15,7 @@ function NavBar() {
     { tabName: "About", pathname: "/about", id: uniqid() },
     { tabName: "Contact", pathname: "/contact", id: uniqid() },
   ];
+
   return (
     <nav className={NavCSS.content}>
       <Link style={linkStyle} to="/">
@@ -37,8 +38,10 @@ function NavBar() {
           );
         })}
 
-        <li key={uniqid()} style={linkStyle}>        <CartButton />
-</li>
+        <li key={uniqid()} style={linkStyle}>
+          {" "}
+          <CartButton />
+        </li>
       </ul>
     </nav>
   );

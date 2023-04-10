@@ -22,7 +22,7 @@ const CartButton = () => {
         onClose={close}
         title="Shopping Cart"
       >
-        <ShoppingCart/>
+        <ShoppingCart />
       </Drawer>
     </div>
   );
