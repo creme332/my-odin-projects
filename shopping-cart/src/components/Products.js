@@ -2,39 +2,11 @@ import ProdCSS from "./../styles/Products.module.css";
 import Card from "./Card";
 import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
-import uniqid from "uniqid";
-import chiliSrc from "./../assets/images/chilli.png";
-import naturalSrc from "./../assets/images/leaf.png";
-import limeSrc from "./../assets/images/lime.png";
 import { motion } from "framer-motion";
+import getInventory from "../cartProvider";
 
 function Products() {
-  const cardInfo = [
-    {
-      title: "Natural",
-      price: "15",
-      imgAlt: "Natural flavour banana chips",
-      imgSrc: naturalSrc,
-      id: uniqid(),
-      status: 0,
-    },
-    {
-      title: "Smoky Barbecue",
-      price: "18",
-      imgAlt: "Smoky Barbecue flavour banana chips",
-      imgSrc: chiliSrc,
-      id: uniqid(),
-      status: 1,
-    },
-    {
-      title: "Tangy Lime",
-      price: "20",
-      imgAlt: "Tangy Lime flavour banana chips",
-      imgSrc: limeSrc,
-      id: uniqid(),
-      status: 2,
-    },
-  ];
+  const inventory = getInventory();
   return (
     <motion.div
       className={ProdCSS.products}
@@ -53,7 +25,7 @@ function Products() {
         </div>
       </div>
       <div className={ProdCSS.cardContainer}>
-        {cardInfo.map((card) => {
+        {inventory.map((card) => {
           return (
             <Card
               key={card.id}
