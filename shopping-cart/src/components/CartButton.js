@@ -1,8 +1,9 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IconContext } from "react-icons";
-import { Drawer, Group } from "@mantine/core";
 import styles from "./../styles/CartButton.module.css";
 import { useDisclosure } from "@mantine/hooks";
+import ShoppingCart from "./ShoppingCart";
+import { Drawer } from "@mantine/core";
 
 const CartButton = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -21,7 +22,7 @@ const CartButton = () => {
         onClose={close}
         title="Shopping Cart"
       >
-        {/* Drawer content */}
+        <ShoppingCart/>
       </Drawer>
     </div>
   );
