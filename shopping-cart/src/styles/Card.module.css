@@ -13,6 +13,10 @@
   border-radius: 10px;
 }
 
+.cardTitle{
+  font-weight: 500;
+  color: var(--cokelat);
+}
 .cardDesc {
   display: flex;
   flex-direction: column;
