@@ -16,6 +16,7 @@ function Products() {
       imgAlt: "Natural flavour banana chips",
       imgSrc: naturalSrc,
       id: uniqid(),
+      status: 0,
     },
     {
       title: "Smoky Barbecue",
@@ -23,6 +24,7 @@ function Products() {
       imgAlt: "Smoky Barbecue flavour banana chips",
       imgSrc: chiliSrc,
       id: uniqid(),
+      status: 1,
     },
     {
       title: "Tangy Lime",
@@ -30,6 +32,7 @@ function Products() {
       imgAlt: "Tangy Lime flavour banana chips",
       imgSrc: limeSrc,
       id: uniqid(),
+      status: 2,
     },
   ];
   return (
@@ -58,6 +61,7 @@ function Products() {
               price={card.price}
               imgAlt={card.imgAlt}
               imgSrc={card.imgSrc}
+              status={card.status}
             />
           );
         })}
