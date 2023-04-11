@@ -4,6 +4,7 @@ import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
 import getInventory from "../cartProvider";
+import { Link } from "react-router-dom";
 
 function Products() {
   const inventory = getInventory();
@@ -27,14 +28,16 @@ function Products() {
       <div className={ProdCSS.cardContainer}>
         {inventory.map((card) => {
           return (
-            <Card
-              key={card.id}
-              title={card.title}
-              price={card.price}
-              imgAlt={card.imgAlt}
-              imgSrc={card.imgSrc}
-              status={card.status}
-            />
+            <Link style={{ textDecoration: "none" }} to={`/products/${card.title}`}>
+              <Card
+                key={card.id}
+                title={card.title}
+                price={card.price}
+                imgAlt={card.imgAlt}
+                imgSrc={card.imgSrc}
+                status={card.status}
+              />
+            </Link>
           );
         })}
       </div>
