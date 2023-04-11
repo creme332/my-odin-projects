@@ -1,4 +1,3 @@
-import uniqid from "uniqid";
 import chiliSrc from "./assets/images/chilli.png";
 import naturalSrc from "./assets/images/leaf.png";
 import limeSrc from "./assets/images/lime.png";
@@ -16,7 +15,7 @@ function getInventory() {
       description:
         "Our classic banana chips with no added flavouring.  The natural sweetness and flavour of the bananas are preserved, giving our chips a deliciously satisfying crunch with a subtle hint of tropical sweetness.",
       imgSrc: naturalSrc,
-      id: uniqid(),
+      id: "natural-flavour",
       status: 0,
     },
     {
@@ -26,7 +25,7 @@ function getInventory() {
       description:
         "These chips are infused with smoky flavours from paprika, cumin, and chilli powder to make them a satisfying snack that satisfies cravings.",
       imgSrc: chiliSrc,
-      id: uniqid(),
+      id: "smoky-flavour",
       status: 1,
     },
     {
@@ -36,7 +35,7 @@ function getInventory() {
       description:
         "A sprinkle of lime juice and a pinch of salt give the chips a tangy and refreshing twist.",
       imgSrc: limeSrc,
-      id: uniqid(),
+      id: "tangy-flavour",
       status: 2,
     },
   ];
