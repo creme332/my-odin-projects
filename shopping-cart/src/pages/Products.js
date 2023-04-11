@@ -28,9 +28,13 @@ function Products() {
       <div className={ProdCSS.cardContainer}>
         {inventory.map((card) => {
           return (
-            <Link style={{ textDecoration: "none" }} to={`/products/${card.title}`}>
+            <Link
+              key={card.id}
+              style={{ textDecoration: "none" }}
+              state={card}
+              to={`/products/${card.id}`}
+            >
               <Card
-                key={card.id}
                 title={card.title}
                 price={card.price}
                 imgAlt={card.imgAlt}

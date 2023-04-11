@@ -1,9 +1,16 @@
 import styles from "./../styles/Detail.module.css";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+function Detail({ clickHandler }) {
+  const cardInfo = useLocation().state;
 
-function Detail() {
-  const { id } = useParams();
-  return <div className={styles.detail}>{id}</div>;
+  console.log(cardInfo);
+
+  return (
+    <div className={styles.detail}>
+      <h1 className="defaultH1">{cardInfo.title}</h1>
+      <p>{cardInfo.description}</p>
+    </div>
+  );
 }
 
 export default Detail;
