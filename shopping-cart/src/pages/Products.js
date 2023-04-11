@@ -1,5 +1,5 @@
 import ProdCSS from "./../styles/Products.module.css";
-import Card from "./Card";
+import Card from "../components/Card";
 import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
