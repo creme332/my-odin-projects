@@ -13,7 +13,7 @@
   border-radius: 10px;
 }
 
-.cardTitle{
+.cardTitle {
   font-weight: 500;
   color: var(--cokelat);
 }
@@ -24,9 +24,7 @@
   padding: 10px;
 }
 .card img {
-  width: 100%;
   background-color: antiquewhite;
-  height: 190px;
   object-fit: cover;
 }
 
