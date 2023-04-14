@@ -7,7 +7,7 @@ const ShoppingCart = () => {
     <div>
       {items.map((item) => {
         return (
-          <Card shadow="sm" padding="lg" radius="md" withBorder>
+          <Card key={item.id} shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
               <Image src={item.imgSrc} height={100} alt={item.imgAlt} />
             </Card.Section>
