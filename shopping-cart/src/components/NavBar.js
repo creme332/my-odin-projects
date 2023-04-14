@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import uniqid from "uniqid";
 import CartButton from "./CartButton";
 
-function NavBar() {
+function NavBar({ drawerOpened, toggleDrawer }) {
   const location = useLocation();
   const linkStyle = {
     textDecoration: "none",
@@ -40,7 +40,7 @@ function NavBar() {
 
         <li key={uniqid()} style={linkStyle}>
           {" "}
-          <CartButton />
+          <CartButton drawerOpened={drawerOpened} toggleDrawer={toggleDrawer} />
         </li>
       </ul>
     </nav>

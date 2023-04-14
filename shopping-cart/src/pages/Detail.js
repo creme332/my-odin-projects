@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Button, Image, Text, Box } from "@mantine/core";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-function Detail({ clickHandler }) {
+function Detail({ toggleDrawer }) {
   const cardInfo = useLocation().state;
 
   console.log(cardInfo);
@@ -27,7 +27,9 @@ function Detail({ clickHandler }) {
       <Button
         leftIcon={<AiOutlineShoppingCart />}
         className="defaultButton"
-        loading
+        onClick={toggleDrawer.open}
+        disabled={cardInfo.status === 2}
+      // loading
       >
         Add to Cart
       </Button>{" "}

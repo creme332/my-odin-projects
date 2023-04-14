@@ -1,16 +1,15 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styles from "./../styles/CartButton.module.css";
-import { useDisclosure } from "@mantine/hooks";
 import ShoppingCart from "./ShoppingCart";
 import { Drawer } from "@mantine/core";
 
-const CartButton = () => {
-  const [opened, { open, close }] = useDisclosure(false);
+const CartButton = ({ drawerOpened, toggleDrawer }) => {
+  console.log("dsf:", drawerOpened);
 
   return (
     <div>
-      <div className={styles.shoppingCart} onClick={open}>
+      <div className={styles.shoppingCart} onClick={toggleDrawer.open}>
         <span className={styles.number}>1</span>
         <IconContext.Provider value={{ size: 30 }}>
           <AiOutlineShoppingCart />
@@ -18,8 +17,8 @@ const CartButton = () => {
       </div>
       <Drawer
         position="right"
-        opened={opened}
-        onClose={close}
+        opened={drawerOpened}
+        onClose={toggleDrawer.close}
         title="Shopping Cart"
       >
         <ShoppingCart />
