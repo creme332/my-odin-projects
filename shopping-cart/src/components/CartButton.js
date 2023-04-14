@@ -4,10 +4,21 @@ import ShoppingCart from "./ShoppingCart";
 import { Drawer, Indicator } from "@mantine/core";
 
 const CartButton = ({ cart, drawerOpened, toggleDrawer }) => {
-  const totalCartItems = 0 + cart.reduce((accumulator, el) => accumulator + el.count, 0);
+  const totalCartItems = cart.reduce(
+    (accumulator, el) => accumulator + el.count,
+    0
+  );
   return (
     <div>
-      <Indicator onClick={toggleDrawer.open} offset={6} color="orange" position="top-end" inline label={totalCartItems} size={18}>
+      <Indicator
+        onClick={toggleDrawer.open}
+        offset={6}
+        color="orange"
+        position="top-end"
+        inline
+        label={totalCartItems}
+        size={18}
+      >
         <IconContext.Provider value={{ size: 35 }}>
           <AiOutlineShoppingCart />
         </IconContext.Provider>{" "}
