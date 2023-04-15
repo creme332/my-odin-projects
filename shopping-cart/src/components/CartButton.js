@@ -27,9 +27,9 @@ const CartButton = ({ cart, drawerOpened, toggleDrawer }) => {
         position="right"
         opened={drawerOpened}
         onClose={toggleDrawer.close}
-        title="Shopping Cart"
+        title="Your items"
       >
-        <ShoppingCart />
+        <ShoppingCart cart={cart} />
       </Drawer>
     </div>
   );
