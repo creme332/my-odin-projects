@@ -1,6 +1,6 @@
-import chiliSrc from "./assets/images/chilli.png";
-import naturalSrc from "./assets/images/leaf.png";
-import limeSrc from "./assets/images/lime.png";
+import chiliSrc from "./../assets/images/chilli.png";
+import naturalSrc from "./../assets/images/leaf.png";
+import limeSrc from "./../assets/images/lime.png";
 
 /**
  * Returns a list of all products available in store inventory

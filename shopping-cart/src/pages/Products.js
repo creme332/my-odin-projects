@@ -3,7 +3,7 @@ import Card from "../components/Card";
 import { BiSearch } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
-import getInventory from "../cartProvider";
+import getInventory from "../utils/cartProvider";
 import { Link } from "react-router-dom";
 
 function Products() {
