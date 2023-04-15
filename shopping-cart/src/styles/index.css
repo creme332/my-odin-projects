@@ -37,6 +37,7 @@ body {
 
 .defaultButton:hover {
   opacity: 0.8;
+  background-color: var(--cokelat);
 }
 
 .defaultH1 {
