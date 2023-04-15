@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 import ShoppingCart from "./ShoppingCart";
 import { Drawer, Indicator } from "@mantine/core";
 
-const CartButton = ({ cart, drawerOpened, toggleDrawer }) => {
+const CartButton = ({ cart, setCart, drawerOpened, toggleDrawer }) => {
   const totalCartItems = cart.reduce(
     (accumulator, el) => accumulator + el.count,
     0
@@ -29,7 +29,7 @@ const CartButton = ({ cart, drawerOpened, toggleDrawer }) => {
         onClose={toggleDrawer.close}
         title="Your items"
       >
-        <ShoppingCart cart={cart} />
+        <ShoppingCart cart={cart} setCart={setCart} />
       </Drawer>
     </div>
   );

@@ -1,9 +1,29 @@
 import { Card, Image, Text, Badge, Button, Group, Flex } from "@mantine/core";
 import getInventory from "../utils/cartProvider";
 
-const ShoppingCart = ({ cart }) => {
+const ShoppingCart = ({ cart, setCart }) => {
   const inventory = getInventory();
-  console.log(cart);
+
+  function updateItemCount(itemID, increment) {
+    // increment count 
+    const newCart = cart.map((prod) => {
+      if (prod.id === itemID) {
+        const newCount = Math.max(0, parseInt(prod.count, 10) + (increment ? 1 : -1));
+        return { ...prod, count: newCount };
+      }
+      return prod;
+    });
+
+    setCart(newCart);
+  }
+
+  function deleteHandler(itemID) {
+    const newCart = cart.filter(k => k.id !== itemID);
+    setCart(newCart);
+    console.log(itemID, "is deleted");
+    console.log(newCart);
+  }
+
   function getTotalPrice() {
     return cart.reduce(
       (accumulator, el) => {
@@ -17,7 +37,6 @@ const ShoppingCart = ({ cart }) => {
     <div>
       {cart.map((item) => {
         const detailedItem = inventory.filter(k => k.id === item.id)[0];
-        console.log(detailedItem);
         return (
           <Card key={detailedItem.id} shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
@@ -33,18 +52,18 @@ const ShoppingCart = ({ cart }) => {
 
             <Group position="apart" mt="md">
               <Flex gap="md" >
-                <Button variant="filled" color="blue" mt="md" radius="md">
+                <Button onClick={() => updateItemCount(item.id, true)} variant="filled" color="blue" mt="md" radius="md">
                   +
                 </Button>
                 <Button variant="outline" color="blue" mt="md" radius="md">
                   <Text weight={500}>{item.count}</Text>
 
                 </Button>
-                <Button variant="filled" color="blue" mt="md" radius="md">
+                <Button onClick={() => updateItemCount(item.id, false)} variant="filled" color="blue" mt="md" radius="md">
                   -
                 </Button>
               </Flex>
-              <Button variant="filled" color="red" mt="md" radius="md">
+              <Button onClick={() => deleteHandler(item.id)} variant="filled" color="red" mt="md" radius="md">
                 Remove
               </Button>
             </Group>

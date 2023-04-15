@@ -14,7 +14,7 @@ const RouteSwitch = () => {
   const [cart, setCart] = useState([]); // cart of user
   return (
     <BrowserRouter>
-      <NavBar cart={cart} drawerOpened={opened} toggleDrawer={{ open, close }} />
+      <NavBar cart={cart} setCart={setCart} drawerOpened={opened} toggleDrawer={{ open, close }} />
       <AnimatePresence>
         <Routes>
           <Route path="/" element={<Home />} />
