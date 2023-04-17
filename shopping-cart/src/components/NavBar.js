@@ -8,6 +8,7 @@ function NavBar({ cart, setCart, drawerOpened, toggleDrawer }) {
   const location = useLocation();
   const linkStyle = {
     textDecoration: "none",
+    color:"black"
   };
   const tabs = [
     { tabName: "Home", pathname: "/", id: uniqid() },
