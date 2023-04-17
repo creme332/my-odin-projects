@@ -1,6 +1,5 @@
 nav {
   box-sizing: border-box;
-  /* outline: 1px solid; */
   display: flex;
   justify-content: space-between;
   height: 3vw;
@@ -26,10 +25,11 @@ nav {
 nav > .tabs {
   /* outline: 1px solid red; */
   margin: 0;
-  gap: 5em;
+  /* gap: 5rem; */
   height: 100%;
+  width: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   text-decoration: none;
   list-style: none;
@@ -58,4 +58,13 @@ nav .underline {
   right: 0;
   height: 1px;
   background: var(--cokelat);
+}
+
+@media screen and (max-width: 750px) {
+  .logo {
+    display: none;
+  }
+  nav > .tabs {
+    width: 100%;
+  }
 }
