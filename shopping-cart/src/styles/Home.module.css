@@ -15,11 +15,31 @@
 
 .home p {
   line-height: 25px;
-  font-size: 16px;
+  font-size: 19px;
   color: #6b6262;
   margin-bottom: 50px;
 }
 .home img {
   height: 100vh;
   width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .home {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap:4em;
+    padding: 100px 20px;
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+  }
+
+  .home img{
+    border-radius: 10px;
+  }
+  .home .main {
+    width: 100%;
+  }
 }
