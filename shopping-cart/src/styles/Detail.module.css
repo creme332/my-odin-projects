@@ -1,7 +1,18 @@
 .detail {
   box-sizing: border-box;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: grid;
   place-items: center;
+  padding-bottom: 50px;
+}
+
+.detail .defaultH1 {
+  margin-top: 70px;
+}
+
+@media screen and (width: 500px) {
+  .detail {
+    width: 100%;
+  }
 }

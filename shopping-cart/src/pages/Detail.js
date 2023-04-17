@@ -13,7 +13,7 @@ function Detail({ cart, setCart, toggleDrawer }) {
   const clickHandler = async () => {
     // add loading animation on button for 1s 
     setLoading(true);
-    await delay(1000);
+    await delay(500);
     setLoading(false);
 
     toggleDrawer.open();
@@ -40,7 +40,7 @@ function Detail({ cart, setCart, toggleDrawer }) {
   }
   return (
     <div className={styles.detail}>
-      <h1 className="defaultH1">{cardInfo.title}</h1>
+      <h1 className={`defaultH1 ${styles.defaultH1}`}>{cardInfo.title}</h1>
       <Image
         width={200}
         height={200}
