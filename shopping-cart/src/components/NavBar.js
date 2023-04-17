@@ -24,8 +24,8 @@ function NavBar({ cart, setCart, drawerOpened, toggleDrawer }) {
       <ul className={NavCSS.tabs}>
         {tabs.map((tab) => {
           return (
-            <Link key={tab.id} style={linkStyle} to={tab.pathname}>
-              <li>
+            <li>
+              <Link key={tab.id} style={linkStyle} to={tab.pathname}>
                 {tab.tabName}
                 {location.pathname === tab.pathname ? (
                   <motion.div
@@ -33,8 +33,8 @@ function NavBar({ cart, setCart, drawerOpened, toggleDrawer }) {
                     layoutId="underline"
                   />
                 ) : null}
-              </li>
-            </Link>
+              </Link>
+            </li>
           );
         })}
 
