@@ -1,5 +1,6 @@
 import { Card, Image, Text, Badge, Button, Group, Flex } from "@mantine/core";
 import getInventory from "../utils/cartProvider";
+import uniqid from "uniqid";
 
 const ShoppingCart = ({ cart, setCart }) => {
   const inventory = getInventory();
@@ -38,7 +39,7 @@ const ShoppingCart = ({ cart, setCart }) => {
       {cart.map((item) => {
         const detailedItem = inventory.filter(k => k.id === item.id)[0];
         return (
-          <Card key={detailedItem.id} shadow="sm" padding="lg" radius="md" withBorder>
+          <Card key={uniqid()} shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
               <Image src={detailedItem.imgSrc} height={100} alt={item.imgAlt} />
             </Card.Section>

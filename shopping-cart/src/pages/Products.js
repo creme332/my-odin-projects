@@ -5,6 +5,7 @@ import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
 import getInventory from "../utils/cartProvider";
 import { Link } from "react-router-dom";
+import uniqid from "uniqid";
 
 function Products() {
   const inventory = getInventory();
@@ -29,7 +30,7 @@ function Products() {
         {inventory.map((card) => {
           return (
             <Link
-              key={card.id}
+              key={uniqid()}
               style={{ textDecoration: "none" }}
               state={card}
               to={`/products/${card.id}`}
