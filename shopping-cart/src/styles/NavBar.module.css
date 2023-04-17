@@ -2,7 +2,7 @@ nav {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  height: 3vw;
+  height: 3.5vw;
   z-index: 10;
   position: fixed;
   top: 0;
@@ -58,6 +58,17 @@ nav .underline {
   right: 0;
   height: 1px;
   background: var(--cokelat);
+}
+
+@media screen and (max-width: 1260px) {
+  nav {
+    height: 5vw;
+  }
+}
+@media screen and (max-width: 800px) {
+  nav {
+    height: 65px;
+  }
 }
 
 @media screen and (max-width: 750px) {
