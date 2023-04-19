@@ -1,13 +1,8 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IconContext } from "react-icons";
-import ShoppingCart from "./ShoppingCart";
 import { Drawer, Indicator } from "@mantine/core";
 
-const CartButton = ({ cart, setCart, drawerOpened, toggleDrawer }) => {
-  const totalCartItems = cart.reduce(
-    (accumulator, el) => accumulator + el.count,
-    0
-  );
+const CartButton = ({ totalCartItems, drawerOpened, toggleDrawer, drawerChildren }) => {
   return (
     <div>
       <Indicator
@@ -29,7 +24,7 @@ const CartButton = ({ cart, setCart, drawerOpened, toggleDrawer }) => {
         onClose={toggleDrawer.close}
         title="Your items"
       >
-        <ShoppingCart cart={cart} setCart={setCart} />
+        {drawerChildren}
       </Drawer>
     </div>
   );

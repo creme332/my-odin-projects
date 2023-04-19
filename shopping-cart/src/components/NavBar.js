@@ -2,13 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import NavCSS from "./../styles/NavBar.module.css";
 import { motion } from "framer-motion";
 import uniqid from "uniqid";
-import CartButton from "./CartButton";
 
-function NavBar({ cart, setCart, drawerOpened, toggleDrawer }) {
+function NavBar({ lastChild }) {
   const location = useLocation();
   const linkStyle = {
     textDecoration: "none",
-    color:"black"
+    color: "black"
   };
   const tabs = [
     { tabName: "Home", pathname: "/", id: uniqid() },
@@ -25,8 +24,8 @@ function NavBar({ cart, setCart, drawerOpened, toggleDrawer }) {
       <ul className={NavCSS.tabs}>
         {tabs.map((tab) => {
           return (
-            <li>
-              <Link key={tab.id} style={linkStyle} to={tab.pathname}>
+            <li key={uniqid()}>
+              <Link style={linkStyle} to={tab.pathname}>
                 {tab.tabName}
                 {location.pathname === tab.pathname ? (
                   <motion.div
@@ -40,8 +39,7 @@ function NavBar({ cart, setCart, drawerOpened, toggleDrawer }) {
         })}
 
         <li key={uniqid()} style={linkStyle}>
-          {" "}
-          <CartButton cart={cart} setCart={setCart} drawerOpened={drawerOpened} toggleDrawer={toggleDrawer} />
+          {lastChild}
         </li>
       </ul>
     </nav>
