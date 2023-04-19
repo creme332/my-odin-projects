@@ -1,14 +1,17 @@
 import ProdCSS from "./../styles/Products.module.css";
 import Card from "../components/Card";
 import { BiSearch } from "react-icons/bi";
-import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
 import getInventory from "../utils/cartProvider";
 import { Link } from "react-router-dom";
 import uniqid from "uniqid";
+import { Input } from '@mantine/core';
+import { useState } from "react";
 
 function Products() {
+  const [searchBarValue, setSearchBarValue] = useState("");
   const inventory = getInventory();
+
   return (
     <motion.div
       className={ProdCSS.products}
@@ -18,16 +21,22 @@ function Products() {
       transition={{ duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] }}
     >
       <h1 className="defaultH1">Our flavours</h1>
-      <div className={ProdCSS.searchBar}>
-        <input maxLength={20} placeholder="Search..." type="text" />
-        <div className={ProdCSS.searchIcon}>
-          <IconContext.Provider value={{ size: 25 }}>
-            <BiSearch />
-          </IconContext.Provider>
-        </div>
-      </div>
+
+      <Input maxLength={20}
+        onChange={(e) => setSearchBarValue(e.target.value)}
+        icon={<BiSearch />
+        }
+        placeholder="Search..."
+        radius="xl"
+        size="md"
+      />
+
       <div className={ProdCSS.cardContainer}>
         {inventory.map((card) => {
+          const regex = new RegExp(searchBarValue, "i");
+          if (!regex.test(card.title)) {
+            return null;
+          }
           return (
             <Link
               key={uniqid()}
