@@ -22,7 +22,7 @@
 
 @media screen and (max-width: 740px) {
   .products .cardContainer {
-    outline: 1px solid;
+    /* outline: 1px solid; */
     width: 100%;
     align-items: center;
     gap: 4em;
