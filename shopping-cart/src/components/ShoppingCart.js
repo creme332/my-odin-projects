@@ -35,7 +35,8 @@ const ShoppingCart = ({ cart, setCart }) => {
     );
   }
   return (
-    <div>
+    <Flex direction="column"
+    >
       {cart.map((item) => {
         const detailedItem = inventory.filter(k => k.id === item.id)[0];
         return (
@@ -72,12 +73,12 @@ const ShoppingCart = ({ cart, setCart }) => {
         );
       })}
       <Flex justify={"center"}>
-        <Button fullWidth variant="filled" color="orange" mt="md" radius="md">
+        <Button fullWidth variant="filled" color="orange" mt="md" radius="md" >
           <Text fz="xl"
             weight={500}>Checkout - Rs {getTotalPrice()}</Text>
         </Button>
       </Flex>
-    </div>
+    </Flex>
   );
 };
 
