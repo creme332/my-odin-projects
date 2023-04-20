@@ -1,5 +1,5 @@
 import HomeCSS from "./../styles/Home.module.css";
-import photo from "./../assets/images/bana.jpg";
+import photo from "./../assets/images/banana-chips.jpg";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
