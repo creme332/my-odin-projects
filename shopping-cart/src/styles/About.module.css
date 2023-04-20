@@ -57,3 +57,22 @@
   grid-area: g;
   background-color: #072ac8;
 }
+
+@media screen and (max-width: 1200px) {
+  .about {
+    box-sizing: border-box;
+    display: grid;
+    height: 100vh;
+    width: 100%;
+    grid-template-rows: repeat(1fr, 4);
+    grid-template-columns: repeat(1fr, 4);
+    grid-template-areas:
+      "c d d d"
+      "c d d d"
+      "c d d d"
+      "c d d d";
+  }
+  .about .d {
+    padding-top: 100px;
+  }
+}
