@@ -79,3 +79,12 @@ nav .underline {
     width: 100%;
   }
 }
+
+@media screen and (max-width: 350px) {
+  nav{
+    overflow-x: scroll;
+  }
+  nav > .tabs {
+    gap: 1em;
+  }
+}
