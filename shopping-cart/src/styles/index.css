@@ -10,7 +10,7 @@
   --yellow: #f9fe00;
   --orange: #ffd600;
   --light-grey: #fafafa;
-  --body-bg-col:rgb(248, 248, 248)
+  --body-bg-col: rgb(248, 248, 248);
 }
 
 body {
@@ -51,6 +51,12 @@ body {
 }
 
 @media screen and (max-width: 500px) {
+  .defaultButton {
+    width: 50%;
+    font-size: 16px;
+    min-width: 90px;
+  }
+
   .defaultH1 {
     line-height: 50px;
     font-size: 30px;
