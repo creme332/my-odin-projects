@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5em;
+  gap: 1em;
 }
 
 .contact h1 {
@@ -36,19 +36,12 @@
   padding: 10px;
   border: 0;
   border-radius: 5px;
-  background-color: var(--light-grey);
+  background-color: rgb(234, 234, 234);
 }
 
 .contact textarea:focus,
 .contact input:focus {
   outline: 1px solid gray;
-}
-.contact .group {
-  flex-basis: 40%;
-
-  display: flex;
-  gap: 0.8em;
-  flex-direction: column;
 }
 
 .contact button {

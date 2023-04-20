@@ -1,5 +1,7 @@
 import ContactCSS from "./../styles/Contact.module.css";
 import { motion } from "framer-motion";
+import { Flex } from "@mantine/core";
+
 function Contact() {
   return (
     <motion.div
@@ -11,26 +13,28 @@ function Contact() {
     >
       <h1 className="defaultH1">Contact Us🍌</h1>
       <form>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div className={ContactCSS.group}>
+        <Flex gap="md"
+          direction={{ base: 'column', sm: 'row' }}
+        >
+          <Flex style={{ flex: 1 }} direction="column" wrap="wrap" gap="md">
             <label htmlFor="nameInput">Your name</label>
             <input
               placeholder="Enter your name here"
               id="nameInput"
               type="text"
             />
-          </div>
-          <div className={ContactCSS.group}>
+          </Flex>
+          <Flex style={{ flex: 1 }} fullWidth direction="column" wrap="wrap" gap="md">
             <label htmlFor="emailInput">Your email</label>
             <input
               placeholder="Enter your email here"
               id="emailInput"
               type="email"
             />
-          </div>
-        </div>
+          </Flex>
+        </Flex>
 
-        <div className={ContactCSS.group}>
+        <Flex direction="column" wrap="wrap" gap="md">
           <label htmlFor="message">Message</label>
           <textarea
             placeholder="Let us know what you think"
@@ -40,7 +44,7 @@ function Contact() {
             cols="30"
             rows="10"
           ></textarea>
-        </div>
+        </Flex>
 
         <button className="defaultButton" type="submit">
           Send
