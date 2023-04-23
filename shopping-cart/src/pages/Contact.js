@@ -24,7 +24,7 @@ function Contact() {
               type="text"
             />
           </Flex>
-          <Flex style={{ flex: 1 }} fullWidth direction="column" wrap="wrap" gap="md">
+          <Flex style={{ flex: 1 }} direction="column" wrap="wrap" gap="md">
             <label htmlFor="emailInput">Your email</label>
             <input
               placeholder="Enter your email here"
