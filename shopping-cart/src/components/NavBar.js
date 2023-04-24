@@ -38,7 +38,7 @@ function NavBar({ lastChild }) {
           );
         })}
 
-        <li key={uniqid()} style={linkStyle}>
+        <li key={uniqid()} aria-label="open shopping cart" style={linkStyle}>
           {lastChild}
         </li>
       </ul>
