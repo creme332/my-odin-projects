@@ -78,7 +78,7 @@ test('search bar', () => {
   expect([...document.querySelectorAll('.card')].length).toEqual(3);
 });
 
-test('add to cart', () => {
+test('add to cart', async () => {
   render(<RouteSwitch />)
 
   // go to products page
@@ -95,7 +95,10 @@ test('add to cart', () => {
 
   // click on add to cart button
   act(() => {
-    userEvent.click(screen.getByRole("button"));
+    userEvent.click(document.querySelector('.mantine-Button-label'));
+    // console.log(screen.debug());
   });
-  expect(screen.getByRole("button", { name: /product-count/i }).textContent).toMatch(/1/i);
+  await screen.findAllByText('1');
+
+  expect(screen.getByRole("button", { name: "Checkout - Rs 15" }).textContent).toMatch(/Checkout - Rs 15/i);
 });
