@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/my-odin-projects/shopping-cart/build/static/css/main.fcd51ee8.css",
+    "main.js": "/my-odin-projects/shopping-cart/build/static/js/main.2d2d4748.js",
+    "static/media/chip2.jpg": "/my-odin-projects/shopping-cart/build/static/media/chip2.8bd9545ac4120883d21a.jpg",
+    "static/media/banana-chips.jpg": "/my-odin-projects/shopping-cart/build/static/media/banana-chips.2af3bbc4f71b8641720c.jpg",
+    "static/media/chilli.png": "/my-odin-projects/shopping-cart/build/static/media/chilli.529d5210b4e4f2a8e4a4.png",
+    "static/media/leaf.png": "/my-odin-projects/shopping-cart/build/static/media/leaf.5cc1373ddeee143e62da.png",
+    "static/media/lime.png": "/my-odin-projects/shopping-cart/build/static/media/lime.8b3377d5defa287f9a0d.png",
+    "static/media/bana2.avif": "/my-odin-projects/shopping-cart/build/static/media/bana2.82b5d188dcc4c921b485.avif",
+    "index.html": "/my-odin-projects/shopping-cart/build/index.html",
+    "main.fcd51ee8.css.map": "/my-odin-projects/shopping-cart/build/static/css/main.fcd51ee8.css.map",
+    "main.2d2d4748.js.map": "/my-odin-projects/shopping-cart/build/static/js/main.2d2d4748.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fcd51ee8.css",
+    "static/js/main.2d2d4748.js"
+  ]
+}
