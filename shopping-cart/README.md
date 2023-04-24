@@ -5,18 +5,17 @@ A prototype e-commerce website for an eco-friendly banana chip business. The des
 
 [▶ Live Preview](https://creme332.github.io/my-odin-projects/shopping-cart/build/)
   
-# 🚀Features
+# 🚀 Features
 - Responsive design
 - Smooth animations
 - Search bar
-- Code coverage 100%
 
-# Built with
+# 🔨 Tools used
 - React
 - Framer motion
 - CSS modules
 - Mantine
-- Jest
+- Jest for testing UI
 
 # 🛠 Installation
 Clone repository locally
@@ -48,8 +47,8 @@ npm run build
   - [x] fix about page
   - [x] fix home page
   - [x] fix contact page
-  
-- [ ] Write Jest tests
+- [x] Write Jest tests
+- [ ] Fix relative link issue with browserRouter
 - [ ] Fix lighthouse issues
 - [ ] Fix Checkout button at bottom of drawer
 - [ ] Add backend
