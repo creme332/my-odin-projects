@@ -15,7 +15,7 @@ function Card({ title, price, imgSrc, imgAlt, status }) {
         withPlaceholder
       />
       <div className={CardCSS.cardDesc}>
-        <span className={CardCSS.cardTitle}>{title}</span>
+        <h2 className={CardCSS.cardTitle}>{title}</h2>
         <Group grow>
           <span className={`${CardCSS.price} ${noTextDecorationStyle}`}>
             Rs {parseInt(price)}

@@ -29,6 +29,7 @@ function Products() {
         placeholder="Search..."
         radius="xl"
         size="md"
+        aria-label="search bar"
       />
 
       <div className={ProdCSS.cardContainer}>
