@@ -48,9 +48,14 @@ function Detail({ cart, setCart, toggleDrawer }) {
         alt={cardInfo.imgAlt}
         withPlaceholder
       />
-      <Box w={500}>
+      <Box sx={(theme) => ({
+        textAlign: 'center',
+        padding: theme.spacing.xl,
+        borderRadius: theme.radius.md,
+        width: "50%"
+      })}>
         {" "}
-        <Text fz="lg" lineClamp={4}>
+        <Text fz="lg">
           {cardInfo.description}
         </Text>
       </Box>
