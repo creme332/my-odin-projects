@@ -27,7 +27,7 @@ const RouteSwitch = () => {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/my-odin-projects/shopping-cart/build">
       <NavBar lastChild={getCartDrawer()} />
       <AnimatePresence>
         <Routes>
