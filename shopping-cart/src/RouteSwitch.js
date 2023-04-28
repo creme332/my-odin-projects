@@ -27,7 +27,9 @@ const RouteSwitch = () => {
   }
 
   return (
-    <BrowserRouter basename="/my-odin-projects/shopping-cart/build">
+    <BrowserRouter
+      basename="/my-odin-projects/shopping-cart/build" // comment this line if running Jest tests
+    >
       <NavBar lastChild={getCartDrawer()} />
       <AnimatePresence>
         <Routes>
