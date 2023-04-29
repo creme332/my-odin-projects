@@ -10,7 +10,7 @@ A prototype e-commerce website for an eco-friendly banana chip business. The des
 # 🚀 Features
 - Responsive design
 - Smooth animations
-- Search bar
+- Search bar with auto-completion
 
 # 🔨 Tools used
 - React + React Router
@@ -41,17 +41,20 @@ Create a production build
 npm run build
 ```
 
+# 🧪 Testing 
+In `RouteSwitch.js`, remove the `basename`  prop from the BrowserRouter component:
+```js
+<BrowserRouter> // good
+...
+```
+Run tests
+```bash
+npm run test
+```
+
 # 🔨 To-Do
-- [x] Implement search bar functionality
-- [x] Fix prop drilling issue using composition
-- [x] Make website responsive 
-  - [x] increase padding on nav bar on small screens
-  - [x] fix about page
-  - [x] fix home page
-  - [x] fix contact page
-- [x] Write Jest tests
-- [x] Fix relative link issue with browserRouter
-- [x] Fix lighthouse issues
 - [ ] Fix checkout button at bottom of drawer
+- [ ] Fix issue with saerch bar test in `App.test.js`
+- [ ] Add logo when no search found
 - [ ] Add backend
 
