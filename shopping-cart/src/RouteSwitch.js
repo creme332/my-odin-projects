@@ -23,7 +23,14 @@ const RouteSwitch = () => {
       (accumulator, el) => accumulator + el.count,
       0
     );
-    return <CartButton totalCartItems={totalCartItems} drawerOpened={opened} toggleDrawer={{ open, close }} drawerChildren={getShoppingCart()} />;
+    return (
+      <CartButton
+        totalCartItems={totalCartItems}
+        drawerOpened={opened}
+        toggleDrawer={{ open, close }}
+        drawerChildren={getShoppingCart()}
+      />
+    );
   }
 
   return (
@@ -37,7 +44,16 @@ const RouteSwitch = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<Detail cart={cart} setCart={setCart} toggleDrawer={{ open, close }} />} />
+          <Route
+            path="/products/:id"
+            element={
+              <Detail
+                cart={cart}
+                setCart={setCart}
+                toggleDrawer={{ open, close }}
+              />
+            }
+          />
         </Routes>
       </AnimatePresence>
     </BrowserRouter>

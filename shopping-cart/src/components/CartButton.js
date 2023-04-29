@@ -2,7 +2,12 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { Drawer, Indicator } from "@mantine/core";
 
-const CartButton = ({ totalCartItems, drawerOpened, toggleDrawer, drawerChildren }) => {
+const CartButton = ({
+  totalCartItems,
+  drawerOpened,
+  toggleDrawer,
+  drawerChildren,
+}) => {
   return (
     <div>
       <Indicator

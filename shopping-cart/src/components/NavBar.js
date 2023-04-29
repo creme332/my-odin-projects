@@ -7,7 +7,7 @@ function NavBar({ lastChild }) {
   const location = useLocation();
   const linkStyle = {
     textDecoration: "none",
-    color: "black"
+    color: "black",
   };
   const tabs = [
     { tabName: "Home", pathname: "/", id: uniqid() },

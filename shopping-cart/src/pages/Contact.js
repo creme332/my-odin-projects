@@ -13,9 +13,7 @@ function Contact() {
     >
       <h1 className="defaultH1">Contact Us🍌</h1>
       <form>
-        <Flex gap="md"
-          direction={{ base: 'column', sm: 'row' }}
-        >
+        <Flex gap="md" direction={{ base: "column", sm: "row" }}>
           <Flex style={{ flex: 1 }} direction="column" wrap="wrap" gap="md">
             <label htmlFor="nameInput">Your name</label>
             <input

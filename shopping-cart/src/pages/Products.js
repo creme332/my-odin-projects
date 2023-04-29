@@ -6,7 +6,7 @@ import getInventory from "../utils/cartProvider";
 import { Link } from "react-router-dom";
 import uniqid from "uniqid";
 import { useState } from "react";
-import { Autocomplete } from '@mantine/core';
+import { Autocomplete } from "@mantine/core";
 import { Text } from "@mantine/core";
 
 function Products() {
@@ -15,19 +15,25 @@ function Products() {
 
   function getMatchedProducts() {
     const regex = new RegExp(searchBarValue, "i");
-    const foundProductCount = inventory.reduce((acc, card) => acc + (regex.test(card.title) ? 1 : 0), 0);
+    const foundProductCount = inventory.reduce(
+      (acc, card) => acc + (regex.test(card.title) ? 1 : 0),
+      0
+    );
     if (foundProductCount === 0) {
       return (
         <Text
           ta="center"
           sx={{ margin: "auto" }}
           fz="xl"
-          fw={500} align="center">Flavour not found 😥
+          fw={500}
+          align="center"
+        >
+          Flavour not found 😥
         </Text>
       );
     }
 
-    return (inventory.map((card) => {
+    return inventory.map((card) => {
       const regex = new RegExp(searchBarValue, "i");
       if (!regex.test(card.title)) {
         return null;
@@ -48,7 +54,7 @@ function Products() {
           />
         </Link>
       );
-    }))
+    });
   }
   return (
     <motion.div
@@ -68,12 +74,10 @@ function Products() {
         size="md"
         maxDropdownHeight="100"
         aria-label="search bar"
-        data={inventory.map(el => el.title)}
+        data={inventory.map((el) => el.title)}
       />
 
-      <div className={ProdCSS.cardContainer}>
-        {getMatchedProducts()}
-      </div>
+      <div className={ProdCSS.cardContainer}>{getMatchedProducts()}</div>
     </motion.div>
   );
 }

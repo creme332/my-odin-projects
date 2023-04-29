@@ -6,10 +6,13 @@ const ShoppingCart = ({ cart, setCart }) => {
   const inventory = getInventory();
 
   function updateItemCount(itemID, increment) {
-    // increment count 
+    // increment count
     const newCart = cart.map((prod) => {
       if (prod.id === itemID) {
-        const newCount = Math.max(0, parseInt(prod.count, 10) + (increment ? 1 : -1));
+        const newCount = Math.max(
+          0,
+          parseInt(prod.count, 10) + (increment ? 1 : -1)
+        );
         return { ...prod, count: newCount };
       }
       return prod;
@@ -19,26 +22,22 @@ const ShoppingCart = ({ cart, setCart }) => {
   }
 
   function deleteHandler(itemID) {
-    const newCart = cart.filter(k => k.id !== itemID);
+    const newCart = cart.filter((k) => k.id !== itemID);
     setCart(newCart);
     console.log(itemID, "is deleted");
     console.log(newCart);
   }
 
   function getTotalPrice() {
-    return cart.reduce(
-      (accumulator, el) => {
-        const itemPrice = inventory.filter(k => k.id === el.id)[0].price;
-        return accumulator + el.count * parseInt(itemPrice)
-      },
-      0
-    );
+    return cart.reduce((accumulator, el) => {
+      const itemPrice = inventory.filter((k) => k.id === el.id)[0].price;
+      return accumulator + el.count * parseInt(itemPrice);
+    }, 0);
   }
   return (
-    <Flex direction="column"
-    >
+    <Flex direction="column">
       {cart.map((item) => {
-        const detailedItem = inventory.filter(k => k.id === item.id)[0];
+        const detailedItem = inventory.filter((k) => k.id === item.id)[0];
         return (
           <Card key={uniqid()} shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
@@ -53,19 +52,36 @@ const ShoppingCart = ({ cart, setCart }) => {
             </Group>
 
             <Group position="apart" mt="md">
-              <Flex gap="md" >
-                <Button onClick={() => updateItemCount(item.id, true)} variant="filled" color="blue" mt="md" radius="md">
+              <Flex gap="md">
+                <Button
+                  onClick={() => updateItemCount(item.id, true)}
+                  variant="filled"
+                  color="blue"
+                  mt="md"
+                  radius="md"
+                >
                   +
                 </Button>
                 <Button variant="outline" color="blue" mt="md" radius="md">
                   <Text weight={500}>{item.count}</Text>
-
                 </Button>
-                <Button onClick={() => updateItemCount(item.id, false)} variant="filled" color="blue" mt="md" radius="md">
+                <Button
+                  onClick={() => updateItemCount(item.id, false)}
+                  variant="filled"
+                  color="blue"
+                  mt="md"
+                  radius="md"
+                >
                   -
                 </Button>
               </Flex>
-              <Button onClick={() => deleteHandler(item.id)} variant="filled" color="red" mt="md" radius="md">
+              <Button
+                onClick={() => deleteHandler(item.id)}
+                variant="filled"
+                color="red"
+                mt="md"
+                radius="md"
+              >
                 Remove
               </Button>
             </Group>
@@ -73,9 +89,10 @@ const ShoppingCart = ({ cart, setCart }) => {
         );
       })}
       <Flex justify={"center"}>
-        <Button fullWidth variant="filled" color="orange" mt="md" radius="md" >
-          <Text fz="xl"
-            weight={500}>Checkout - Rs {getTotalPrice()}</Text>
+        <Button fullWidth variant="filled" color="orange" mt="md" radius="md">
+          <Text fz="xl" weight={500}>
+            Checkout - Rs {getTotalPrice()}
+          </Text>
         </Button>
       </Flex>
     </Flex>

@@ -7,11 +7,9 @@ import { useState } from "react";
 function Detail({ cart, setCart, toggleDrawer }) {
   const [loading, setLoading] = useState(false); // loading animation for button
   const cardInfo = useLocation().state;
-  const delay = ms => new Promise(
-    resolve => setTimeout(resolve, ms)
-  );
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const clickHandler = async () => {
-    // add loading animation on button for 1s 
+    // add loading animation on button for 1s
     setLoading(true);
     await delay(500);
     setLoading(false);
@@ -19,9 +17,9 @@ function Detail({ cart, setCart, toggleDrawer }) {
     toggleDrawer.open();
     console.log("clicked");
     //check if product is already in cart
-    const isPresent = cart.some(el => el.id === cardInfo.id);
+    const isPresent = cart.some((el) => el.id === cardInfo.id);
     if (isPresent) {
-      // increment count 
+      // increment count
       const newCart = cart.map((prod) => {
         if (prod.id === cardInfo.id) {
           return { ...prod, count: prod.count + 1 };
@@ -36,8 +34,7 @@ function Detail({ cart, setCart, toggleDrawer }) {
       setCart(newCart);
       console.log(newCart);
     }
-
-  }
+  };
   return (
     <div className={styles.detail}>
       <h1 className={`defaultH1 ${styles.defaultH1}`}>{cardInfo.title}</h1>
@@ -48,16 +45,16 @@ function Detail({ cart, setCart, toggleDrawer }) {
         alt={cardInfo.imgAlt}
         withPlaceholder
       />
-      <Box sx={(theme) => ({
-        textAlign: 'center',
-        padding: theme.spacing.xl,
-        borderRadius: theme.radius.md,
-        width: "50%"
-      })}>
+      <Box
+        sx={(theme) => ({
+          textAlign: "center",
+          padding: theme.spacing.xl,
+          borderRadius: theme.radius.md,
+          width: "50%",
+        })}
+      >
         {" "}
-        <Text fz="lg">
-          {cardInfo.description}
-        </Text>
+        <Text fz="lg">{cardInfo.description}</Text>
       </Box>
       <Button
         leftIcon={<AiOutlineShoppingCart />}
