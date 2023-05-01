@@ -1,1 +1,13 @@
 /* include global styles here  */
+@font-face {
+  font-family: Greycliff;
+  src: url("./../assets/font/GreycliffCF-Bold.woff2");
+}
+
+body {
+  height: auto;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  font-family: Greycliff;
+}
