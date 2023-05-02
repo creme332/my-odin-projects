@@ -1,4 +1,13 @@
-import { createStyles, Paper, Text, Title, Button, rem } from "@mantine/core";
+import {
+  createStyles,
+  Paper,
+  Text,
+  Title,
+  Button,
+  rem,
+  Rating,
+  Flex,
+} from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -47,9 +56,15 @@ export default function Card({ image, title, category }) {
           {title}
         </Title>
       </div>
-      <Button variant="white" color="dark">
-        Play
-      </Button>
+      <Flex
+        align="center"
+        style={{ width: "100%", justifyContent: "space-between" }}
+      >
+        <Button variant="white" color="dark">
+          Play
+        </Button>
+        <Rating defaultValue={4} />
+      </Flex>
     </Paper>
   );
 }

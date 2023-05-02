@@ -75,8 +75,7 @@ export function HeroBullets() {
       <div className={classes.inner}>
         <div className={classes.content}>
           <Title className={classes.title}>
-            A <span className={classes.highlight}>fun</span> photo <br />{" "}
-            tagging game
+            A <span className={classes.highlight}>fun</span> photo tagging game
           </Title>
           <Text color="dimmed" mt="md">
             Challenge yourself to find the hidden character in each scene, and

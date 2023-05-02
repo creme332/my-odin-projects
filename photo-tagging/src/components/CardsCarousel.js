@@ -54,7 +54,7 @@ export default function CardsCarousel() {
   return (
     <Carousel
       withIndicators
-      slideSize="50%"
+      slideSize="40%"
       breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: rem(2) }]}
       slideGap="xl"
       align="start"
