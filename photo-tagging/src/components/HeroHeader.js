@@ -11,7 +11,7 @@ import {
   rem,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
-import image from "./../assets/images/image.svg";
+import image from "./../assets/images/detective.png";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -71,51 +71,48 @@ const useStyles = createStyles((theme) => ({
 export function HeroBullets() {
   const { classes } = useStyles();
   return (
-    <div>
-      <Container>
-        <div className={classes.inner}>
-          <div className={classes.content}>
-            <Title className={classes.title}>
-              A <span className={classes.highlight}>fun</span> photo <br />{" "}
-              tagging game
-            </Title>
-            <Text color="dimmed" mt="md">
-              Build fully functional accessible web applications faster than
-              ever – Mantine includes more than 120 customizable components and
-              hooks to cover you in any situation
-            </Text>
+    <Container>
+      <div className={classes.inner}>
+        <div className={classes.content}>
+          <Title className={classes.title}>
+            A <span className={classes.highlight}>fun</span> photo <br />{" "}
+            tagging game
+          </Title>
+          <Text color="dimmed" mt="md">
+            Challenge yourself to find the hidden character in each scene, and
+            see how fast you can do it. With randomized characters and
+            difficulty levels, each game is a unique experience.
+          </Text>
 
-            <List
-              mt={30}
-              spacing="sm"
-              size="sm"
-              icon={
-                <ThemeIcon size={20} radius="xl">
-                  <IconCheck size={rem(12)} stroke={1.5} />
-                </ThemeIcon>
-              }
-            >
-              <List.Item>
-                <b>TypeScript based</b> – build type safe applications, all
-                components and hooks export types
-              </List.Item>
-              <List.Item>
-                <b>Mobile-responsive</b> – play on any screen sizes!
-              </List.Item>
-              <List.Item>
-                <b>Unique backgrounds</b> – cool backgrounds cuz why not
-              </List.Item>
-            </List>
+          <List
+            mt={30}
+            spacing="sm"
+            size="sm"
+            icon={
+              <ThemeIcon size={20} radius="xl">
+                <IconCheck size={rem(12)} stroke={1.5} />
+              </ThemeIcon>
+            }
+          >
+            <List.Item>
+              <b>Leaderboard</b> – Compare your performance with others
+            </List.Item>
+            <List.Item>
+              <b>Mobile-responsive</b> – play on any screen sizes!
+            </List.Item>
+            <List.Item>
+              <b>Unique backgrounds</b> – Never get bored playing the same maps
+            </List.Item>
+          </List>
 
-            <Group mt={30}>
-              <Button radius="xl" size="md" className={classes.control}>
-                Get started
-              </Button>
-            </Group>
-          </div>
-          <Image src={image} className={classes.image} />
+          <Group mt={30}>
+            <Button radius="xl" size="md" className={classes.control}>
+              Get started
+            </Button>
+          </Group>
         </div>
-      </Container>
-    </div>
+        <Image src={image} className={classes.image} />
+      </div>
+    </Container>
   );
 }
