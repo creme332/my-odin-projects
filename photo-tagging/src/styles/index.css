@@ -5,9 +5,12 @@
 }
 
 body {
-  height: auto;
   padding: 10px;
   display: grid;
   place-items: center;
   font-family: Greycliff;
+}
+
+b {
+  font-weight: 600;
 }
