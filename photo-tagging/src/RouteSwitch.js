@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import leafLogo from "./assets/images/leaf.png";
+import leafLogo from "./assets/images/detective.png";
 import HeaderWithTabs from "./components/HeaderWithTabs";
 import Leaderboard from "./pages/Leaderboard";
 import Play from "./pages/Play";
@@ -16,7 +16,13 @@ const RouteSwitch = () => {
   ];
   return (
     <BrowserRouter basename="/my-odin-projects/photo-tagging/build">
-      <HeaderWithTabs user={user} tabs={tabs} />
+      <HeaderWithTabs
+        links={[
+          { label: "Home", link: "/" },
+          { label: "Play", link: "/play" },
+          { label: "Leaderboard", link: "/leaderboard" },
+        ]}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/play" element={<Play />} />
