@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Card({ image, title, category }) {
+export default function Card({ image, title, category, available }) {
   const { classes } = useStyles();
 
   return (
@@ -60,10 +60,10 @@ export default function Card({ image, title, category }) {
         align="center"
         style={{ width: "100%", justifyContent: "space-between" }}
       >
-        <Button variant="white" color="dark">
-          Play
+        <Button variant="white" color="dark" disabled={!available}>
+          {available ? "Play" : "Coming soon"}
         </Button>
-        <Rating defaultValue={4} />
+        {available ? <Rating defaultValue={4} /> : null}
       </Flex>
     </Paper>
   );
