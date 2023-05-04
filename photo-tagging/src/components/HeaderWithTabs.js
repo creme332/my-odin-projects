@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Icon3dCubeSphere } from "@tabler/icons-react";
-
+import { Link } from "react-router-dom";
 const HEADER_HEIGHT = rem(60);
 
 const useStyles = createStyles((theme) => ({
@@ -28,8 +28,7 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 900,
 
     [theme.fn.smallerThan("xs")]: {
-      display:"none",
-      // fontSize: rem(22),
+      display: "none",
     },
   },
 
@@ -108,24 +107,23 @@ const useStyles = createStyles((theme) => ({
 
 export default function HeaderWithTabs({ links }) {
   const [opened, { toggle, close }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
+  const [active, setActive] = useState(links[0].pathname);
   const { classes, cx } = useStyles();
 
   const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
+    <Link
+      key={link.id}
       className={cx(classes.link, {
-        [classes.linkActive]: active === link.link,
+        [classes.linkActive]: active === link.pathname,
       })}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(link.link);
+      onClick={() => {
+        setActive(link.pathname);
         close();
       }}
+      to={link.pathname}
     >
-      {link.label}
-    </a>
+      {link.tabName}
+    </Link>
   ));
 
   return (
