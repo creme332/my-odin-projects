@@ -129,10 +129,12 @@ export default function HeaderWithTabs({ links }) {
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
-        <Group>
-          <Icon3dCubeSphere size={48} strokeWidth={2} />
-          <h1 className={classes.logo}>Enigma</h1>
-        </Group>
+        <Link style={{ textDecoration: "none" }} to={"/"}>
+          <Group>
+            <Icon3dCubeSphere size={48} strokeWidth={2} />
+            <h1 className={classes.logo}>Enigma</h1>
+          </Group>
+        </Link>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
