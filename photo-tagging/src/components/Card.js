@@ -38,7 +38,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Card({ image, title, category, available }) {
+export default function Card({ image, title, category, available, rating }) {
   const { classes } = useStyles();
 
   return (
@@ -66,7 +66,7 @@ export default function Card({ image, title, category, available }) {
             {available ? "Play" : "Coming soon"}
           </Button>
         </Link>
-        {available ? <Rating defaultValue={4} /> : null}
+        {available ? <Rating readOnly defaultValue={rating} /> : null}
       </Flex>
     </Paper>
   );
