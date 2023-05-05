@@ -8,6 +8,7 @@ import {
   Rating,
   Flex,
 } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -60,9 +61,11 @@ export default function Card({ image, title, category, available }) {
         align="center"
         style={{ width: "100%", justifyContent: "space-between" }}
       >
-        <Button variant="white" color="dark" disabled={!available}>
-          {available ? "Play" : "Coming soon"}
-        </Button>
+        <Link to={"/play"}>
+          <Button variant="white" color="dark" disabled={!available}>
+            {available ? "Play" : "Coming soon"}
+          </Button>
+        </Link>
         {available ? <Rating defaultValue={4} /> : null}
       </Flex>
     </Paper>
