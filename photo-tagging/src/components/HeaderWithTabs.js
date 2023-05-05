@@ -7,10 +7,12 @@ import {
   Burger,
   Paper,
   Transition,
+  ActionIcon,
+  useMantineColorScheme,
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Icon3dCubeSphere } from "@tabler/icons-react";
+import { Icon3dCubeSphere, IconMoonStars, IconSun } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 const HEADER_HEIGHT = rem(60);
 
@@ -109,6 +111,8 @@ export default function HeaderWithTabs({ links }) {
   const [opened, { toggle, close }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].pathname);
   const { classes, cx } = useStyles();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === "dark";
 
   const items = links.map((link) => (
     <Link
@@ -137,6 +141,14 @@ export default function HeaderWithTabs({ links }) {
         </Link>
         <Group spacing={5} className={classes.links}>
           {items}
+          <ActionIcon
+            variant="outline"
+            color={dark ? "yellow" : "blue"}
+            onClick={() => toggleColorScheme()}
+            title="Toggle color scheme"
+          >
+            {dark ? <IconSun size="1.1rem" /> : <IconMoonStars size="1.1rem" />}
+          </ActionIcon>{" "}
         </Group>
         <Burger
           opened={opened}
