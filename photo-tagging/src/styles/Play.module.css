@@ -1,0 +1,7 @@
+.tag{
+    position: absolute;
+    outline:3px solid red;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
