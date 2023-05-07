@@ -1,13 +1,13 @@
 import styles from "./../styles/Leaderboard.module.css";
-import { Table } from "@mantine/core";
+import { Container, Pagination, Table } from "@mantine/core";
 
 function Leaderboard() {
   const elements = [
-    { rank: 1, mass: 12.011, symbol: "C", name: "Carbon" },
-    { rank: 7, mass: 14.007, symbol: "N", name: "Nitrogen" },
-    { rank: 39, mass: 88.906, symbol: "Y", name: "Yttrium" },
-    { rank: 56, mass: 137.33, symbol: "Ba", name: "Barium" },
-    { rank: 58, mass: 140.12, symbol: "Ce", name: "Cerium" },
+    { rank: 1, mass: "Global", symbol: "2:32", name: "Carbon" },
+    { rank: 2, mass: "France", symbol: "3:21", name: "Nitrogen" },
+    { rank: 3, mass: "Turkey", symbol: "6:52", name: "Yttrium" },
+    { rank: 4, mass: "India", symbol: "10:32", name: "Barium" },
+    { rank: 5, mass: "China", symbol: "20:42", name: "Cerium" },
   ];
   const rows = elements.map((element) => (
     <tr key={element.name}>
@@ -18,17 +18,20 @@ function Leaderboard() {
     </tr>
   ));
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Element name</th>
-          <th>Symbol</th>
-          <th>Atomic mass</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <Container>
+      <Table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>User</th>
+            <th>Time</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
+      <Pagination total={10} />
+    </Container>
   );
 }
 
