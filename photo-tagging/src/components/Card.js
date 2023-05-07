@@ -61,7 +61,7 @@ export default function Card({ image, title, category, available, rating }) {
         align="center"
         style={{ width: "100%", justifyContent: "space-between" }}
       >
-        <Link to={"/play"}>
+        <Link to={`/play/${title}`}>
           <Button variant="white" color="dark" disabled={!available}>
             {available ? "Play" : "Coming soon"}
           </Button>
