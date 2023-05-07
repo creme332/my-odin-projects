@@ -1,49 +1,114 @@
 import styles from "./../styles/Play.module.css";
 import { Container } from "@mantine/core";
 import React, { Component } from "react";
-import { ActionIcon, Flex } from "@mantine/core";
 import {
-  TransformWrapper,
-  TransformComponent,
-  KeepScale,
-} from "react-zoom-pan-pinch";
-import img from "../assets/images/maps/rod-hunt-party.jpg";
-import { IconZoomIn, IconZoomOut, IconZoomReset } from "@tabler/icons-react";
+  ActionIcon,
+  Flex,
+  createStyles,
+  Avatar,
+  Indicator,
+} from "@mantine/core";
+
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import img from "../assets/images/maps/anime-party.jpg";
+import {
+  IconZoomIn,
+  IconZoomOut,
+  IconZoomReset,
+  IconHelp,
+} from "@tabler/icons-react";
+
+const useStyles = createStyles((theme) => ({}));
+
 function Play() {
+  function getClickCoordinates(e) {
+    console.log("client: ", e.clientX, e.clientY);
+    console.log("offset: ", e.offsetX, e.offsetY);
+    console.log("page: ", e.pageX, e.pageY);
+  }
   return (
-    <Container>
+    <Container style={{ paddingBottom: "20px" }}>
       {" "}
-      <TransformWrapper
-        initialScale={1}
-        // initialPositionX={200}
-        // initialPositionY={100}
-      >
+      <h1>Find characters</h1>
+      <Flex justify="space-around">
+        <Indicator
+          inline
+          size={16}
+          offset={7}
+          position="bottom-end"
+          color="red"
+          withBorder
+        >
+          <Avatar size={100} src="avatar.png" alt="it's me" />
+        </Indicator>
+        <Indicator
+          inline
+          size={16}
+          offset={7}
+          position="bottom-end"
+          color="green"
+          withBorder
+        >
+          <Avatar size={100} src="avatar.png" alt="it's me" />
+        </Indicator>{" "}
+        <Indicator
+          inline
+          size={16}
+          offset={7}
+          position="bottom-end"
+          color="red"
+          withBorder
+        >
+          <Avatar size={100} src="avatar.png" alt="it's me" />
+        </Indicator>
+      </Flex>
+      <TransformWrapper initialScale={1} centerOnInit>
         {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
           <React.Fragment>
             <Flex gap={10}>
-              <ActionIcon onClick={() => zoomIn()} variant="filled">
+              <ActionIcon
+                color="orange"
+                onClick={() => zoomIn()}
+                variant="light"
+              >
                 <IconZoomIn size="2rem" />
               </ActionIcon>
-              <ActionIcon onClick={() => zoomOut()} variant="filled">
+
+              <ActionIcon
+                color="orange"
+                onClick={() => zoomOut()}
+                variant="light"
+              >
                 <IconZoomOut size="2rem" />
               </ActionIcon>
-              <ActionIcon onClick={() => resetTransform()} variant="filled">
+
+              <ActionIcon
+                color="orange"
+                onClick={() => resetTransform()}
+                variant="light"
+              >
                 <IconZoomReset size="2rem" />
               </ActionIcon>
+
+              <ActionIcon color="blue" variant="light">
+                <IconHelp size="2rem" />
+              </ActionIcon>
             </Flex>
+
             <TransformComponent
               wrapperStyle={{
-                width: "700px",
+                width: "100%",
                 height: "500px",
                 maxWidth: "100%",
+                outline: "1px solid",
                 maxHeight: "calc(100vh - 50px)",
               }}
             >
-              <Container
+              <div
                 style={{
                   position: "relative",
-                  background: "#999",
                 }}
+                onClick={(e) => getClickCoordinates(e)}
               >
                 <img width={600} src={img} alt="test" />
                 <div
@@ -51,17 +116,12 @@ function Play() {
                     position: "absolute",
                     top: "190px",
                     left: "116px",
-                    // transform: "translate(-50%, -50%)",
                     zIndex: 2,
-                    // marginLeft: "-200px",
                   }}
                 >
-                  {/* <KeepScale>
-                    <div className={styles.tag}></div>
-                  </KeepScale> */}
                   <div className={styles.tag}></div>
                 </div>
-              </Container>
+              </div>
             </TransformComponent>
           </React.Fragment>
         )}
