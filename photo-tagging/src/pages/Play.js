@@ -1,6 +1,6 @@
 import styles from "./../styles/Play.module.css";
 import { Container } from "@mantine/core";
-import React, { Component } from "react";
+import React from "react";
 import {
   ActionIcon,
   Flex,
@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import img from "../assets/images/maps/anime-party.jpg";
+import img from "../assets/images/maps/marvel-universe.jpg";
 import {
   IconZoomIn,
   IconZoomOut,
@@ -18,13 +18,28 @@ import {
   IconHelp,
 } from "@tabler/icons-react";
 
-const useStyles = createStyles((theme) => ({}));
+// const useStyles = createStyles((theme) => ({}));
 
 function Play() {
   function getClickCoordinates(e) {
     console.log("client: ", e.clientX, e.clientY);
     console.log("offset: ", e.offsetX, e.offsetY);
     console.log("page: ", e.pageX, e.pageY);
+    hitCharacter(e.pageX, e.pageY);
+  }
+
+  function hitCharacter(x, y) {
+    const hitboxRadius = 20;
+    const correctX = 550;
+    const correctY = 684;
+    if (
+      (x - correctX) * (x - correctX) + (y - correctY) * (y - correctY) <=
+      hitboxRadius * hitboxRadius
+    ) {
+      console.log("hit");
+    } else {
+      console.log("NO hit");
+    }
   }
   return (
     <Container style={{ paddingBottom: "20px" }}>
@@ -62,7 +77,7 @@ function Play() {
           <Avatar size={100} src="avatar.png" alt="it's me" />
         </Indicator>
       </Flex>
-      <TransformWrapper initialScale={2} >
+      <TransformWrapper initialScale={2}>
         {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
           <React.Fragment>
             <Flex gap={10}>
