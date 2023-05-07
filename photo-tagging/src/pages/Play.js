@@ -62,7 +62,7 @@ function Play() {
           <Avatar size={100} src="avatar.png" alt="it's me" />
         </Indicator>
       </Flex>
-      <TransformWrapper initialScale={1} centerOnInit>
+      <TransformWrapper initialScale={2} >
         {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
           <React.Fragment>
             <Flex gap={10}>
