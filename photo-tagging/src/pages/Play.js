@@ -1,46 +1,32 @@
-import styles from "./../styles/Play.module.css";
 import { Container } from "@mantine/core";
 import React from "react";
-import {
-  ActionIcon,
-  Flex,
-  createStyles,
-  Avatar,
-  Indicator,
-} from "@mantine/core";
-
+import { ActionIcon, Flex, Avatar, Indicator } from "@mantine/core";
+import { useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import img from "../assets/images/maps/marvel-universe.jpg";
+import face from "../assets/images/maps/face.png";
 import {
   IconZoomIn,
   IconZoomOut,
   IconZoomReset,
   IconHelp,
+  IconScanEye
 } from "@tabler/icons-react";
-
+import HitBox from "../components/HitBox";
 // const useStyles = createStyles((theme) => ({}));
 
 function Play() {
-  function getClickCoordinates(e) {
-    console.log("client: ", e.clientX, e.clientY);
-    console.log("offset: ", e.offsetX, e.offsetY);
-    console.log("page: ", e.pageX, e.pageY);
-    hitCharacter(e.pageX, e.pageY);
+  const [transformState, setTransformState] = useState({
+    scale: 2,
+    positionX: 0,
+    positionY: 0,
+  }); //zoom scale for map
+
+  function handleTransformation(e) {
+    setTransformState(e.instance.transformState);
   }
 
-  function hitCharacter(x, y) {
-    const hitboxRadius = 20;
-    const correctX = 550;
-    const correctY = 684;
-    if (
-      (x - correctX) * (x - correctX) + (y - correctY) * (y - correctY) <=
-      hitboxRadius * hitboxRadius
-    ) {
-      console.log("hit");
-    } else {
-      console.log("NO hit");
-    }
-  }
+  function hitCharacter(characterId) {}
   return (
     <Container style={{ paddingBottom: "20px" }}>
       {" "}
@@ -54,7 +40,8 @@ function Play() {
           color="red"
           withBorder
         >
-          <Avatar size={100} src="avatar.png" alt="it's me" />
+          <Avatar size={100} src={face} alt="it's me" />
+          <IconScanEye />
         </Indicator>
         <Indicator
           inline
@@ -77,8 +64,11 @@ function Play() {
           <Avatar size={100} src="avatar.png" alt="it's me" />
         </Indicator>
       </Flex>
-      <TransformWrapper initialScale={2}>
-        {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+      <TransformWrapper
+        initialScale={transformState.scale}
+        onTransformed={(e) => handleTransformation(e)}
+      >
+        {({ zoomIn, zoomOut, resetTransform, zoomToElement, ...rest }) => (
           <React.Fragment>
             <Flex gap={10}>
               <ActionIcon
@@ -105,7 +95,11 @@ function Play() {
                 <IconZoomReset size="2rem" />
               </ActionIcon>
 
-              <ActionIcon color="blue" variant="light">
+              <ActionIcon
+                color="blue"
+                variant="light"
+                onClick={() => zoomToElement("character-element1")}
+              >
                 <IconHelp size="2rem" />
               </ActionIcon>
             </Flex>
@@ -123,19 +117,11 @@ function Play() {
                 style={{
                   position: "relative",
                 }}
-                onClick={(e) => getClickCoordinates(e)}
               >
                 <img width={600} src={img} alt="test" />
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "190px",
-                    left: "116px",
-                    zIndex: 2,
-                  }}
-                >
-                  <div className={styles.tag}></div>
-                </div>
+
+                <HitBox topPos="175px" leftPos="120px" />
+                <HitBox topPos="105px" leftPos="50px" />
               </div>
             </TransformComponent>
           </React.Fragment>
