@@ -3,19 +3,28 @@ import React from "react";
 import { ActionIcon, Flex } from "@mantine/core";
 import { useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import img from "../assets/images/maps//marvel-universe/marvel-universe.jpg";
-import face from "../assets/images/maps/face.png";
-import {
-  IconZoomIn,
-  IconZoomOut,
-  IconZoomReset,
-  IconHelp,
-} from "@tabler/icons-react";
+import { IconZoomIn, IconZoomOut, IconZoomReset } from "@tabler/icons-react";
 import HitBox from "../components/HitBox";
 import Character from "../components/Character";
+import uniqid from "uniqid";
 // const useStyles = createStyles((theme) => ({}));
 
+import { useLocation } from "react-router-dom";
 function Play() {
+  const mapInfo = useLocation().state;
+  // console.log(mapInfo);
+  const hitboxes = mapInfo.characters.map((character) => {
+    return (
+      <HitBox
+        key={uniqid()}
+        id={character.id}
+        size={character.hitboxRadius}
+        topPos={character.topPos}
+        leftPos={character.leftPos}
+      />
+    );
+  });
+
   const [transformState, setTransformState] = useState({
     scale: 2,
     positionX: 0,
@@ -37,12 +46,15 @@ function Play() {
         {({ zoomIn, zoomOut, resetTransform, zoomToElement, ...rest }) => (
           <React.Fragment>
             <Flex justify="space-around">
-              <Character
-                imgSrc={face}
-                zoomToCharacter={() => zoomToElement("character-element1")}
-              />
-              <Character imgSrc={face} />
-              <Character imgSrc={face} />
+              {mapInfo.characters.map((char) => {
+                return (
+                  <Character
+                    key={uniqid()}
+                    imgSrc={char.imgSrc}
+                    zoomToCharacter={() => zoomToElement(char.id)}
+                  />
+                );
+              })}
             </Flex>
 
             <Flex gap={10}>
@@ -88,10 +100,8 @@ function Play() {
                   position: "relative",
                 }}
               >
-                <img width={600} src={img} alt="test" />
-
-                <HitBox topPos="175px" leftPos="120px" />
-                <HitBox topPos="105px" leftPos="50px" />
+                <img width={600} src={mapInfo.imgSrc} alt={mapInfo.imgAlt} />
+                {hitboxes}
               </div>
             </TransformComponent>
           </React.Fragment>

@@ -38,35 +38,37 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Card({ image, title, category, available, rating }) {
+export default function Card({ ...cardInfo }) {
   const { classes } = useStyles();
-
+  // console.log(cardInfo);
   return (
     <Paper
       shadow="md"
       p="xl"
       radius="md"
-      sx={{ backgroundImage: `url(${image})` }}
+      sx={{ backgroundImage: `url(${cardInfo.imgSrc})` }}
       className={classes.card}
     >
       <div>
         <Text className={classes.category} size="xs">
-          {category}
+          {cardInfo.category}
         </Text>
         <Title order={3} className={classes.title}>
-          {title}
+          {cardInfo.title}
         </Title>
       </div>
       <Flex
         align="center"
         style={{ width: "100%", justifyContent: "space-between" }}
       >
-        <Link to={`/play/${title}`}>
-          <Button variant="white" color="dark" disabled={!available}>
-            {available ? "Play" : "Coming soon"}
+        <Link state={cardInfo} to={`/play/${cardInfo.title}`}>
+          <Button variant="white" color="dark" disabled={!cardInfo.available}>
+            {cardInfo.available ? "Play" : "Coming soon"}
           </Button>
         </Link>
-        {available ? <Rating readOnly defaultValue={rating} /> : null}
+        {cardInfo.available ? (
+          <Rating readOnly defaultValue={cardInfo.rating} />
+        ) : null}
       </Flex>
     </Paper>
   );
