@@ -1,6 +1,6 @@
 import { Container } from "@mantine/core";
 import React from "react";
-import { ActionIcon, Flex } from "@mantine/core";
+import { ActionIcon, Flex, Image } from "@mantine/core";
 import { useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { IconZoomIn, IconZoomOut, IconZoomReset } from "@tabler/icons-react";
@@ -92,7 +92,7 @@ function Play() {
                 height: "500px",
                 maxWidth: "100%",
                 outline: "1px solid",
-                maxHeight: "calc(100vh - 50px)",
+                // maxHeight: "calc(100vh - 50px)",
               }}
             >
               <div
@@ -100,7 +100,17 @@ function Play() {
                   position: "relative",
                 }}
               >
-                <img width={600} src={mapInfo.imgSrc} alt={mapInfo.imgAlt} />
+                <Image
+                  withPlaceholder
+                  placeholder={
+                    "Issue with image. Please report issue on Github."
+                  }
+                  radius="md"
+                  width={600}
+                  src={mapInfo.imgSrc}
+                  alt={mapInfo.imgAlt}
+                />
+                {/* <img width={600} src={mapInfo.imgSrc} alt={mapInfo.imgAlt} /> */}
                 {hitboxes}
               </div>
             </TransformComponent>
