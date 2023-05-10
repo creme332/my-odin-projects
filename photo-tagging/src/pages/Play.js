@@ -7,6 +7,7 @@ import { IconZoomIn, IconZoomOut, IconZoomReset } from "@tabler/icons-react";
 import HitBox from "../components/HitBox";
 import Character from "../components/Character";
 import uniqid from "uniqid";
+import sleep from "../utils/sleep";
 // const useStyles = createStyles((theme) => ({}));
 
 import { useLocation } from "react-router-dom";
@@ -18,6 +19,7 @@ function Play() {
       return character;
     })
   );
+  const [zoomAvailable, setZoomAvailable] = useState(true);
 
   const hitboxes = mapInfo.characters.map((character) => {
     return (
@@ -27,7 +29,7 @@ function Play() {
         size={character.hitboxRadius}
         topPos={character.topPos}
         leftPos={character.leftPos}
-        handleClick={() => handleCorrectClick(character.id)}
+        handleClick={() => updateRemainingChars(character.id)}
       />
     );
   });
@@ -42,15 +44,26 @@ function Play() {
     setTransformState(e.instance.transformState);
   }
 
-  function handleCorrectClick(charID) {
-    console.log(charID, remainingCharacters);
+  /**
+   * Disables zoom to character option temporarily for a set time.
+   */
+  async function startDelay() {
+    const seconds = 60;
+    setZoomAvailable(false);
+    for (let i = 0; i < seconds; i++) {
+      await sleep(1000);
+      console.log(i + 1);
+    }
+    setZoomAvailable(true);
+  }
 
-    // update list of remaining characters
+  /**
+   * Update list of remaining characters
+   * @param {string} charID id of character clicked on
+   */
+  function updateRemainingChars(charID) {
     const newArray = remainingCharacters.filter((char) => char.id !== charID);
     setRemainingCharacters(newArray);
-    console.log(remainingCharacters);
-
-    // check if game is over (all characters found)
   }
 
   return (
@@ -71,7 +84,11 @@ function Play() {
                     key={uniqid()}
                     imgSrc={char.imgSrc}
                     found={!ids.includes(char.id)}
-                    zoomToCharacter={() => zoomToElement(char.id)}
+                    zoomAvailable={zoomAvailable}
+                    zoomToCharacter={() => {
+                      zoomToElement(char.id);
+                      startDelay();
+                    }}
                   />
                 );
               })}
