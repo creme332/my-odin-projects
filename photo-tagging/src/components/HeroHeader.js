@@ -110,7 +110,7 @@ export function HeroBullets() {
             </Button>
           </Group>
         </div>
-        <Image src={image} className={classes.image} />
+        <Image withPlaceholder src={image} className={classes.image} />
       </div>
     </Container>
   );
