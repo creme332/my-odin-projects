@@ -12,7 +12,13 @@ import uniqid from "uniqid";
 import { useLocation } from "react-router-dom";
 function Play() {
   const mapInfo = useLocation().state;
-  // console.log(mapInfo);
+  const [remainingCharacters, setRemainingCharacters] = useState(
+    mapInfo.characters.map((character) => {
+      character.found = false;
+      return character;
+    })
+  );
+
   const hitboxes = mapInfo.characters.map((character) => {
     return (
       <HitBox
@@ -21,6 +27,7 @@ function Play() {
         size={character.hitboxRadius}
         topPos={character.topPos}
         leftPos={character.leftPos}
+        handleClick={() => handleCorrectClick(character.id)}
       />
     );
   });
@@ -35,6 +42,17 @@ function Play() {
     setTransformState(e.instance.transformState);
   }
 
+  function handleCorrectClick(charID) {
+    console.log(charID, remainingCharacters);
+
+    // update list of remaining characters
+    const newArray = remainingCharacters.filter((char) => char.id !== charID);
+    setRemainingCharacters(newArray);
+    console.log(remainingCharacters);
+
+    // check if game is over (all characters found)
+  }
+
   return (
     <Container style={{ paddingBottom: "20px" }}>
       {" "}
@@ -47,10 +65,12 @@ function Play() {
           <React.Fragment>
             <Flex justify="space-around">
               {mapInfo.characters.map((char) => {
+                const ids = remainingCharacters.map((c) => c.id);
                 return (
                   <Character
                     key={uniqid()}
                     imgSrc={char.imgSrc}
+                    found={!ids.includes(char.id)}
                     zoomToCharacter={() => zoomToElement(char.id)}
                   />
                 );
@@ -110,7 +130,6 @@ function Play() {
                   src={mapInfo.imgSrc}
                   alt={mapInfo.imgAlt}
                 />
-                {/* <img width={600} src={mapInfo.imgSrc} alt={mapInfo.imgAlt} /> */}
                 {hitboxes}
               </div>
             </TransformComponent>
