@@ -12,7 +12,7 @@ export default function Character({ imgSrc, zoomToCharacter }) {
           color="black"
           variant="default"
         >
-          <IconScanEye size="rem" />
+          <IconScanEye size="1.5rem" />
         </ActionIcon>
         <Badge color="red">Missing</Badge>
       </Flex>
