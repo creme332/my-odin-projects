@@ -4,6 +4,7 @@ import marvelUniverseMap from "../assets/images/maps//marvel-universe/marvel-uni
 import m1 from "../assets/images/maps//marvel-universe/characters/1.png";
 import m2 from "../assets/images/maps//marvel-universe/characters/2.png";
 import m3 from "../assets/images/maps//marvel-universe/characters/3.png";
+import m4 from "../assets/images/maps//marvel-universe/characters/4.png";
 
 /**
  * Returns a dictionary containing all information about all maps
@@ -21,9 +22,9 @@ export default function getAllMaps() {
       characters: [
         {
           id: "marvel-1",
-          topPos: "190px",
+          topPos: "188px",
           leftPos: "550px",
-          hitboxRadius: "30px",
+          hitboxRadius: "25px",
           imgSrc: m1,
           imgAlt: "A pensive duck",
         },
@@ -42,6 +43,14 @@ export default function getAllMaps() {
           hitboxRadius: "30px",
           imgSrc: m3,
           imgAlt: "Shocked yellow haired woman",
+        },
+        {
+          id: "marvel-4",
+          topPos: "275px",
+          leftPos: "226px",
+          hitboxRadius: "20px",
+          imgSrc: m4,
+          imgAlt: "Iron man in red costume",
         },
       ],
     },
