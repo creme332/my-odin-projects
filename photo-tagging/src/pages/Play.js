@@ -8,6 +8,7 @@ import HitBox from "../components/HitBox";
 import Character from "../components/Character";
 import uniqid from "uniqid";
 import sleep from "../utils/sleep";
+import GameScreen from "../components/GameScreen";
 // const useStyles = createStyles((theme) => ({}));
 
 import { useLocation } from "react-router-dom";
@@ -40,6 +41,18 @@ function Play() {
     positionY: 0,
   }); //zoom scale for map
 
+  // const [time, setTime] = useState(0);
+
+  // async function startTimer() {
+  //   console.log("Started timer!");
+  //   while (remainingCharacters.length !== 0) {
+  //     await sleep(1000);
+  //     setTime(time + 1);
+  //     console.log(time);
+  //   }
+  // }
+  // startTimer();
+
   function handleTransformation(e) {
     setTransformState(e.instance.transformState);
   }
@@ -52,7 +65,7 @@ function Play() {
     setZoomAvailable(false);
     for (let i = 0; i < seconds; i++) {
       await sleep(1000);
-      console.log(i + 1);
+      // console.log(i + 1);
     }
     setZoomAvailable(true);
   }
@@ -69,6 +82,7 @@ function Play() {
   return (
     <Container style={{ paddingBottom: "20px" }}>
       {" "}
+      <GameScreen mapName={mapInfo.title} />
       <h1>Find characters</h1>
       <TransformWrapper
         initialScale={transformState.scale}
