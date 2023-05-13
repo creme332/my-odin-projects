@@ -82,8 +82,8 @@ function GameScreen({
             </List.Item>
             {helpCount > 0 ? (
               <List.Item>
-                You needed help to find {helpCount}
-                {helpCount > 1 ? " characters" : " character"}.
+                You needed help {helpCount}
+                {helpCount > 1 ? " times" : " time"}.
               </List.Item>
             ) : null}
           </List>
