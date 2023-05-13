@@ -1,5 +1,5 @@
 import { Container } from "@mantine/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { ActionIcon, Flex, Image } from "@mantine/core";
 import { useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
@@ -20,7 +20,8 @@ function Play() {
       return character;
     })
   );
-  const [zoomAvailable, setZoomAvailable] = useState(true);
+  const [zoomAvailable, setZoomAvailable] = useState(true); //zoom to character
+  const [helpCount, setHelpCount] = useState(0); //number of times zoom help is used
 
   const hitboxes = mapInfo.characters.map((character) => {
     return (
@@ -41,18 +42,32 @@ function Play() {
     positionY: 0,
   }); //zoom scale for map
 
-  // const [time, setTime] = useState(0);
+  const [time, setTime] = useState(0);
 
-  // async function startTimer() {
-  //   console.log("Started timer!");
-  //   while (remainingCharacters.length !== 0) {
-  //     await sleep(1000);
-  //     setTime(time + 1);
-  //     console.log(time);
-  //   }
-  // }
+  useEffect(() => {
+    setTime(Date.now());
+    return () => {
+      setTime(0);
+    };
+  }, []);
+
+  function endGame() {
+    const endTime = Date.now();
+    const playerTime = parseInt((endTime - time) / 1000, 10);
+    console.log(`Difference ${playerTime}`);
+
+    return (
+      <GameScreen
+        mapName={mapInfo.title}
+        difficulty={1}
+        helpCount={helpCount}
+        characterCount={mapInfo.characters.length}
+        time={playerTime}
+      />
+    );
+  }
+
   // startTimer();
-
   function handleTransformation(e) {
     setTransformState(e.instance.transformState);
   }
@@ -82,7 +97,7 @@ function Play() {
   return (
     <Container style={{ paddingBottom: "20px" }}>
       {" "}
-      <GameScreen mapName={mapInfo.title} />
+      {remainingCharacters.length === 0 ? endGame() : null}
       <h1>Find characters</h1>
       <TransformWrapper
         initialScale={transformState.scale}
@@ -100,6 +115,7 @@ function Play() {
                     found={!ids.includes(char.id)}
                     zoomAvailable={zoomAvailable}
                     zoomToCharacter={() => {
+                      setHelpCount(helpCount + 1);
                       zoomToElement(char.id);
                       startDelay();
                     }}
