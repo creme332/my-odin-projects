@@ -1,25 +1,35 @@
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Group, Button, List, ThemeIcon, Title } from "@mantine/core";
+import {
+  Modal,
+  Group,
+  Button,
+  List,
+  ThemeIcon,
+  Title,
+  Container,
+} from "@mantine/core";
 import {
   IconClockHour9,
   IconScanEye,
   IconTrophyFilled,
   IconHome2,
 } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Game over screen
- * @param {*} param0 
- * @returns 
+ * @param {*} param0
+ * @returns
  */
 function GameScreen({
   time = 500,
-  helpCount = 0,
+  helpCount = 1,
   characterCount = 3,
   difficulty = 2,
   mapName = "Default map",
 }) {
   const [opened, { open, close }] = useDisclosure(true);
+  const navigate = useNavigate();
 
   /**
    * A simple algorithm that returns a score out of 2000 based on user performance.
@@ -42,42 +52,60 @@ function GameScreen({
 
     return timeScore + helpScore;
   }
+
   return (
     <>
       <Modal title={mapName} opened={opened} onClose={close} centered>
-        <h1>Congratulations 🎉</h1>
-        <List
-          spacing="xs"
-          size="sm"
-          center
-          icon={
-            <ThemeIcon color="teal" size={24} radius="xl">
-              <IconScanEye size="1rem" />
-            </ThemeIcon>
-          }
-        >
-          <List.Item
+        <Container>
+          <Title style={{ marginBottom: "20px" }} order={1}>
+            Congratulations 🎉
+          </Title>
+          <List
+            spacing="xs"
+            size="sm"
+            center
             icon={
-              <ThemeIcon color="blue" size={24} radius="xl">
-                <IconClockHour9 size="1rem" />
+              <ThemeIcon color="teal" size={24} radius="xl">
+                <IconScanEye size="1rem" />
               </ThemeIcon>
             }
           >
-            You took {time} seconds to find {characterCount} characters.{" "}
-          </List.Item>
-          {helpCount > 0 ? (
-            <List.Item>
-              You needed help to find {characterCount} characters.
+            <List.Item
+              icon={
+                <ThemeIcon color="blue" size={24} radius="xl">
+                  <IconClockHour9 size="1rem" />
+                </ThemeIcon>
+              }
+            >
+              You took {time} seconds to find {characterCount}
+              {characterCount > 1 ? " characters" : " character"}.
             </List.Item>
-          ) : null}
-        </List>
-        <Title order={4}>Your final score</Title>
-        <Title order={1}>{calculateScore()}/2000</Title>
-        <Group position="center">
-          <Button leftIcon={<IconTrophyFilled />} color="violet">
+            {helpCount > 0 ? (
+              <List.Item>
+                You needed help to find {helpCount}
+                {helpCount > 1 ? " characters" : " character"}.
+              </List.Item>
+            ) : null}
+          </List>
+          <Group>
+            <Title order={4}>Your score:</Title>
+            <Title order={2}>{calculateScore("/")}/2000</Title>
+          </Group>
+        </Container>
+
+        <Group style={{ marginTop: "20px" }} position="center">
+          <Button
+            onClick={() => navigate("/leaderboard")}
+            leftIcon={<IconTrophyFilled />}
+            color="violet"
+          >
             View leaderboard
           </Button>
-          <Button leftIcon={<IconHome2 />} color="violet">
+          <Button
+            onClick={() => navigate("/")}
+            leftIcon={<IconHome2 />}
+            color="violet"
+          >
             Return home
           </Button>
         </Group>
