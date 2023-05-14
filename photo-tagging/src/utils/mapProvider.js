@@ -1,10 +1,9 @@
-import uniqid from "uniqid";
-
 import marvelUniverseMap from "../assets/images/maps//marvel-universe/marvel-universe.jpg";
 import m1 from "../assets/images/maps//marvel-universe/characters/1.png";
 import m2 from "../assets/images/maps//marvel-universe/characters/2.png";
 import m3 from "../assets/images/maps//marvel-universe/characters/3.png";
 import m4 from "../assets/images/maps//marvel-universe/characters/4.png";
+import m5 from "../assets/images/maps//marvel-universe/characters/5.png";
 
 /**
  * Returns a dictionary containing all information about all maps
@@ -51,6 +50,14 @@ export default function getAllMaps() {
           hitboxRadius: "20px",
           imgSrc: m4,
           imgAlt: "Iron man in red costume",
+        },
+        {
+          id: "marvel-5",
+          topPos: "176px",
+          leftPos: "510px",
+          hitboxRadius: "25px",
+          imgSrc: m5,
+          imgAlt: "Red woman with mask and blue hair",
         },
       ],
     },
