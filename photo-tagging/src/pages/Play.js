@@ -9,21 +9,29 @@ import Character from "../components/Character";
 import uniqid from "uniqid";
 import sleep from "../utils/sleep";
 import GameScreen from "../components/GameScreen";
+import { useLocation } from "react-router-dom";
+
 // const useStyles = createStyles((theme) => ({}));
 
-import { useLocation } from "react-router-dom";
 function Play() {
   const mapInfo = useLocation().state;
+
+  // choose at most 4 characters randomly before start of game
+  const [randomCharacters, setRandomCharacters] = useState(
+    shuffle(mapInfo.characters).slice(0, 3)
+  );
+
   const [remainingCharacters, setRemainingCharacters] = useState(
-    mapInfo.characters.map((character) => {
+    randomCharacters.map((character) => {
       character.found = false;
       return character;
     })
-  );
+  ); // characters which have not been found yet
+
   const [zoomAvailable, setZoomAvailable] = useState(true); //zoom to character
   const [helpCount, setHelpCount] = useState(0); //number of times zoom help is used
 
-  const hitboxes = mapInfo.characters.map((character) => {
+  const hitboxes = randomCharacters.map((character) => {
     return (
       <HitBox
         key={uniqid()}
@@ -42,7 +50,7 @@ function Play() {
     positionY: 0,
   }); //zoom scale for map
 
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(0); // start time
 
   useEffect(() => {
     setTime(Date.now());
@@ -51,23 +59,49 @@ function Play() {
     };
   }, []);
 
+  /**
+   * Shuffles array using Fisher-Yates shuffle
+   *
+   * https://stackoverflow.com/a/2450976/17627866
+   * @param {*} array
+   * @returns
+   */
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex !== 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
   function endGame() {
     const endTime = Date.now();
     const playerTime = parseInt((endTime - time) / 1000, 10);
-    console.log(`Difference ${playerTime}`);
+    // console.log(`Difference ${playerTime}`);
 
     return (
       <GameScreen
+        difficulty={mapInfo.rating}
         mapName={mapInfo.title}
-        difficulty={1}
         helpCount={helpCount}
-        characterCount={mapInfo.characters.length}
+        characterCount={randomCharacters.length}
         time={playerTime}
       />
     );
   }
 
-  // startTimer();
   function handleTransformation(e) {
     setTransformState(e.instance.transformState);
   }
@@ -106,13 +140,13 @@ function Play() {
         {({ zoomIn, zoomOut, resetTransform, zoomToElement, ...rest }) => (
           <React.Fragment>
             <Flex justify="space-around">
-              {mapInfo.characters.map((char) => {
-                const ids = remainingCharacters.map((c) => c.id);
+              {randomCharacters.map((char) => {
+                const notFoundCharIDs = remainingCharacters.map((c) => c.id); // id of characters which have not been found yet
                 return (
                   <Character
                     key={uniqid()}
                     imgSrc={char.imgSrc}
-                    found={!ids.includes(char.id)}
+                    found={!notFoundCharIDs.includes(char.id)}
                     zoomAvailable={zoomAvailable}
                     zoomToCharacter={() => {
                       setHelpCount(helpCount + 1);
