@@ -8,13 +8,20 @@ import {
   Rating,
   Flex,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MapCard({ ...cardInfo }) {
+  const navigate = useNavigate();
+
   return (
     <Card shadow="xl" padding="lg" radius="md" withBorder>
       <Card.Section>
-        <Image src={cardInfo.imgSrc} height={160} alt="Norway" />
+        <Image
+          withPlaceholder
+          src={cardInfo.imgSrc}
+          height={160}
+          alt="Norway"
+        />
       </Card.Section>
 
       <Group position="apart" mt="md" mb="xs">
@@ -30,15 +37,16 @@ function MapCard({ ...cardInfo }) {
         align="center"
         style={{ width: "100%", justifyContent: "space-between" }}
       >
-        <Link state={cardInfo} to={`/play/${cardInfo.title}`}>
-          <Button
-            variant="filled"
-            color="indigo"
-            disabled={!cardInfo.available}
-          >
-            {cardInfo.available ? "Play" : "Coming soon"}
-          </Button>
-        </Link>
+        <Button
+          variant="filled"
+          color="indigo"
+          onClick={() =>
+            navigate(`/play/${cardInfo.title}`, { state: cardInfo })
+          }
+          disabled={!cardInfo.available}
+        >
+          {cardInfo.available ? "Play" : "Coming soon"}
+        </Button>
         {cardInfo.available ? (
           <Rating readOnly defaultValue={cardInfo.rating} />
         ) : null}
