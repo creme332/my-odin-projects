@@ -1,15 +1,15 @@
-import Card from "./Card";
+import MapCard from "./MapCard";
 import { Carousel } from "@mantine/carousel";
 import { useMediaQuery } from "@mantine/hooks";
 import { useMantineTheme, rem } from "@mantine/core";
 
-export default function CardsCarousel({data}) {
+export default function CardsCarousel({ data }) {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
   const slides = data.map((item) => (
     <Carousel.Slide key={item.title}>
-      <Card {...item} />
+      <MapCard {...item} />
     </Carousel.Slide>
   ));
 
