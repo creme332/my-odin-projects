@@ -17,9 +17,7 @@ function Play() {
   const mapInfo = useLocation().state;
 
   // choose at most 4 characters randomly before start of game
-  const [randomCharacters, setRandomCharacters] = useState(
-    shuffle(mapInfo.characters).slice(0, 3)
-  );
+  const [randomCharacters] = useState(shuffle(mapInfo.characters).slice(0, 3));
 
   const [remainingCharacters, setRemainingCharacters] = useState(
     randomCharacters.map((character) => {

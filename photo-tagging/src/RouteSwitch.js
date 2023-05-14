@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-// import leafLogo from "./assets/images/detective.png";
 import HeaderWithTabs from "./components/HeaderWithTabs";
 import Leaderboard from "./pages/Leaderboard";
 import Play from "./pages/Play";
@@ -9,7 +8,6 @@ import uniqid from "uniqid";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 
 const RouteSwitch = () => {
-  // const [user, setUser] = useState({ name: "John", image: leafLogo });
   const tabs = [
     { tabName: "Home", pathname: "/", id: uniqid() },
     { tabName: "Profile", pathname: "/profile", id: uniqid() },
