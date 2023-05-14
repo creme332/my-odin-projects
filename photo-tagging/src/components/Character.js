@@ -1,5 +1,6 @@
-import { Flex, Avatar, Badge, ActionIcon } from "@mantine/core";
-import { IconScanEye } from "@tabler/icons-react";
+import { Flex, Avatar, ActionIcon } from "@mantine/core";
+import { IconScanEye, IconCircleCheckFilled } from "@tabler/icons-react";
+import { useMediaQuery } from "@mantine/hooks";
 
 export default function Character({
   imgSrc,
@@ -7,9 +8,16 @@ export default function Character({
   found = false,
   zoomAvailable = true,
 }) {
+  const smallScreen = useMediaQuery("(max-width: 22em)");
+
   return (
     <Flex direction={"column"} gap={10}>
-      <Avatar size={100} src={imgSrc} alt="Character to be found on map" />
+      <Avatar
+        size={smallScreen ? "50px" : "100px"}
+        src={imgSrc}
+        alt="Character to be found on map"
+        color="indigo"
+      />
       <Flex align={"center"} justify={"space-between"}>
         <ActionIcon
           onClick={zoomToCharacter}
@@ -20,10 +28,11 @@ export default function Character({
         >
           <IconScanEye size="1.5rem" />
         </ActionIcon>
+
         {found ? (
-          <Badge color="green">Found</Badge>
+          <IconCircleCheckFilled style={{ color: "teal" }} />
         ) : (
-          <Badge color="red">Missing</Badge>
+          <IconCircleCheckFilled style={{ color: "red" }} />
         )}
       </Flex>
     </Flex>
