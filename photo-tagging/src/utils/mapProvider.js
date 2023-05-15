@@ -136,7 +136,7 @@ export default function getAllMaps() {
     },
     {
       title: "Pixel Madness",
-      category: "Anime",
+      category: "Madness",
       rating: 5,
       imgSrc: PixelMadnessMap,
       imgAlt: "Wallpaper of pixel characters",
@@ -185,13 +185,24 @@ export default function getAllMaps() {
       ],
     },
     {
-      title: "Majestic Volcano",
+      title: "Magical Moon",
       category: "Top Secret",
-      rating: 5,
+      rating: 0,
       imgSrc:
-        "https://images.unsplash.com/photo-1582721478779-0ae163c05a60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
 
-      imgAlt: "A black volcano",
+      imgAlt: "Blue sky",
+      available: false,
+      characters: [],
+    },
+    {
+      title: "Starry night",
+      category: "Top Secret",
+      rating: 0,
+      imgSrc:
+        "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+
+      imgAlt: "Stars in the sky",
       available: false,
       characters: [],
     },
