@@ -5,6 +5,7 @@ import m3 from "../assets/images/maps/marvel-universe/characters/3.png";
 import m4 from "../assets/images/maps/marvel-universe/characters/4.png";
 import m5 from "../assets/images/maps/marvel-universe/characters/5.png";
 
+import AnimePartyMap from "../assets/images/maps/anime-party/anime-party.jpg";
 import a1 from "../assets/images/maps/anime-party/characters/1.png";
 import a2 from "../assets/images/maps/anime-party/characters/2.png";
 import a3 from "../assets/images/maps/anime-party/characters/3.png";
@@ -12,9 +13,13 @@ import a4 from "../assets/images/maps/anime-party/characters/4.png";
 import a5 from "../assets/images/maps/anime-party/characters/5.png";
 import a6 from "../assets/images/maps/anime-party/characters/6.png";
 
-import AnimePartyMap from "../assets/images/maps/anime-party/anime-party.jpg";
-
 import PixelMadnessMap from "../assets/images/maps/pixel-madness/pixel-madness.png";
+import p1 from "../assets/images/maps/pixel-madness/characters/1.png";
+import p2 from "../assets/images/maps/pixel-madness/characters/2.png";
+import p3 from "../assets/images/maps/pixel-madness/characters/3.png";
+import p4 from "../assets/images/maps/pixel-madness/characters/4.png";
+import p5 from "../assets/images/maps/pixel-madness/characters/5.png";
+
 /**
  * Returns a dictionary containing all information about all maps
  * @returns
@@ -134,16 +139,48 @@ export default function getAllMaps() {
       category: "Anime",
       rating: 5,
       imgSrc: PixelMadnessMap,
-      imgAlt: "Wallpaper of anime characters",
+      imgAlt: "Wallpaper of pixel characters",
       available: true,
       characters: [
         {
-          id: "marvel-1",
-          topPos: "188px",
-          leftPos: "550px",
-          hitboxRadius: "25px",
-          imgSrc: m1,
-          imgAlt: "A pensive duck",
+          id: "pixel-1",
+          topPos: `${5}px`,
+          leftPos: `${88}px`,
+          hitboxRadius: `${20}px`,
+          imgSrc: p1,
+          imgAlt: "Violet mermaid",
+        },
+        {
+          id: "pixel-2",
+          topPos: `${20}px`,
+          leftPos: `${420}px`,
+          hitboxRadius: `${6}px`,
+          imgSrc: p2,
+          imgAlt: "Standing pig",
+        },
+        {
+          id: "pixel-3",
+          topPos: `${180}px`,
+          leftPos: `${305}px`,
+          hitboxRadius: `${20}px`,
+          imgSrc: p3,
+          imgAlt: "Huge Purple Slime",
+        },
+        {
+          id: "pixel-4",
+          topPos: `${105}px`,
+          leftPos: `${52}px`,
+          hitboxRadius: `${10}px`,
+          imgSrc: p4,
+          imgAlt: "Fire emoji",
+        },
+        {
+          id: "pixel-5",
+          topPos: `${168}px`,
+          leftPos: `${548}px`,
+          hitboxRadius: `${15}px`,
+          imgSrc: p5,
+          imgAlt: "Green bug",
         },
       ],
     },
