@@ -70,40 +70,31 @@ Run project.
 
 Generate production build.
 
+## How to create your own maps
+
+1. Update mapProvider but keep character list empty for now.
+2. Add a background colour and an outline to Hitbox element.
+3. Add a Hitbox element to TransformWrapper and manually modify its leftPos and topPos to move the hitbox element where needed
+4. With live reload enabled and some trial and error, you will easily place the hitbox where needed. 
+5. Update mapProvider.
 
 # To-do
-* [x] complete play page
-  + [x] add timer
-  + [x] check if correct character was clicked and update badge
-  + [x] add game over screen
-  + [x] add delay between each reveal answer
-  + [x] add at least 5 characters per map
-  + [x] randomize characters
-  + [x] verify if helpCount works
-  + [x] make characters image box size responsive
-  + [x] add missing characters
-  + [x] initial image should cover container
-  + [x] add hint popover
-  + [x] fix character image flickering when character is clicked on map
-* [ ] fix shifting header bug
+* [ ] bugs
+  * [ ] fix shifting header bug
+  * [ ] fix bug where map is centered when play button is clicked. i want header to be visible.
+
+* [ ] refactor
+* [ ] add gap between character list and map
 * [ ] add difficulty rating to each character and rework formula
-* [x] add new maps
 * [ ] how to ensure unique ids in map
 * [ ] place hitbox behind map to prevent inspect element
-* [x] fix color of card title
-* [x] add placeholder for image on home screen
-* [ ] fix bug where map is centered when play button is clicked. i want header to be visible.
-* [x] add tooltips to explain actionicon
 * [ ] create profile page
-* [x] use useNavigate instead of Link for buttons
+* [ ] create leaderboard page
+  * [ ] leaderboard for each map
 * [ ] add how to play section on home screen
+* [ ] implement backend using firebase
 * [ ] add tour of website (reacttour)
-* [x] add option to toggle theme
-* [x] make header occupy full width
-* [x] set width of image carousel =  width of hero header
-* [x] add logo to header
 * [ ] compress images
-* [x] use grayclif font from mantine instead of css
 * [ ] use react-image-crop to let user create their own maps
 * [ ] Generate production build
 * [ ] Use pageInsight to test website after deployment.
