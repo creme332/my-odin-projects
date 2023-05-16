@@ -1,23 +1,17 @@
-import { Flex, Avatar, ActionIcon } from "@mantine/core";
+import { Flex, ActionIcon } from "@mantine/core";
 import { IconScanEye, IconCircleCheckFilled } from "@tabler/icons-react";
-import { useMediaQuery } from "@mantine/hooks";
+import CharacterImage from "./CharacterImage";
 
 export default function Character({
   imgSrc,
+  imgAlt,
   zoomToCharacter,
   found = false,
   zoomAvailable = true,
 }) {
-  const smallScreen = useMediaQuery("(max-width: 22em)");
-
   return (
     <Flex direction={"column"} gap={10}>
-      <Avatar
-        size={smallScreen ? "50px" : "100px"}
-        src={imgSrc}
-        alt="Character to be found on map"
-        color="indigo"
-      />
+      <CharacterImage avatarImgAlt={imgAlt} avatarImgSrc={imgSrc} />
       <Flex align={"center"} justify={"space-between"}>
         <ActionIcon
           onClick={zoomToCharacter}
