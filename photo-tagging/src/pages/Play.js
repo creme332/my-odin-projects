@@ -1,7 +1,5 @@
-import { Container } from "@mantine/core";
-import React, { useEffect } from "react";
-import { ActionIcon, Flex, Image } from "@mantine/core";
-import { useState } from "react";
+import { Container, ActionIcon, Flex, Image } from "@mantine/core";
+import React, { useEffect, useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { IconZoomIn, IconZoomOut, IconZoomReset } from "@tabler/icons-react";
 import HitBox from "../components/HitBox";
@@ -11,25 +9,25 @@ import sleep from "../utils/sleep";
 import GameScreen from "../components/GameScreen";
 import { useLocation } from "react-router-dom";
 
-// const useStyles = createStyles((theme) => ({}));
-
 function Play() {
+  //get information about selected map
   const mapInfo = useLocation().state;
+  const maxCharacterCount = 4; // maximum number of characters to be found in a map
 
-  // choose at most 4 characters randomly before start of game
-  const [randomCharacters] = useState(shuffle(mapInfo.characters).slice(0, 3));
-
-  const [remainingCharacters, setRemainingCharacters] = useState(
-    randomCharacters.map((character) => {
-      character.found = false;
-      return character;
-    })
-  ); // characters which have not been found yet
+  // create a a random character list
+  const [characterList, setCharacterList] = useState(
+    shuffle(mapInfo.characters)
+      .slice(0, maxCharacterCount)
+      .map((character) => {
+        character.found = false;
+        return character;
+      })
+  );
 
   const [zoomAvailable, setZoomAvailable] = useState(true); //zoom to character
-  const [helpCount, setHelpCount] = useState(0); //number of times zoom help is used
+  const [helpCount, setHelpCount] = useState(0); //number of times zoom help button is used
 
-  const hitboxes = randomCharacters.map((character) => {
+  const hitboxes = characterList.map((character) => {
     return (
       <HitBox
         key={uniqid()}
@@ -37,7 +35,7 @@ function Play() {
         size={character.hitboxRadius}
         topPos={character.topPos}
         leftPos={character.leftPos}
-        handleClick={() => updateRemainingChars(character.id)}
+        handleClick={() => updateCharacterStatus(character.id)}
       />
     );
   });
@@ -48,12 +46,12 @@ function Play() {
     positionY: 0,
   }); //zoom scale for map
 
-  const [time, setTime] = useState(0); // start time
+  const [startTime, setStartTime] = useState(0); // start time
 
   useEffect(() => {
-    setTime(Date.now());
+    setStartTime(Date.now());
     return () => {
-      setTime(0);
+      setStartTime(0);
     };
   }, []);
 
@@ -86,70 +84,82 @@ function Play() {
 
   function endGame() {
     const endTime = Date.now();
-    const playerTime = parseInt((endTime - time) / 1000, 10);
-    // console.log(`Difference ${playerTime}`);
+    const playerTime = parseInt((endTime - startTime) / 1000, 10);
 
     return (
       <GameScreen
         difficulty={mapInfo.rating}
         mapName={mapInfo.title}
         helpCount={helpCount}
-        characterCount={randomCharacters.length}
+        characterCount={characterList.length}
         time={playerTime}
       />
     );
   }
 
-  function handleTransformation(e) {
-    setTransformState(e.instance.transformState);
-  }
-
   /**
    * Disables zoom to character option temporarily for a set time.
    */
-  async function startDelay() {
+  async function zoomDelay() {
     const seconds = 60;
     setZoomAvailable(false);
     for (let i = 0; i < seconds; i++) {
       await sleep(1000);
-      // console.log(i + 1);
     }
     setZoomAvailable(true);
   }
 
   /**
-   * Update list of remaining characters
+   * Update status of character
    * @param {string} charID id of character clicked on
    */
-  function updateRemainingChars(charID) {
-    const newArray = remainingCharacters.filter((char) => char.id !== charID);
-    setRemainingCharacters(newArray);
+  function updateCharacterStatus(charID) {
+    const clickedCharacter = characterList.filter((c) => charID === c.id)[0];
+    if (clickedCharacter.found) return;
+
+    const newCharacterList = characterList.map((c) => {
+      if (c.id === charID) {
+        return { ...c, found: true };
+      }
+      return c;
+    });
+    // console.log(characterList);
+    // console.log(newCharacterList);
+    setCharacterList(newCharacterList);
+  }
+
+  /**
+   * Returns number of characters which have not been found yet
+   * @returns {int}
+   */
+  function getMissingCharCount() {
+    return characterList.reduce((sum, el) => sum + (!el.found ? 1 : 0), 0);
   }
 
   return (
     <Container style={{ paddingBottom: "20px" }}>
       {" "}
-      {remainingCharacters.length === 0 ? endGame() : null}
+      {getMissingCharCount() === 0 ? endGame() : null}
       <h1>Find characters</h1>
       <TransformWrapper
         initialScale={transformState.scale}
-        onTransformed={(e) => handleTransformation(e)}
+        onTransformed={(e) => setTransformState(e.instance.transformState)}
       >
         {({ zoomIn, zoomOut, resetTransform, zoomToElement, ...rest }) => (
           <React.Fragment>
-            <Flex justify="space-around">
-              {randomCharacters.map((char) => {
-                const notFoundCharIDs = remainingCharacters.map((c) => c.id); // id of characters which have not been found yet
+            <Flex mb={35} justify="space-around">
+              {characterList.map((char) => {
                 return (
                   <Character
                     key={uniqid()}
                     imgSrc={char.imgSrc}
-                    found={!notFoundCharIDs.includes(char.id)}
+                    imgAlt={char.imgAlt}
+                    found={char.found}
                     zoomAvailable={zoomAvailable}
                     zoomToCharacter={() => {
                       setHelpCount(helpCount + 1);
                       zoomToElement(char.id);
-                      startDelay();
+                      zoomDelay();
                     }}
                   />
                 );
@@ -160,7 +170,7 @@ function Play() {
               <ActionIcon
                 color="orange"
                 onClick={() => zoomIn()}
-                variant="light"
+                variant="default"
                 title="Zoom in"
               >
                 <IconZoomIn size="2rem" />
@@ -169,7 +179,7 @@ function Play() {
               <ActionIcon
                 color="orange"
                 onClick={() => zoomOut()}
-                variant="light"
+                variant="default"
                 title="Zoom out"
               >
                 <IconZoomOut size="2rem" />
@@ -178,7 +188,7 @@ function Play() {
               <ActionIcon
                 color="orange"
                 onClick={() => resetTransform()}
-                variant="light"
+                variant="default"
                 title="Reset zoom"
               >
                 <IconZoomReset size="2rem" />
@@ -210,6 +220,12 @@ function Play() {
                   alt={mapInfo.imgAlt}
                 />
                 {hitboxes}
+                {/* <HitBox
+                  key={uniqid()}
+                  size={"15px"}
+                  topPos={"1680px"}
+                  leftPos={"548px"}
+                /> */}
               </div>
             </TransformComponent>
           </React.Fragment>

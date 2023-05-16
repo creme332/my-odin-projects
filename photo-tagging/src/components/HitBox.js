@@ -1,5 +1,4 @@
 import { createStyles } from "@mantine/core";
-import { useEffect } from "react";
 
 const useStyles = createStyles((theme, { size, topPos, leftPos }) => ({
   hbContainer: {
@@ -11,7 +10,7 @@ const useStyles = createStyles((theme, { size, topPos, leftPos }) => ({
   hb: {
     position: "absolute",
     outline: "3px dotted red",
-    backgroundColor: "aliceblue",
+    backgroundColor: "violet",
     height: size,
     width: size,
     borderRadius: "50%",
@@ -29,15 +28,10 @@ export default function HitBox({
   size = "20px",
   topPos = 0,
   leftPos = 0,
-  id = "character-element1",
+  id,
   handleClick,
 }) {
   const { classes } = useStyles({ size, topPos, leftPos });
-
-  useEffect(() => {
-    console.log("Hitbox loaded");
-  }, []);
-
   return (
     <div className={classes.hbContainer}>
       <div id={id} onClick={handleClick} className={classes.hb}></div>

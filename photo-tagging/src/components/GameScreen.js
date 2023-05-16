@@ -18,7 +18,12 @@ import { useNavigate } from "react-router-dom";
 
 /**
  * Game over screen
- * @param {*} param0
+ * @param {int} time Time taken by player to find all characters
+ * @param {int} helpCount Number of times player used help button
+ * @param {int} characterCount Number of characters in map 
+ * @param {int} difficulty A number 1-5 where 5 is hardest
+ * @param {int} mapName
+
  * @returns
  */
 function GameScreen({
@@ -28,7 +33,7 @@ function GameScreen({
   difficulty = 2,
   mapName = "Default map",
 }) {
-  const [opened, { open, close }] = useDisclosure(true);
+  const [opened, toggle] = useDisclosure(true);
   const navigate = useNavigate();
 
   /**
@@ -48,16 +53,16 @@ function GameScreen({
     const helpScore = parseInt(
       maxHelpScore * (1 - Math.min(1, helpCount / Math.max(characterCount, 1)))
     );
-    console.log(`${timeScore} + ${helpScore}`);
+    // console.log(`${timeScore} + ${helpScore}`);
 
     return timeScore + helpScore;
   }
 
   return (
     <>
-      <Modal title={mapName} opened={opened} onClose={close} centered>
+      <Modal title={mapName} opened={opened} onClose={toggle.close} centered>
         <Container>
-          <Title style={{ marginBottom: "20px" }} order={1}>
+          <Title mb={20} order={1}>
             Congratulations 🎉
           </Title>
           <List
@@ -93,7 +98,7 @@ function GameScreen({
           </Group>
         </Container>
 
-        <Group style={{ marginTop: "20px" }} position="center">
+        <Group mt={20} position="center">
           <Button
             onClick={() => navigate("/leaderboard")}
             leftIcon={<IconTrophyFilled />}
