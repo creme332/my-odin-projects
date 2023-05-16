@@ -20,7 +20,7 @@ function MapCard({ ...cardInfo }) {
           withPlaceholder
           src={cardInfo.imgSrc}
           height={160}
-          alt="Norway"
+          alt={cardInfo.imgAlt}
         />
       </Card.Section>
 
