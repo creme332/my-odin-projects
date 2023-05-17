@@ -8,15 +8,17 @@ import uniqid from "uniqid";
 import sleep from "../utils/sleep";
 import GameScreen from "../components/GameScreen";
 import { useLocation } from "react-router-dom";
+import shuffle from "../utils/shuffle";
 
 function Play() {
   //get information about selected map
+
   const mapInfo = useLocation().state;
   const maxCharacterCount = 4; // maximum number of characters to be found in a map
 
   // create a a random character list
   const [characterList, setCharacterList] = useState(
-    shuffle(mapInfo.characters)
+    shuffle([...mapInfo.characters])
       .slice(0, maxCharacterCount)
       .map((character) => {
         character.found = false;
@@ -54,33 +56,6 @@ function Play() {
       setStartTime(0);
     };
   }, []);
-
-  /**
-   * Shuffles array using Fisher-Yates shuffle
-   *
-   * https://stackoverflow.com/a/2450976/17627866
-   * @param {*} array
-   * @returns
-   */
-  function shuffle(array) {
-    let currentIndex = array.length,
-      randomIndex;
-
-    // While there remain elements to shuffle.
-    while (currentIndex !== 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return array;
-  }
 
   function endGame() {
     const endTime = Date.now();
