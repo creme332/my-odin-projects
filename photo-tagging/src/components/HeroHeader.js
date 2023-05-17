@@ -106,7 +106,7 @@ export function HeroBullets() {
 
           <Group mt={30}>
             <Button radius="xl" size="md" className={classes.control}>
-              Get started
+              Sign in
             </Button>
           </Group>
         </div>
