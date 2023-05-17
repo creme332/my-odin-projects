@@ -6,6 +6,7 @@ import Leaderboard from "./pages/Leaderboard";
 import Play from "./pages/Play";
 import uniqid from "uniqid";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
+import Profile from "./pages/Profile";
 
 const RouteSwitch = () => {
   const tabs = [
@@ -32,6 +33,7 @@ const RouteSwitch = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/play/:id" element={<Play />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>
         </BrowserRouter>
