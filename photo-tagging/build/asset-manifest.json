@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.js": "/my-odin-projects/photo-tagging/build/static/js/main.aa60a7bd.js",
+    "static/media/pixel-madness.png": "/my-odin-projects/photo-tagging/build/static/media/pixel-madness.8d4a945bfbeb5a0ccfd8.png",
+    "static/media/anime-party.jpg": "/my-odin-projects/photo-tagging/build/static/media/anime-party.438174f856f2a51ca9d3.jpg",
+    "static/media/marvel-universe.jpg": "/my-odin-projects/photo-tagging/build/static/media/marvel-universe.a5d487ba7583d879642a.jpg",
+    "static/media/detective.png": "/my-odin-projects/photo-tagging/build/static/media/detective.acde840398997d267cda.png",
+    "static/media/3.png": "/my-odin-projects/photo-tagging/build/static/media/3.1982203880ce4fb54555.png",
+    "static/media/1.png": "/my-odin-projects/photo-tagging/build/static/media/1.2860f24902a092789b5e.png",
+    "static/media/4.png": "/my-odin-projects/photo-tagging/build/static/media/4.97e6aeae1bb89971d043.png",
+    "static/media/2.png": "/my-odin-projects/photo-tagging/build/static/media/2.83cb92197cd2ffc6e10d.png",
+    "static/media/6.png": "/my-odin-projects/photo-tagging/build/static/media/6.175be8c6b1bbc4eae167.png",
+    "static/media/5.png": "/my-odin-projects/photo-tagging/build/static/media/5.66b421a4736468d3a63c.png",
+    "index.html": "/my-odin-projects/photo-tagging/build/index.html",
+    "main.aa60a7bd.js.map": "/my-odin-projects/photo-tagging/build/static/js/main.aa60a7bd.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.aa60a7bd.js"
+  ]
+}
