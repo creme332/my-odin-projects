@@ -17,8 +17,8 @@ const useStyles = createStyles((theme) => ({
   inner: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: `calc(${theme.spacing.xl} * 3)`,
-    paddingBottom: `calc(${theme.spacing.xl} * 3)`,
+    paddingTop: `calc(${theme.spacing.xl} * 2)`,
+    // paddingBottom: `calc(${theme.spacing.xl} * 3)`,
   },
 
   content: {
@@ -105,7 +105,13 @@ export function HeroBullets() {
           </List>
 
           <Group mt={30}>
-            <Button radius="xl" size="md" className={classes.control}>
+            <Button
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan" }}
+              radius="xl"
+              size="md"
+              className={classes.control}
+            >
               Sign in
             </Button>
           </Group>

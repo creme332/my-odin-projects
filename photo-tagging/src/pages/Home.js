@@ -15,16 +15,13 @@ const useStyles = createStyles((theme) => ({
       fontSize: rem(28),
     },
   },
-  homepage: {
-    paddingBottom: "20px",
-  },
 }));
 
 function Home() {
   const { classes } = useStyles();
 
   return (
-    <Container className={classes.homepage}>
+    <Container mb={20}>
       <HeroBullets />
       <h1 className={classes.title}>Choose your map</h1>
       <CardsCarousel data={getAllMaps()} />
