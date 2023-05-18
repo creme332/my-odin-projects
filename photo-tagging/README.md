@@ -15,10 +15,8 @@ Challenge yourself to find the hidden character in each scene, and see how fast 
 * Photo zooming
 * Reveal position of character option
 * Multiple maps with randomized characters
-* User rated maps
-* User-submitted maps
 * Global leaderboard
-* Player statistics with graphs
+* Profile page with statistics with graphs and settings
 # How to play
 
 If you get stuck click on zoom to element button. You will have to wait 30s to use this button again. The more times you used this button, 
@@ -77,24 +75,33 @@ Generate production build.
 3. Add a Hitbox element to TransformWrapper and manually modify its leftPos and topPos to move the hitbox element where needed
 4. With live reload enabled and some trial and error, you will easily place the hitbox where needed. 
 5. Update mapProvider.
-
 # To-do
-* [ ] bugs
-  * [ ] fix shifting header bug
-  * [ ] fix bug where map is centered when play button is clicked. i want header to be visible.
 
-* [ ] refactor
-* [ ] add gap between character list and map
-* [ ] add difficulty rating to each character and rework formula
-* [ ] how to ensure unique ids in map
+## Bugs
+
+  + [x] fix shifting header bug - caused by presence of vertical scrollbar
+  + [ ] flickering images when hitbox is clicked
+    - [ ] memo not working - try memoizing character as well
+    - [X] Tried replacing Avatar with normal img.
+    - [X] Tried moving characters outside of transform wrapper
+    - Ensured that ids are unique
+    - [ ] character images are downloaded again each time hitbox is clicked
+  + [ ] fix bug where map is centered when play button is clicked. i want header to be visible. (use scroll area on mantine)
+
+* [ ] fix gap between sections on home screen
 * [ ] place hitbox behind map to prevent inspect element
 * [ ] create profile page
+  + [ ] navigate to home page when log out is clicked
+  + [ ] show validation temporarily when change usernmae button is clicked
+  + [ ] unique colors in line graph
 * [ ] create leaderboard page
-  * [ ] leaderboard for each map
-* [ ] add how to play section on home screen
+  + [ ] add tab for each map
 * [ ] implement backend using firebase
-* [ ] add tour of website (reacttour)
 * [ ] compress images
-* [ ] use react-image-crop to let user create their own maps
 * [ ] Generate production build
 * [ ] Use pageInsight to test website after deployment.
+# Extra 
+* [ ] add difficulty rating to each character and rework formula
+* [ ] add tour of website (reacttour)
+* [ ] use react-image-crop to let user create their own maps
+* [ ] User rated maps
