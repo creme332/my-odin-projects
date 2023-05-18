@@ -1,8 +1,38 @@
-import { Container, Avatar, Button, Text, Flex, Title } from "@mantine/core";
+import {
+  Container,
+  Avatar,
+  Button,
+  Text,
+  Flex,
+  Title,
+  Chip,
+  Group,
+  TextInput,
+  useMantineColorScheme,
+} from "@mantine/core";
+import LineChart from "../components/LineChart";
+import {
+  IconMoonStars,
+  IconSun,
+  IconLogout,
+  IconThumbUpFilled,
+} from "@tabler/icons-react";
+import { useState } from "react";
 
-export default function Profile({ userName = "f" }) {
+export default function Profile({ userName = "popo" }) {
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === "dark";
+  const [errorMsg, setErrorMsg] = useState("");
+  function validateUsername(e) {
+    const name = e.target.value;
+    if (name.length < 5) {
+      setErrorMsg("Too short");
+      return;
+    }
+    setErrorMsg("");
+  }
   return (
-    <Container mt={20}>
+    <Container mb={20} mt={20}>
       <Flex align={"center"}>
         <Avatar
           variant="filled"
@@ -18,14 +48,41 @@ export default function Profile({ userName = "f" }) {
           </Text>
         </Container>
       </Flex>
-      <Title>Statistics</Title>
 
-      <Title>Settings</Title>
+      <Title mt={30}>Statistics</Title>
+      <LineChart />
 
-      <Button variant="filled" color="red">
-        {" "}
-        Delete Account
-      </Button>
+      <Title mt={30}>Settings</Title>
+      <Flex direction={"column"} gap={30}>
+        <TextInput
+          onChange={validateUsername}
+          error={errorMsg}
+          minLength={5}
+          maxLength={10}
+          w={250}
+          placeholder="Your name"
+          label="Username"
+        />
+        <Button leftIcon={<IconThumbUpFilled />} type="submit" variant="filled">
+          {" "}
+          Change username
+        </Button>
+
+        <Button
+          onClick={() => toggleColorScheme()}
+          leftIcon={
+            dark ? <IconSun size="1.1rem" /> : <IconMoonStars size="1.1rem" />
+          }
+          variant="filled"
+        >
+          {" "}
+          Toggle theme
+        </Button>
+        <Button leftIcon={<IconLogout />} variant="filled" color="red">
+          {" "}
+          Log out
+        </Button>
+      </Flex>
     </Container>
   );
 }
