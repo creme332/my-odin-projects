@@ -1,4 +1,3 @@
-import styles from "./../styles/Leaderboard.module.css";
 import { Container, Pagination, Table } from "@mantine/core";
 
 function Leaderboard() {

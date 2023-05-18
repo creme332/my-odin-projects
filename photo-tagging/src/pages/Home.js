@@ -1,4 +1,3 @@
-import styles from "./../styles/Home.module.css";
 import { HeroBullets } from "../components/HeroHeader";
 import CardsCarousel from "../components/CardsCarousel";
 import { Container } from "@mantine/core";
