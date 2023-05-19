@@ -9,42 +9,22 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import LineChart from "../components/LineChart";
+import AuthForm from "../components/AuthForm";
 import {
   IconMoonStars,
   IconSun,
   IconLogout,
   IconThumbUpFilled,
-  IconBrandGoogle,
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 
-export default function Profile({isUserSignedIn, userName}) {
+export default function Profile({ isUserSignedIn, userName, profileURL }) {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function signIn() {
-    // Sign in Firebase with credential from the Google user.
-    let provider = new GoogleAuthProvider();
-    await signInWithPopup(getAuth(), provider);
-  }
-
-  function loginScreen() {
-    return (
-      <Container>
-        <Button onClick={signIn} color="red" leftIcon={<IconBrandGoogle />}>
-          Login
-        </Button>
-      </Container>
-    );
-  }
   function validateUsername(e) {
     const name = e.target.value;
     if (name.length < 5) {
@@ -55,16 +35,13 @@ export default function Profile({isUserSignedIn, userName}) {
   }
 
   return !isUserSignedIn ? (
-    loginScreen()
+    <Flex justify={"center"} mt={20}>
+      <AuthForm />
+    </Flex>
   ) : (
     <Container mb={20} mt={20}>
       <Flex align={"center"}>
-        <Avatar
-          variant="filled"
-          radius="xl"
-          size={"xl"}
-          src={`https://api.dicebear.com/6.x/bottts/svg?seed=${userName}&backgroundColor=ffdfbf`}
-        />
+        <Avatar variant="filled" radius="xl" size={"xl"} src={profileURL} />
         <Container>
           <Title variant="gradient">Hello {userName}!</Title>
           <Text c="dimmed">
