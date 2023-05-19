@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import HeaderWithTabs from "./components/HeaderWithTabs";
@@ -21,25 +21,31 @@ const RouteSwitch = () => {
   // firebase stuffs
   const [isUserSignedIn, setUserSignedIn] = useState(!!getAuth().currentUser);
   const [userName, setUserName] = useState(null);
+  const [userProfileURL, setUserProfileURL] = useState(null);
 
-  // Initiate firebase auth
-  (function initFirebaseAuth() {
-    //Subscribe to the user's signed-in status
-    onAuthStateChanged(getAuth(), authStateObserver);
-  })();
-
-  // Triggers when the auth state change for instance when the user signs-in or signs-out.
-  function authStateObserver(user) {
-    if (user) {
-      // User is signed in!
-      setUserSignedIn(true);
-      setUserName(getAuth().currentUser.displayName);
-    } else {
-      // User is signed out!
-      setUserSignedIn(false);
-      setUserName(null);
+  useEffect(() => {
+    // Triggers when the auth state change for instance when the user signs-in or signs-out.
+    function authStateObserver(user) {
+      // return;
+      if (user) {
+        // User is signed in!
+        setUserSignedIn(true);
+        setUserName(getAuth().currentUser.displayName);
+        setUserProfileURL(
+          getAuth().currentUser.photoURL ||
+            `https://api.dicebear.com/6.x/bottts/svg?seed=${userName}&backgroundColor=ffdfbf`
+        );
+      } else {
+        // User is signed out!
+        setUserSignedIn(false);
+        setUserName(null);
+      }
     }
-  }
+
+    // Initiate firebase auth
+    // ! Dont call directly outside of useEffect or else page becomes unresponsive when theme is toggled
+    onAuthStateChanged(getAuth(), authStateObserver);
+  }, []);
 
   return (
     <ColorSchemeProvider
@@ -59,7 +65,11 @@ const RouteSwitch = () => {
             <Route
               path="/profile"
               element={
-                <Profile isUserSignedIn={isUserSignedIn} userName={userName} />
+                <Profile
+                  isUserSignedIn={isUserSignedIn}
+                  userName={userName}
+                  profileURL={userProfileURL}
+                />
               }
             />
             <Route path="/leaderboard" element={<Leaderboard />} />
