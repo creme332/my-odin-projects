@@ -10,7 +10,7 @@ import {
   ThemeIcon,
   rem,
 } from "@mantine/core";
-import { IconCheck } from "@tabler/icons-react";
+import { IconJewishStarFilled } from "@tabler/icons-react";
 import image from "./../assets/images/detective.png";
 
 const useStyles = createStyles((theme) => ({
@@ -89,7 +89,7 @@ export function HeroBullets() {
             size="sm"
             icon={
               <ThemeIcon size={20} radius="xl">
-                <IconCheck size={rem(12)} stroke={1.5} />
+                <IconJewishStarFilled size={rem(12)} stroke={1.5} />
               </ThemeIcon>
             }
           >
