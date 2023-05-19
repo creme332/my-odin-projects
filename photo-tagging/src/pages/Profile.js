@@ -5,8 +5,6 @@ import {
   Text,
   Flex,
   Title,
-  Chip,
-  Group,
   TextInput,
   useMantineColorScheme,
 } from "@mantine/core";
@@ -16,13 +14,37 @@ import {
   IconSun,
   IconLogout,
   IconThumbUpFilled,
+  IconBrandGoogle,
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-export default function Profile({ userName = "popo" }) {
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+
+export default function Profile({isUserSignedIn, userName}) {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   const [errorMsg, setErrorMsg] = useState("");
+
+  async function signIn() {
+    // Sign in Firebase with credential from the Google user.
+    let provider = new GoogleAuthProvider();
+    await signInWithPopup(getAuth(), provider);
+  }
+
+  function loginScreen() {
+    return (
+      <Container>
+        <Button onClick={signIn} color="red" leftIcon={<IconBrandGoogle />}>
+          Login
+        </Button>
+      </Container>
+    );
+  }
   function validateUsername(e) {
     const name = e.target.value;
     if (name.length < 5) {
@@ -31,7 +53,10 @@ export default function Profile({ userName = "popo" }) {
     }
     setErrorMsg("");
   }
-  return (
+
+  return !isUserSignedIn ? (
+    loginScreen()
+  ) : (
     <Container mb={20} mt={20}>
       <Flex align={"center"}>
         <Avatar
@@ -78,7 +103,14 @@ export default function Profile({ userName = "popo" }) {
           {" "}
           Toggle theme
         </Button>
-        <Button leftIcon={<IconLogout />} variant="filled" color="red">
+        <Button
+          onClick={() => {
+            signOut(getAuth());
+          }}
+          leftIcon={<IconLogout />}
+          variant="filled"
+          color="red"
+        >
           {" "}
           Log out
         </Button>
