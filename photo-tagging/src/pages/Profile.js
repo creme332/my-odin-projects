@@ -17,7 +17,7 @@ import {
   IconThumbUpFilled,
 } from "@tabler/icons-react";
 import { useState } from "react";
-
+import { StatsGrid } from "../components/StatsGrid";
 import { getAuth, signOut } from "firebase/auth";
 
 export default function Profile({ isUserSignedIn, userName, profileURL }) {
@@ -52,6 +52,13 @@ export default function Profile({ isUserSignedIn, userName, profileURL }) {
       </Flex>
 
       <Title mt={30}>Statistics</Title>
+      <StatsGrid
+        data={[
+          { title: "Games started", value: "43", diff: 23 },
+          { title: "Games completed", value: "10", diff: -5 },
+          { title: "Playing time", value: "0:12:12", diff: 0 },
+        ]}
+      />
       <LineChart />
 
       <Title mt={30}>Settings</Title>
