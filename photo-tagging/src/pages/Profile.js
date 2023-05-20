@@ -41,7 +41,13 @@ export default function Profile({ isUserSignedIn, userName, profileURL }) {
   ) : (
     <Container mb={20} mt={20}>
       <Flex align={"center"}>
-        <Avatar variant="filled" radius="xl" size={"xl"} src={profileURL} />
+        <Avatar
+          variant="filled"
+          radius="xl"
+          size={"xl"}
+          src={profileURL}
+          imageProps={{ referrerPolicy: "no-referrer" }}
+        />
         <Container>
           <Title variant="gradient">Hello {userName}!</Title>
           <Text c="dimmed">
