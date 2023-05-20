@@ -8,6 +8,7 @@ import uniqid from "uniqid";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import Profile from "./pages/Profile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import FireStoreManager from "./utils/FireStoreManager";
 const RouteSwitch = () => {
   const tabs = [
     { tabName: "Home", pathname: "/", id: uniqid() },
@@ -25,16 +26,19 @@ const RouteSwitch = () => {
 
   useEffect(() => {
     // Triggers when the auth state change for instance when the user signs-in or signs-out.
-    function authStateObserver(user) {
+    async function authStateObserver(user) {
       // return;
       if (user) {
         // User is signed in!
         setUserSignedIn(true);
-        setUserName(getAuth().currentUser.displayName);
-        setUserProfileURL(
-          getAuth().currentUser.photoURL ||
-            `https://api.dicebear.com/6.x/bottts/svg?seed=${userName}&backgroundColor=ffdfbf`
-        );
+        setUserName(user.displayName);
+        setUserProfileURL(user.photoURL);
+
+        // if first time user, create a new record
+        const userData = await FireStoreManager().getUserData(user.uid);
+        if (!userData) {
+          await FireStoreManager().createUser(user);
+        }
       } else {
         // User is signed out!
         setUserSignedIn(false);
