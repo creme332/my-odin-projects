@@ -1,8 +1,11 @@
 import { getAuth } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+
 import {
   getFirestore,
   collection,
   addDoc,
+  getDoc,
   query,
   orderBy,
   limit,
@@ -21,14 +24,17 @@ export default function FireStoreManager() {
 
   /**
    * Creates a document for a new user
-   * @param {string} userID
+   * @param {Firestore.User} Firestore user object
    */
-  async function createUser(userID) {
-    await setDoc(doc(usersRef, userID), {
+  async function createUser(user) {
+    await setDoc(doc(usersRef, user.uid), {
       name: user.displayName,
       country: "Global",
-      id: userID,
-      joinDate: serverTimestamp(),
+      id: user.uid,
+      joinDate: serverTimestamp(), // when was user account created
+      gamesStarted: 0, // number of times play button is clicked but game is not necessarily completed
+      gamesCompleted: 0, // number of times all characters are found for a map
+      totalPlayTime: 0, // minutes
     });
   }
 
@@ -42,12 +48,11 @@ export default function FireStoreManager() {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
+      //   console.log("Document data:", docSnap.data());
       return docSnap.data();
     }
     console.log("No such document!");
-
     return null;
   }
-  return { createNewProfile, getUserData };
+  return { createUser, getUserData };
 }
