@@ -35,9 +35,9 @@ const RouteSwitch = () => {
         setUserProfileURL(user.photoURL);
 
         // if first time user, create a new record
-        const userData = await FireStoreManager().getUserData(user.uid);
+        const userData = await FireStoreManager().getUserData();
         if (!userData) {
-          await FireStoreManager().createUser(user);
+          await FireStoreManager().createNewUser();
         }
       } else {
         // User is signed out!

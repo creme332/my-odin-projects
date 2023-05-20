@@ -14,23 +14,26 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
+  runTransaction,
 } from "firebase/firestore";
 import { getFirebaseConfig } from "../firebase-config";
 
 export default function FireStoreManager() {
   const app = initializeApp(getFirebaseConfig());
   const db = getFirestore(app);
+  const user = getAuth().currentUser;
+  const userID = user.uid;
   const usersRef = collection(db, "users");
 
   /**
    * Creates a document for a new user
    * @param {Firestore.User} Firestore user object
    */
-  async function createUser(user) {
-    await setDoc(doc(usersRef, user.uid), {
+  async function createNewUser() {
+    await setDoc(doc(usersRef, userID), {
       name: user.displayName,
       country: "Global",
-      id: user.uid,
+      id: userID,
       joinDate: serverTimestamp(), // when was user account created
       gamesStarted: 0, // number of times play button is clicked but game is not necessarily completed
       gamesCompleted: 0, // number of times all characters are found for a map
@@ -40,19 +43,31 @@ export default function FireStoreManager() {
 
   /**
    * Returns user data
-   * @param {*} userID
    * @returns {User} A user object
    */
-  async function getUserData(userID) {
+  async function getUserData() {
     const docRef = doc(usersRef, userID);
     const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      //   console.log("Document data:", docSnap.data());
-      return docSnap.data();
-    }
-    console.log("No such document!");
-    return null;
+    return docSnap.exists() ? docSnap.data() : null;
   }
-  return { createUser, getUserData };
+
+  async function incrementGamesStarted() {
+    try {
+      await runTransaction(db, async (transaction) => {
+        const docRef = doc(usersRef, userID);
+        const userDoc = await transaction.get(docRef);
+        if (!userDoc.exists()) {
+          throw "Document does not exist!";
+        }
+
+        const newTotal = userDoc.data().gamesStarted + 1;
+        transaction.update(docRef, { gamesStarted: newTotal });
+      });
+      console.log("Transaction successfully committed!");
+    } catch (e) {
+      console.log("Transaction failed: ", e);
+    }
+  }
+  return { createNewUser, getUserData, incrementGamesStarted };
 }
