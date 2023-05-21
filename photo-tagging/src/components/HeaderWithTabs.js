@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Icon3dCubeSphere, IconMoonStars, IconSun } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const HEADER_HEIGHT = rem(60);
 
 const useStyles = createStyles((theme) => ({
@@ -109,7 +109,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function HeaderWithTabs({ links }) {
   const [opened, { toggle, close }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].pathname);
+  const [active, setActive] = useState(useLocation().pathname);
   const { classes, cx } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
