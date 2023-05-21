@@ -34,8 +34,15 @@ export default function FireStoreManager() {
     });
   }
 
-  function getUsername() {
-    return user.displayName;
+  async function getUsername() {
+    if (user) {
+      const x = await getUserData();
+      return x.displayName;
+    }
+  }
+
+  function getPhotoURL() {
+    return user.photoURL;
   }
 
   /**
@@ -44,10 +51,13 @@ export default function FireStoreManager() {
    */
   async function getUserData() {
     if (user) {
+      console.log("Requested data for user");
       const docRef = doc(usersRef, userID);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) return docSnap.data();
     }
+    console.log("No data for user");
+
     return null;
   }
 
@@ -111,6 +121,24 @@ export default function FireStoreManager() {
     }
   }
 
+  async function updateDisplayName(newName) {
+    if (user) {
+      try {
+        await runTransaction(db, async (transaction) => {
+          const docRef = doc(usersRef, userID);
+          const userDoc = await transaction.get(docRef);
+          if (!userDoc.exists()) {
+            throw "Document does not exist!";
+          }
+          transaction.update(docRef, { displayName: newName });
+        });
+        console.log("Display name successfully updated!");
+      } catch (e) {
+        console.log("Transaction failed: ", e);
+      }
+    }
+  }
+
   return {
     createNewUser,
     getUserData,
@@ -118,5 +146,7 @@ export default function FireStoreManager() {
     incrementPlayTime,
     incrementGamesCompleted,
     getUsername,
+    getPhotoURL,
+    updateDisplayName,
   };
 }

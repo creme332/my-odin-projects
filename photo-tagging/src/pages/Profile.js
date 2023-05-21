@@ -29,12 +29,15 @@ export default function Profile() {
   const [userData, setUserData] = useState(null);
   const [isUserSignedIn, setUserSignedIn] = useState(false);
   const fsm = FireStoreManager();
+  const [userName, setUserName] = useState(null);
+  const [newUserName, setNewUserName] = useState("");
 
   useEffect(() => {
     (async () => {
       const userDataResponse = await fsm.getUserData();
       if (userDataResponse) {
         setUserSignedIn(true);
+        setUserName(userDataResponse.displayName);
         setUserData(userDataResponse);
       }
     })();
@@ -46,6 +49,7 @@ export default function Profile() {
       setErrorMsg("Too short");
       return;
     }
+    setNewUserName(name);
     setErrorMsg("");
   }
 
@@ -64,7 +68,7 @@ export default function Profile() {
           imageProps={{ referrerPolicy: "no-referrer" }}
         />
         <Container>
-          <Title variant="gradient">Hello {fsm.getUsername()}!</Title>
+          <Title variant="gradient">Hello {userName}!</Title>
           <Text c="dimmed">
             Welcome to your user account. Here you can change your settings and
             see your statistics.
@@ -107,7 +111,17 @@ export default function Profile() {
           placeholder="Your name"
           label="Username"
         />
-        <Button leftIcon={<IconThumbUpFilled />} type="submit" variant="filled">
+        <Button
+          onClick={() => {
+            if (errorMsg.length === 0 && userName !== fsm.getUsername()) {
+              fsm.updateDisplayName(newUserName);
+              setUserName(newUserName);
+            }
+          }}
+          leftIcon={<IconThumbUpFilled />}
+          type="submit"
+          variant="filled"
+        >
           {" "}
           Change username
         </Button>
