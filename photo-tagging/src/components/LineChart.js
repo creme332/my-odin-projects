@@ -49,6 +49,14 @@ export default function LineChart({ title = "" }) {
     "December",
   ]; // 100 most recent dates
 
+  // backgroundColor: [
+  //   'rgba(255, 99, 132, 0.5)',
+  //   'rgba(54, 162, 235, 0.5)',
+  //   'rgba(255, 206, 86, 0.5)',
+  //   'rgba(75, 192, 192, 0.5)',
+  //   'rgba(153, 102, 255, 0.5)',
+  //   'rgba(255, 159, 64, 0.5)',
+  // ],
   const data = {
     labels,
     datasets: [
@@ -67,8 +75,8 @@ export default function LineChart({ title = "" }) {
       {
         label: "Pixel Madness",
         data: labels.map(() => Math.random() * 300),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        borderColor: "rgba(255, 206, 86)",
+        backgroundColor: "rgba(255, 206, 86, 0.5)",
       },
     ],
   };
