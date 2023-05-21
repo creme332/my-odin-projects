@@ -10,6 +10,7 @@ import GameScreen from "../components/GameScreen";
 import { useLocation } from "react-router-dom";
 import shuffle from "../utils/shuffle";
 import FireStoreManager from "../utils/FireStoreManager";
+import scoreCalculator from "../utils/scoreCalculator";
 
 function Play() {
   //get information about selected map
@@ -51,19 +52,34 @@ function Play() {
   const [startTime, setStartTime] = useState(0); // start time
 
   useEffect(() => {
-    FireStoreManager().incrementGamesStarted();
     setStartTime(Date.now());
     return () => {
       setStartTime(0);
     };
   }, []);
 
+  useEffect(() => {
+    FireStoreManager().incrementGamesStarted();
+  }, []);
+
   function endGame() {
     const endTime = Date.now();
     const playerTime = parseInt((endTime - startTime) / 1000, 10);
-    FireStoreManager().incrementPlayTime(playerTime);
-    FireStoreManager().incrementGamesCompleted();
-
+    const score = scoreCalculator(
+      playerTime,
+      characterList.length,
+      mapInfo.rating,
+      helpCount
+    );
+    FireStoreManager().incrementPlayTime(playerTime); // ! merge transaction
+    FireStoreManager().incrementGamesCompleted(); // ! merge transaction
+    FireStoreManager().addGameData(
+      mapInfo.title,
+      playerTime,
+      characterList.map((c) => c.id),
+      helpCount,
+      score
+    );
     return (
       <GameScreen
         difficulty={mapInfo.rating}
@@ -71,6 +87,7 @@ function Play() {
         helpCount={helpCount}
         characterCount={characterList.length}
         time={playerTime}
+        score={score}
       />
     );
   }

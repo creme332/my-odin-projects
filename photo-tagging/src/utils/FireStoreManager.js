@@ -4,6 +4,7 @@ import {
   getFirestore,
   collection,
   getDoc,
+  addDoc,
   setDoc,
   doc,
   serverTimestamp,
@@ -16,14 +17,15 @@ export default function FireStoreManager() {
   const db = getFirestore(app);
   const user = getAuth().currentUser;
   const userID = user ? user.uid : null;
-  const usersRef = collection(db, "users");
+  const usersCollectionRef = collection(db, "users"); // user data
+  const gamesCollectionRef = collection(db, "games"); // game data
 
   /**
    * Creates a document for a new user
    * @param {Firestore.User} Firestore user object
    */
   async function createNewUser() {
-    await setDoc(doc(usersRef, userID), {
+    await setDoc(doc(usersCollectionRef, userID), {
       name: user.displayName,
       country: "Global",
       id: userID,
@@ -32,6 +34,20 @@ export default function FireStoreManager() {
       gamesCompleted: 0, // number of times all characters are found for a map
       totalPlayTime: 0, // minutes
     });
+  }
+
+  async function addGameData(mapID, duration, characterList, helpCount, score) {
+    if (user) {
+      await addDoc(gamesCollectionRef, {
+        userID: userID,
+        mapID: mapID,
+        date: serverTimestamp(), //when was game played
+        duration: duration, // how long game lasted in seconds
+        chraracterList: characterList, // characters found by player
+        helpCount: helpCount, // how many times player used help option
+        score: score, // game score
+      });
+    }
   }
 
   async function getUsername() {
@@ -52,7 +68,7 @@ export default function FireStoreManager() {
   async function getUserData() {
     if (user) {
       console.log("Requested data for user");
-      const docRef = doc(usersRef, userID);
+      const docRef = doc(usersCollectionRef, userID);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) return docSnap.data();
     }
@@ -65,7 +81,7 @@ export default function FireStoreManager() {
     if (user) {
       try {
         await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersRef, userID);
+          const docRef = doc(usersCollectionRef, userID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
             throw "Document does not exist!";
@@ -85,7 +101,7 @@ export default function FireStoreManager() {
     if (user) {
       try {
         await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersRef, userID);
+          const docRef = doc(usersCollectionRef, userID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
             throw "Document does not exist!";
@@ -105,7 +121,7 @@ export default function FireStoreManager() {
     if (user) {
       try {
         await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersRef, userID);
+          const docRef = doc(usersCollectionRef, userID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
             throw "Document does not exist!";
@@ -125,7 +141,7 @@ export default function FireStoreManager() {
     if (user) {
       try {
         await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersRef, userID);
+          const docRef = doc(usersCollectionRef, userID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
             throw "Document does not exist!";
@@ -148,5 +164,6 @@ export default function FireStoreManager() {
     getUsername,
     getPhotoURL,
     updateDisplayName,
+    addGameData,
   };
 }
