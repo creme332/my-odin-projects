@@ -13,11 +13,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { IconBrandGoogle, IconBrandGithub } from "@tabler/icons-react";
-import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-  } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function AuthForm() {
   const [type, toggle] = useToggle(["login", "register"]);
@@ -40,8 +36,12 @@ export default function AuthForm() {
 
   async function signIn() {
     // Sign in Firebase with credential from the Google user.
-    let provider = new GoogleAuthProvider();
-    await signInWithPopup(getAuth(), provider);
+    try {
+      let provider = new GoogleAuthProvider();
+      await signInWithPopup(getAuth(), provider);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
