@@ -1,6 +1,5 @@
 {
-  "homepage": "http://creme332.github.io/my-odin-projects/photo-tagging/build/",
-  "name": "photo-tagging",
+  "name": "enigma",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

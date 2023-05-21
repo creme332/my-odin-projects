@@ -61,7 +61,7 @@ const RouteSwitch = () => {
         withGlobalStyles
         withNormalizeCSS
       >
-        <BrowserRouter basename="/my-odin-projects/photo-tagging/build">
+        <BrowserRouter>
           <HeaderWithTabs links={tabs} />
           <Routes>
             <Route path="/" element={<Home />} />

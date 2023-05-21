@@ -1,7 +1,5 @@
 {
   "projects": {
     "default": "enigma69"
-  },
-  "targets": {},
-  "etags": {}
+  }
 }
