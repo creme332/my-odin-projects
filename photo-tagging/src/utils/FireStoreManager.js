@@ -22,7 +22,7 @@ export default function FireStoreManager() {
   const app = initializeApp(getFirebaseConfig());
   const db = getFirestore(app);
   const user = getAuth().currentUser;
-  const userID = user.uid;
+  const userID = user ? user.uid : null;
   const usersRef = collection(db, "users");
 
   /**
@@ -41,6 +41,10 @@ export default function FireStoreManager() {
     });
   }
 
+  function getUsername() {
+    return user.displayName;
+  }
+
   /**
    * Returns user data
    * @returns {User} A user object
@@ -49,7 +53,7 @@ export default function FireStoreManager() {
     if (user) {
       const docRef = doc(usersRef, userID);
       const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) returndocSnap.data();
+      if (docSnap.exists()) return docSnap.data();
     }
     return null;
   }
@@ -73,5 +77,53 @@ export default function FireStoreManager() {
       }
     }
   }
-  return { createNewUser, getUserData, incrementGamesStarted };
+
+  async function incrementGamesCompleted() {
+    if (user) {
+      try {
+        await runTransaction(db, async (transaction) => {
+          const docRef = doc(usersRef, userID);
+          const userDoc = await transaction.get(docRef);
+          if (!userDoc.exists()) {
+            throw "Document does not exist!";
+          }
+
+          const newTotal = userDoc.data().gamesCompleted + 1;
+          transaction.update(docRef, { gamesCompleted: newTotal });
+        });
+        console.log("Transaction successfully committed!");
+      } catch (e) {
+        console.log("Transaction failed: ", e);
+      }
+    }
+  }
+
+  async function incrementPlayTime(value = 0) {
+    if (user) {
+      try {
+        await runTransaction(db, async (transaction) => {
+          const docRef = doc(usersRef, userID);
+          const userDoc = await transaction.get(docRef);
+          if (!userDoc.exists()) {
+            throw "Document does not exist!";
+          }
+
+          const newTotal = userDoc.data().totalPlayTime + value;
+          transaction.update(docRef, { totalPlayTime: newTotal });
+        });
+        console.log("Transaction successfully committed!");
+      } catch (e) {
+        console.log("Transaction failed: ", e);
+      }
+    }
+  }
+
+  return {
+    createNewUser,
+    getUserData,
+    incrementGamesStarted,
+    incrementPlayTime,
+    incrementGamesCompleted,
+    getUsername,
+  };
 }
