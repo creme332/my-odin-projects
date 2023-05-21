@@ -16,14 +16,29 @@ import {
   IconLogout,
   IconThumbUpFilled,
 } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StatsGrid } from "../components/StatsGrid";
 import { getAuth, signOut } from "firebase/auth";
+import FireStoreManager from "../utils/FireStoreManager";
+import dateFormat from "../utils/dateFormat";
 
-export default function Profile({ isUserSignedIn, userName, profileURL }) {
+export default function Profile() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   const [errorMsg, setErrorMsg] = useState("");
+  const [userData, setUserData] = useState(null);
+  const [isUserSignedIn, setUserSignedIn] = useState(false);
+  const fsm = FireStoreManager();
+
+  useEffect(() => {
+    (async () => {
+      const userDataResponse = await fsm.getUserData();
+      if (userDataResponse) {
+        setUserSignedIn(true);
+        setUserData(userDataResponse);
+      }
+    })();
+  }, []);
 
   function validateUsername(e) {
     const name = e.target.value;
@@ -45,11 +60,11 @@ export default function Profile({ isUserSignedIn, userName, profileURL }) {
           variant="filled"
           radius="xl"
           size={"xl"}
-          src={profileURL}
+          src={fsm.getPhotoURL()}
           imageProps={{ referrerPolicy: "no-referrer" }}
         />
         <Container>
-          <Title variant="gradient">Hello {userName}!</Title>
+          <Title variant="gradient">Hello {fsm.getUsername()}!</Title>
           <Text c="dimmed">
             Welcome to your user account. Here you can change your settings and
             see your statistics.
@@ -60,9 +75,23 @@ export default function Profile({ isUserSignedIn, userName, profileURL }) {
       <Title mt={30}>Statistics</Title>
       <StatsGrid
         data={[
-          { title: "Games started", value: "43", diff: 23 },
-          { title: "Games completed", value: "10", diff: -5 },
-          { title: "Playing time", value: "0:12:12", diff: 0 },
+          {
+            title: "Games started",
+            value: userData ? userData.gamesStarted : 0,
+            diff: 23,
+          },
+          {
+            title: "Games completed",
+            value: userData ? userData.gamesCompleted : 0,
+            diff: -5,
+          },
+          {
+            title: "Playing time",
+            value: userData
+              ? dateFormat(parseInt(userData.totalPlayTime, 10))
+              : 0,
+            diff: 0,
+          },
         ]}
       />
       <LineChart />
