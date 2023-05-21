@@ -9,7 +9,7 @@ import sleep from "../utils/sleep";
 import GameScreen from "../components/GameScreen";
 import { useLocation } from "react-router-dom";
 import shuffle from "../utils/shuffle";
-
+import FireStoreManager from "../utils/FireStoreManager";
 function Play() {
   //get information about selected map
 
@@ -51,6 +51,7 @@ function Play() {
   const [startTime, setStartTime] = useState(0); // start time
 
   useEffect(() => {
+    FireStoreManager().incrementGamesStarted();
     setStartTime(Date.now());
     return () => {
       setStartTime(0);
