@@ -10,9 +10,9 @@ import GameScreen from "../components/GameScreen";
 import { useLocation } from "react-router-dom";
 import shuffle from "../utils/shuffle";
 import FireStoreManager from "../utils/FireStoreManager";
+
 function Play() {
   //get information about selected map
-
   const mapInfo = useLocation().state;
   const maxCharacterCount = 4; // maximum number of characters to be found in a map
 
@@ -61,6 +61,8 @@ function Play() {
   function endGame() {
     const endTime = Date.now();
     const playerTime = parseInt((endTime - startTime) / 1000, 10);
+    FireStoreManager().incrementPlayTime(playerTime);
+    FireStoreManager().incrementGamesCompleted();
 
     return (
       <GameScreen
