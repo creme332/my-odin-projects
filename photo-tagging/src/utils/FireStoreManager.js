@@ -1,17 +1,10 @@
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-
 import {
   getFirestore,
   collection,
-  addDoc,
   getDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
   setDoc,
-  updateDoc,
   doc,
   serverTimestamp,
   runTransaction,
