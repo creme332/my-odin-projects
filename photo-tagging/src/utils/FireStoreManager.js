@@ -46,27 +46,31 @@ export default function FireStoreManager() {
    * @returns {User} A user object
    */
   async function getUserData() {
-    const docRef = doc(usersRef, userID);
-    const docSnap = await getDoc(docRef);
-
-    return docSnap.exists() ? docSnap.data() : null;
+    if (user) {
+      const docRef = doc(usersRef, userID);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) returndocSnap.data();
+    }
+    return null;
   }
 
   async function incrementGamesStarted() {
-    try {
-      await runTransaction(db, async (transaction) => {
-        const docRef = doc(usersRef, userID);
-        const userDoc = await transaction.get(docRef);
-        if (!userDoc.exists()) {
-          throw "Document does not exist!";
-        }
+    if (user) {
+      try {
+        await runTransaction(db, async (transaction) => {
+          const docRef = doc(usersRef, userID);
+          const userDoc = await transaction.get(docRef);
+          if (!userDoc.exists()) {
+            throw "Document does not exist!";
+          }
 
-        const newTotal = userDoc.data().gamesStarted + 1;
-        transaction.update(docRef, { gamesStarted: newTotal });
-      });
-      console.log("Transaction successfully committed!");
-    } catch (e) {
-      console.log("Transaction failed: ", e);
+          const newTotal = userDoc.data().gamesStarted + 1;
+          transaction.update(docRef, { gamesStarted: newTotal });
+        });
+        console.log("Transaction successfully committed!");
+      } catch (e) {
+        console.log("Transaction failed: ", e);
+      }
     }
   }
   return { createNewUser, getUserData, incrementGamesStarted };
