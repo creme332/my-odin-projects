@@ -50,6 +50,19 @@ export default function FireStoreManager() {
     }
   }
 
+  async function handleEndOfGame(
+    mapID,
+    duration,
+    characterList,
+    helpCount,
+    score
+  ) {
+    if (user) {
+      await addGameData(mapID, duration, characterList, helpCount, score);
+      await updateUserGameData(duration);
+    }
+  }
+
   async function getUsername() {
     if (user) {
       const x = await getUserData();
@@ -77,6 +90,29 @@ export default function FireStoreManager() {
     return null;
   }
 
+  async function updateUserGameData(gameDuration) {
+    if (user) {
+      try {
+        await runTransaction(db, async (transaction) => {
+          const docRef = doc(usersCollectionRef, userID);
+          const userDoc = await transaction.get(docRef);
+          if (!userDoc.exists()) {
+            throw "Document does not exist!";
+          }
+          const userData = userDoc.data();
+
+          transaction.update(docRef, {
+            gamesCompleted: userData.gamesCompleted + 1,
+            totalPlayTime: userData.totalPlayTime + gameDuration,
+          });
+        });
+        console.log("User game data transaction successfully committed!");
+      } catch (e) {
+        console.log("User game data Transaction failed: ", e);
+      }
+    }
+  }
+
   async function incrementGamesStarted() {
     if (user) {
       try {
@@ -89,46 +125,6 @@ export default function FireStoreManager() {
 
           const newTotal = userDoc.data().gamesStarted + 1;
           transaction.update(docRef, { gamesStarted: newTotal });
-        });
-        console.log("Transaction successfully committed!");
-      } catch (e) {
-        console.log("Transaction failed: ", e);
-      }
-    }
-  }
-
-  async function incrementGamesCompleted() {
-    if (user) {
-      try {
-        await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersCollectionRef, userID);
-          const userDoc = await transaction.get(docRef);
-          if (!userDoc.exists()) {
-            throw "Document does not exist!";
-          }
-
-          const newTotal = userDoc.data().gamesCompleted + 1;
-          transaction.update(docRef, { gamesCompleted: newTotal });
-        });
-        console.log("Transaction successfully committed!");
-      } catch (e) {
-        console.log("Transaction failed: ", e);
-      }
-    }
-  }
-
-  async function incrementPlayTime(value = 0) {
-    if (user) {
-      try {
-        await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersCollectionRef, userID);
-          const userDoc = await transaction.get(docRef);
-          if (!userDoc.exists()) {
-            throw "Document does not exist!";
-          }
-
-          const newTotal = userDoc.data().totalPlayTime + value;
-          transaction.update(docRef, { totalPlayTime: newTotal });
         });
         console.log("Transaction successfully committed!");
       } catch (e) {
@@ -150,7 +146,7 @@ export default function FireStoreManager() {
         });
         console.log("Display name successfully updated!");
       } catch (e) {
-        console.log("Transaction failed: ", e);
+        console.log("Display name transaction failed: ", e);
       }
     }
   }
@@ -159,11 +155,9 @@ export default function FireStoreManager() {
     createNewUser,
     getUserData,
     incrementGamesStarted,
-    incrementPlayTime,
-    incrementGamesCompleted,
     getUsername,
     getPhotoURL,
     updateDisplayName,
-    addGameData,
+    handleEndOfGame,
   };
 }

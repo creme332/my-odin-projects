@@ -51,6 +51,8 @@ function Play() {
 
   const [startTime, setStartTime] = useState(0); // start time
 
+  const fsm = FireStoreManager();
+
   useEffect(() => {
     setStartTime(Date.now());
     return () => {
@@ -59,8 +61,10 @@ function Play() {
   }, []);
 
   useEffect(() => {
-    FireStoreManager().incrementGamesStarted();
+    fsm.incrementGamesStarted();
   }, []);
+
+  async function handleEndGame() {}
 
   function endGame() {
     const endTime = Date.now();
@@ -71,9 +75,7 @@ function Play() {
       mapInfo.rating,
       helpCount
     );
-    FireStoreManager().incrementPlayTime(playerTime); // ! merge transaction
-    FireStoreManager().incrementGamesCompleted(); // ! merge transaction
-    FireStoreManager().addGameData(
+    fsm.handleEndOfGame(
       mapInfo.title,
       playerTime,
       characterList.map((c) => c.id),
