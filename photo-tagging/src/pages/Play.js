@@ -13,9 +13,11 @@ import FireStoreManager from "../utils/FireStoreManager";
 import scoreCalculator from "../utils/scoreCalculator";
 
 function Play() {
-  //get information about selected map
-  const mapInfo = useLocation().state;
+  const mapInfo = useLocation().state; // information about current map
   const maxCharacterCount = 4; // maximum number of characters to be found in a map
+  const mapScale = 2; //zoom scale for map
+  const zoomSleepDuration = 60; // time interval between available zooms
+  const fsm = FireStoreManager();
 
   // create a a random character list
   const [characterList, setCharacterList] = useState(
@@ -26,7 +28,8 @@ function Play() {
         return character;
       })
   );
-
+  const characterListSize = characterList.length;
+  // console.log(`size char = ${characterListSize}`);
   const [zoomAvailable, setZoomAvailable] = useState(true); //zoom to character
   const [helpCount, setHelpCount] = useState(0); //number of times zoom help button is used
 
@@ -43,15 +46,10 @@ function Play() {
     );
   });
 
-  const [transformState, setTransformState] = useState({
-    scale: 2,
-    positionX: 0,
-    positionY: 0,
-  }); //zoom scale for map
-
-  const [startTime, setStartTime] = useState(0); // start time
-
-  const fsm = FireStoreManager();
+  const [startTime, setStartTime] = useState(0);
+  const [showGameScreen, setShowGameScreen] = useState(false);
+  const [score, setScore] = useState(0);
+  const [gameDuration, setGameDuration] = useState(0);
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -60,49 +58,38 @@ function Play() {
     };
   }, []);
 
-  useEffect(() => {
-    fsm.incrementGamesStarted();
-  }, []);
-
-  async function handleEndGame() {}
+  // useEffect(() => {
+  //   fsm.incrementGamesStarted();
+  // }, []);
 
   function endGame() {
-    const endTime = Date.now();
-    const playerTime = parseInt((endTime - startTime) / 1000, 10);
-    const score = scoreCalculator(
-      playerTime,
-      characterList.length,
-      mapInfo.rating,
-      helpCount
+    console.log("Called endGame");
+
+    setGameDuration(parseInt((Date.now() - startTime) / 1000, 10));
+    setScore(
+      scoreCalculator(
+        gameDuration,
+        characterListSize,
+        mapInfo.rating,
+        helpCount
+      )
     );
-    fsm.handleEndOfGame(
-      mapInfo.title,
-      playerTime,
-      characterList.map((c) => c.id),
-      helpCount,
-      score
-    );
-    return (
-      <GameScreen
-        difficulty={mapInfo.rating}
-        mapName={mapInfo.title}
-        helpCount={helpCount}
-        characterCount={characterList.length}
-        time={playerTime}
-        score={score}
-      />
-    );
+    setShowGameScreen(true);
+    // FireStoreManager().handleEndOfGame(
+    //   mapInfo.title,
+    //   gameDuration,
+    //   characterList.map((c) => c.id),
+    //   helpCount,
+    //   score
+    // );
   }
 
   /**
    * Disables zoom to character option temporarily for a set time.
    */
-  async function zoomDelay() {
-    const seconds = 60;
+  async function sleepZoom() {
     setZoomAvailable(false);
-    for (let i = 0; i < seconds; i++) {
-      await sleep(1000);
-    }
+    await sleep(zoomSleepDuration * 1000);
     setZoomAvailable(true);
   }
 
@@ -122,7 +109,16 @@ function Play() {
     });
     // console.log(characterList);
     // console.log(newCharacterList);
+    const remainingCharCount = newCharacterList.reduce(
+      (sum, el) => sum + (!el.found ? 1 : 0),
+      0
+    );
+    console.log(remainingCharCount);
+    console.log(`${remainingCharCount} characters left`);
     setCharacterList(newCharacterList);
+    if (remainingCharCount === 0) {
+      endGame();
+    }
   }
 
   /**
@@ -135,13 +131,19 @@ function Play() {
 
   return (
     <Container style={{ paddingBottom: "20px" }}>
-      {" "}
-      {getMissingCharCount() === 0 ? endGame() : null}
+      {showGameScreen ? (
+        <GameScreen
+          difficulty={mapInfo.rating}
+          mapName={mapInfo.title}
+          helpCount={helpCount}
+          characterCount={characterListSize}
+          time={gameDuration}
+          score={score}
+        />
+      ) : null}
+      {console.log(`Render Play`)}
       <h1>Find characters</h1>
-      <TransformWrapper
-        initialScale={transformState.scale}
-        onTransformed={(e) => setTransformState(e.instance.transformState)}
-      >
+      <TransformWrapper initialScale={mapScale}>
         {({ zoomIn, zoomOut, resetTransform, zoomToElement, ...rest }) => (
           <React.Fragment>
             <Flex mb={35} justify="space-around">
@@ -156,7 +158,7 @@ function Play() {
                     zoomToCharacter={() => {
                       setHelpCount(helpCount + 1);
                       zoomToElement(char.id);
-                      zoomDelay();
+                      sleepZoom();
                     }}
                   />
                 );
