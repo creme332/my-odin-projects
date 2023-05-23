@@ -4,7 +4,6 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { IconZoomIn, IconZoomOut, IconZoomReset } from "@tabler/icons-react";
 import HitBox from "../components/HitBox";
 import Character from "../components/Character";
-import uniqid from "uniqid";
 import sleep from "../utils/sleep";
 import GameScreen from "../components/GameScreen";
 import { useLocation } from "react-router-dom";
@@ -17,9 +16,9 @@ function Play() {
 
   // Game settings
   const [mapInfo] = useState(useLocation().state); // information about current map
-  const maxCharacterCount = 1; // maximum number of characters to be found in a map
+  const maxCharacterCount = 4; // maximum number of characters to be found in a map
   const mapScale = 2; //zoom scale for map
-  const zoomSleepDuration = 6; // time interval in seconds between available zooms
+  const zoomSleepDuration = 60; // time interval in seconds between available zooms
   const fsm = FireStoreManager();
 
   // create a a random character list
@@ -35,15 +34,15 @@ function Play() {
   const [zoomAvailable, setZoomAvailable] = useState(true); //zoom to character
   const [helpCount, setHelpCount] = useState(0); //number of times zoom help button is used
 
-  const hitboxes = characterList.map((character) => {
+  const hitboxes = characterList.map((char) => {
     return (
       <HitBox
-        key={uniqid()}
-        id={character.id}
-        size={character.hitboxRadius}
-        topPos={character.topPos}
-        leftPos={character.leftPos}
-        handleClick={() => updateCharacterStatus(character.id)}
+        key={`${char.id}-hitbox`}
+        id={char.id}
+        size={char.hitboxRadius}
+        topPos={char.topPos}
+        leftPos={char.leftPos}
+        handleClick={() => updateCharacterStatus(char.id)}
       />
     );
   });
@@ -147,7 +146,7 @@ function Play() {
               {characterList.map((char) => {
                 return (
                   <Character
-                    key={uniqid()}
+                    key={char.id}
                     imgSrc={char.imgSrc}
                     imgAlt={char.imgAlt}
                     found={char.found}
