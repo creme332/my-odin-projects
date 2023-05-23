@@ -13,10 +13,13 @@ import FireStoreManager from "../utils/FireStoreManager";
 import scoreCalculator from "../utils/scoreCalculator";
 
 function Play() {
-  const mapInfo = useLocation().state; // information about current map
-  const maxCharacterCount = 4; // maximum number of characters to be found in a map
+  console.log(`Render Play`);
+
+  // Game settings
+  const [mapInfo] = useState(useLocation().state); // information about current map
+  const maxCharacterCount = 1; // maximum number of characters to be found in a map
   const mapScale = 2; //zoom scale for map
-  const zoomSleepDuration = 60; // time interval between available zooms
+  const zoomSleepDuration = 6; // time interval in seconds between available zooms
   const fsm = FireStoreManager();
 
   // create a a random character list
@@ -29,7 +32,6 @@ function Play() {
       })
   );
   const characterListSize = characterList.length;
-  // console.log(`size char = ${characterListSize}`);
   const [zoomAvailable, setZoomAvailable] = useState(true); //zoom to character
   const [helpCount, setHelpCount] = useState(0); //number of times zoom help button is used
 
@@ -46,42 +48,46 @@ function Play() {
     );
   });
 
-  const [startTime, setStartTime] = useState(0);
+  const [startTime] = useState(new Date());
   const [showGameScreen, setShowGameScreen] = useState(false);
   const [score, setScore] = useState(0);
   const [gameDuration, setGameDuration] = useState(0);
 
   useEffect(() => {
-    setStartTime(Date.now());
-    return () => {
-      setStartTime(0);
-    };
+    console.log("Game started at ", startTime.toISOString());
+    fsm.incrementGamesStarted();
   }, []);
 
-  // useEffect(() => {
-  //   fsm.incrementGamesStarted();
-  // }, []);
-
   function endGame() {
-    console.log("Called endGame");
+    const endTime = new Date();
+    console.log("Game ended at ", endTime.toISOString());
 
-    setGameDuration(parseInt((Date.now() - startTime) / 1000, 10));
-    setScore(
-      scoreCalculator(
-        gameDuration,
-        characterListSize,
-        mapInfo.rating,
-        helpCount
-      )
+    // calculate game duration
+    const x = parseInt((new Date() - startTime) / 1000, 10);
+    setGameDuration(x);
+    console.log(`Game lasted ${x} seconds`);
+
+    // calculate final score
+    const finalScore = scoreCalculator(
+      x,
+      characterListSize,
+      mapInfo.rating,
+      helpCount
     );
+    setScore(finalScore);
+    console.log(x, characterListSize, mapInfo.rating, helpCount);
+
+    // display game over screen
     setShowGameScreen(true);
-    // FireStoreManager().handleEndOfGame(
-    //   mapInfo.title,
-    //   gameDuration,
-    //   characterList.map((c) => c.id),
-    //   helpCount,
-    //   score
-    // );
+
+    // save game data
+    FireStoreManager().handleEndOfGame(
+      mapInfo.title,
+      gameDuration,
+      characterList.map((c) => c.id),
+      helpCount,
+      score
+    );
   }
 
   /**
@@ -107,26 +113,18 @@ function Play() {
       }
       return c;
     });
-    // console.log(characterList);
-    // console.log(newCharacterList);
+
     const remainingCharCount = newCharacterList.reduce(
       (sum, el) => sum + (!el.found ? 1 : 0),
       0
     );
-    console.log(remainingCharCount);
+
     console.log(`${remainingCharCount} characters left`);
     setCharacterList(newCharacterList);
+
     if (remainingCharCount === 0) {
       endGame();
     }
-  }
-
-  /**
-   * Returns number of characters which have not been found yet
-   * @returns {int}
-   */
-  function getMissingCharCount() {
-    return characterList.reduce((sum, el) => sum + (!el.found ? 1 : 0), 0);
   }
 
   return (
@@ -141,7 +139,6 @@ function Play() {
           score={score}
         />
       ) : null}
-      {console.log(`Render Play`)}
       <h1>Find characters</h1>
       <TransformWrapper initialScale={mapScale}>
         {({ zoomIn, zoomOut, resetTransform, zoomToElement, ...rest }) => (
@@ -200,7 +197,6 @@ function Play() {
                 height: "500px",
                 maxWidth: "100%",
                 outline: "1px solid",
-                // maxHeight: "calc(100vh - 50px)",
               }}
             >
               <div
@@ -219,12 +215,6 @@ function Play() {
                   alt={mapInfo.imgAlt}
                 />
                 {hitboxes}
-                {/* <HitBox
-                  key={uniqid()}
-                  size={"15px"}
-                  topPos={"1680px"}
-                  leftPos={"548px"}
-                /> */}
               </div>
             </TransformComponent>
           </React.Fragment>
