@@ -1,8 +1,7 @@
 import { useMediaQuery } from "@mantine/hooks";
-import { memo } from "react";
 import { Avatar } from "@mantine/core";
 
-const CharacterImage = memo(function Component({ avatarImgSrc, avatarImgAlt }) {
+function CharacterImage({ avatarImgSrc, avatarImgAlt }) {
   const smallScreen = useMediaQuery("(max-width: 22em)");
 
   return (
@@ -13,6 +12,6 @@ const CharacterImage = memo(function Component({ avatarImgSrc, avatarImgAlt }) {
       color="indigo"
     />
   );
-});
+}
 
 export default CharacterImage;
