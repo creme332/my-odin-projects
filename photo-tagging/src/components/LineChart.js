@@ -7,8 +7,12 @@ import {
   Title,
   Tooltip,
   Legend,
+  TimeScale,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import autocolors from "chartjs-plugin-autocolors";
+import "chartjs-adapter-date-fns";
+import { format } from "date-fns";
 
 ChartJS.register(
   CategoryScale,
@@ -17,7 +21,9 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  autocolors,
+  TimeScale
 );
 
 export default function LineChart({ title = "" }) {
@@ -32,51 +38,38 @@ export default function LineChart({ title = "" }) {
         text: title,
       },
     },
+    scales: {
+      x: {
+        type: "time",
+        time: {
+          unit: "day",
+        },
+      },
+    },
   };
 
   const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ]; // 100 most recent dates
+    new Date(2023, 1, 11),
+    new Date(2023, 1, 12),
+    new Date(2023, 1, 12),
+    new Date(2023, 1, 13),
+    new Date(2023, 2, 16),
+  ];
 
-  // backgroundColor: [
-  //   'rgba(255, 99, 132, 0.5)',
-  //   'rgba(54, 162, 235, 0.5)',
-  //   'rgba(255, 206, 86, 0.5)',
-  //   'rgba(75, 192, 192, 0.5)',
-  //   'rgba(153, 102, 255, 0.5)',
-  //   'rgba(255, 159, 64, 0.5)',
-  // ],
   const data = {
     labels,
     datasets: [
       {
         label: "Marvel Universe",
         data: labels.map(() => Math.random() * 300),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "Anime Party",
         data: labels.map(() => Math.random() * 300),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
       {
         label: "Pixel Madness",
         data: labels.map(() => Math.random() * 300),
-        borderColor: "rgba(255, 206, 86)",
-        backgroundColor: "rgba(255, 206, 86, 0.5)",
       },
     ],
   };
