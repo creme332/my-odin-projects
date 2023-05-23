@@ -5,8 +5,4 @@ import FireStoreManager from "./utils/FireStoreManager";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 FireStoreManager();
 
-root.render(
-  <React.StrictMode>
-    <RouteSwitch />
-  </React.StrictMode>
-);
+root.render(<RouteSwitch />);
