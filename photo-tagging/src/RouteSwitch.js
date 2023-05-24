@@ -7,6 +7,7 @@ import Play from "./pages/Play";
 import uniqid from "uniqid";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import Profile from "./pages/Profile";
+import FooterSocial from "./components/Footer";
 
 const RouteSwitch = () => {
   const tabs = [
@@ -36,6 +37,7 @@ const RouteSwitch = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>
+          <FooterSocial />
         </BrowserRouter>
       </MantineProvider>
     </ColorSchemeProvider>
