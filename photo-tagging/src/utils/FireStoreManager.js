@@ -9,6 +9,11 @@ import {
   doc,
   serverTimestamp,
   runTransaction,
+  where,
+  query,
+  orderBy,
+  limit,
+  getDocs,
 } from "firebase/firestore";
 import { getFirebaseConfig } from "../firebase-config";
 
@@ -36,6 +41,28 @@ export default function FireStoreManager() {
     });
   }
 
+  async function getGameDataForUser(docLimit = 10) {
+    if (!user) return null;
+    const q = query(
+      gamesCollectionRef,
+      where("userID", "==", userID),
+      orderBy("date", "desc"),
+      limit(docLimit)
+    );
+    const gameData = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      // console.log(doc.id, " => ", doc.data());
+      gameData.push(doc.data());
+    });
+    console.log("Successfully fetched game data for user");
+    console.log(gameData);
+
+    return gameData;
+    //! add try catch
+  }
+
   async function addGameData(mapID, duration, characterList, helpCount, score) {
     if (user) {
       await addDoc(gamesCollectionRef, {
@@ -47,6 +74,7 @@ export default function FireStoreManager() {
         helpCount: helpCount, // how many times player used help option
         score: score, // game score
       });
+      console.log("Added new game data");
     }
   }
 
@@ -59,7 +87,7 @@ export default function FireStoreManager() {
   ) {
     if (user) {
       await addGameData(mapID, duration, characterList, helpCount, score);
-      await updateUserGameData(duration);
+      await updateUserStats(duration);
     }
   }
 
@@ -90,7 +118,7 @@ export default function FireStoreManager() {
     return null;
   }
 
-  async function updateUserGameData(gameDuration) {
+  async function updateUserStats(gameDuration) {
     if (user) {
       try {
         await runTransaction(db, async (transaction) => {
@@ -126,9 +154,9 @@ export default function FireStoreManager() {
           const newTotal = userDoc.data().gamesStarted + 1;
           transaction.update(docRef, { gamesStarted: newTotal });
         });
-        console.log("Transaction successfully committed!");
+        console.log("Game start transaction successfully committed!");
       } catch (e) {
-        console.log("Transaction failed: ", e);
+        console.log("Game start transaction failed: ", e);
       }
     }
   }
@@ -159,5 +187,6 @@ export default function FireStoreManager() {
     getPhotoURL,
     updateDisplayName,
     handleEndOfGame,
+    getGameDataForUser,
   };
 }

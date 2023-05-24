@@ -31,6 +31,7 @@ export default function Profile() {
   const fsm = FireStoreManager();
   const [userName, setUserName] = useState(null);
   const [newUserName, setNewUserName] = useState("");
+  const [gameData, setGameData] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -39,6 +40,9 @@ export default function Profile() {
         setUserSignedIn(true);
         setUserName(userDataResponse.displayName);
         setUserData(userDataResponse);
+        const gameDataResponse = await fsm.getGameDataForUser();
+
+        setGameData(gameDataResponse);
       }
     })();
   }, []);
@@ -51,6 +55,24 @@ export default function Profile() {
     }
     setNewUserName(name);
     setErrorMsg("");
+  }
+
+  function parseGameData() {
+    // get all labels. array of date
+    const labels = [...new Set(gameData.map((data) => data.date.toDate()))];
+    const allMaps = [...new Set(gameData.map((data) => data.mapID))]; // a list of unique map IDs
+    console.log(labels, allMaps);
+
+    const datasets = allMaps.map((mapName) => {
+      const dataset = {};
+      dataset.label = mapName;
+      dataset.data = gameData
+        .filter((data) => data.mapID === mapName)
+        .map((data) => data.duration);
+      return dataset;
+    });
+    console.log(datasets);
+    return { labels, datasets: datasets };
   }
 
   return !isUserSignedIn ? (
@@ -98,7 +120,12 @@ export default function Profile() {
           },
         ]}
       />
-      <LineChart />
+      {gameData && gameData.length > 0 ? (
+        <LineChart
+          title="Game duration for most recent completed games"
+          data={parseGameData()}
+        />
+      ) : null}
 
       <Title mt={30}>Settings</Title>
       <Flex direction={"column"} gap={30}>
