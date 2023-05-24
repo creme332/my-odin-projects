@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   createStyles,
   Header,
@@ -108,11 +108,17 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function HeaderWithTabs({ links }) {
+  const location = useLocation();
+
   const [opened, { toggle, close }] = useDisclosure(false);
-  const [active, setActive] = useState(useLocation().pathname);
+  const [active, setActive] = useState(location.pathname);
   const { classes, cx } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
+
+  useEffect(() => {
+    setActive(location.pathname);
+  }, [location]);
 
   const items = links.map((link) => (
     <Link
