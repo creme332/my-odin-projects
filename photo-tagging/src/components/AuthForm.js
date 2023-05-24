@@ -13,9 +13,8 @@ import {
   Stack,
 } from "@mantine/core";
 import { IconBrandGoogle, IconBrandGithub } from "@tabler/icons-react";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-export default function AuthForm() {
+export default function AuthForm({ signIn }) {
   const [type, toggle] = useToggle(["login", "register"]);
   const form = useForm({
     initialValues: {
@@ -33,16 +32,6 @@ export default function AuthForm() {
           : null,
     },
   });
-
-  async function signIn() {
-    // Sign in Firebase with credential from the Google user.
-    try {
-      let provider = new GoogleAuthProvider();
-      await signInWithPopup(getAuth(), provider);
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   return (
     <Paper w={400} radius="md" p="xl" withBorder>

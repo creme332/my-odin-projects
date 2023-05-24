@@ -18,7 +18,12 @@ import {
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { StatsGrid } from "../components/StatsGrid";
-import { getAuth, signOut } from "firebase/auth";
+import {
+  getAuth,
+  signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import FireStoreManager from "../utils/FireStoreManager";
 import dateFormat from "../utils/dateFormat";
 
@@ -38,10 +43,11 @@ export default function Profile() {
       const userDataResponse = await fsm.getUserData();
       if (userDataResponse) {
         setUserSignedIn(true);
-        setUserName(userDataResponse.displayName);
+        console.log(userDataResponse);
+        setUserName(userDataResponse.name);
         setUserData(userDataResponse);
-        const gameDataResponse = await fsm.getGameDataForUser();
 
+        const gameDataResponse = await fsm.getGameDataForUser();
         setGameData(gameDataResponse);
       }
     })();
@@ -55,6 +61,23 @@ export default function Profile() {
     }
     setNewUserName(name);
     setErrorMsg("");
+  }
+
+  function signOutHandler() {
+    signOut(getAuth());
+    setUserSignedIn(false);
+  }
+
+  async function signInHandler() {
+    // Sign in Firebase with credential from the Google user.
+    try {
+      let provider = new GoogleAuthProvider();
+      await signInWithPopup(getAuth(), provider);
+      fsm.createNewUser();
+      setUserSignedIn(true);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   function parseGameData() {
@@ -77,7 +100,7 @@ export default function Profile() {
 
   return !isUserSignedIn ? (
     <Flex justify={"center"} mt={20}>
-      <AuthForm />
+      <AuthForm signIn={signInHandler} />
     </Flex>
   ) : (
     <Container mb={20} mt={20}>
@@ -164,9 +187,7 @@ export default function Profile() {
           Toggle theme
         </Button>
         <Button
-          onClick={() => {
-            signOut(getAuth());
-          }}
+          onClick={signOutHandler}
           leftIcon={<IconLogout />}
           variant="filled"
           color="red"
