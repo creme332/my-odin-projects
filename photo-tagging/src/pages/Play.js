@@ -62,7 +62,10 @@ function Play() {
     console.log("Game ended at ", endTime.toISOString());
 
     // calculate game duration
-    const calculatedGameDuration = parseInt((new Date() - startTime) / 1000, 10);
+    const calculatedGameDuration = parseInt(
+      (new Date() - startTime) / 1000,
+      10
+    );
     setGameDuration(calculatedGameDuration);
     console.log(`Game lasted ${calculatedGameDuration} seconds`);
 
@@ -74,7 +77,12 @@ function Play() {
       helpCount
     );
     setScore(finalScore);
-    console.log(calculatedGameDuration, characterListSize, mapInfo.rating, helpCount);
+    console.log(
+      calculatedGameDuration,
+      characterListSize,
+      mapInfo.rating,
+      helpCount
+    );
 
     // display game over screen
     setShowGameScreen(true);
@@ -85,7 +93,7 @@ function Play() {
       calculatedGameDuration,
       characterList.map((c) => c.id),
       helpCount,
-      score
+      finalScore
     );
   }
 
