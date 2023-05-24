@@ -20,8 +20,8 @@ import { getFirebaseConfig } from "../firebase-config";
 export default function FireStoreManager() {
   const app = initializeApp(getFirebaseConfig());
   const db = getFirestore(app);
-  const user = getAuth().currentUser;
-  const userID = user ? user.uid : null;
+  const currentUser = getAuth().currentUser;
+  const currentUserID = currentUser ? currentUser.uid : null;
   const usersCollectionRef = collection(db, "users"); // user data
   const gamesCollectionRef = collection(db, "games"); // game data
 
@@ -30,10 +30,10 @@ export default function FireStoreManager() {
    * @param {Firestore User} Firestore user object
    */
   async function createNewUser() {
-    await setDoc(doc(usersCollectionRef, userID), {
-      name: user.displayName,
+    await setDoc(doc(usersCollectionRef, currentUserID), {
+      name: currentUser.displayName,
       country: "Global",
-      id: userID,
+      id: currentUserID,
       joinDate: serverTimestamp(), // when was user account created
       gamesStarted: 0, // number of times play button is clicked but game is not necessarily completed
       gamesCompleted: 0, // number of times all characters are found for a map
@@ -42,11 +42,11 @@ export default function FireStoreManager() {
   }
 
   async function getGameDataForUser(docLimit = 100) {
-    if (!user) return null;
+    if (!currentUser) return null;
 
     const q = query(
       gamesCollectionRef,
-      where("userID", "==", userID),
+      where("userID", "==", currentUserID),
       orderBy("date", "desc"),
       limit(docLimit)
     );
@@ -64,10 +64,31 @@ export default function FireStoreManager() {
     }
   }
 
+  async function getGameDataForMap(mapTitle, docLimit = 20) {
+    const q = query(
+      gamesCollectionRef,
+      where("mapID", "==", mapTitle),
+      orderBy("duration", "asc"),
+      limit(docLimit)
+    );
+
+    const gameData = [];
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        gameData.push(doc.data());
+      });
+      console.log(`Successfully fetched all game data for ${mapTitle}`);
+      return gameData;
+    } catch (e) {
+      console.log(`Failed to fetch game data for ${mapTitle}`);
+    }
+  }
+
   async function addGameData(mapID, duration, characterList, helpCount, score) {
-    if (user) {
+    if (currentUser) {
       await addDoc(gamesCollectionRef, {
-        userID: userID,
+        userID: currentUserID,
         mapID: mapID,
         date: serverTimestamp(), //when was game played
         duration: duration, // how long game lasted in seconds
@@ -86,21 +107,32 @@ export default function FireStoreManager() {
     helpCount,
     score
   ) {
-    if (user) {
+    if (currentUser) {
       await addGameData(mapID, duration, characterList, helpCount, score);
       await updateUserStats(duration);
     }
   }
 
-  async function getUsername() {
-    if (user) {
-      const x = await getUserData();
-      return x.displayName;
+  async function getUsername(forCurrentUser = true, anotherUserID = null) {
+    if (forCurrentUser) {
+      if (currentUser) {
+        const x = await getUserData();
+        return x.displayName;
+      }
+    } else {
+      const docRef = doc(usersCollectionRef, anotherUserID);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data().displayName;
+      } else {
+        console.log(`No document for user with id ${anotherUserID}`);
+      }
     }
   }
 
   function getPhotoURL() {
-    return user.photoURL;
+    if (currentUser) return currentUser.photoURL;
   }
 
   /**
@@ -108,9 +140,9 @@ export default function FireStoreManager() {
    * @returns {User} A user object
    */
   async function getUserData() {
-    if (user) {
+    if (currentUser) {
       console.log("Requested data for user");
-      const docRef = doc(usersCollectionRef, userID);
+      const docRef = doc(usersCollectionRef, currentUserID);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) return docSnap.data();
     }
@@ -120,10 +152,10 @@ export default function FireStoreManager() {
   }
 
   async function updateUserStats(gameDuration) {
-    if (user) {
+    if (currentUser) {
       try {
         await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersCollectionRef, userID);
+          const docRef = doc(usersCollectionRef, currentUserID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
             throw "Document does not exist!";
@@ -143,10 +175,10 @@ export default function FireStoreManager() {
   }
 
   async function incrementGamesStarted() {
-    if (user) {
+    if (currentUser) {
       try {
         await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersCollectionRef, userID);
+          const docRef = doc(usersCollectionRef, currentUserID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
             throw "Document does not exist!";
@@ -163,10 +195,10 @@ export default function FireStoreManager() {
   }
 
   async function updateDisplayName(newName) {
-    if (user) {
+    if (currentUser) {
       try {
         await runTransaction(db, async (transaction) => {
-          const docRef = doc(usersCollectionRef, userID);
+          const docRef = doc(usersCollectionRef, currentUserID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
             throw "Document does not exist!";
@@ -189,5 +221,6 @@ export default function FireStoreManager() {
     updateDisplayName,
     handleEndOfGame,
     getGameDataForUser,
+    getGameDataForMap,
   };
 }
