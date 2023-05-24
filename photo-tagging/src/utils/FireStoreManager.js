@@ -27,7 +27,7 @@ export default function FireStoreManager() {
 
   /**
    * Creates a document for a new user
-   * @param {Firestore.User} Firestore user object
+   * @param {Firestore User} Firestore user object
    */
   async function createNewUser() {
     await setDoc(doc(usersCollectionRef, userID), {
@@ -41,26 +41,27 @@ export default function FireStoreManager() {
     });
   }
 
-  async function getGameDataForUser(docLimit = 10) {
+  async function getGameDataForUser(docLimit = 100) {
     if (!user) return null;
+
     const q = query(
       gamesCollectionRef,
       where("userID", "==", userID),
       orderBy("date", "desc"),
       limit(docLimit)
     );
-    const gameData = [];
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      // console.log(doc.id, " => ", doc.data());
-      gameData.push(doc.data());
-    });
-    console.log("Successfully fetched game data for user");
-    console.log(gameData);
 
-    return gameData;
-    //! add try catch
+    const gameData = [];
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        gameData.push(doc.data());
+      });
+      console.log("Successfully fetched game data for user");
+      return gameData;
+    } catch (e) {
+      console.log("Failed to fetch game data of user", e);
+    }
   }
 
   async function addGameData(mapID, duration, characterList, helpCount, score) {
