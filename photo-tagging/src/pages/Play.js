@@ -62,19 +62,19 @@ function Play() {
     console.log("Game ended at ", endTime.toISOString());
 
     // calculate game duration
-    const x = parseInt((new Date() - startTime) / 1000, 10);
-    setGameDuration(x);
-    console.log(`Game lasted ${x} seconds`);
+    const calculatedGameDuration = parseInt((new Date() - startTime) / 1000, 10);
+    setGameDuration(calculatedGameDuration);
+    console.log(`Game lasted ${calculatedGameDuration} seconds`);
 
     // calculate final score
     const finalScore = scoreCalculator(
-      x,
+      calculatedGameDuration,
       characterListSize,
       mapInfo.rating,
       helpCount
     );
     setScore(finalScore);
-    console.log(x, characterListSize, mapInfo.rating, helpCount);
+    console.log(calculatedGameDuration, characterListSize, mapInfo.rating, helpCount);
 
     // display game over screen
     setShowGameScreen(true);
@@ -82,7 +82,7 @@ function Play() {
     // save game data
     FireStoreManager().handleEndOfGame(
       mapInfo.title,
-      gameDuration,
+      calculatedGameDuration,
       characterList.map((c) => c.id),
       helpCount,
       score
