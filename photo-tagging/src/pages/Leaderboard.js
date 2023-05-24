@@ -19,11 +19,10 @@ function Leaderboard() {
     return mapInfo.map((m) => {
       const thisMapData = gameMapData.filter((e) => e.title === m.title)[0];
       if (!thisMapData) return null;
-      console.log("hereeee");
 
       // create rows for table
       const rows = thisMapData.response.map((game, rank) => {
-        console.log(userNameData);
+        // console.log(userNameData);
         const displayName = userNameData.filter(
           (data) => data.id === game.userID
         )[0].displayName;
@@ -82,14 +81,13 @@ function Leaderboard() {
           return { id: id, displayName: response };
         })
       );
-      console.log(UserResponses);
 
       setUserNameData(UserResponses);
-
+      // console.log(UserResponses);
       // display leaderboard data
       setPanelsReady(true);
 
-      console.log("Display tables");
+      console.log("Displayed tables");
     })();
   }, []);
 

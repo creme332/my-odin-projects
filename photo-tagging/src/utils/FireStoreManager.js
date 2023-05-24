@@ -31,7 +31,7 @@ export default function FireStoreManager() {
    */
   async function createNewUser() {
     await setDoc(doc(usersCollectionRef, currentUserID), {
-      name: currentUser.displayName,
+      displayName: currentUser.displayName,
       country: "Global",
       id: currentUserID,
       joinDate: serverTimestamp(), // when was user account created
