@@ -11,7 +11,7 @@ import {
   rem,
 } from "@mantine/core";
 import { IconJewishStarFilled } from "@tabler/icons-react";
-import image from "./../assets/images/detective.png";
+import image from "./../assets/images/detective.webp";
 
 const useStyles = createStyles((theme) => ({
   inner: {

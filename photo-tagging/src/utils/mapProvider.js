@@ -1,4 +1,5 @@
 import marvelUniverseMap from "../assets/images/maps//marvel-universe/marvel-universe.jpg";
+import marvelLogo from "../assets/images/maps//marvel-universe/marvel-logo.jpg";
 import m1 from "../assets/images/maps/marvel-universe/characters/1.png";
 import m2 from "../assets/images/maps/marvel-universe/characters/2.png";
 import m3 from "../assets/images/maps/marvel-universe/characters/3.png";
@@ -6,6 +7,7 @@ import m4 from "../assets/images/maps/marvel-universe/characters/4.png";
 import m5 from "../assets/images/maps/marvel-universe/characters/5.png";
 
 import AnimePartyMap from "../assets/images/maps/anime-party/anime-party.jpg";
+import animeLogo from "../assets/images/maps/anime-party/anime-logo.webp";
 import a1 from "../assets/images/maps/anime-party/characters/1.png";
 import a2 from "../assets/images/maps/anime-party/characters/2.png";
 import a3 from "../assets/images/maps/anime-party/characters/3.png";
@@ -14,11 +16,14 @@ import a5 from "../assets/images/maps/anime-party/characters/5.png";
 import a6 from "../assets/images/maps/anime-party/characters/6.png";
 
 import PixelMadnessMap from "../assets/images/maps/pixel-madness/pixel-madness.png";
+import PixelLogo from "../assets/images/maps/pixel-madness/pixel-logo.webp";
 import p1 from "../assets/images/maps/pixel-madness/characters/1.png";
 import p2 from "../assets/images/maps/pixel-madness/characters/2.png";
 import p3 from "../assets/images/maps/pixel-madness/characters/3.png";
 import p4 from "../assets/images/maps/pixel-madness/characters/4.png";
 import p5 from "../assets/images/maps/pixel-madness/characters/5.png";
+
+import Moon from "../assets/images/maps/magical-moon/moon.webp";
 
 /**
  * Returns a dictionary containing all information about all maps
@@ -32,6 +37,8 @@ export default function getAllMaps() {
       rating: 3,
       imgSrc: marvelUniverseMap,
       imgAlt: "Wallpaper of marvel characters",
+      logoSrc: marvelLogo,
+      logoAlt: "Marvel logo",
       available: true,
       characters: [
         {
@@ -82,6 +89,8 @@ export default function getAllMaps() {
       rating: 5,
       imgSrc: AnimePartyMap,
       imgAlt: "Wallpaper of anime characters",
+      logoSrc: animeLogo,
+      logoAlt: "Purple anime background",
       available: true,
       characters: [
         {
@@ -140,6 +149,8 @@ export default function getAllMaps() {
       rating: 5,
       imgSrc: PixelMadnessMap,
       imgAlt: "Wallpaper of pixel characters",
+      logoSrc: PixelLogo,
+      logoAlt: "Marvel logo",
       available: true,
       characters: [
         {
@@ -188,21 +199,10 @@ export default function getAllMaps() {
       title: "Magical Moon",
       category: "Top Secret",
       rating: 0,
-      imgSrc:
-        "https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-
-      imgAlt: "Blue sky",
-      available: false,
-      characters: [],
-    },
-    {
-      title: "Starry night",
-      category: "Top Secret",
-      rating: 0,
-      imgSrc:
-        "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-
-      imgAlt: "Stars in the sky",
+      imgSrc: null,
+      imgAlt: null,
+      logoSrc: Moon,
+      logoAlt: "A background of the moon",
       available: false,
       characters: [],
     },

@@ -18,9 +18,9 @@ function MapCard({ ...cardInfo }) {
       <Card.Section>
         <Image
           withPlaceholder
-          src={cardInfo.imgSrc}
+          src={cardInfo.logoSrc}
           height={160}
-          alt={cardInfo.imgAlt}
+          alt={cardInfo.logoAlt}
         />
       </Card.Section>
 
@@ -28,7 +28,7 @@ function MapCard({ ...cardInfo }) {
         <Text fz="lg" weight={600}>
           {cardInfo.title}
         </Text>
-        <Badge color="pink" variant="light">
+        <Badge variant="gradient" gradient={{ from: "orange", to: "red" }}>
           {cardInfo.category}{" "}
         </Badge>
       </Group>
