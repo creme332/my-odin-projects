@@ -13,6 +13,8 @@ service cloud.firestore {
       allow update: if request.auth != null && request.auth.uid == request.resource.data.author_uid && (!request.resource.data.diff(resource.data).affectedKeys()
         .hasAny(['id', 'joinDate']));
 
+       // deletes are not allowed
+       allow delete: if false;
     }
     match /games/{document} {
 
@@ -22,8 +24,8 @@ service cloud.firestore {
       // Allow only logged in users to create a document only if that document contains all required fields
       allow create: if request.auth != null && request.resource.data.keys().hasAll(['characterList', 'date', 'duration', 'helpCount', 'mapID', 'score', 'userID']);
 
-      // Disallow updates
-      allow update: if false
+      // Disallow updates and deletes
+      allow delete, update: if false
 
     }
   }
