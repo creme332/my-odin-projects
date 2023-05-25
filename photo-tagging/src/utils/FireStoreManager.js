@@ -32,7 +32,6 @@ export default function FireStoreManager() {
   async function createNewUser() {
     await setDoc(doc(usersCollectionRef, currentUserID), {
       displayName: currentUser.displayName,
-      country: "Global",
       id: currentUserID,
       joinDate: serverTimestamp(), // when was user account created
       gamesStarted: 0, // number of times play button is clicked but game is not necessarily completed
