@@ -15,6 +15,11 @@ function Leaderboard() {
     </Tabs.Tab>
   ));
 
+  function formatTime(seconds) {
+    let hhmmss = dateFormat(seconds); // hh : mm: ss
+    return hhmmss.substring(hhmmss.indexOf(":") + 2);
+  }
+  
   function getTabPanels() {
     return mapInfo.map((m) => {
       const thisMapData = gameMapData.filter((e) => e.title === m.title)[0];
@@ -31,7 +36,7 @@ function Leaderboard() {
           <tr key={`${game.userID}-${rank}-${m.title}`}>
             <td>{rank + 1}</td>
             <td>{displayName}</td>
-            <td>{dateFormat(parseInt(game.duration))}</td>
+            <td>{formatTime(parseInt(game.duration, 10))}</td>
             <td>{game.score}</td>
           </tr>
         );
