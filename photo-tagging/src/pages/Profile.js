@@ -39,31 +39,33 @@ export default function Profile() {
   const [newUserName, setNewUserName] = useState("");
   const [gameData, setGameData] = useState(null);
 
-  useEffect(() => {
-    async function authStateObserver(user) {
-      console.log("Auth state changed");
-      if (user) {
-        // user is signed in
-        setUserSignedIn(true);
-        setUserName(user.displayName);
+  async function authStateObserver(user) {
+    console.log("Auth state changed");
+    if (user) {
+      // user is signed in
+      setUserSignedIn(true);
+      setUserName(user.displayName);
 
-        // check if user is a new user
-        const userDataResponse = await fsm.getUserData();
+      // check if user is a new user
+      const userDataResponse = await FireStoreManager().getUserData();
 
-        if (userDataResponse && userDataResponse.length === 0) {
-          fsm.createNewUser();
-        } else {
-          // user is not new
-          // fetch data about previous games of user
-          const gameDataResponse = await fsm.getGameDataForUser();
-          setGameData(gameDataResponse);
-        }
-        setUserData(userDataResponse);
+      if (userDataResponse && userDataResponse.length === 0) {
+        // user is new
+        FireStoreManager().createNewUser();
       } else {
-        // user signed out
-        setUserSignedIn(false);
+        // user is not new
+        // fetch data about previous games of user
+        const gameDataResponse = await FireStoreManager().getGameDataForUser();
+        if (gameDataResponse) setGameData(gameDataResponse);
+        setUserData(userDataResponse);
       }
+    } else {
+      // user signed out
+      setUserSignedIn(false);
     }
+  }
+
+  useEffect(() => {
     onAuthStateChanged(getAuth(), authStateObserver);
   }, []);
 
@@ -87,7 +89,6 @@ export default function Profile() {
     try {
       let provider = new GoogleAuthProvider();
       await signInWithPopup(getAuth(), provider);
-      setUserSignedIn(true);
     } catch (e) {
       console.log(e);
     }
