@@ -54,16 +54,6 @@ const useStyles = createStyles((theme) => ({
       display: "none",
     },
   },
-
-  highlight: {
-    position: "relative",
-    backgroundColor: theme.fn.variant({
-      variant: "light",
-      color: theme.primaryColor,
-    }).background,
-    borderRadius: theme.radius.sm,
-    padding: `${rem(4)} ${rem(12)}`,
-  },
 }));
 
 export function HeroBullets() {
@@ -73,7 +63,16 @@ export function HeroBullets() {
       <div className={classes.inner}>
         <div className={classes.content}>
           <Title className={classes.title}>
-            A <span className={classes.highlight}>fun</span> photo tagging game
+            A
+            <Text
+              span
+              inherit
+              variant="gradient"
+              gradient={{ from: "#a77bf3", to: "#93f5ec", deg: 45 }}
+            >
+              {" fun"}
+            </Text>{" "}
+            photo tagging game
           </Title>
           <Text color="dimmed" mt="md">
             Challenge yourself to find the hidden character in each scene, and
