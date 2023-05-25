@@ -36,24 +36,27 @@ export default function Profile() {
   const [isUserSignedIn, setUserSignedIn] = useState(false);
   const fsm = FireStoreManager();
   const [userName, setUserName] = useState(null);
-  const [newUserName, setNewUserName] = useState("");
   const [gameData, setGameData] = useState(null);
+  const [NameTextboxValue, setNameTextboxValue] = useState("");
 
   async function authStateObserver(user) {
     console.log("Auth state changed");
     if (user) {
       // user is signed in
       setUserSignedIn(true);
-      setUserName(user.displayName);
 
       // check if user is a new user
       const userDataResponse = await FireStoreManager().getUserData();
 
       if (userDataResponse && userDataResponse.length === 0) {
         // user is new
+        setUserName(user.displayName);
         FireStoreManager().createNewUser();
       } else {
         // user is not new
+
+        setUserName(userDataResponse.displayName);
+
         // fetch data about previous games of user
         const gameDataResponse = await FireStoreManager().getGameDataForUser();
         if (gameDataResponse) setGameData(gameDataResponse);
@@ -69,14 +72,25 @@ export default function Profile() {
     onAuthStateChanged(getAuth(), authStateObserver);
   }, []);
 
-  function validateUsername(e) {
-    const name = e.target.value;
-    if (name.length < 5) {
+  /**
+   * Returns true if username is valid
+   * @param {String} newName new display name
+   * @returns {Boolean}
+   */
+  function validateUsername(newName) {
+    if (newName.length < 5) {
       setErrorMsg("Too short");
-      return;
+      return false;
     }
-    setNewUserName(name);
+
+    if (userName === newName) {
+      setErrorMsg("Same as current name");
+      return false;
+    }
+
     setErrorMsg("");
+
+    return true;
   }
 
   function signOutHandler() {
@@ -164,7 +178,11 @@ export default function Profile() {
         <Title mt={30}>Settings</Title>
         <Flex direction={"column"} gap={30}>
           <TextInput
-            onChange={validateUsername}
+            onChange={(e) => {
+              const newName = e.target.value.trim();
+              validateUsername(newName);
+              setNameTextboxValue(newName);
+            }}
             error={errorMsg}
             minLength={5}
             maxLength={10}
@@ -174,9 +192,9 @@ export default function Profile() {
           />
           <Button
             onClick={() => {
-              if (errorMsg.length === 0 && userName !== fsm.getUsername()) {
-                fsm.updateDisplayName(newUserName);
-                setUserName(newUserName);
+              if (validateUsername(NameTextboxValue)) {
+                fsm.updateDisplayName(NameTextboxValue);
+                setUserName(NameTextboxValue);
               }
             }}
             leftIcon={<IconThumbUpFilled />}
