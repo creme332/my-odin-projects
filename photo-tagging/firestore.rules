@@ -1,32 +1,32 @@
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{document} {
+    match /databases/{database}/documents {
+        match /users/{document} {
 
-      // Allow anyone to read all documents. This is required to generate leaderboard.
-      allow read: if true
+            // Allow anyone to read all documents. This is required to generate public leaderboard.
+            allow read: if true
 
-      // Allow only logged in users to create a document only if that document contains all required fields
-      allow create: if request.auth != null && request.resource.data.keys().hasAll(['displayName', 'gamesCompleted', 'gamesStarted', 'id', 'joinDate', 'totalPlayTime']);
+            // Allow only authenticated users to create a document only if that document contains all required fields
+            allow create: if (request.auth != null) && (request.resource.data.keys().hasAll(['displayName', 'gamesCompleted', 'gamesStarted', 'id', 'joinDate', 'totalPlayTime']));
 
-      // Allow only logged in users to update a document only if that document doesn't change certain attributes
-      allow update: if request.auth != null && request.auth.uid == request.resource.data.author_uid && (!request.resource.data.diff(resource.data).affectedKeys()
-        .hasAny(['id', 'joinDate']));
+            // Allow only logged in users to update a document only if that document doesn't change id and joinDate
+            allow update: if (request.auth != null) && (request.auth.uid == request.resource.data.author_uid) && (!request.resource.data.diff(resource.data).affectedKeys()
+            .hasAny(['id', 'joinDate']));
 
-       // deletes are not allowed
-       allow delete: if false;
+            // deletes are not allowed
+            allow delete: if false;
+        }
+        match /games/{document} {
+
+            // Allow anyone to read all documents. This is required to generate public leaderboard.
+            allow read: if true
+
+            // Allow only logged in users to create a document only if that document contains all required fields
+            allow create: if (request.auth != null) && (request.resource.data.keys().hasAll(['characterList', 'date', 'duration', 'helpCount', 'mapID', 'score', 'userID']));
+
+            // Disallow updates and deletes
+            allow delete, update: if false
+
+        }
     }
-    match /games/{document} {
-
-      // Allow anyone to read all documents. This is required to generate leaderboard.
-      allow read: if true
-
-      // Allow only logged in users to create a document only if that document contains all required fields
-      allow create: if request.auth != null && request.resource.data.keys().hasAll(['characterList', 'date', 'duration', 'helpCount', 'mapID', 'score', 'userID']);
-
-      // Disallow updates and deletes
-      allow delete, update: if false
-
-    }
-  }
 }
