@@ -116,7 +116,7 @@ export function HeroBullets() {
             </Button>
           </Group>
         </div>
-        <Image withPlaceholder src={image} className={classes.image} />
+        <Image withPlaceholder src={image} className={classes.image} alt="Detective with a hat, a coat and holding a " />
       </div>
     </Container>
   );
