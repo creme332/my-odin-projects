@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/static/js/main.0ee66f17.js",
+    "main.js": "/static/js/main.29679ac9.js",
     "static/media/pixel-madness.png": "/static/media/pixel-madness.8d4a945bfbeb5a0ccfd8.png",
     "static/media/anime-party.jpg": "/static/media/anime-party.438174f856f2a51ca9d3.jpg",
     "static/media/marvel-universe.jpg": "/static/media/marvel-universe.a5d487ba7583d879642a.jpg",
@@ -12,9 +12,9 @@
     "static/media/6.png": "/static/media/6.175be8c6b1bbc4eae167.png",
     "static/media/5.png": "/static/media/5.66b421a4736468d3a63c.png",
     "index.html": "/index.html",
-    "main.0ee66f17.js.map": "/static/js/main.0ee66f17.js.map"
+    "main.29679ac9.js.map": "/static/js/main.29679ac9.js.map"
   },
   "entrypoints": [
-    "static/js/main.0ee66f17.js"
+    "static/js/main.29679ac9.js"
   ]
 }
