@@ -23,6 +23,7 @@ import {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
+  onAuthStateChanged,
 } from "firebase/auth";
 import FireStoreManager from "../utils/FireStoreManager";
 import dateFormat from "../utils/dateFormat";
@@ -39,18 +40,31 @@ export default function Profile() {
   const [gameData, setGameData] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      const userDataResponse = await fsm.getUserData();
-      if (userDataResponse) {
+    async function authStateObserver(user) {
+      console.log("Auth state changed");
+      if (user) {
+        // user is signed in
         setUserSignedIn(true);
-        // console.log(userDataResponse, userDataResponse.displayname);
-        setUserName(userDataResponse.displayName);
-        setUserData(userDataResponse);
+        setUserName(user.displayName);
 
-        const gameDataResponse = await fsm.getGameDataForUser();
-        setGameData(gameDataResponse);
+        // check if user is a new user
+        const userDataResponse = await fsm.getUserData();
+
+        if (userDataResponse && userDataResponse.length === 0) {
+          fsm.createNewUser();
+        } else {
+          // user is not new
+          // fetch data about previous games of user
+          const gameDataResponse = await fsm.getGameDataForUser();
+          setGameData(gameDataResponse);
+        }
+        setUserData(userDataResponse);
+      } else {
+        // user signed out
+        setUserSignedIn(false);
       }
-    })();
+    }
+    onAuthStateChanged(getAuth(), authStateObserver);
   }, []);
 
   function validateUsername(e) {
@@ -73,7 +87,6 @@ export default function Profile() {
     try {
       let provider = new GoogleAuthProvider();
       await signInWithPopup(getAuth(), provider);
-      fsm.createNewUser();
       setUserSignedIn(true);
     } catch (e) {
       console.log(e);

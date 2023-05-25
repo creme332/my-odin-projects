@@ -141,12 +141,21 @@ export default function FireStoreManager() {
    */
   async function getUserData() {
     if (currentUser) {
-      console.log("Requested data for user");
+      console.log("Requested data for current user");
       const docRef = doc(usersCollectionRef, currentUserID);
       const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) return docSnap.data();
+
+      if (docSnap.exists()) {
+        // data for signed-in user already exists in database
+        console.log("Found user data!");
+        return docSnap.data();
+      } else {
+        // signed-in user is a newcomer so no data available
+        console.log("Signed-in user is a newcomer!");
+        return [];
+      }
     }
-    console.log("No data for user");
+    console.log("No user is currently signed-in");
 
     return null;
   }
