@@ -138,19 +138,19 @@ export default function Profile() {
             {
               title: "Games started",
               value: userData ? userData.gamesStarted : 0,
-              diff: 23,
+              icon: "IconPlayerPlay",
             },
             {
               title: "Games completed",
               value: userData ? userData.gamesCompleted : 0,
-              diff: -5,
+              icon: "IconTrophy",
             },
             {
               title: "Playing time",
               value: userData
                 ? dateFormat(parseInt(userData.totalPlayTime, 10))
                 : 0,
-              diff: 0,
+              icon: "IconClock",
             },
           ]}
         />

@@ -6,11 +6,7 @@ import {
   ThemeIcon,
   SimpleGrid,
 } from "@mantine/core";
-import {
-  IconArrowUpRight,
-  IconArrowDownRight,
-  IconSeparatorHorizontal,
-} from "@tabler/icons-react";
+import { IconClock, IconPlayerPlay, IconTrophy } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -22,20 +18,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-// interface StatsGridIconsProps {
-//   data: { title: string; value: string; diff: number }[];
-// }
-
 export function StatsGrid({ data }) {
   const { classes } = useStyles();
   const stats = data.map((stat) => {
-    const DiffIcon =
-      stat.diff === 0
-        ? IconSeparatorHorizontal
-        : stat.diff > 0
-        ? IconArrowUpRight
-        : IconArrowDownRight;
-
+    const Icon =
+      stat.icon === "IconPlayerPlay"
+        ? IconPlayerPlay
+        : stat.icon === "IconClock"
+        ? IconClock
+        : IconTrophy;
     return (
       <Paper withBorder p="md" radius="md" key={stat.title}>
         <Group position="apart">
@@ -62,15 +53,9 @@ export function StatsGrid({ data }) {
             size={38}
             radius="md"
           >
-            <DiffIcon size="1.8rem" stroke={1.5} />
+            <Icon size="1.8rem" stroke={1.5} />
           </ThemeIcon>
         </Group>
-        <Text c="dimmed" fz="sm" mt="md">
-          <Text component="span" c={stat.diff > 0 ? "teal" : "red"} fw={700}>
-            {stat.diff}%
-          </Text>{" "}
-          {stat.diff > 0 ? "increase" : "decrease"} compared to last month
-        </Text>
       </Paper>
     );
   });
