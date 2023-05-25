@@ -21,7 +21,7 @@ function Home() {
   const { classes } = useStyles();
 
   return (
-    <Container mb={20}>
+    <Container>
       <HeroBullets />
       <h1 className={classes.title}>Choose your map</h1>
       <CardsCarousel data={getAllMaps()} />
