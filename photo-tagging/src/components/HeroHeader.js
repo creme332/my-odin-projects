@@ -3,8 +3,6 @@ import {
   Image,
   Container,
   Title,
-  Button,
-  Group,
   Text,
   List,
   ThemeIcon,
@@ -103,20 +101,13 @@ export function HeroBullets() {
               <b>Unique backgrounds</b> – Never get bored playing the same maps
             </List.Item>
           </List>
-
-          <Group mt={30}>
-            <Button
-              variant="gradient"
-              gradient={{ from: "indigo", to: "cyan" }}
-              radius="xl"
-              size="md"
-              className={classes.control}
-            >
-              Sign in
-            </Button>
-          </Group>
         </div>
-        <Image withPlaceholder src={image} className={classes.image} alt="Detective with a hat, a coat and holding a " />
+        <Image
+          withPlaceholder
+          src={image}
+          className={classes.image}
+          alt="Detective with a hat, a coat and holding a "
+        />
       </div>
     </Container>
   );
