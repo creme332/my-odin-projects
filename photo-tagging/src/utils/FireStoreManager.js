@@ -26,8 +26,8 @@ export default function FireStoreManager() {
   const gamesCollectionRef = collection(db, "games"); // game data
 
   /**
-   * Creates a document for a new user
-   * @param {Firestore User} Firestore user object
+   * Creates a new document in `users` collection for a new user.
+   * User must be signed-in.
    */
   async function createNewUser() {
     await setDoc(doc(usersCollectionRef, currentUserID), {
@@ -40,6 +40,11 @@ export default function FireStoreManager() {
     });
   }
 
+  /**
+   * Returns game data for currently-signed in user.
+   * @param {Number} docLimit Number of documents to fetch.
+   * @returns {[Game]} A list of `game` objects
+   */
   async function getGameDataForUser(docLimit = 100) {
     if (!currentUser) return null;
 
@@ -61,8 +66,15 @@ export default function FireStoreManager() {
     } catch (e) {
       console.log("Failed to fetch game data of user", e);
     }
+    return null;
   }
 
+  /**
+   * Returns game data for a particular map.
+   * @param {String} mapTitle map ID is same as map title
+   * @param {Number} docLimit Number of documents to fetch.
+   * @returns {[Game]} A list of `game` objects
+   */
   async function getGameDataForMap(mapTitle, docLimit = 20) {
     const q = query(
       gamesCollectionRef,
@@ -84,6 +96,14 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * Saves game data for currently signed in user.
+   * @param {Number} mapID map title
+   * @param {Number} duration game duration in seconds
+   * @param {[String]} characterList list of character IDs present in game
+   * @param {Number} helpCount Number of times `help` button was pressed
+   * @param {Number} score score received
+   */
   async function addGameData(mapID, duration, characterList, helpCount, score) {
     if (currentUser) {
       await addDoc(gamesCollectionRef, {
@@ -99,6 +119,14 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * Call this function when game ends. It will save required information to database and update user statistics.
+   * @param {Number} mapID map title
+   * @param {Number} duration game duration in seconds
+   * @param {[String]} characterList list of character IDs present in game
+   * @param {Number} helpCount Number of times `help` button was pressed
+   * @param {Number} score score received
+   */
   async function handleEndOfGame(
     mapID,
     duration,
@@ -112,6 +140,12 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * Returns the display name of a user.
+   * @param {Boolean} forCurrentUser Set to true to fetch username of currently signed in user
+   * @param {String} anotherUserID ID of some user
+   * @returns {String}
+   */
   async function getUsername(forCurrentUser = true, anotherUserID = null) {
     if (forCurrentUser) {
       if (currentUser) {
@@ -130,13 +164,17 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * Returns photo URL of currently signed-in user.
+   * @returns {String}
+   */
   function getPhotoURL() {
     if (currentUser) return currentUser.photoURL;
   }
 
   /**
-   * Returns user data
-   * @returns {User} A user object
+   * Returns user data for currently-signed in user.
+   * @returns {User} A `user` object
    */
   async function getUserData() {
     if (currentUser) {
@@ -159,6 +197,10 @@ export default function FireStoreManager() {
     return null;
   }
 
+  /**
+   * Call this function after game ends. It will update `gamesCompleted` and `totalPlayTime` for currently signed-in user.
+   * @param {Number} gameDuration How long game lasted in seconds
+   */
   async function updateUserStats(gameDuration) {
     if (currentUser) {
       try {
@@ -182,6 +224,9 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * Call this function when game starts. It will update `gamesStarted` for currently signed-in user.
+   */
   async function incrementGamesStarted() {
     if (currentUser) {
       try {
@@ -202,6 +247,10 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * Updates display name for currently signed-in user
+   * @param {String} newName new display name of user
+   */
   async function updateDisplayName(newName) {
     if (currentUser) {
       try {
