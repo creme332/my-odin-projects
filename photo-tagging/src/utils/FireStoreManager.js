@@ -167,7 +167,7 @@ export default function FireStoreManager() {
           const docRef = doc(usersCollectionRef, currentUserID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
-            throw "Document does not exist!";
+            throw new Error("Document does not exist!");
           }
           const userData = userDoc.data();
 
@@ -190,7 +190,7 @@ export default function FireStoreManager() {
           const docRef = doc(usersCollectionRef, currentUserID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
-            throw "Document does not exist!";
+            throw new Error("Document does not exist!");
           }
 
           const newTotal = userDoc.data().gamesStarted + 1;
@@ -210,7 +210,7 @@ export default function FireStoreManager() {
           const docRef = doc(usersCollectionRef, currentUserID);
           const userDoc = await transaction.get(docRef);
           if (!userDoc.exists()) {
-            throw "Document does not exist!";
+            throw new Error("Document does not exist!");
           }
           transaction.update(docRef, { displayName: newName });
         });
