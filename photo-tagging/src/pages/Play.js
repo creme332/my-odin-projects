@@ -53,6 +53,7 @@ function Play() {
   const [gameDuration, setGameDuration] = useState(0);
 
   useEffect(() => {
+    window.scrollTo(0,0); 
     console.log("Game started at ", startTime.toISOString());
     fsm.incrementGamesStarted();
   }, []);
