@@ -111,7 +111,7 @@ export default function FireStoreManager() {
         mapID: mapID,
         date: serverTimestamp(), //when was game played
         duration: duration, // how long game lasted in seconds
-        chraracterList: characterList, // characters found by player
+        characterList: characterList, // characters found by player
         helpCount: helpCount, // how many times player used help option
         score: score, // game score
       });
