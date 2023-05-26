@@ -9,8 +9,8 @@ const useStyles = createStyles((theme, { size, topPos, leftPos }) => ({
   },
   hb: {
     position: "absolute",
-    outline: "3px dotted red",
-    backgroundColor: "violet",
+    // outline: "3px dotted red",
+    // backgroundColor: "violet",
     height: size,
     width: size,
     borderRadius: "50%",
