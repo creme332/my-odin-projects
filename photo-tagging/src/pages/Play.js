@@ -12,14 +12,13 @@ import FireStoreManager from "../utils/FireStoreManager";
 import scoreCalculator from "../utils/scoreCalculator";
 
 function Play() {
-  console.log(`Render Play`);
-
   // Game settings
   const [mapInfo] = useState(useLocation().state); // information about current map
   const maxCharacterCount = 4; // maximum number of characters to be found in a map
   const mapScale = 2; //zoom scale for map
   const zoomSleepDuration = 60; // time interval in seconds between available zooms
   const fsm = FireStoreManager();
+  const mapWidth = 600; //! Do not change. Hitboxes position only valid for this width.
 
   // create a a random character list
   const [characterList, setCharacterList] = useState(
@@ -53,7 +52,7 @@ function Play() {
   const [gameDuration, setGameDuration] = useState(0);
 
   useEffect(() => {
-    window.scrollTo(0,0); 
+    window.scrollTo(0, 0);
     console.log("Game started at ", startTime.toISOString());
     fsm.incrementGamesStarted();
   }, []);
@@ -218,11 +217,19 @@ function Play() {
                     "Issue with image. Please report issue on Github."
                   }
                   radius="md"
-                  width={600}
+                  width={mapWidth}
                   src={mapInfo.imgSrc}
                   alt={mapInfo.imgAlt}
                 />
                 {hitboxes}
+                {/* <HitBox
+                //! use this hitbox for testing only
+                  key={`test`}
+                  id={"adsad"}
+                  size={"25px"}
+                  topPos={"138px"}
+                  leftPos={"380px"}
+                /> */}
               </div>
             </TransformComponent>
           </React.Fragment>
