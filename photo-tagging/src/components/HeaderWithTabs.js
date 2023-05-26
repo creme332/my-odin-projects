@@ -157,6 +157,7 @@ export default function HeaderWithTabs({ links }) {
           </ActionIcon>{" "}
         </Group>
         <Burger
+          aria-label="Open navigation"
           opened={opened}
           onClick={toggle}
           className={classes.burger}

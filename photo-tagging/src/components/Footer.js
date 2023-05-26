@@ -56,13 +56,19 @@ function FooterSocial() {
         </Group>{" "}
         <Group spacing={0} className={classes.links} position="right" noWrap>
           <ActionIcon
+            aria-label="Github"
             component="a"
             href="https://github.com/creme332/my-odin-projects/tree/main/photo-tagging"
             size="lg"
           >
             <IconBrandGithub size="1.05rem" stroke={1.5} />
           </ActionIcon>
-          <ActionIcon component="a" href="mailto:c34560814@gmail.com" size="lg">
+          <ActionIcon
+            aria-label="Email"
+            component="a"
+            href="mailto:c34560814@gmail.com"
+            size="lg"
+          >
             <IconMail size="1.05rem" stroke={1.5} />
           </ActionIcon>
         </Group>
