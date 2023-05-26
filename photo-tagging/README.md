@@ -4,7 +4,7 @@ Challenge yourself to find the hidden character in each scene, and see how fast 
 
 ![GIF of project](website.gif)
 
-[▶ Live Preview](enigma69.web.app)
+[▶ Live Preview](https://enigma69.web.app/)
 
 # 🚀Features
 * Light and dark themes
