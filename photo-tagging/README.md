@@ -1,6 +1,6 @@
 # 📸 Photo Tagging App
 
-Challenge yourself to find the hidden character in each scene, and see how fast you can do it. With randomized characters and difficulty levels, each game is a unique experience.
+A photo tagging app built with React and Firestore. Challenge yourself to find the hidden character in each scene, and see how fast you can do it. 
 
 ![GIF of project](website.gif)
 
