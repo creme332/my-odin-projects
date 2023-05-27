@@ -102,6 +102,8 @@ export function HeroBullets() {
           </List>
         </div>
         <Image
+          h={344}
+          w={344}
           withPlaceholder
           src={image}
           className={classes.image}
