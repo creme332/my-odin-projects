@@ -15,6 +15,8 @@ export default function CardsCarousel({ data }) {
 
   return (
     <Carousel
+      previousControlLabel="View previous map"
+      nextControlLabel="View next map"
       withIndicators
       slideSize="40%"
       breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: rem(2) }]}
