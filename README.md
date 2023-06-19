@@ -30,3 +30,6 @@
 **Memory Card** | React Hooks|[Link](https://github.com/creme332/my-odin-projects/tree/main/memory-card)     |  [Demo](https://creme332.github.io/my-odin-projects/memory-card/build)  | ⭐
 **Shopping Cart** | React Router, UI testing|[Link](https://github.com/creme332/my-odin-projects/tree/main/shopping-cart)     |  [Demo](https://creme332.github.io/my-odin-projects/shopping-cart/build)  | ⭐⭐
 **Photo Tagging App** | Backend(Firebase)|[Link](https://github.com/creme332/my-odin-projects/tree/main/photo-tagging)     |  [Demo](https://enigma69.web.app/)  | ⭐⭐⭐
+**JavaScript Final Project** | |  Link|  Demo | 
+**Personal Portfolio**| Responsive design, Accessibility | Link |  Demo | 
+**Basic Informational Site** | Node.js | [Link](https://github.com/creme332/my-odin-projects/tree/main/basic-info-site) | -  | -
