@@ -115,13 +115,19 @@ export default function HeaderMegaMenu({ loggedIn }) {
                 <IconDropletFilled size={30} />
               </ActionIcon>
             </Link>
-            {links}
+            {loggedIn ? links : null}
           </Group>
 
-          <Group className={classes.hiddenMobile}>
-            <Button variant="default">{loggedIn ? "Log out" : "Log in"}</Button>
-            <Button variant="default">Sign up</Button>
-          </Group>
+          {loggedIn ? (
+            <Group className={classes.hiddenMobile}>
+              <Button variant="default">Log out</Button>
+            </Group>
+          ) : (
+            <Group className={classes.hiddenMobile}>
+              <Button variant="default">Log in</Button>
+              <Button variant="default">Sign up</Button>
+            </Group>
+          )}
 
           <Burger
             opened={drawerOpened}
@@ -146,17 +152,23 @@ export default function HeaderMegaMenu({ loggedIn }) {
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
 
-          <Group>{links}</Group>
+          <Group> {loggedIn ? links : null}</Group>
 
           <Divider
             my="sm"
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
 
-          <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Sign up</Button>
-            <Button variant="default">{loggedIn ? "Log out" : "Log in"}</Button>
-          </Group>
+          {loggedIn ? (
+            <Group position="center" grow pb="xl" px="md">
+              <Button variant="default">Log out</Button>
+            </Group>
+          ) : (
+            <Group position="center" grow pb="xl" px="md">
+              <Button variant="default">Sign up</Button>
+              <Button variant="default">Log in</Button>
+            </Group>
+          )}
         </ScrollArea>
       </Drawer>
     </Box>
