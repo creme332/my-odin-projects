@@ -110,7 +110,7 @@ export default function HeaderMegaMenu({ loggedIn }) {
             spacing={0}
             className={classes.hiddenMobile}
           >
-            <Link href="/about">
+            <Link href="/">
               <ActionIcon variant="transparent" title="Dashboard" color="blue">
                 <IconDropletFilled size={30} />
               </ActionIcon>
@@ -124,8 +124,12 @@ export default function HeaderMegaMenu({ loggedIn }) {
             </Group>
           ) : (
             <Group className={classes.hiddenMobile}>
-              <Button variant="default">Log in</Button>
-              <Button variant="default">Sign up</Button>
+              <Link href={"/account/login"}>
+                <Button variant="default">Log in</Button>
+              </Link>
+              <Link href={"/account/register"}>
+                <Button variant="default">Sign up</Button>
+              </Link>{" "}
             </Group>
           )}
 
@@ -165,8 +169,12 @@ export default function HeaderMegaMenu({ loggedIn }) {
             </Group>
           ) : (
             <Group position="center" grow pb="xl" px="md">
-              <Button variant="default">Sign up</Button>
-              <Button variant="default">Log in</Button>
+              <Link href={"/account/register"}>
+                <Button variant="default">Sign up</Button>
+              </Link>
+              <Link href={"/account/login"}>
+                <Button variant="default">Log in</Button>
+              </Link>{" "}
             </Group>
           )}
         </ScrollArea>
