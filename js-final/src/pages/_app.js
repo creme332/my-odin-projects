@@ -1,12 +1,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { Container } from "@mantine/core";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
   // states for theme
   const [colorScheme, setColorScheme] = useState("dark");
   const toggleColorScheme = (value) =>
@@ -24,6 +27,14 @@ export default function App({ Component, pageProps }) {
   function validateLogin(email, password) {
     console.log(email, password);
     setLoggedIn(true);
+
+    router.push({
+      pathname: "/dashboard",
+      // query: {
+      //   name: "Source Freeze",
+      //   count: 30,
+      // },
+    });
     return true;
     // if (email === "j@me.com" && password === "abcd") {
     //   setLoggedIn(true);
@@ -32,6 +43,16 @@ export default function App({ Component, pageProps }) {
     // setLoggedIn(false);
     // return false;
   }
+
+  function logOut() {
+    console.log("Logged out");
+    setLoggedIn(false);
+
+    router.push({
+      pathname: "/",
+    });
+  }
+
   return (
     <>
       <ColorSchemeProvider
@@ -57,7 +78,7 @@ export default function App({ Component, pageProps }) {
             <meta name="description" content="description of website here" />
             <title>qkwiqq</title>
           </Head>
-          <Header loggedIn={loggedIn} />
+          <Header loggedIn={loggedIn} logOut={logOut} />
           <Container>
             <Component
               {...pageProps}

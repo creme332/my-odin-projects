@@ -84,7 +84,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function HeaderMegaMenu({ loggedIn }) {
+export default function HeaderMegaMenu({ loggedIn, logOut }) {
   const tabs = [
     { name: "Dashboard", link: "/dashboard" },
     { name: "Add", link: "/edit" },
@@ -111,7 +111,7 @@ export default function HeaderMegaMenu({ loggedIn }) {
             className={classes.hiddenMobile}
           >
             <Link href="/">
-              <ActionIcon variant="transparent" title="Dashboard" color="blue">
+              <ActionIcon variant="transparent" title="Homepage" color="blue">
                 <IconDropletFilled size={30} />
               </ActionIcon>
             </Link>
@@ -120,7 +120,9 @@ export default function HeaderMegaMenu({ loggedIn }) {
 
           {loggedIn ? (
             <Group className={classes.hiddenMobile}>
-              <Button variant="default">Log out</Button>
+              <Button onClick={logOut} variant="default">
+                Log out
+              </Button>
             </Group>
           ) : (
             <Group className={classes.hiddenMobile}>
@@ -165,7 +167,9 @@ export default function HeaderMegaMenu({ loggedIn }) {
 
           {loggedIn ? (
             <Group position="center" grow pb="xl" px="md">
-              <Button variant="default">Log out</Button>
+              <Button onClick={logOut} variant="default">
+                Log out
+              </Button>
             </Group>
           ) : (
             <Group position="center" grow pb="xl" px="md">
