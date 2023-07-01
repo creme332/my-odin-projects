@@ -29,9 +29,12 @@ const useStyles = createStyles((theme) => ({
 export default function Footer() {
   const links = [
     { label: "About", link: "/" },
-    { label: "Contact", link: "#" },
+    { label: "Contact", link: "mailto:c34560814@gmail.com" },
     { label: "Privacy", link: "#" },
-    { label: "Github", link: "#" },
+    {
+      label: "Github",
+      link: "https://github.com/creme332/my-odin-projects/tree/main/js-final",
+    },
   ];
   const { classes } = useStyles();
   const items = links.map((link) => (
