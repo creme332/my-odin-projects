@@ -1,83 +1,10 @@
-import {
-  Group,
-  ActionIcon,
-  Paper,
-  RingProgress,
-  Text,
-  Table,
-} from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
-import Link from "next/link";
-export default function Dashboard({ loggedIn }) {
+import { Table } from "@mantine/core";
+import HabitRow from "@/components/dashboard/HabitRow";
+
+export default function Dashboard({ loggedIn, habits }) {
   function getTable() {
-    const elements = [
-      { name: "Quit x", day1: "y", day2: "y", day3: "y", day4: "y", day5: "y" },
-      {
-        name: "Do 100 push-ups",
-        day1: "y",
-        day2: "y",
-        day3: "y",
-        day4: "y",
-        day5: "y",
-      },
-    ];
-    const rows = elements.map((habit) => (
-      <tr key={habit.name}>
-        <td>
-          {" "}
-          <Group>
-            <RingProgress
-              size={45}
-              thickness={6}
-              roundCaps
-              sections={[{ value: 40, color: "cyan" }]}
-            />
-            <Link href={"/"}>{habit.name}</Link>
-          </Group>
-        </td>
-        <td>
-          {" "}
-          <ActionIcon color="green" variant="subtle">
-            <IconCheck size="3.125rem" />
-          </ActionIcon>
-        </td>
-        <td>
-          {" "}
-          <ActionIcon color="green" variant="subtle">
-            <IconCheck size="3.125rem" />
-          </ActionIcon>
-        </td>
-        <td>
-          {" "}
-          <ActionIcon color="green" variant="subtle">
-            <IconCheck size="3.125rem" />
-          </ActionIcon>
-        </td>
-        <td>
-          {" "}
-          <ActionIcon color="green" variant="subtle">
-            <IconCheck size="3.125rem" />
-          </ActionIcon>
-        </td>
-        <td>
-          {" "}
-          <ActionIcon color="red" variant="subtle">
-            <IconX size="3.125rem" />
-          </ActionIcon>
-        </td>
-        <td>
-          {" "}
-          <ActionIcon color="green" variant="subtle">
-            <IconCheck size="3.125rem" />
-          </ActionIcon>
-        </td>
-        <td>
-          {" "}
-          <ActionIcon color="green" variant="subtle">
-            <IconCheck size="3.125rem" />
-          </ActionIcon>
-        </td>
-      </tr>
+    const rows = habits.map((habit, i) => (
+      <HabitRow key={`${habit}-${i}`} habit={habit} />
     ));
 
     return (
@@ -98,5 +25,5 @@ export default function Dashboard({ loggedIn }) {
       </Table>
     );
   }
-  return loggedIn ? getTable() : <>Please login to continue</>;
+  return loggedIn ? getTable() : <>Please login to continue.</>;
 }

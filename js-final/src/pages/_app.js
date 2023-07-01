@@ -2,10 +2,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Head from "next/head";
 import { useRouter } from "next/router";
-
 import { Container } from "@mantine/core";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { useState } from "react";
+import getHabits from "@/habit";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -15,8 +15,9 @@ export default function App({ Component, pageProps }) {
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
-  //states for user login
+  //states for user
   const [loggedIn, setLoggedIn] = useState(false);
+  const [habits, setHabits] = useState(getHabits());
 
   /**
    * Checks if login details are correct
@@ -25,7 +26,7 @@ export default function App({ Component, pageProps }) {
    * @returns {Boolean} True if login details are correct, false otherwise.
    */
   function validateLogin(email, password) {
-    console.log(email, password);
+    console.log(`Logged in with ${email} ${password}`);
     setLoggedIn(true);
 
     router.push({
@@ -83,6 +84,7 @@ export default function App({ Component, pageProps }) {
             <Component
               {...pageProps}
               loggedIn={loggedIn}
+              habits={habits}
               validateLogin={validateLogin}
             />
           </Container>
