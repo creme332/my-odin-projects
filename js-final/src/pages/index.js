@@ -1,5 +1,5 @@
-import LoginForm from "@/components/LoginForm";
+import { Text } from "@mantine/core";
+
 export default function Home({ loggedIn, validateLogin }) {
-  if (!loggedIn) return <LoginForm validateLogin={validateLogin} />;
-  return <></>;
+  return <Text>qkwiqq is a minimalist habit tracker app</Text>;
 }

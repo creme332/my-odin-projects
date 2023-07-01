@@ -5,8 +5,11 @@ import {
   Title,
   Container,
   Button,
+  Anchor,
+  Text,
 } from "@mantine/core";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function LoginForm({ validateLogin }) {
   const [email, setEmail] = useState(null);
@@ -24,6 +27,14 @@ export default function LoginForm({ validateLogin }) {
       >
         Welcome back!
       </Title>
+      <Text color="dimmed" size="sm" align="center" mt={5}>
+        Do not have an account yet?{" "}
+        <Link href={"/account/register"}>
+          <Anchor size="sm" component="button">
+            Create account
+          </Anchor>
+        </Link>
+      </Text>
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <TextInput
           label="Email"

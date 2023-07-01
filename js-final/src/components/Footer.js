@@ -1,5 +1,4 @@
 import { createStyles, Container, Group, Anchor, rem } from "@mantine/core";
-import { IconDropletFilled } from "@tabler/icons-react";
 const useStyles = createStyles((theme) => ({
   footer: {
     marginTop: rem(120),
