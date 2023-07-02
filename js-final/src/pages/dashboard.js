@@ -1,5 +1,15 @@
 import { Table } from "@mantine/core";
 import HabitRow from "@/components/dashboard/HabitRow";
+import { format, sub } from "date-fns";
+
+function getDateLabels() {
+  const labels = [];
+  const daysInWeek = 7;
+  for (let i = 0; i < daysInWeek; i++) {
+    labels.push(format(sub(new Date(), { days: i }), "eee d"));
+  }
+  return labels;
+}
 
 export default function Dashboard({ loggedIn, habits }) {
   function getTable() {
@@ -12,13 +22,9 @@ export default function Dashboard({ loggedIn, habits }) {
         <thead>
           <tr>
             <th></th>
-            <th>Day 1</th>
-            <th>Day 2</th>
-            <th>Day 3</th>
-            <th>Day 4</th>
-            <th>Day 5</th>
-            <th>Day 6</th>
-            <th>Day 7</th>
+            {getDateLabels().map((e) => (
+              <th>{e}</th>
+            ))}
           </tr>
         </thead>
         <tbody>{rows}</tbody>
