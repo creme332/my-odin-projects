@@ -1,62 +1,133 @@
-import { Group, ActionIcon, RingProgress } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { Group, ActionIcon, RingProgress, Input } from "@mantine/core";
+import { IconCheck, IconX, IconLineDashed } from "@tabler/icons-react";
 import Link from "next/link";
-import { differenceInDays, differenceInWeeks, subDays } from "date-fns";
+import {
+  differenceInDays,
+  addDays,
+  format,
+  sub,
+} from "date-fns";
+
+/**
+ * Automatically fills entries for days where user input is missing.
+ * Dates between start date and current date, where current date >= start date, are filled.
+ * @param {String} startDate Date when habit started
+ * @param {[{date:String, value:integer}]} entryList list of all entries
+ * @param {integer} defaultValue
+ * @returns {[{date:String, value:integer}]}
+ */
+function rebalanceEntries(startDate, entryList, defaultValue) {
+  const allDateEntries = entryList.map((e) => e.date);
+  const daysSinceCreation = differenceInDays(new Date(), new Date(startDate)); // number of days since habit creation
+  const newEntryList = [...entryList];
+
+  // if habit starts in the future, do nothing
+  if (daysSinceCreation < 0) {
+    return entryList;
+  }
+
+  for (let day = 0; day <= daysSinceCreation; day++) {
+    const date = format(addDays(new Date(startDate), day), "yyyy-MM-dd");
+    if (!allDateEntries.includes(date)) {
+      newEntryList.push({ date: date, value: defaultValue });
+    }
+  }
+
+  return newEntryList;
+}
+
+/**
+ * Returns most recent entries in entryList
+ * @param {[{date:String, value:integer}]} entryList list of all entries
+ * @param {integer} count Minimum number of entries to return
+ * @returns
+ */
+function getMostRecentEntries(startDate, entryList, count = 7) {
+  if (new Date() <= new Date(startDate)) {
+    return [];
+  }
+  const recentEntries = [];
+  for (let i = 0; i < count; i++) {
+    const date = format(sub(new Date(), { days: i }), "yyyy-MM-dd");
+    console.log(date);
+    const matchingElement = entryList.filter((e) => e.date === date)[0];
+    recentEntries.push(matchingElement);
+  }
+  console.log(recentEntries);
+  return recentEntries;
+}
+
+function getHabitInput(habitType, entry) {
+  console.log(entry);
+  if (habitType === "Boolean") {
+    // return icons
+    if (entry.value === 1) {
+      return (
+        <ActionIcon color="green" variant="subtle">
+          <IconCheck size="3.125rem" />
+        </ActionIcon>
+      );
+    }
+
+    return (
+      <ActionIcon color="red" variant="subtle">
+        <IconX size="3.125rem" />
+      </ActionIcon>
+    );
+  }
+
+  if (habitType === "Measurable") {
+    // return input box
+    return <Input disabled size="xs" w={40} placeholder={entry.value} />;
+  }
+}
+
+function Ring(recentEntryList, target, color) {
+  let weeklySuccessCount = recentEntryList.reduce(
+    (sum, el) => sum + (el.value >= target ? 1 : 0),
+    0
+  );
+  const weekDays = 7;
+
+  return (
+    <RingProgress
+      size={45}
+      thickness={6}
+      roundCaps
+      sections={[
+        { value: (100 * weeklySuccessCount) / weekDays, color: color },
+      ]}
+    />
+  );
+}
 
 export default function HabitRow({ habit, updateHabit = null }) {
-  const daysSinceCreation = differenceInDays(
-    new Date(),
-    new Date(habit.dateCreated)
+  const balancedEntries = rebalanceEntries(
+    habit.startDate,
+    habit.entries,
+    habit.dailyDefault
   );
-  const currentWeek = parseInt(daysSinceCreation / 7, 10);
-  const currentDayOfWeek = daysSinceCreation % 7;
-  console.log(currentWeek, currentDayOfWeek);
-
-  // check if data is available for current week
-  let currentWeekEntry = habit.weekEntries.filter(
-    (entry) => entry.weekNo === currentWeek
-  )[0];
-
-  // if week entry missing, initialise new entry
-  if (!currentWeekEntry) {
-    currentWeekEntry = {
-      weekNo: currentWeek,
-      firstDayOfWeek: subDays(new Date(), currentDayOfWeek),
-      dayEntries: Array(7).fill(habit.automaticSuccess ? true : false),
-    };
-  }
-  console.log(currentWeekEntry);
-  const countPass = currentWeekEntry.dayEntries.reduce((sum, el) => {
-    return sum + (el ? 1 : 0);
-  }, 0);
-  console.log(countPass);
-
+  const mostRecentEntries = getMostRecentEntries(
+    habit.startDate,
+    balancedEntries,
+    7
+  );
+  console.log(balancedEntries);
   return (
     <tr>
       <td>
         {" "}
         <Group>
-          <RingProgress
-            size={45}
-            thickness={6}
-            roundCaps
-            sections={[{ value: (100 * countPass) / 7, color: habit.color }]}
-          />
-          <Link href={"/"}>{habit.name}</Link>
+          {Ring(mostRecentEntries, habit.target.value, habit.color)}
+          <Link style={{ textDecoration: "none" }} href={"/"}>
+            {habit.name}
+          </Link>
         </Group>
       </td>
-      {currentWeekEntry.dayEntries.map((passed, index) => {
+      {mostRecentEntries.map((entry, index) => {
         return (
-          <td key={`${habit.name} week-${currentWeekEntry} day-${index}`}>
-            {passed ? (
-              <ActionIcon color="green" variant="subtle">
-                <IconCheck size="3.125rem" />
-              </ActionIcon>
-            ) : (
-              <ActionIcon color="red" variant="subtle">
-                <IconX size="3.125rem" />
-              </ActionIcon>
-            )}
+          <td key={`${habit.name}-${habit.id}-input day-${index}`}>
+            {getHabitInput(habit.type, entry)}
           </td>
         );
       })}

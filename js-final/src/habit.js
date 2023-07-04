@@ -1,53 +1,110 @@
 const getHabits = () => {
   return [
     {
-      name: "Quit smoking",
+      // a boolean daily habit
       id: "1",
-      type: "boolean", // boolean or measurable
-      dateCreated: "2023-06-26",
+      name: "Quit smoking",
+      question: "", //set by user optional
+      notes: "", //set by user optional
+      type: "Boolean", // Boolean or Measurable
+      startDate: "2023-06-26", // when to start tracking habit
       color: "cyan", // color of ring progress
-      frequency: 1, // days
-      automaticSuccess: true, // habit succeeds by default
-      weekEntries: [
+
+      target: {
+        // applicable for habits that can be measured
+        value: 1,
+        unit: "",
+      },
+
+      schedule: {
+        // 1 time every 1 day => daily
+        day: 1,
+        frequency: 1,
+      },
+
+      dailyDefault: 1, // daily default entry value. 1 or 0 if type is Boolean
+      entries: [
         {
-          weekNo: 0,
-          firstDayOfWeek: "2023-06-26",
-          dayEntries: [true, false, true, false, false, true, true],
-        },
-        {
-          weekNo: 1,
-          firstDayOfWeek: "2023-01-02",
-          dayEntries: [true, true, true, true, true, true, true],
-        },
-        {
-          weekNo: 4,
-          firstDayOfWeek: "2023-01-21",
-          dayEntries: [true, false, true, true, true, true, true],
+          date: "2023-07-04",
+          value: 0,
         },
       ],
+
+      reminder: {
+        time: "",
+        day: "",
+      },
     },
-    // {
-    //   name: "Do 100 push-ups weekly",
-    //   id: "2",
-    //   type: "measurable", // boolean or measurable
-    //   dateCreated: "20230102",
-    //   color: "blue", // color of ring progress
-    //   frequency: 7, // days
-    //   automaticSuccess: true, // habit succeeds by default
-    //   entries: [
-    //     {
-    //       weekNo: 1,
-    //       firstDayDate: "20230102",
-    //       entries: [100, 0, 0, 0, 0, 0, 22],
-    //     },
-    //     {
-    //       weekNo: 4,
-    //       firstDayDate: "20230121",
-    //       entries: [5, 4, 0, 50, 0, 0, 2],
-    //     },
-    //   ],
-    //   target: 100,
-    // },
+    {
+      // a measurable weekly habit
+      id: "2",
+      name: "Do 100 push-ups weekly",
+      question: "", //set by user optional
+      notes: "", //set by user optional
+      type: "Measurable", // Boolean or Measurable
+      startDate: "2023-06-28", // when to start tracking habit
+      color: "red", // color of ring progress
+
+      target: {
+        // applicable for habits that can be measured
+        value: 100,
+        unit: "",
+      },
+
+      schedule: {
+        // 1 time every 7 days => weekly
+        day: 7,
+        frequency: 1,
+      },
+
+      dailyDefault: 0, // daily default entry value
+      entries: [
+        {
+          date: "2023-06-26",
+          value: 0,
+        },
+      ],
+
+      reminder: {
+        time: "",
+        day: "",
+      },
+    },
+    {
+      // a measurable weekly habit
+      id: "2",
+      name: "Read books",
+      question: "", //set by user optional
+      notes: "", //set by user optional
+      type: "Measurable", // Boolean or Measurable
+      startDate: "2023-06-28", // when to start tracking habit
+      color: "blue", // color of ring progress
+
+      target: {
+        // applicable for habits that can be measured
+        value: 100,
+        unit: "pages",
+      },
+
+      schedule: {
+        // 1 time every 2 days => alternate days
+        day: 2,
+        frequency: 1,
+      },
+
+      dailyDefault: 10, // daily default entry value
+      entries: [
+        {
+          date: "2023-06-26",
+          value: 0,
+        },
+      ],
+
+      reminder: {
+        time: "",
+        day: "",
+      },
+    },
   ];
 };
 
@@ -63,4 +120,5 @@ const users = [
     },
   },
 ];
+
 export default getHabits;

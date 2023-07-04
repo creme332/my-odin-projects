@@ -18,12 +18,12 @@ export default function Dashboard({ loggedIn, habits }) {
     ));
 
     return (
-      <Table>
+      <Table highlightOnHover>
         <thead>
           <tr>
             <th></th>
-            {getDateLabels().map((e) => (
-              <th>{e}</th>
+            {getDateLabels().map((e, i) => (
+              <th key={`currentday-${i}`}>{e}</th>
             ))}
           </tr>
         </thead>
