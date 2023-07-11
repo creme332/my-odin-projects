@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }) {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
   //states for user
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [habits, setHabits] = useState(getHabits());
 
   /**
@@ -43,6 +43,26 @@ export default function App({ Component, pageProps }) {
     // }
     // setLoggedIn(false);
     // return false;
+  }
+
+  function updateHabit(newHabit) {
+    const idx = habits.findIndex(({ id }) => id === newHabit.id);
+    const newArr = [...habits];
+
+    if (idx === -1) {
+      // add new habit
+      console.log("New habit added");
+
+      newArr.push(newHabit);
+    } else {
+      //update existing habit
+      console.log("Existing habit updated");
+
+      newArr[idx] = newHabit;
+    }
+
+    setHabits(newArr);
+    console.log(habits);
   }
 
   function logOut() {
@@ -86,6 +106,7 @@ export default function App({ Component, pageProps }) {
               loggedIn={loggedIn}
               habits={habits}
               validateLogin={validateLogin}
+              updateHabit={updateHabit}
             />
           </Container>
           <Footer />
