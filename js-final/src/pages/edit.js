@@ -83,6 +83,16 @@ export default function Edit({ updateHabit }) {
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <form>
           <Stack>
+            <NativeSelect
+              data={["Boolean", "Measurable"]}
+              label="Habit type"
+              withAsterisk
+              onChange={(e) =>
+                form.setValues({
+                  type: e.target.value,
+                })
+              }
+            />
             <Group grow>
               <TextInput
                 label="Name"
@@ -125,16 +135,7 @@ export default function Edit({ updateHabit }) {
                 required
               />
             </Group>
-            <NativeSelect
-              data={["Boolean", "Measurable"]}
-              label="Habit type"
-              withAsterisk
-              onChange={(e) =>
-                form.setValues({
-                  type: e.target.value,
-                })
-              }
-            />
+
             <Group grow>
               <NumberInput
                 label="Default daily value"
