@@ -11,10 +11,13 @@ function getDateLabels() {
   return labels;
 }
 
-export default function Dashboard({ loggedIn, habits }) {
+export default function Dashboard({ loggedIn, habits, updateHabit }) {
   function getTable() {
+    if (!habits) {
+      return <div>No habits</div>;
+    }
     const rows = habits.map((habit, i) => (
-      <HabitRow key={`${habit}-${i}`} habit={habit} />
+      <HabitRow key={`${habit}-${i}`} habit={habit} updateHabit={updateHabit} />
     ));
 
     return (

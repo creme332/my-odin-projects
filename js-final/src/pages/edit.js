@@ -14,8 +14,10 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
+import rebalanceEntries from "@/utils/rebalance";
+import { format } from "date-fns";
 
-export default function Edit({ props }) {
+export default function Edit({ updateHabit }) {
   const form = useForm({
     initialValues: {
       id: "",
@@ -23,12 +25,12 @@ export default function Edit({ props }) {
       question: "Did you play piano today?",
       notes: "Recommended by doctor",
       type: "Boolean",
-      startDate: "", // when to start tracking habit
+      startDate: format(new Date(), "yyyy-MM-dd"), // when to start tracking habit
       color: "cyan", // color of ring progress
 
       target: {
         value: 1,
-        unit: "",
+        unit: "hour",
       },
 
       schedule: {
@@ -50,6 +52,22 @@ export default function Edit({ props }) {
     // },
   });
 
+  function submitHandler(e) {
+    // form.onSubmit(updateHabit(form.values));
+    e.preventDefault();
+    let habit = form.values;
+    const newEntries = rebalanceEntries(
+      habit.startDate,
+      habit.entries,
+      habit.dailyDefault
+    );
+    updateHabit({
+      ...habit,
+      entries: newEntries,
+    });
+    console.log(newEntries);
+  }
+
   return (
     <Container mt={50}>
       <Title
@@ -63,7 +81,7 @@ export default function Edit({ props }) {
       </Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={form.onSubmit(console.log(form.values))}>
+        <form>
           <Stack>
             <Group grow>
               <TextInput
@@ -191,7 +209,13 @@ export default function Edit({ props }) {
               label="Notes"
             />
 
-            <Button variant="gradient" type="submit" fullWidth mt="xl">
+            <Button
+              onClick={submitHandler}
+              variant="gradient"
+              type="submit"
+              fullWidth
+              mt="xl"
+            >
               Create
             </Button>
           </Stack>
