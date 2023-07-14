@@ -4,8 +4,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Container } from "@mantine/core";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import getHabits from "@/habit";
+import rebalanceEntries from "@/utils/rebalance";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -17,7 +18,23 @@ export default function App({ Component, pageProps }) {
 
   //states for user
   const [loggedIn, setLoggedIn] = useState(true);
-  const [habits, setHabits] = useState(getHabits());
+  const [habits, setHabits] = useState(null);
+
+  useEffect(() => {
+    let x = getHabits();
+
+    // rebalance
+    x.forEach((habit) => {
+      const newEntryList = rebalanceEntries(
+        habit.startDate,
+        habit.entries,
+        habit.dailyDefault
+      );
+      habit.entries = newEntryList;
+      return habit;
+    });
+    setHabits(x);
+  }, []);
 
   /**
    * Checks if login details are correct
@@ -37,12 +54,6 @@ export default function App({ Component, pageProps }) {
       // },
     });
     return true;
-    // if (email === "j@me.com" && password === "abcd") {
-    //   setLoggedIn(true);
-    //   return true;
-    // }
-    // setLoggedIn(false);
-    // return false;
   }
 
   function updateHabit(newHabit) {
@@ -62,7 +73,7 @@ export default function App({ Component, pageProps }) {
     }
 
     setHabits(newArr);
-    console.log(habits);
+    console.log(newArr);
   }
 
   function logOut() {
