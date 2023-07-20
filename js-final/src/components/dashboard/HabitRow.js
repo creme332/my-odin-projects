@@ -1,8 +1,7 @@
-import { Group, ActionIcon, RingProgress, Input } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { Group, RingProgress } from "@mantine/core";
 import Link from "next/link";
-import { differenceInDays, addDays, format, sub } from "date-fns";
-
+import { format, sub } from "date-fns";
+import HabitCell from "./HabitCell";
 /**
  * Returns most recent entries in entryList
  * @param {[{date:String, value:integer}]} entryList list of all entries
@@ -17,34 +16,6 @@ function getMostRecentEntries(entryList, count = 7) {
     recentEntries.push(matchingElement);
   }
   return recentEntries;
-}
-
-function getHabitInput(habitType, entry) {
-  // console.log(entry);
-  if (habitType === "Boolean") {
-    // return icons
-
-    // if boolean value is 1, put a tick
-    if (entry.value === 1) {
-      return (
-        <ActionIcon color="green" variant="subtle">
-          <IconCheck size="3.125rem" />
-        </ActionIcon>
-      );
-    }
-
-    // if boolean value is 0, put a cross
-    return (
-      <ActionIcon color="red" variant="subtle">
-        <IconX size="3.125rem" />
-      </ActionIcon>
-    );
-  }
-
-  if (habitType === "Measurable") {
-    // return input box
-    return <Input size="xs" w={40} placeholder={entry.value} />;
-  }
 }
 
 function Ring(recentEntryList, target, color) {
@@ -77,7 +48,7 @@ function Ring(recentEntryList, target, color) {
   );
 }
 
-export default function HabitRow({ habit }) {
+export default function HabitRow({ habit, updateHabit }) {
   const mostRecentEntries = getMostRecentEntries(habit.entries);
   return (
     <tr>
@@ -93,7 +64,11 @@ export default function HabitRow({ habit }) {
       {mostRecentEntries.map((entry, index) => {
         return (
           <td key={`${habit.name}-${habit.id}-input day-${index}`}>
-            {getHabitInput(habit.type, entry)}
+            <HabitCell
+              habitType={habit.type}
+              entry={entry}
+              updateHabit={updateHabit}
+            />
           </td>
         );
       })}
