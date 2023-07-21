@@ -20,6 +20,7 @@ export default function rebalanceEntries(startDate, entryList, defaultValue) {
       const date = format(addDays(new Date(startDate), day), "yyyy-MM-dd");
       if (!allDateEntries.includes(date)) {
         newEntryList.push({ date: date, value: defaultValue });
+        allDateEntries.push(date);
       }
     }
   }
