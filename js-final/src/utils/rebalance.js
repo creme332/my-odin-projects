@@ -11,17 +11,15 @@ import { differenceInDays, addDays, format, sub } from "date-fns";
 export default function rebalanceEntries(startDate, entryList, defaultValue) {
   console.log(startDate, entryList, defaultValue);
   const allDateEntries = entryList.map((e) => e.date);
-  const daysSinceCreation = differenceInDays(new Date(), new Date(startDate)); // number of days since habit creation
+  let dayCount = differenceInDays(new Date(), new Date(startDate)); // number of days since habit creation
   const newEntryList = [...entryList];
 
   // fill gaps between entries with default value up until today
-  if (daysSinceCreation > 0) {
-    for (let day = 0; day <= daysSinceCreation; day++) {
-      const date = format(addDays(new Date(startDate), day), "yyyy-MM-dd");
-      if (!allDateEntries.includes(date)) {
-        newEntryList.push({ date: date, value: defaultValue });
-        allDateEntries.push(date);
-      }
+  for (let day = 0; day <= dayCount; day++) {
+    const date = format(addDays(new Date(startDate), day), "yyyy-MM-dd");
+    if (!allDateEntries.includes(date)) {
+      newEntryList.push({ date: date, value: defaultValue });
+      allDateEntries.push(date);
     }
   }
 
@@ -30,7 +28,23 @@ export default function rebalanceEntries(startDate, entryList, defaultValue) {
     const date = format(sub(new Date(), { days: day }), "yyyy-MM-dd");
     if (!allDateEntries.includes(date)) {
       newEntryList.push({ date: date, value: defaultValue });
+      allDateEntries.push(date);
     }
   }
+
+  // fill gaps between smallest date and start date
+  const earliestDate = allDateEntries.sort((a, b) => a - b)[0];
+  dayCount = differenceInDays(new Date(startDate), new Date(earliestDate));
+
+  // console.log("Earliest date ", earliestDate);
+  for (let day = 0; day <= dayCount; day++) {
+    const date = format(addDays(new Date(earliestDate), day), "yyyy-MM-dd");
+
+    if (!allDateEntries.includes(date)) {
+      newEntryList.push({ date: date, value: defaultValue });
+      allDateEntries.push(date);
+    }
+  }
+
   return newEntryList;
 }
