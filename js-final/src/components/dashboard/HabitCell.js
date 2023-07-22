@@ -2,12 +2,8 @@ import { useState } from "react";
 import { ActionIcon, Input, Box } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
-export default function HabitCell({
-  habitType,
-  entry,
-  updateHabitEntry = null,
-}) {
-  console.log(entry);
+export default function HabitCell({ habitType, entry, updateHabitEntry }) {
+  // console.log(entry);
   const [active, setActive] = useState(false);
   const [habitValue, setHabitValue] = useState(entry.value);
 
@@ -20,11 +16,13 @@ export default function HabitCell({
       console.log("Double clicked");
       // for measurable habits, toggle active
       setActive(!active);
-      console.log(active);
+      // console.log(active);
 
       // for boolean habits, toggle tick
       if (habitType === "Boolean") {
-        setHabitValue(habitValue === 0 ? 1 : 0);
+        const newHabitValue = habitValue === 0 ? 1 : 0;
+        setHabitValue(newHabitValue);
+        updateHabitEntry({ ...entry, value: newHabitValue });
       }
     }
   }
@@ -63,7 +61,9 @@ export default function HabitCell({
           w={40}
           placeholder={habitValue}
           onChange={(e) => {
-            setHabitValue(e.target.value);
+            const newHabitValue = parseInt(e.target.value, 10);
+            setHabitValue(newHabitValue);
+            updateHabitEntry({ ...entry, value: newHabitValue });
           }}
         />
       </Box>

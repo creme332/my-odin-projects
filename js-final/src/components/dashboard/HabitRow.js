@@ -21,6 +21,14 @@ function getMostRecentEntries(entryList, count = 7) {
 
 export default function HabitRow({ habit, updateHabit }) {
   const mostRecentEntries = getMostRecentEntries(habit.entries);
+
+  function updateHabitEntry(newEntry) {
+    const idx = habit.entries.findIndex(({ date }) => date === newEntry.date);
+    const newEntryList = [...habit.entries];
+    newEntryList[idx] = newEntry;
+    updateHabit({ ...habit, entries: newEntryList });
+  }
+
   return (
     <tr>
       <td>
@@ -42,7 +50,7 @@ export default function HabitRow({ habit, updateHabit }) {
             <HabitCell
               habitType={habit.type}
               entry={entry}
-              updateHabit={updateHabit}
+              updateHabitEntry={updateHabitEntry}
             />
           </td>
         );
