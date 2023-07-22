@@ -39,7 +39,12 @@ export default function HabitRow({ habit, updateHabit }) {
             target={habit.target.value}
             color={habit.color}
           />
-          <Link style={{ textDecoration: "none" }} href={"/"}>
+          <Link
+            style={{ textDecoration: "none" }}
+            href={{
+              pathname: `habits/${habit.id}`,
+            }}
+          >
             {habit.name}
           </Link>
         </Group>
