@@ -29,11 +29,6 @@ const getHabits = () => {
           value: 0,
         },
       ],
-
-      reminder: {
-        time: "",
-        day: "",
-      },
     },
     {
       // a measurable weekly habit
@@ -64,21 +59,16 @@ const getHabits = () => {
           value: 0,
         },
       ],
-
-      reminder: {
-        time: "",
-        day: "",
-      },
     },
     {
       // a measurable weekly habit
-      id: "2",
+      id: "3",
       name: "Read books",
       question: "", //set by user optional
       notes: "", //set by user optional
       type: "Measurable", // Boolean or Measurable
       startDate: "2023-06-28", // when to start tracking habit
-      color: "blue", // color of ring progress
+      color: "orange", // color of ring progress
 
       target: {
         // applicable for habits that can be measured
@@ -99,11 +89,6 @@ const getHabits = () => {
           value: 0,
         },
       ],
-
-      reminder: {
-        time: "",
-        day: "",
-      },
     },
   ];
 };
