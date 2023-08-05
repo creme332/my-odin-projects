@@ -2,7 +2,12 @@ import { useState } from "react";
 import { ActionIcon, Input, Box } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
-export default function HabitCell({ habitType, entry, updateHabitEntry }) {
+export default function HabitCell({
+  habitType,
+  habitColor,
+  entry,
+  updateHabitEntry,
+}) {
   // console.log(entry);
   const [active, setActive] = useState(false);
   const [habitValue, setHabitValue] = useState(entry.value);
@@ -32,7 +37,7 @@ export default function HabitCell({ habitType, entry, updateHabitEntry }) {
       return (
         <ActionIcon
           onClick={(e) => handleDoubleClick(e)}
-          color="green"
+          color={habitColor}
           variant="subtle"
         >
           <IconCheck size="3.125rem" />
@@ -43,7 +48,7 @@ export default function HabitCell({ habitType, entry, updateHabitEntry }) {
     return (
       <ActionIcon
         onClick={(e) => handleDoubleClick(e)}
-        color="red"
+        color={habitColor}
         variant="subtle"
       >
         <IconX size="3.125rem" />

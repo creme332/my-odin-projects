@@ -1,4 +1,4 @@
-import { Group } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import Link from "next/link";
 import { format, sub } from "date-fns";
 import HabitCell from "./HabitCell";
@@ -40,12 +40,19 @@ export default function HabitRow({ habit, updateHabit }) {
             color={habit.color}
           />
           <Link
-            style={{ textDecoration: "none" }}
+            style={{
+              textDecoration: "none",
+            }}
             href={{
               pathname: `habits/${habit.id}`,
+              query: {
+                habit: JSON.stringify(habit),
+              },
             }}
           >
-            {habit.name}
+            <Text fw={600} color={habit.color}>
+              {habit.name}
+            </Text>
           </Link>
         </Group>
       </td>
@@ -54,6 +61,7 @@ export default function HabitRow({ habit, updateHabit }) {
           <td key={`${habit.name}-${habit.id}-input day-${index}`}>
             <HabitCell
               habitType={habit.type}
+              habitColor={habit.color}
               entry={entry}
               updateHabitEntry={updateHabitEntry}
             />
