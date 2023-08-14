@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }) {
   const [habits, setHabits] = useState(null);
 
   useEffect(() => {
+    // let x = [getHabits()[1]];
     let x = getHabits();
 
     // rebalance
@@ -33,6 +34,7 @@ export default function App({ Component, pageProps }) {
       habit.entries = newEntryList;
       return habit;
     });
+    // console.log(x);
     setHabits(x);
   }, []);
 
@@ -74,6 +76,11 @@ export default function App({ Component, pageProps }) {
 
     setHabits(newArr);
     console.log(newArr);
+  }
+
+  function deleteHabit(habitID) {
+    const newArr = habits.filter((h) => h.id !== habitID);
+    setHabits(newArr);
   }
 
   function logOut() {
@@ -118,6 +125,7 @@ export default function App({ Component, pageProps }) {
               habits={habits}
               validateLogin={validateLogin}
               updateHabit={updateHabit}
+              deleteHabit={deleteHabit}
             />
           </Container>
           <Footer />
