@@ -16,11 +16,12 @@ import { useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
 import rebalanceEntries from "@/utils/rebalance";
 import { format } from "date-fns";
+import uniqid from "uniqid";
 
 export default function Edit({ updateHabit }) {
   const form = useForm({
     initialValues: {
-      id: "",
+      id: uniqid(),
       name: "Learn piano",
       question: "Did you play piano today?",
       notes: "Recommended by doctor",
