@@ -6,11 +6,9 @@ import { useState } from "react";
 import habitCalculator from "@/utils/habitCalculator";
 
 export default function HabitDetailPage({ deleteHabit }) {
-  // console.log(deleteHabit);
-  const { query } = useRouter();
-  const [showHabitData, setShowHabitData] = useState(false);
-  const habit = JSON.parse(query.habit);
   const router = useRouter();
+  const [showHabitData, setShowHabitData] = useState(false);
+  const habit = JSON.parse(router.query.habit);
   const data = [
     {
       title: "Habit strength",
@@ -35,6 +33,15 @@ export default function HabitDetailPage({ deleteHabit }) {
     },
   ];
 
+  function goToEditPage() {
+    router.push({
+      pathname: "/edit",
+      query: {
+        habit: JSON.stringify(habit),
+      },
+    });
+  }
+
   return (
     <Container>
       <Title order={1}>{habit.name}</Title>
@@ -47,6 +54,9 @@ export default function HabitDetailPage({ deleteHabit }) {
       />
 
       <Group>
+        <Button mt={20} onClick={goToEditPage} color="blue">
+          Edit habit
+        </Button>
         <Button
           mt={20}
           onClick={() => {

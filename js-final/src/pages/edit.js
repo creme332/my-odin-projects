@@ -17,40 +17,40 @@ import { DateInput } from "@mantine/dates";
 import rebalanceEntries from "@/utils/rebalance";
 import { format } from "date-fns";
 import uniqid from "uniqid";
+import { useRouter } from "next/router";
 
 export default function Edit({ updateHabit }) {
+  const router = useRouter();
+  const creatingNewHabit = !router.query.habit;
+  console.log("creating new habit = ", creatingNewHabit);
+
+  const defaultHabit = creatingNewHabit
+    ? {
+        id: uniqid(),
+        name: "Learn piano",
+        question: "Did you play piano today?",
+        notes: "Recommended by doctor",
+        type: "Boolean",
+        startDate: format(new Date(), "yyyy-MM-dd"),
+        color: "cyan",
+
+        target: {
+          value: 1,
+          unit: "hour",
+        },
+
+        schedule: {
+          day: 1,
+          frequency: 1,
+        },
+
+        dailyDefault: 1,
+        entries: [],
+      }
+    : JSON.parse(router.query.habit);
+
   const form = useForm({
-    initialValues: {
-      id: uniqid(),
-      name: "Learn piano",
-      question: "Did you play piano today?",
-      notes: "Recommended by doctor",
-      type: "Boolean",
-      startDate: format(new Date(), "yyyy-MM-dd"), // when to start tracking habit
-      color: "cyan", // color of ring progress
-
-      target: {
-        value: 1,
-        unit: "hour",
-      },
-
-      schedule: {
-        day: 1,
-        frequency: 1,
-      },
-
-      dailyDefault: 1, // daily default entry value. 1 or 0 if type is Boolean
-      entries: [],
-    },
-
-    // functions will be used to validate values at corresponding key
-    // validate: {
-    //   password: (value) =>
-    //     value.length < 5 ? "Password must have at least 5 characters" : null,
-    //   confirmPassword: (value, values) =>
-    //     value !== values.password ? "Passwords did not match" : null,
-    //   email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-    // },
+    initialValues: defaultHabit,
   });
 
   function submitHandler(e) {
@@ -78,7 +78,7 @@ export default function Edit({ updateHabit }) {
           fontWeight: 900,
         })}
       >
-        Create a new habit
+        {creatingNewHabit ? "Create habit" : "Edit habit"}
       </Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -97,7 +97,7 @@ export default function Edit({ updateHabit }) {
             <Group grow>
               <TextInput
                 label="Name"
-                placeholder="Learn piano"
+                placeholder={defaultHabit.name}
                 onChange={(e) =>
                   form.setValues({
                     name: e.target.value,
@@ -111,14 +111,14 @@ export default function Edit({ updateHabit }) {
                     color: e,
                   })
                 }
-                placeholder="Pick color"
+                placeholder={defaultHabit.color}
                 label="Color"
               />
             </Group>
             <Group grow>
               <TextInput
                 label="Question"
-                placeholder="Did you play piano today?"
+                placeholder={defaultHabit.question}
                 onChange={(e) =>
                   form.setValues({
                     question: e.target.value,
@@ -126,7 +126,7 @@ export default function Edit({ updateHabit }) {
                 }
               />
               <DateInput
-                placeholder="Today"
+                placeholder={defaultHabit.startDate}
                 onChange={(e) =>
                   form.setValues({
                     startDate: e,
@@ -208,6 +208,7 @@ export default function Edit({ updateHabit }) {
                 })
               }
               placeholder="Your comment"
+              value={creatingNewHabit ? null : defaultHabit.notes}
               label="Notes"
             />
 
@@ -218,7 +219,7 @@ export default function Edit({ updateHabit }) {
               fullWidth
               mt="xl"
             >
-              Create
+              {creatingNewHabit ? "Create" : "Edit"}
             </Button>
           </Stack>
         </form>
