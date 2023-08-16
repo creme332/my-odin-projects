@@ -48,8 +48,8 @@ export default function habitCalculator(habit) {
 
       if (value >= habit.target.value) {
         streak++;
-      } else {
         bestStreak = Math.max(bestStreak, streak);
+      } else {
         streak = 0;
       }
     }
@@ -79,11 +79,12 @@ export default function habitCalculator(habit) {
         success++;
       }
     }
+    console.log(success, dayCount);
+
     if (dayCount === 0) {
       return success === 1 ? 100 : 0;
     }
-    console.log(success, dayCount);
-    return (100.0 * success) / dayCount;
+    return parseInt((100.0 * success) / dayCount, 10);
   }
 
   return { getStrength, getBestStreak, getCurrentStreak };
