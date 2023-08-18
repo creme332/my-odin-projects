@@ -97,6 +97,7 @@ export default function Edit({ updateHabit }) {
             <Group grow>
               <TextInput
                 label="Name"
+                defaultValue={creatingNewHabit ? "" : defaultHabit.name}
                 placeholder={defaultHabit.name}
                 onChange={(e) =>
                   form.setValues({
@@ -106,17 +107,19 @@ export default function Edit({ updateHabit }) {
                 required
               />
               <ColorInput
+                defaultValue={creatingNewHabit ? "" : defaultHabit.color}
                 onChange={(e) =>
                   form.setValues({
                     color: e,
                   })
                 }
-                placeholder={defaultHabit.color}
+                placeholder="Choose a color"
                 label="Color"
               />
             </Group>
             <Group grow>
               <TextInput
+                defaultValue={creatingNewHabit ? "" : defaultHabit.question}
                 label="Question"
                 placeholder={defaultHabit.question}
                 onChange={(e) =>
@@ -126,12 +129,15 @@ export default function Edit({ updateHabit }) {
                 }
               />
               <DateInput
-                placeholder={defaultHabit.startDate}
+                defaultValue={
+                  creatingNewHabit ? "" : new Date(defaultHabit.startDate)
+                }
                 onChange={(e) =>
                   form.setValues({
                     startDate: e,
                   })
                 }
+                placeholder="When to start tracking habit"
                 label="Start date"
                 required
               />
@@ -139,6 +145,7 @@ export default function Edit({ updateHabit }) {
 
             <Group grow>
               <NumberInput
+                defaultValue={creatingNewHabit ? "" : defaultHabit.dailyDefault}
                 label="Default daily value"
                 min={0}
                 max={form.values.type === "Boolean" ? 1 : null}
@@ -151,6 +158,7 @@ export default function Edit({ updateHabit }) {
                 withAsterisk
               />
               <TextInput
+                defaultValue={creatingNewHabit ? "" : defaultHabit.target.unit}
                 label="Unit"
                 placeholder="hours"
                 onChange={(e) =>
@@ -163,6 +171,7 @@ export default function Edit({ updateHabit }) {
             <NumberInput
               placeholder="3 hours"
               label="Target"
+              value={creatingNewHabit ? "" : defaultHabit.target.value}
               min={1}
               onChange={(e) =>
                 form.setValues({
@@ -173,6 +182,7 @@ export default function Edit({ updateHabit }) {
             />
             <Group grow>
               <NumberInput
+                value={creatingNewHabit ? "" : defaultHabit.schedule.day}
                 placeholder="Repeat habit every x days"
                 label="Day interval"
                 min={1}
@@ -184,6 +194,7 @@ export default function Edit({ updateHabit }) {
                 withAsterisk
               />
               <NumberInput
+                value={creatingNewHabit ? "" : defaultHabit.schedule.frequency}
                 min={1}
                 placeholder="Number of times to repeat habit during chosen interval"
                 label="Frequency"
@@ -208,7 +219,7 @@ export default function Edit({ updateHabit }) {
                 })
               }
               placeholder="Your comment"
-              value={creatingNewHabit ? null : defaultHabit.notes}
+              defaultValue={creatingNewHabit ? null : defaultHabit.notes}
               label="Notes"
             />
 
