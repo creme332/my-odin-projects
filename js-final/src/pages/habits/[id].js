@@ -9,6 +9,8 @@ export default function HabitDetailPage({ deleteHabit }) {
   const router = useRouter();
   const [showHabitData, setShowHabitData] = useState(false);
   const habit = JSON.parse(router.query.habit);
+  const strengthData = habitCalculator(habit).getStrengthData();
+  console.log(strengthData);
   const data = [
     {
       title: "Habit strength",
@@ -49,8 +51,8 @@ export default function HabitDetailPage({ deleteHabit }) {
       <Title order={2}>Score</Title>
       <LineChart
         color={habit.color}
-        dataArray={[100, 200, 200]}
-        labelsArray={["01/02", "01/03", "01/05"]}
+        dataArray={strengthData[0]}
+        labelsArray={strengthData[1]}
       />
 
       <Group>
