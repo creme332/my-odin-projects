@@ -10,7 +10,7 @@
 //! Reference: https://stackoverflow.com/a/37484053/17627866
 
 export function getFirebaseConfig() {
-  const firebaseConfig = {
+  const config = {
     apiKey: "AIzaSyACfbUQ6zyeqIPCpj22Ij0LfTXYK1B5or0",
     authDomain: "qkwiqq.firebaseapp.com",
     projectId: "qkwiqq",
@@ -25,6 +25,6 @@ export function getFirebaseConfig() {
         "Add your web app's configuration object to firebase-config.js"
     );
   } else {
-    return firebaseConfig;
+    return config;
   }
 }
