@@ -8,9 +8,13 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-export default function Registration({ props }) {
+export default function Registration({ loggedIn, validateLogin }) {
   const form = useForm({
-    initialValues: { password: "", email: "" },
+    initialValues: {
+      password: "fddsadsa543sf",
+      email: "abc@gmail.com",
+      confirmPassword: "fddsadsa543sf",
+    },
 
     // functions will be used to validate values at corresponding key
     validate: {
@@ -35,7 +39,11 @@ export default function Registration({ props }) {
       </Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={form.onSubmit(console.log(form.values))}>
+        <form
+          onSubmit={form.onSubmit(() =>
+            validateLogin(form.values.email, form.values.password)
+          )}
+        >
           <TextInput
             label="Email"
             placeholder="me@demo.dev"

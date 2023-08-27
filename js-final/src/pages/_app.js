@@ -7,6 +7,7 @@ import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { useState, useEffect } from "react";
 import getHabits from "@/habit";
 import rebalanceEntries from "@/utils/rebalance";
+import FireStoreManager from "@/utils/firestoreManager";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -17,12 +18,17 @@ export default function App({ Component, pageProps }) {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
   //states for user
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [habits, setHabits] = useState(null);
+
+  function updateLoginStatus(isLoggedIn) {
+    setLoggedIn(isLoggedIn);
+  }
 
   useEffect(() => {
     // let x = [getHabits()[1]];
     let x = getHabits();
+    updateLoginStatus(FireStoreManager().isUserSignedIn());
 
     // rebalance
     x.forEach((habit) => {
@@ -44,18 +50,23 @@ export default function App({ Component, pageProps }) {
    * @param {String} password
    * @returns {Boolean} True if login details are correct, false otherwise.
    */
-  function validateLogin(email, password) {
-    console.log(`Logged in with ${email} ${password}`);
-    setLoggedIn(true);
+  async function validateLogin(email, password) {
+    try {
+      await FireStoreManager().createNewAccount(email, password);
+      // update login status
+      console.log(`Logged in with ${email} ${password}`);
+      setLoggedIn(true);
+      console.log(FireStoreManager().isUserSignedIn());
+      // redirect to dashboard
+      router.push({
+        pathname: "/dashboard",
+      });
 
-    router.push({
-      pathname: "/dashboard",
-      // query: {
-      //   name: "Source Freeze",
-      //   count: 30,
-      // },
-    });
-    return true;
+      return true;
+    } catch (e) {
+      console.log(e);
+    }
+    return false;
   }
 
   function updateHabit(newHabit) {
