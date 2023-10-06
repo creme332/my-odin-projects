@@ -27,7 +27,7 @@ export default function LineChart({
   labelsArray,
   dataArray,
   color,
-  title = "Untitled",
+  title = "Habit strength",
 }) {
   const options = {
     responsive: true,
