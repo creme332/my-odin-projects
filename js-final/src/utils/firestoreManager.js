@@ -18,6 +18,7 @@ import {
   orderBy,
   limit,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore";
 import { getFirebaseConfig } from "../firebase-config";
 import getHabits from "@/habit";
@@ -26,8 +27,10 @@ export default function FireStoreManager() {
   const app = initializeApp(getFirebaseConfig());
   const db = getFirestore(app);
   const currentUser = getAuth().currentUser;
-  const currentUserID = currentUser ? currentUser.uid : null;
-  console.log("Currently logged in user: ", currentUserID);
+  console.log(
+    "Currently logged in user: ",
+    currentUser ? currentUser.email : null
+  );
 
   function isUserSignedIn() {
     return currentUser ? true : false;
@@ -65,10 +68,34 @@ export default function FireStoreManager() {
     getAuth().signOut();
   }
 
-  async function addNewHabit(email, newHabit = getHabits()[0]) {
-    const habitCollection = collection(db, "users", email, "habit");
+  async function addNewHabit(newHabit = getHabits()[0]) {
+    const email = await currentUser.email;
+    const habitCollection = collection(db, "users", email, "habits");
     const docRef = await addDoc(habitCollection, newHabit);
     console.log("Document written with ID: ", docRef.id);
+  }
+
+  async function updateHabit(habitID) {
+    const email = await currentUser.email;
+    const habitCollection = collection(db, "users", email, "habits");
+    const habitRef = doc(habitCollection, habitID);
+
+    await updateDoc(habitRef, {
+      capital: true,
+    });
+    console.log("Updated document with habit ID", habitID);
+  }
+
+  async function deleteHabit(habitID) {
+    const email = await currentUser.email;
+    const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for that user
+    const q = query(habitCollection, where("id", "==", habitID)); // save reference to document to be deleted
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((docSnapshot) => {
+      console.log(docSnapshot.id, " => ", docSnapshot.data());
+      deleteDoc(doc(habitCollection, docSnapshot.id));
+    });
   }
 
   async function createNewUserDoc(email, password) {
@@ -99,5 +126,7 @@ export default function FireStoreManager() {
     validateLogin,
     signIn,
     signOut,
+    addNewHabit,
+    deleteHabit,
   };
 }

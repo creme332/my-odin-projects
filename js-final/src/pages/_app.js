@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import getHabits from "@/habit";
 import rebalanceEntries from "@/utils/rebalance";
 import FireStoreManager from "@/utils/firestoreManager";
+import { Firestore } from "firebase/firestore";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -37,7 +38,6 @@ export default function App({ Component, pageProps }) {
     const fsm = FireStoreManager();
     let x = getHabits();
     setLoggedIn(fsm.isUserSignedIn());
-
     // rebalance
     x.forEach((habit) => {
       const newEntryList = rebalanceEntries(
@@ -71,6 +71,7 @@ export default function App({ Component, pageProps }) {
       console.log("New habit added");
 
       newArr.push(newHabit);
+      FireStoreManager().addNewHabit(newHabit);
     } else {
       //update existing habit
       console.log("Existing habit updated");
@@ -85,6 +86,7 @@ export default function App({ Component, pageProps }) {
   function deleteHabit(habitID) {
     const newArr = habits.filter((h) => h.id !== habitID);
     setHabits(newArr);
+    FireStoreManager().deleteHabit(habitID);
   }
 
   function logOut() {
