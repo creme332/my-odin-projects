@@ -10,16 +10,23 @@ import {
 } from "@mantine/core";
 import { useState } from "react";
 import Link from "next/link";
+import FireStoreManager from "@/utils/firestoreManager";
 
-export default function LoginForm({ validateLogin }) {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+export default function LoginForm({ validateLogin, accessDashboard }) {
+  const [email, setEmail] = useState("abc@gmail.com");
+  const [password, setPassword] = useState("fddsadsa543sf");
   const [displayError, setDisplayError] = useState(false);
 
   async function onSubmit() {
     const isValid = await validateLogin(email, password);
     console.log("Valid login? ", isValid);
-    setDisplayError(!isValid);
+    if (isValid) {
+      // sign in then redirect to dashboard
+      await FireStoreManager().signIn(email, password);
+      accessDashboard();
+    } else {
+      setDisplayError(true);
+    }
   }
 
   return (

@@ -21,14 +21,22 @@ export default function App({ Component, pageProps }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [habits, setHabits] = useState(null);
 
-  function updateLoginStatus(isLoggedIn) {
-    setLoggedIn(isLoggedIn);
+  /**
+   * Redirects user to dashboard after a successful sign-in
+   */
+  async function accessDashboard() {
+    setLoggedIn(true);
+
+    router.push({
+      pathname: "/dashboard",
+    });
   }
 
   useEffect(() => {
     // let x = [getHabits()[1]];
+    const fsm = FireStoreManager();
     let x = getHabits();
-    updateLoginStatus(FireStoreManager().isUserSignedIn());
+    setLoggedIn(fsm.isUserSignedIn());
 
     // rebalance
     x.forEach((habit) => {
@@ -51,22 +59,7 @@ export default function App({ Component, pageProps }) {
    * @returns {Boolean} True if login details are correct, false otherwise.
    */
   async function validateLogin(email, password) {
-    try {
-      await FireStoreManager().createNewAccount(email, password);
-      // update login status
-      console.log(`Logged in with ${email} ${password}`);
-      setLoggedIn(true);
-      console.log(FireStoreManager().isUserSignedIn());
-      // redirect to dashboard
-      router.push({
-        pathname: "/dashboard",
-      });
-
-      return true;
-    } catch (e) {
-      console.log(e);
-    }
-    return false;
+    return FireStoreManager().validateLogin(email, password);
   }
 
   function updateHabit(newHabit) {
@@ -95,6 +88,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function logOut() {
+    FireStoreManager().signOut();
     console.log("Logged out");
     setLoggedIn(false);
 
@@ -137,6 +131,7 @@ export default function App({ Component, pageProps }) {
               validateLogin={validateLogin}
               updateHabit={updateHabit}
               deleteHabit={deleteHabit}
+              accessDashboard={accessDashboard}
             />
           </Container>
           <Footer />

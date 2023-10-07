@@ -1,14 +1,20 @@
 import {
   TextInput,
   PasswordInput,
+  Alert,
   Paper,
   Title,
   Container,
   Button,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import FireStoreManager from "@/utils/firestoreManager";
+import { IconInfoCircle } from "@tabler/icons-react";
+import { useState } from "react";
 
-export default function Registration({ loggedIn, validateLogin }) {
+export default function Registration({ accessDashboard }) {
+  const [hideAccountAlert, setHideAccountAlert] = useState(true);
+
   const form = useForm({
     initialValues: {
       password: "fddsadsa543sf",
@@ -26,8 +32,20 @@ export default function Registration({ loggedIn, validateLogin }) {
     },
   });
 
+  async function isAccountDuplicate() {
+    const successfulCreation = await FireStoreManager().createNewAccount(
+      form.values.email,
+      form.values.password
+    );
+    if (!successfulCreation) {
+      setHideAccountAlert(false);
+    } else {
+      accessDashboard();
+    }
+  }
+
   return (
-    <Container mt={50} size={420}>
+    <Container mt={50} size={450}>
       <Title
         align="center"
         sx={(theme) => ({
@@ -39,11 +57,7 @@ export default function Registration({ loggedIn, validateLogin }) {
       </Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form
-          onSubmit={form.onSubmit(() =>
-            validateLogin(form.values.email, form.values.password)
-          )}
-        >
+        <form onSubmit={form.onSubmit(isAccountDuplicate)}>
           <TextInput
             label="Email"
             placeholder="me@demo.dev"
@@ -82,6 +96,20 @@ export default function Registration({ loggedIn, validateLogin }) {
           <Button type="submit" fullWidth mt="xl">
             Sign up
           </Button>
+          {hideAccountAlert ? null : (
+            <Alert
+              mt={10}
+              variant="light"
+              color="red"
+              withCloseButton
+              onClose={() => {
+                setHideAccountAlert(true);
+              }}
+              closeButtonLabel="Dismiss"
+              title="Account already exists"
+              icon={<IconInfoCircle />}
+            ></Alert>
+          )}
         </form>
       </Paper>
     </Container>
