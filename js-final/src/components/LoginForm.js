@@ -16,6 +16,12 @@ export default function LoginForm({ validateLogin }) {
   const [password, setPassword] = useState(null);
   const [displayError, setDisplayError] = useState(false);
 
+  async function onSubmit() {
+    const isValid = await validateLogin(email, password);
+    console.log("Valid login? ", isValid);
+    setDisplayError(!isValid);
+  }
+
   return (
     <Container mt={50} size={420}>
       <Title
@@ -51,14 +57,7 @@ export default function LoginForm({ validateLogin }) {
           error={displayError}
           mt="md"
         />
-        <Button
-          onClick={() => {
-            const isValid = validateLogin(email, password);
-            setDisplayError(!isValid);
-          }}
-          fullWidth
-          mt="xl"
-        >
+        <Button onClick={onSubmit} fullWidth mt="xl">
           Sign in
         </Button>
       </Paper>
