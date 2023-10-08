@@ -1,7 +1,7 @@
 import { differenceInDays, addDays, format, sub } from "date-fns";
 
 /**
- * Automatically fills entries for days where user input is missing.
+ * Automatically fills entries with a default value for days where user input is missing.
  * Dates between start date and current date, where current date >= start date, are filled.
  * @param {String} startDate Date when habit started
  * @param {[{date:String, value:integer}]} entryList list of all entries
@@ -9,7 +9,7 @@ import { differenceInDays, addDays, format, sub } from "date-fns";
  * @returns {[{date:String, value:integer}]}
  */
 export default function rebalanceEntries(startDate, entryList, defaultValue) {
-  console.log(startDate, entryList, defaultValue);
+  // console.log(startDate, entryList, defaultValue);
   const allDateEntries = entryList.map((e) => e.date);
   let dayCount = differenceInDays(new Date(), new Date(startDate)); // number of days since habit creation
   const newEntryList = [...entryList];

@@ -24,10 +24,20 @@ export default function FireStoreManager() {
   const currentUser = getAuth().currentUser;
   console.log("Current user: ", currentUser ? currentUser.email : null);
 
+  /**
+   * Checks if a there is a user signed in currently
+   * @returns {Boolean}
+   */
   function isUserSignedIn() {
     return currentUser ? true : false;
   }
 
+  /**
+   * Creates a new user account with given email and password
+   * @param {string} email
+   * @param {string} password
+   * @returns {boolean} `True` if account creation is successful
+   */
   async function createNewAccount(email, password) {
     const auth = getAuth();
     try {
@@ -41,6 +51,12 @@ export default function FireStoreManager() {
     return false;
   }
 
+  /**
+   * Checks if login details for a particular account is valid.
+   * @param {String} email
+   * @param {String} password
+   * @returns {boolean} `True` if login details are valid.
+   */
   async function validateLogin(email, password) {
     const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
@@ -52,6 +68,11 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * Signs in to an account
+   * @param {String} email
+   * @param {String} password
+   */
   async function signIn(email, password) {
     try {
       await signInWithEmailAndPassword(getAuth(), email, password);
@@ -62,10 +83,17 @@ export default function FireStoreManager() {
     }
   }
 
+  /**
+   * If user currently signed in, sign out
+   */
   function signOut() {
     getAuth().signOut();
   }
 
+  /**
+   * Uploads a habit to database
+   * @param {Object} newHabit
+   */
   async function createHabit(newHabit) {
     const email = await currentUser.email;
     const habitCollection = collection(db, "users", email, "habits");
@@ -73,6 +101,10 @@ export default function FireStoreManager() {
     console.log("Created habit document ", docRef.id);
   }
 
+  /**
+   * Replaces an existing habit in database with new habit, based on their ids
+   * @param {Object} habit habit to be updated
+   */
   async function updateHabit(habit) {
     const email = await currentUser.email;
     const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for that user
@@ -86,6 +118,10 @@ export default function FireStoreManager() {
     });
   }
 
+  /**
+   * Deletes all documents in habit collection where habit = given ID
+   * @param {string} habitID ID of habit to be deleted
+   */
   async function deleteHabit(habitID) {
     const email = await currentUser.email;
     const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for current user
@@ -99,6 +135,10 @@ export default function FireStoreManager() {
     });
   }
 
+  /**
+   * Retrieves all habits for currently signed-in user
+   * @returns {[Object]}
+   */
   async function getAllHabits() {
     const user = await currentUser;
     if (!user) return [];
@@ -113,6 +153,11 @@ export default function FireStoreManager() {
     return habits;
   }
 
+  /**
+   * Creates a new document in the `users` collection for a user.
+   * @param {String} email
+   * @param {String} password
+   */
   async function createNewUserDoc(email, password) {
     console.log(`Creating a new user document for ${email}`);
     const userDocRef = doc(db, "users", email);
@@ -131,7 +176,7 @@ export default function FireStoreManager() {
       const errorCode = error.code;
       const errorMessage = error.message;
     }
-    console.log("Done");
+    console.log("Created user document");
   }
 
   return {
