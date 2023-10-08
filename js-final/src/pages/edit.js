@@ -17,11 +17,12 @@ import { DateInput } from "@mantine/dates";
 import rebalanceEntries from "@/utils/rebalance";
 import uniqid from "uniqid";
 import { useRouter } from "next/router";
+import { format } from "date-fns";
 
-export default function Edit({ updateHabit }) {
+export default function Edit({ accessDashboard, updateHabit }) {
   const router = useRouter();
   const creatingNewHabit = !router.query.habit;
-  console.log("Creating new habit = ", creatingNewHabit);
+  console.log("Creating new habit? ", creatingNewHabit);
 
   const defaultHabit = creatingNewHabit
     ? {
@@ -29,18 +30,18 @@ export default function Edit({ updateHabit }) {
         name: "",
         question: "",
         notes: "",
-        type: "",
+        type: "Measurable",
         startDate: "",
         color: "",
 
         target: {
-          value: 0,
+          value: 1,
           unit: "",
         },
 
         schedule: {
-          day: 0,
-          frequency: 0,
+          day: 1,
+          frequency: 1,
         },
 
         dailyDefault: 0,
@@ -50,22 +51,39 @@ export default function Edit({ updateHabit }) {
 
   const form = useForm({
     initialValues: defaultHabit,
+
+    validate: {
+      name: (value) =>
+        value.length < 4 ? "Name must have at least 4 characters" : null,
+      type: (value) =>
+        value !== "Boolean" && value !== "Measurable"
+          ? "Invalid habit type"
+          : null,
+    },
+
+    transformValues: (values) => ({
+      ...values,
+      startDate: format(values.startDate, "yyyy-MM-dd"), // convert start date to string with given format
+      entries: rebalanceEntries(
+        values.startDate,
+        values.entries,
+        values.dailyDefault
+      ), // initialize entries
+    }),
   });
 
-  function submitHandler(e) {
-    // form.onSubmit(updateHabit(form.values));
-    e.preventDefault();
-    let habit = form.values;
-    const newEntries = rebalanceEntries(
-      habit.startDate,
-      habit.entries,
-      habit.dailyDefault
-    );
-    updateHabit({
-      ...habit,
-      entries: newEntries,
-    });
-    // console.log(newEntries);
+  function formatFrequencyMessage(frequency, dayFrequency) {
+    const frequencyList = ["once", "twice", "thrice"];
+    const message = `Habit will repeat ${
+      frequency - 1 < 3 ? frequencyList[frequency - 1] : `${frequency} times`
+    } ${dayFrequency === 1 ? "daily" : ` every ${dayFrequency} days`}`;
+    return message;
+  }
+
+  function submitHandler(habit) {
+    console.log(habit);
+    updateHabit(habit);
+    accessDashboard();
   }
 
   return (
@@ -81,61 +99,36 @@ export default function Edit({ updateHabit }) {
       </Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form>
+        <form onSubmit={form.onSubmit(submitHandler)}>
           <Stack>
             <NativeSelect
               data={["Boolean", "Measurable"]}
               label="Habit type"
               withAsterisk
-              onChange={(e) =>
-                form.setValues({
-                  type: e.target.value,
-                })
-              }
+              {...form.getInputProps("type")}
             />
             <Group grow>
               <TextInput
                 label="Name"
-                defaultValue={creatingNewHabit ? "" : defaultHabit.name}
                 placeholder={"Learn piano"}
-                onChange={(e) =>
-                  form.setValues({
-                    name: e.target.value,
-                  })
-                }
+                {...form.getInputProps("name")}
                 required
               />
               <ColorInput
-                defaultValue={creatingNewHabit ? "" : defaultHabit.color}
-                onChange={(e) =>
-                  form.setValues({
-                    color: e,
-                  })
-                }
+                {...form.getInputProps("color")}
                 placeholder="Choose a color"
                 label="Color"
+                required
               />
             </Group>
             <Group grow>
               <TextInput
-                defaultValue={creatingNewHabit ? "" : defaultHabit.question}
                 label="Question"
                 placeholder={"Did you play piano today?"}
-                onChange={(e) =>
-                  form.setValues({
-                    question: e.target.value,
-                  })
-                }
+                {...form.getInputProps("question")}
               />
               <DateInput
-                defaultValue={
-                  creatingNewHabit ? "" : new Date(defaultHabit.startDate)
-                }
-                onChange={(e) =>
-                  form.setValues({
-                    startDate: e,
-                  })
-                }
+                {...form.getInputProps("startDate")}
                 placeholder="When to start tracking habit"
                 label="Start date"
                 required
@@ -144,52 +137,32 @@ export default function Edit({ updateHabit }) {
 
             <Group grow>
               <NumberInput
-                defaultValue={creatingNewHabit ? "" : defaultHabit.dailyDefault}
                 label="Default daily value"
                 min={0}
                 max={form.values.type === "Boolean" ? 1 : null}
                 placeholder="Which value to set automatically"
-                onChange={(e) =>
-                  form.setValues({
-                    dailyDefault: e,
-                  })
-                }
+                {...form.getInputProps("dailyDefault")}
                 withAsterisk
               />
               <TextInput
-                defaultValue={creatingNewHabit ? "" : defaultHabit.target.unit}
                 label="Unit"
                 placeholder="hours"
-                onChange={(e) =>
-                  form.setValues({
-                    target: { ...form.values.target, unit: e.target.value },
-                  })
-                }
+                {...form.getInputProps("target.unit")}
               />
             </Group>
             <NumberInput
               placeholder="3 hours"
               label="Target"
-              defaultValue={creatingNewHabit ? "" : defaultHabit.target.value}
               min={1}
-              onChange={(e) =>
-                form.setValues({
-                  target: { ...form.values.target, value: e },
-                })
-              }
+              {...form.getInputProps("target.value")}
               withAsterisk
             />
             <Group grow>
               <NumberInput
-                defaultValue={creatingNewHabit ? "" : defaultHabit.schedule.day}
                 placeholder="Repeat habit every x days"
                 label="Day interval"
                 min={1}
-                onChange={(e) =>
-                  form.setValues({
-                    schedule: { ...form.values.schedule, day: e },
-                  })
-                }
+                {...form.getInputProps("schedule.day")}
                 withAsterisk
               />
               <NumberInput
@@ -197,37 +170,24 @@ export default function Edit({ updateHabit }) {
                 placeholder="Number of times to repeat habit during chosen interval"
                 label="Frequency"
                 withAsterisk
-                onChange={(e) =>
-                  form.setValues({
-                    schedule: { ...form.values.schedule, frequency: e },
-                  })
-                }
+                {...form.getInputProps("schedule.frequency")}
               />
             </Group>
             <Text size={"sm"} color="dimmed">
               {" "}
-              Habit will repeat {form.values.schedule.frequency} times every{" "}
-              {form.values.schedule.day} days
+              {formatFrequencyMessage(
+                form.values.schedule.frequency,
+                form.values.schedule.day
+              )}
             </Text>
 
             <Textarea
-              onChange={(e) =>
-                form.setValues({
-                  notes: e.target.value,
-                })
-              }
+              {...form.getInputProps("notes")}
               placeholder="Piano is good for health"
-              defaultValue={creatingNewHabit ? null : defaultHabit.notes}
               label="Notes"
             />
 
-            <Button
-              onClick={submitHandler}
-              variant="gradient"
-              type="submit"
-              fullWidth
-              mt="xl"
-            >
+            <Button variant="gradient" type="submit" fullWidth mt="xl">
               {creatingNewHabit ? "Create" : "Edit"}
             </Button>
           </Stack>
