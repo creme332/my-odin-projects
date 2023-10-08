@@ -5,10 +5,8 @@ import { useRouter } from "next/router";
 import { Container } from "@mantine/core";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { useState, useEffect } from "react";
-import getHabits from "@/habit";
 import rebalanceEntries from "@/utils/rebalance";
 import FireStoreManager from "@/utils/firestoreManager";
-import { Firestore } from "firebase/firestore";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -27,19 +25,18 @@ export default function App({ Component, pageProps }) {
    */
   async function accessDashboard() {
     setLoggedIn(true);
-
+    await fetchHabits();
     router.push({
       pathname: "/dashboard",
     });
   }
 
-  useEffect(() => {
-    // let x = [getHabits()[1]];
+  async function fetchHabits() {
     const fsm = FireStoreManager();
-    let x = getHabits();
-    setLoggedIn(fsm.isUserSignedIn());
-    // rebalance
-    x.forEach((habit) => {
+    let allHabits = await fsm.getAllHabits();
+    console.log("Fetched habits", allHabits);
+    // rebalance habits
+    allHabits.forEach((habit) => {
       const newEntryList = rebalanceEntries(
         habit.startDate,
         habit.entries,
@@ -48,8 +45,15 @@ export default function App({ Component, pageProps }) {
       habit.entries = newEntryList;
       return habit;
     });
-    // console.log(x);
-    setHabits(x);
+
+    console.log("After rebalancing: ", allHabits);
+
+    setHabits(allHabits);
+  }
+
+  useEffect(() => {
+    fetchHabits();
+    setLoggedIn(FireStoreManager().isUserSignedIn());
   }, []);
 
   /**
@@ -71,12 +75,12 @@ export default function App({ Component, pageProps }) {
       console.log("New habit added");
 
       newArr.push(newHabit);
-      FireStoreManager().addNewHabit(newHabit);
+      FireStoreManager().createHabit(newHabit);
     } else {
       //update existing habit
       console.log("Existing habit updated");
-
       newArr[idx] = newHabit;
+      FireStoreManager().updateHabit(newHabit);
     }
 
     setHabits(newArr);

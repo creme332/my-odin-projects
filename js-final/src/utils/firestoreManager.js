@@ -11,26 +11,18 @@ import {
   addDoc,
   setDoc,
   doc,
-  serverTimestamp,
-  runTransaction,
   where,
   query,
-  orderBy,
-  limit,
   getDocs,
   deleteDoc,
 } from "firebase/firestore";
 import { getFirebaseConfig } from "../firebase-config";
-import getHabits from "@/habit";
 
 export default function FireStoreManager() {
   const app = initializeApp(getFirebaseConfig());
   const db = getFirestore(app);
   const currentUser = getAuth().currentUser;
-  console.log(
-    "Currently logged in user: ",
-    currentUser ? currentUser.email : null
-  );
+  console.log("Current user: ", currentUser ? currentUser.email : null);
 
   function isUserSignedIn() {
     return currentUser ? true : false;
@@ -60,42 +52,65 @@ export default function FireStoreManager() {
     }
   }
 
-  function signIn(email, password) {
-    signInWithEmailAndPassword(getAuth(), email, password);
+  async function signIn(email, password) {
+    try {
+      await signInWithEmailAndPassword(getAuth(), email, password);
+      console.log("Successfully signed in as", getAuth().currentUser.email);
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    }
   }
 
   function signOut() {
     getAuth().signOut();
   }
 
-  async function addNewHabit(newHabit = getHabits()[0]) {
+  async function createHabit(newHabit) {
     const email = await currentUser.email;
     const habitCollection = collection(db, "users", email, "habits");
     const docRef = await addDoc(habitCollection, newHabit);
-    console.log("Document written with ID: ", docRef.id);
+    console.log("Created habit document ", docRef.id);
   }
 
-  async function updateHabit(habitID) {
+  async function updateHabit(habit) {
     const email = await currentUser.email;
-    const habitCollection = collection(db, "users", email, "habits");
-    const habitRef = doc(habitCollection, habitID);
+    const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for that user
+    const q = query(habitCollection, where("id", "==", habit.id));
 
-    await updateDoc(habitRef, {
-      capital: true,
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((docSnapshot) => {
+      const docRef = doc(habitCollection, docSnapshot.id);
+      setDoc(docRef, habit);
+      console.log("Updated habit document ", docSnapshot.id);
     });
-    console.log("Updated document with habit ID", habitID);
   }
 
   async function deleteHabit(habitID) {
     const email = await currentUser.email;
-    const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for that user
+    const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for current user
     const q = query(habitCollection, where("id", "==", habitID)); // save reference to document to be deleted
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((docSnapshot) => {
       console.log(docSnapshot.id, " => ", docSnapshot.data());
       deleteDoc(doc(habitCollection, docSnapshot.id));
+      console.log("Deleted habit document ", docSnapshot.id);
     });
+  }
+
+  async function getAllHabits() {
+    const user = await currentUser;
+    if (!user) return [];
+    const email = user.email;
+    const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for current user
+    const querySnapshot = await getDocs(habitCollection);
+
+    const habits = [];
+    querySnapshot.forEach((docSnapshot) => {
+      habits.push(docSnapshot.data());
+    });
+    return habits;
   }
 
   async function createNewUserDoc(email, password) {
@@ -122,11 +137,12 @@ export default function FireStoreManager() {
   return {
     createNewAccount,
     isUserSignedIn,
-    addNewHabit,
     validateLogin,
     signIn,
     signOut,
-    addNewHabit,
+    createHabit,
     deleteHabit,
+    updateHabit,
+    getAllHabits,
   };
 }
