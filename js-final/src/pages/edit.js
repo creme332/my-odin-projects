@@ -15,36 +15,35 @@ import {
 import { useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
 import rebalanceEntries from "@/utils/rebalance";
-import { format } from "date-fns";
 import uniqid from "uniqid";
 import { useRouter } from "next/router";
 
 export default function Edit({ updateHabit }) {
   const router = useRouter();
   const creatingNewHabit = !router.query.habit;
-  console.log("creating new habit = ", creatingNewHabit);
+  console.log("Creating new habit = ", creatingNewHabit);
 
   const defaultHabit = creatingNewHabit
     ? {
         id: uniqid(),
-        name: "Learn piano",
-        question: "Did you play piano today?",
-        notes: "Recommended by doctor",
-        type: "Boolean",
-        startDate: format(new Date(), "yyyy-MM-dd"),
-        color: "cyan",
+        name: "",
+        question: "",
+        notes: "",
+        type: "",
+        startDate: "",
+        color: "",
 
         target: {
-          value: 1,
-          unit: "hour",
+          value: 0,
+          unit: "",
         },
 
         schedule: {
-          day: 1,
-          frequency: 1,
+          day: 0,
+          frequency: 0,
         },
 
-        dailyDefault: 1,
+        dailyDefault: 0,
         entries: [],
       }
     : JSON.parse(router.query.habit);
@@ -66,7 +65,7 @@ export default function Edit({ updateHabit }) {
       ...habit,
       entries: newEntries,
     });
-    console.log(newEntries);
+    // console.log(newEntries);
   }
 
   return (
@@ -98,7 +97,7 @@ export default function Edit({ updateHabit }) {
               <TextInput
                 label="Name"
                 defaultValue={creatingNewHabit ? "" : defaultHabit.name}
-                placeholder={defaultHabit.name}
+                placeholder={"Learn piano"}
                 onChange={(e) =>
                   form.setValues({
                     name: e.target.value,
@@ -121,7 +120,7 @@ export default function Edit({ updateHabit }) {
               <TextInput
                 defaultValue={creatingNewHabit ? "" : defaultHabit.question}
                 label="Question"
-                placeholder={defaultHabit.question}
+                placeholder={"Did you play piano today?"}
                 onChange={(e) =>
                   form.setValues({
                     question: e.target.value,
@@ -171,7 +170,7 @@ export default function Edit({ updateHabit }) {
             <NumberInput
               placeholder="3 hours"
               label="Target"
-              value={creatingNewHabit ? "" : defaultHabit.target.value}
+              defaultValue={creatingNewHabit ? "" : defaultHabit.target.value}
               min={1}
               onChange={(e) =>
                 form.setValues({
@@ -182,7 +181,7 @@ export default function Edit({ updateHabit }) {
             />
             <Group grow>
               <NumberInput
-                value={creatingNewHabit ? "" : defaultHabit.schedule.day}
+                defaultValue={creatingNewHabit ? "" : defaultHabit.schedule.day}
                 placeholder="Repeat habit every x days"
                 label="Day interval"
                 min={1}
@@ -194,7 +193,6 @@ export default function Edit({ updateHabit }) {
                 withAsterisk
               />
               <NumberInput
-                value={creatingNewHabit ? "" : defaultHabit.schedule.frequency}
                 min={1}
                 placeholder="Number of times to repeat habit during chosen interval"
                 label="Frequency"
@@ -218,7 +216,7 @@ export default function Edit({ updateHabit }) {
                   notes: e.target.value,
                 })
               }
-              placeholder="Your comment"
+              placeholder="Piano is good for health"
               defaultValue={creatingNewHabit ? null : defaultHabit.notes}
               label="Notes"
             />
