@@ -8,7 +8,6 @@ export default function HabitCell({
   entry,
   updateHabitEntry,
 }) {
-  // console.log(entry);
   const [active, setActive] = useState(false);
   const [habitValue, setHabitValue] = useState(entry.value);
 
@@ -21,7 +20,6 @@ export default function HabitCell({
       console.log("Double clicked");
       // for measurable habits, toggle active
       setActive(!active);
-      // console.log(active);
 
       // for boolean habits, toggle tick
       if (habitType === "Boolean") {
@@ -40,7 +38,7 @@ export default function HabitCell({
           color={habitColor}
           variant="subtle"
         >
-          <IconCheck size="3.125rem" />
+          <IconCheck color={habitColor} size="3.125rem" />
         </ActionIcon>
       );
     }
@@ -51,7 +49,7 @@ export default function HabitCell({
         color={habitColor}
         variant="subtle"
       >
-        <IconX size="3.125rem" />
+        <IconX color={habitColor} size="3.125rem" />
       </ActionIcon>
     );
   }
