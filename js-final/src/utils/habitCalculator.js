@@ -91,7 +91,7 @@ export default function habitCalculator(habit) {
 
   function getStrengthData() {
     const [dataArray, labelsArray] = [[], []];
-    const dayInterval = 31;
+    const dayInterval = parseInt(habit.schedule.day, 10);
     const dayCount = differenceInDays(new Date(), new Date(habit.startDate)); // number of days since habit creation
 
     for (let day = 0; day <= dayCount; day += dayInterval) {
