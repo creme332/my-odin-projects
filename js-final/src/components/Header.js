@@ -88,7 +88,6 @@ export default function HeaderMegaMenu({ loggedIn, logOut }) {
   const tabs = [
     { name: "Dashboard", link: "/dashboard" },
     { name: "Add", link: "/edit" },
-    { name: "Account", link: "/account" },
   ];
 
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
