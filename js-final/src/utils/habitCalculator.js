@@ -84,7 +84,9 @@ export default function habitCalculator(habit) {
     if (dayCount === 0) {
       return success === 1 ? 100 : 0;
     }
-    return parseInt((100.0 * success) / dayCount, 10);
+
+    const result = parseInt((100.0 * success) / dayCount, 10);
+    return result ? result : 0;
   }
 
   function getStrengthData() {
