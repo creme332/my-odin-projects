@@ -10,8 +10,7 @@ export default function HabitDetailPage({ deleteHabit }) {
   const [showHabitData, setShowHabitData] = useState(false);
   const habit = JSON.parse(router.query.habit);
   const strengthData = habitCalculator(habit).getStrengthData();
-  console.log(strengthData);
-  const data = [
+  const statsGridData = [
     {
       title: "Habit strength",
       icon: "barbell",
@@ -35,6 +34,9 @@ export default function HabitDetailPage({ deleteHabit }) {
     },
   ];
 
+  /**
+   * Redirects user to Edit page where habit details can be edited.
+   */
   function goToEditPage() {
     router.push({
       pathname: "/edit",
@@ -47,7 +49,7 @@ export default function HabitDetailPage({ deleteHabit }) {
   return (
     <Container>
       <Title order={1}>{habit.name}</Title>
-      <StatsGrid data={data} />
+      <StatsGrid data={statsGridData} />
       <Title order={2}>Score</Title>
       <LineChart
         color={habit.color}
