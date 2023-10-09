@@ -24,8 +24,16 @@ export default function Edit({ accessDashboard, updateHabit }) {
   const creatingNewHabit = !router.query.habit;
   console.log("Creating new habit? ", creatingNewHabit);
 
-  const defaultHabit = creatingNewHabit
-    ? {
+  /**
+   * Returns the habit to be displayed on the form.
+   * 
+   * Note that the form can be used to edit a habit or create a new one. 
+   * If form is in editing mode, the form will be filled with details of habit to be edited.
+   * @returns {Object}
+   */
+  function getInitialHabit() {
+    if (creatingNewHabit) {
+      return {
         id: uniqid(),
         name: "",
         question: "",
@@ -46,8 +54,20 @@ export default function Edit({ accessDashboard, updateHabit }) {
 
         dailyDefault: 0,
         entries: [],
-      }
-    : JSON.parse(router.query.habit);
+      };
+    }
+
+    // get habit to be displayed
+    const x = JSON.parse(router.query.habit);
+
+    // convert startDate to a date object which can be displayed on the form
+    x.startDate = new Date(x.startDate);
+    return x;
+  }
+
+  const defaultHabit = getInitialHabit();
+
+  console.log("Default habit: ", defaultHabit);
 
   const form = useForm({
     initialValues: defaultHabit,
@@ -63,7 +83,10 @@ export default function Edit({ accessDashboard, updateHabit }) {
 
     transformValues: (values) => ({
       ...values,
-      startDate: format(values.startDate, "yyyy-MM-dd"), // convert start date to string with given format
+      startDate:
+        values.startDate instanceof Date
+          ? format(values.startDate, "yyyy-MM-dd")
+          : values.startDate, // ensure that start date has string format
       entries: rebalanceEntries(
         values.startDate,
         values.entries,
@@ -81,7 +104,6 @@ export default function Edit({ accessDashboard, updateHabit }) {
   }
 
   function submitHandler(habit) {
-    console.log(habit);
     updateHabit(habit);
     accessDashboard();
   }
