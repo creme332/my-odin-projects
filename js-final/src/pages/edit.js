@@ -26,8 +26,8 @@ export default function Edit({ accessDashboard, updateHabit }) {
 
   /**
    * Returns the habit to be displayed on the form.
-   * 
-   * Note that the form can be used to edit a habit or create a new one. 
+   *
+   * Note that the form can be used to edit a habit or create a new one.
    * If form is in editing mode, the form will be filled with details of habit to be edited.
    * @returns {Object}
    */
@@ -172,10 +172,17 @@ export default function Edit({ accessDashboard, updateHabit }) {
                 {...form.getInputProps("target.unit")}
               />
             </Group>
+            {form.values.type === "Boolean" ? (
+              <Text size={"sm"} color="dimmed">
+                For boolean habits, 1 means success and 0 means failure.
+              </Text>
+            ) : null}
+
             <NumberInput
               placeholder="3 hours"
               label="Target"
-              min={1}
+              max={form.values.type === "Boolean" ? 1 : null}
+              min={0}
               {...form.getInputProps("target.value")}
               withAsterisk
             />
