@@ -8,7 +8,7 @@ import habitCalculator from "@/utils/habitCalculator";
 export default function HabitDetailPage({ deleteHabit }) {
   const router = useRouter();
   const [showHabitData, setShowHabitData] = useState(false);
-  const habit = JSON.parse(router.query.habit);
+  const habit = router.query.habit ? JSON.parse(router.query.habit) : null;
   const strengthData = habitCalculator(habit).getStrengthData();
   const statsGridData = [
     {
@@ -48,11 +48,11 @@ export default function HabitDetailPage({ deleteHabit }) {
 
   return (
     <Container>
-      <Title order={1}>{habit.name}</Title>
+      <Title order={1}>{habit ? habit.name : null}</Title>
       <StatsGrid data={statsGridData} />
       <Title order={2}>Score</Title>
       <LineChart
-        color={habit.color}
+        color={habit ? habit.color : null}
         dataArray={strengthData[0]}
         labelsArray={strengthData[1]}
       />

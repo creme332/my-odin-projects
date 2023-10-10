@@ -7,6 +7,7 @@ export default function habitCalculator(habit) {
    * @returns {int}
    */
   function getCurrentStreak() {
+    if (!habit) return 0;
     let streak = 0;
     let dayCount = differenceInDays(new Date(), new Date(habit.startDate)); // number of days since habit creation
     const dayInterval = parseInt(habit.schedule.day, 10);
@@ -32,6 +33,8 @@ export default function habitCalculator(habit) {
    * @returns {int}
    */
   function getBestStreak() {
+    if (!habit) return 0;
+
     let streak = 0;
     let bestStreak = 0;
     let dayCount = differenceInDays(new Date(), new Date(habit.startDate)); // number of days since habit creation
@@ -62,6 +65,8 @@ export default function habitCalculator(habit) {
    * @returns {Int} habit strength
    */
   function getStrength(lastDate = new Date()) {
+    if (!habit) return 0;
+
     let success = 0;
     const dayCount = differenceInDays(lastDate, new Date(habit.startDate)); // number of days since habit creation
     const dayInterval = parseInt(habit.schedule.day, 10);
@@ -91,6 +96,8 @@ export default function habitCalculator(habit) {
 
   function getStrengthData() {
     const [dataArray, labelsArray] = [[], []];
+    if (!habit) return [dataArray, labelsArray];
+
     const dayInterval = parseInt(habit.schedule.day, 10);
     const dayCount = differenceInDays(new Date(), new Date(habit.startDate)); // number of days since habit creation
 
