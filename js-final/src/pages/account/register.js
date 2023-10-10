@@ -14,12 +14,13 @@ import { useState } from "react";
 
 export default function Registration({ accessDashboard }) {
   const [hideAccountAlert, setHideAccountAlert] = useState(true);
+  const [hideTip, setHideTip] = useState(false);
 
   const form = useForm({
     initialValues: {
-      password: "fddsadsa543sf",
-      email: "abc@gmail.com",
-      confirmPassword: "fddsadsa543sf",
+      password: "",
+      email: "",
+      confirmPassword: "",
     },
 
     // functions will be used to validate values at corresponding key
@@ -93,9 +94,26 @@ export default function Registration({ accessDashboard }) {
             required
             mt="md"
           />
+
           <Button type="submit" fullWidth mt="xl">
             Sign up
           </Button>
+
+          {hideTip ? null : (
+            <Alert
+              mt={10}
+              variant="light"
+              color="green"
+              withCloseButton
+              closeButtonLabel="Dismiss"
+              onClose={() => {
+                setHideTip(true);
+              }}
+              title="To simply try out the app, go the login page click on the sign in button directly."
+              icon={<IconInfoCircle />}
+            ></Alert>
+          )}
+
           {hideAccountAlert ? null : (
             <Alert
               mt={10}
