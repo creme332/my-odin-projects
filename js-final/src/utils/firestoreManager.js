@@ -7,7 +7,6 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   collection,
-  getDoc,
   addDoc,
   setDoc,
   doc,
@@ -45,31 +44,13 @@ export default function FireStoreManager() {
       await createNewUserDoc(email, password);
       return true;
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      console.log(error);
     }
     return false;
   }
 
   /**
-   * Checks if login details for a particular account is valid.
-   * @param {String} email
-   * @param {String} password
-   * @returns {boolean} `True` if login details are valid.
-   */
-  async function validateLogin(email, password) {
-    const docRef = doc(db, "users", email);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return docSnap.data().password === password;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Signs in to an account
+   * Signs in to an account. Returns true if sign in successful.
    * @param {String} email
    * @param {String} password
    */
@@ -77,9 +58,10 @@ export default function FireStoreManager() {
     try {
       await signInWithEmailAndPassword(getAuth(), email, password);
       console.log("Successfully signed in as", getAuth().currentUser.email);
+      return true;
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      console.log("Login details are invalid");
+      return false;
     }
   }
 
@@ -140,9 +122,8 @@ export default function FireStoreManager() {
    * @returns {[Object]}
    */
   async function getAllHabits() {
-    const user = await currentUser;
-    if (!user) return [];
-    const email = user.email;
+    if (!(await currentUser)) return [];
+    const email = currentUser.email;
     const habitCollection = collection(db, `users/${email}/habits`); // get habit collection for current user
     const querySnapshot = await getDocs(habitCollection);
 
@@ -173,8 +154,7 @@ export default function FireStoreManager() {
         { merge: true }
       );
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      console.log(error);
     }
     console.log("Created user document");
   }
@@ -182,7 +162,6 @@ export default function FireStoreManager() {
   return {
     createNewAccount,
     isUserSignedIn,
-    validateLogin,
     signIn,
     signOut,
     createHabit,

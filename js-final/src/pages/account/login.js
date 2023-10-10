@@ -1,8 +1,7 @@
 import LoginForm from "@/components/LoginForm";
-export default function Home({ accessDashboard, validateLogin }) {
+export default function Home({ accessDashboard }) {
   return (
     <LoginForm
-      validateLogin={validateLogin}
       accessDashboard={accessDashboard}
     />
   );

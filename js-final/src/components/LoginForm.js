@@ -12,17 +12,16 @@ import { useState } from "react";
 import Link from "next/link";
 import FireStoreManager from "@/utils/firestoreManager";
 
-export default function LoginForm({ validateLogin, accessDashboard }) {
+export default function LoginForm({ accessDashboard }) {
   const [email, setEmail] = useState("abc@gmail.com");
   const [password, setPassword] = useState("fddsadsa543sf");
   const [displayError, setDisplayError] = useState(false);
 
   async function onSubmit() {
-    const isValid = await validateLogin(email, password);
+    const isValid = await FireStoreManager().signIn(email, password);
     console.log("Valid login? ", isValid);
     if (isValid) {
       // sign in then redirect to dashboard
-      await FireStoreManager().signIn(email, password);
       accessDashboard();
     } else {
       setDisplayError(true);

@@ -32,8 +32,9 @@ export default function App({ Component, pageProps }) {
   }
 
   async function fetchHabits() {
-    const fsm = FireStoreManager();
-    let allHabits = await fsm.getAllHabits();
+    console.log("Fetching habits...");
+
+    let allHabits = await FireStoreManager().getAllHabits();
     console.log("Fetched habits", allHabits);
     // rebalance habits
     allHabits.forEach((habit) => {
@@ -46,7 +47,7 @@ export default function App({ Component, pageProps }) {
       return habit;
     });
 
-    console.log("After rebalancing: ", allHabits);
+    console.log("Rebalanced habits: ", allHabits);
 
     setHabits(allHabits);
   }
@@ -55,16 +56,6 @@ export default function App({ Component, pageProps }) {
     fetchHabits();
     setLoggedIn(FireStoreManager().isUserSignedIn());
   }, []);
-
-  /**
-   * Checks if login details are correct
-   * @param {String} email
-   * @param {String} password
-   * @returns {Boolean} True if login details are correct, false otherwise.
-   */
-  async function validateLogin(email, password) {
-    return FireStoreManager().validateLogin(email, password);
-  }
 
   function updateHabit(newHabit) {
     const idx = habits.findIndex(({ id }) => id === newHabit.id);
@@ -134,7 +125,6 @@ export default function App({ Component, pageProps }) {
               {...pageProps}
               loggedIn={loggedIn}
               habits={habits}
-              validateLogin={validateLogin}
               updateHabit={updateHabit}
               deleteHabit={deleteHabit}
               accessDashboard={accessDashboard}
