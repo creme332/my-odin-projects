@@ -26,7 +26,7 @@ export default function Registration({ accessDashboard }) {
     // functions will be used to validate values at corresponding key
     validate: {
       password: (value) =>
-        value.length < 5 ? "Password must have at least 5 characters" : null,
+        value.length < 6 ? "Password should be at least 6 characters" : null,
       confirmPassword: (value, values) =>
         value !== values.password ? "Passwords did not match" : null,
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
@@ -124,7 +124,7 @@ export default function Registration({ accessDashboard }) {
                 setHideAccountAlert(true);
               }}
               closeButtonLabel="Dismiss"
-              title="Account already exists"
+              title="An error occurred. Read console logs for more details."
               icon={<IconInfoCircle />}
             ></Alert>
           )}
