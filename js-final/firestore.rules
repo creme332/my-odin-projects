@@ -3,11 +3,19 @@ service cloud.firestore {
     match /databases/{database}/documents {
         match /users/{userEmail} {
 
-            // Allow a user to read/modify his own document
-            allow read, update, create: if (request.auth != null) && request.auth.token.email == userEmail;
+            // Allow authenticated users to create a user document
+            allow create: if (request.auth != null)
+
+            // Allow a user to read/modify his user document
+            allow read, update: if (request.auth != null) && request.auth.token.email == userEmail;
 
             // deletes are not allowed
             allow delete: if false;
+        }
+
+        match /users/{userEmail}/habits/{docID} {
+            // Allow a user to perform CRUD operations on his habit
+            allow create, read, update, delete: if (request.auth != null) && request.auth.token.email == userEmail;
         }
     }
 }
