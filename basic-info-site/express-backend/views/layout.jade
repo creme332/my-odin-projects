@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1= title
+    p Welcome to #{title}
+    block content
+    ol
+        li 
+          a(href="/") Home page
+        li 
+          a(href="/contact") Contact page
+        li 
+          a(href="/invalid") 404 page
+        li 
+          a(href="/about") About page
