@@ -20,11 +20,11 @@ router.get("/", function (req, res, next) {
 
 router.post("/new", function (req, res, next) {
   messages.push({
-    text: req.body.message,
-    user: req.body.name,
+    text: req.body.text,
+    user: req.body.user,
     added: new Date(),
   });
-  console.log("fdsalkf");
+  console.log("Received a post request");
   res.redirect("/");
 });
 
