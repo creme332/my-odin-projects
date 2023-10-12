@@ -1,7 +1,30 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  each message in messages
-    p #{message.text}
+  div(class = 'terminal')
+    div(class='header')
+    div(class='content')
+      p(class='blue') Connecting to @mini-message-board...
+      p(class='blue') Connected to chat server.
+
+      -function prettyDate(date){
+          -// https://stackoverflow.com/a/16922753/17627866
+          -var d = date.getDate();
+          -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+          -var m = monthNames[date.getMonth()];
+          -var y = date.getFullYear();
+          -return d+' '+m+' '+y;
+      -} 
+
+      each message in messages
+        p [#{prettyDate(message.added)}] 
+          span(class='yellow') @#{message.user}: 
+          span(class='message') #{message.text}
+
+      form(id = 'myform' action='/new', method='POST')
+        p [#{prettyDate(new Date())}] 
+          span(class='single-char') @
+          input(class = "yellow user-input user-name-input" name="user" type='text' value = 'you')
+          span(class='') :
+          span(class='message')
+            input(class = "user-input" autofocus="autofocus" name = "text" type='text')

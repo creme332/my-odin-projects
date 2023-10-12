@@ -1,8 +1,71 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  color: rgb(16, 224, 16);
+  font-weight: 600;
+  font-family: "Courier New", Courier, monospace;
+  background-image: linear-gradient(180deg, #00dbde, #fc00ff);
+}
+
+.terminal {
+  background-color: #1a181a;
+  min-width: 30vw;
+  min-height: 300px;
+  max-height: 50vh;
+  overflow-y: scroll;
+  border-radius: 10px;
+  border: 1px solid rgb(116, 116, 116);
+  display: flex;
+  flex-direction: column;
+
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.terminal::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.header {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  height: 30px;
+  background-color: #2d2e31;
+  width: 100%;
+}
+
+.content {
+  padding: 10px;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+.blue {
+  color: rgb(99, 161, 241);
+}
+.yellow {
+  color: orange;
+}
+
+.message {
+  color: white;
+  font-weight: 500;
+}
+
+.user-name-input {
+  /* outline: 1px solid white; */
+  width: 30px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.user-input {
+  background-color: inherit;
+  border: 0;
+  outline: 0;
+  color: inherit;
+  font: inherit;
 }
