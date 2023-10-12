@@ -9,17 +9,28 @@ Clone project:
 git clone git@github.com:creme332/my-odin-projects.git
 ```
 
+Install dependencies for both versions:
+```bash
+cd my-odin-projects/basic-info-site/node-backend
+npm install
+```
+```bash
+cd my-odin-projects/basic-info-site/express-backend
+npm install
+```
+
 ## Usage
 Navigate to `my-odin-projects` folder and decide which backend to use.
+
 ### Node backend
 ```bash
-cd basic-info-site/node-backend
+cd my-odin-projects/basic-info-site/node-backend
 node index.js
 ```
 
 ### Express backend
 
 ```bash
-cd basic-info-site/express-backend
+cd my-odin-projects/basic-info-site/express-backend
 npm start
 ```
