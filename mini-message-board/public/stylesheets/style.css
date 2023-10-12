@@ -19,6 +19,10 @@ body {
   display: flex;
   flex-direction: column;
 
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.2);
+
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
 }
@@ -30,9 +34,32 @@ body {
 .header {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  padding-left: 1em;
   height: 30px;
   background-color: #2d2e31;
   width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header .circle {
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+}
+
+.red-bg {
+  background-color: #ff5e55;
+}
+
+.yellow-bg {
+  background-color: #fdbc2c;
+}
+
+.green-bg {
+  background-color: #26c83f;
 }
 
 .content {
