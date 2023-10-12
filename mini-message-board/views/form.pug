@@ -6,7 +6,7 @@ block content
     form(action='/new', method='POST')
         p
             | name: 
-            input(type='text', name='user', value='anonymous')
+            input(class = 'user-input' type='text', name='user', value='anonymous')
             |          message: 
-            input(type='text', name='text', value='')
+            input(class = 'user-input' type='text', name='text', value='fk this')
         input(type='submit', value='Submit')
