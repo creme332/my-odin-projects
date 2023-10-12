@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 Form
+
+    form(action='/new', method='POST')
+        p
+            | name: 
+            input(type='text', name='name', value='anonymous')
+            |          message: 
+            input(type='text', name='message', value='')
+        input(type='submit', value='Submit')
