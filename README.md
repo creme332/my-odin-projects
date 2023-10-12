@@ -33,3 +33,4 @@
 | **JavaScript Final Project** | -                                     | [Link](https://github.com/creme332/my-odin-projects/tree/main/js-final)            | [Demo](https://qkwiqq.web.app/)                                           | ⭐⭐     |
 | **Personal Portfolio**       | Responsive design, Accessibility      | Soon                                                                               | Soon                                                                      | -      |
 | **Basic Informational Site** | Basic Node.js + Express               | [Link](https://github.com/creme332/my-odin-projects/tree/main/basic-info-site)     | -                                                                         | -      |
+| **Mini Message Board**       | Basic Express                         | [Link](https://github.com/creme332/my-odin-projects/tree/main/mini-message-board)  | -                                                                         | ⭐      |
