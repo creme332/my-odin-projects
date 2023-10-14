@@ -1,5 +1,5 @@
 # Express Tutorial: The Local Library website
-An implementation of the local library from MDN[1] using Express and MongoDB.
+An implementation of the local library from [a MDN tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Tutorial_local_library_website) using Express and MongoDB.
 
 ## Learning outcomes
 - Use the Express Application Generator tool to create a skeleton website and application.
@@ -8,6 +8,9 @@ An implementation of the local library from MDN[1] using Express and MongoDB.
 - Create routes for requesting different information, and templates ("views") to render the data as HTML to be displayed in the browser.
 - Work with forms using Pug.
 - Validate and sanitize input using express-validator, and add, delete, and modify records in the database.
+
+## Data model
+![Class diagram](image.png)
 
 ## Installation
 Clone repository:
@@ -24,21 +27,17 @@ Install dependencies:
 ```bash
 npm install
 ```
-
-Create a file `id.js` in the root directory with the following contents:
+If you don't already have a MongoDB database, follow [this tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose#setting_up_the_mongodb_database) to setup your database. Then, create a file `id.js` in the root directory with the following contents:
 ```js
 const mongoConnectionString = "your_string";
 module.exports = mongoConnectionString;
 ```
-
-## Usage
 To start server:
 ```
 npm run devstart
 ```
+
 Website will be available at http://localhost:3000/catalog.
-## To-do
-- [ ] Implement deletion of objecst. Author has been done.
-- [ ] Implement update of object
-## Reference
-- [1] https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Tutorial_local_library_website
+
+## References
+Most of the code comes from [this MDN tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Tutorial_local_library_website).
