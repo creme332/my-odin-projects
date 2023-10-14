@@ -21,9 +21,9 @@ Install dependencies:
 npm install
 ```
 
-Run server:
+Run server in development mode:
 ```bash
-npm start
+npm devstart
 ```
 ## Usage
 - To edit your name, click on `@you`.
