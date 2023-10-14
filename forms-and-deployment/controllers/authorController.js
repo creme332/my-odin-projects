@@ -142,10 +142,25 @@ exports.author_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display Author update form on GET.
 exports.author_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Author update GET");
+  const author = await Author.findById(req.params.id).exec();
+
+  res.render("author_form", {
+    title: "Update Author",
+    author: author,
+  });
 });
 
 // Handle Author update on POST.
 exports.author_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Author update POST");
+  // Create a Book object with escaped/trimmed data and old id.
+  const author = new Author({
+    name: req.body.name,
+    first_name: req.body.first_name,
+    family_name: req.body.family_name,
+    date_of_birth: req.body.date_of_birth,
+    _id: req.params.id,
+  });
+
+  await Author.findByIdAndUpdate(req.params.id, author, {});
+  res.redirect(author.url);
 });
