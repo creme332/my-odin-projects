@@ -9,6 +9,8 @@
 | **Calculator**          | JavaScript Basics | [Code](https://github.com/creme332/my-odin-projects/tree/main/calculator)    | [Demo](https://creme332.github.io/my-odin-projects/calculator/)    | ⭐      |
 | **Calculator 2.0**      | JavaScript Basics | [Code](https://github.com/creme332/abacusLite)                               | [Demo](https://creme332.github.io/abacusLite/)                     | ⭐⭐⭐    |
 
+🎉 Check out my [my blog post](https://creme332.github.io/creamy-notes/posts/odin-foundations/) where I shared my experience with this course.
+
 # 🚀 Full Stack JavaScript
 
 | Project                      | Topic                                 | Repository                                                                          | Live Preview                                                              | Rating |
@@ -31,7 +33,7 @@
 | **Shopping Cart**            | React Router, UI testing              | [Code](https://github.com/creme332/my-odin-projects/tree/main/shopping-cart)        | [Demo](https://creme332.github.io/my-odin-projects/shopping-cart/build)   | ⭐⭐     |
 | **Photo Tagging App**        | Backend(Firebase)                     | [Code](https://github.com/creme332/my-odin-projects/tree/main/photo-tagging)        | [Demo](https://enigma69.web.app/)                                         | ⭐⭐⭐    |
 | **JavaScript Final Project** | -                                     | [Code](https://github.com/creme332/my-odin-projects/tree/main/js-final)             | [Demo](https://qkwiqq.web.app/)                                           | ⭐⭐     |
-| **Personal Portfolio**       | Responsive design, Accessibility      | Soon                                                                                | [Demo](https://creme332.vercel.app/)                                      | ⭐⭐⭐    |
+| **Personal Portfolio**       | Responsive design, Accessibility      | -                                                                                   | [Demo](https://creme332.vercel.app/)                                      | ⭐⭐⭐    |
 | **Basic Informational Site** | Basic Node.js, Express                | [Code](https://github.com/creme332/my-odin-projects/tree/main/basic-info-site)      | -                                                                         | -      |
 | **Mini Message Board**       | Basic Express, Pug, MVC               | [Code](https://github.com/creme332/my-odin-projects/tree/main/mini-message-board)   | -                                                                         | ⭐      |
 | **Forms and Deployment**     | Express, Mongoose, Pug, Form-handling | [Code](https://github.com/creme332/my-odin-projects/tree/main/forms-and-deployment) | -                                                                         | -      |
@@ -39,4 +41,6 @@
 | **Members Only**             | Authentication, sessions, cookies     | Soon                                                                                | Soon                                                                      |        |
 | **Blog API**                 | APIs, JWTs                            | Soon                                                                                | Soon                                                                      |        |
 | **Messaging App**            | Full-stack                            | Soon                                                                                | Soon                                                                      |        |
-| **Odin-Book**                | Full-stack                            | Soon                                                                                | Soon                                                                      |        |
+| **Odin-Book**                | Final project                         | Soon                                                                                | Soon                                                                      |        |
+
+I am almost done with this course and as soon as I complete it I will write about it in [my blog](https://creme332.github.io/creamy-notes/).
