@@ -39,14 +39,16 @@ Check out my [my blog post](https://creme332.github.io/creamy-notes/posts/odin-f
 | **Forms and Deployment**     | Express, Mongoose, Pug, Form-handling | [Code](https://github.com/creme332/my-odin-projects/tree/main/forms-and-deployment) | -                                                                         | -      |
 | **Inventory Application**    | Express, Mongoose                     | [Code](https://github.com/creme332/invento)                                         | [Demo](https://invent0.web.app/)                                          | ⭐⭐     |
 | **Members Only**             | Authentication, sessions, cookies     | [Code](https://github.com/creme332/art98)                                           | [Demo](https://art98.vercel.app/)                                         | ⭐⭐⭐       |
-| **Blog API**                 | APIs, JWTs                            | [Code](https://github.com/creme332/bluuug)                                                                                | ❌                                                                      |     ❌   |
+| **Blog API**                 | APIs, JWTs                            | [Code](https://github.com/creme332/bluuug)                                                                                | -                                                                      |     ❌   |
 | **Messaging App**            | Full-stack                            | ❌                                                                                | ❌                                                                      |     ❌   |
 | **Odin-Book**                | Final project                         | ❌                                                                                | ❌                                                                      |      ❌  |
+
+Check out my [my blog post](https://creme332.github.io/creamy-notes/posts/odin-full-stack/) where I shared my experience with this curriculum.
 
 # Project templates
 
 Throughout this course I have also created some repository templates for setting up my projects:
-1. https://github.com/creme332/basic-web-template
-1. https://github.com/creme332/webpack-template
-1. https://github.com/creme332/cra-template
-2. https://github.com/creme332/mantine-next-template
+1. [https://github.com/creme332/basic-web-template](https://github.com/creme332/basic-web-template)
+2. [https://github.com/creme332/webpack-template](https://github.com/creme332/webpack-template)
+3. [https://github.com/creme332/cra-template](https://github.com/creme332/cra-template)
+4. [https://github.com/creme332/mantine-next-template](https://github.com/creme332/mantine-next-template)
