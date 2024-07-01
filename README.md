@@ -9,7 +9,7 @@
 | **Calculator**          | JavaScript Basics | [Code](https://github.com/creme332/my-odin-projects/tree/main/calculator)    | [Demo](https://creme332.github.io/my-odin-projects/calculator/)    | ⭐      |
 | **Calculator 2.0**      | JavaScript Basics | [Code](https://github.com/creme332/abacusLite)                               | [Demo](https://creme332.github.io/abacusLite/)                     | ⭐⭐⭐    |
 
-Check out my [my blog post](https://creme332.github.io/creamy-notes/posts/odin-foundations/) where I shared my experience with the Foundations course.
+Check out my [my blog post](https://creme332.github.io/posts/odin-foundations/) where I shared my experience with the Foundations course.
 
 # 🚀 Full Stack JavaScript
 
@@ -43,7 +43,7 @@ Check out my [my blog post](https://creme332.github.io/creamy-notes/posts/odin-f
 | **Messaging App**            | Full-stack                            | ❌                                                                                | ❌                                                                      |     ❌   |
 | **Odin-Book**                | Final project                         | ❌                                                                                | ❌                                                                      |      ❌  |
 
-Check out my [my blog post](https://creme332.github.io/creamy-notes/posts/odin-full-stack/) where I shared my experience with this curriculum.
+Check out my [my blog post](https://creme332.github.io/posts/odin-full-stack/) where I shared my experience with this curriculum.
 
 # Project templates
 
